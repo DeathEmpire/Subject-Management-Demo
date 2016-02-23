@@ -40,4 +40,12 @@ class Model_Query extends CI_Model {
 		$this->db->update('query');
     }
 
+    function areOpenedQuery($form){
+        $this->db->select('query.*');        
+        $this->db->where('form = "'. $form .'" AND answer_date = "0000-00-00 00:00:00" ');
+        $num = $this->db->count_all_results('query');
+        
+        return $num;
+    }
+
 }

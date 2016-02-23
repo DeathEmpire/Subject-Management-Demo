@@ -26,6 +26,12 @@
 </table>
 <br />
 <!-- legend -->
+<div id='new_query' style='text-align:right;'>
+	<?= form_open('query/demography_query_new', array('class'=>'form-horizontal')); ?>
+	<?= form_hidden('id', $subject->id); ?>
+	<?= form_button(array('type'=>'submit', 'content'=>'New Query', 'class'=>'btn btn-primary')); ?>
+	<?= form_close(); ?>
+</div>
 
 <?= form_open('subject/demography_update', array('class'=>'form-horizontal')); ?>    
 	
@@ -33,7 +39,7 @@
 
     <?= my_validation_errors(validation_errors()); ?>
 
-    <table class="table table-condensed table-bordered">
+    <table class="table table-condensed table-bordered table-striped">
         <tr>
         	<td><?= form_label('Date of Birth: ', 'birth_date', array('class'=>'control-label')); ?></td>
         	<td><?= form_input(array('type'=>'text', 'name'=>'birth_date', 'id'=>'birth_date', 'value'=>set_value('birth_date',$subject->birth_date))); ?></td>
@@ -98,3 +104,4 @@
 	    </tr>
 	</table>
 <?= form_close(); ?>
+<!-- Querys -->
