@@ -7,6 +7,7 @@ class Subject extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('Model_Subject');
+		$this->load->model('Model_Query');
 		#$this->load->library('usuarioLib');
 		#$this->form_validation->set_message('required', 'Debe ingresar campo %s');        
     }
@@ -140,8 +141,12 @@ class Subject extends CI_Controller {
 		$data['contenido'] = 'subject/demography';
 		$data['titulo'] = 'Subject Demography';
 		$data['subject'] = $this->Model_Subject->find($id);
-		#demogrphy search
+		
+		#querys about demography
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Demography"));
+		
 		$this->auditlib->save_audit("View demography info for a subject");
+		
 		$this->load->view('template', $data);
 
 	}
@@ -170,6 +175,8 @@ class Subject extends CI_Controller {
 	public function demography_status_update(){
 
 	}
+
+
 
 	public function randomization($id) {
 		// $id = $this->uri->segment(3);

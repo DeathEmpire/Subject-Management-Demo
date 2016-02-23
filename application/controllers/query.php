@@ -25,7 +25,7 @@ class Query extends CI_Controller {
 	public function demography_query_insert(){
 		$registro = $this->input->post();		
 
-		$this->form_validation->set_rules('question', 'Initials', 'required|xss_clean');
+		$this->form_validation->set_rules('question', 'Question', 'required|xss_clean');
         
         if ($this->form_validation->run() == FALSE) {
         	$this->auditlib->save_audit("Has validation error creating new demography query");
@@ -33,6 +33,7 @@ class Query extends CI_Controller {
         }
         else {	
         	$registro['form'] = 'Demography';
+        	$registro['question_user'] = $this->session->userdata('usuario');
 			$registro['created'] = date("Y-m-d H:i:s");
 
 			$subject['id'] = $registro['subject_id'];
@@ -55,9 +56,7 @@ class Query extends CI_Controller {
 
 	}
 
-	public function demography_query_show(){
-		$subject_id = $this->input->post('subject_id');
-		$query_id = $this->input->post('id');
+	public function demography_query_show($subject_id,$query_id){		
 
 		$data['contenido'] = 'query/demography_answer';
 		$data['titulo'] = 'Demograhpy Form Answer';				
@@ -70,7 +69,42 @@ class Query extends CI_Controller {
 	}	
 
 	public function demography_query_update(){
-		
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('answer', 'Answer', 'required|xss_clean');
+        
+        if ($this->form_validation->run() == FALSE) {
+        	$this->auditlib->save_audit("Has validation error answering demography query");
+            $this->demography_query_new($registro['subject_id']);
+        }
+        else {	
+        	
+        	$registro['answer_user'] = $this->session->userdata('usuario');
+			$registro['answer_date'] = date("Y-m-d H:i:s");
+
+			$subject['id'] = $registro['subject_id'];
+			
+			
+			/*Dont update last status if another query still open*/
+			$opened = $this->Model_Query->areOpenedQuery('Demography');
+
+			if($opened <= 1){
+				/*If current opened change status, else still query status*/
+				$subject['demography_status'] = $registro['demography_last_status'];				
+			}
+			unset($registro['demography_last_status']);
+			
+
+			$this->Model_Query->update($registro);
+			$this->Model_Subject->update($subject);
+
+			$this->auditlib->save_audit("Answered a demography query");
+
+
+			redirect('subject/demography/'. $registro['subject_id']);
+		}
+
+
 		/*Check if another query still open*/
 		$opened = $this->Model_Query->areOpenedQuery('Demography');
 	}

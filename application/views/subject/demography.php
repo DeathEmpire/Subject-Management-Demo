@@ -105,3 +105,35 @@
 	</table>
 <?= form_close(); ?>
 <!-- Querys -->
+<?php
+	if(isset($querys) AND !empty($querys)){ ?>
+		<b>Querys:</b>
+		<table class="table table-condensed table-bordered table-stripped">
+			<thead>
+				<tr>
+					<th>Date of Query</th>
+					<th>User</th>
+					<th>Question</th>
+					<th>Date of Answer</th>
+					<th>User</th>
+					<th>Answer</th>					
+				</tr>
+			</thead>
+			<tbody>
+				
+			<?php
+				foreach ($querys as $query) { ?>
+					<tr>
+						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
+						<td><?= $query->question_user; ?></td>
+						<td><?= $query->question; ?></td>						
+						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
+						<td><?= $query->answer_user; ?></td>
+						<td><?= (($query->answer != '') ? $query->answer : anchor('query/demography_query_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
+					</tr>					
+			<?php }?>	
+
+			</tbody>
+		</table>
+
+<?php } ?>

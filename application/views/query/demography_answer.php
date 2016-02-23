@@ -29,7 +29,8 @@
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	
-	<?= form_hidden('id', $query->id); ?>	
+	<?= form_hidden('id', $query->id); ?>
+	<?= form_hidden('demography_last_status', $subject->demography_last_status); ?>	
 	
 	<table class="table table-striped table-condensed table-bordered">        
         <tr>

@@ -21,7 +21,17 @@ class Model_Query extends CI_Model {
 
         $query = $this->db->get();
         return $query->result();
+    } 
+
+    function allWhere($where) {
+        $this->db->select('query.*');
+        $this->db->from('query');        
+        $this->db->where($where);
+
+        $query = $this->db->get();
+        return $query->result();
     }   
+  
 
     function find($id) {
         $this->db->select('query.*');                
