@@ -17,6 +17,12 @@ class Model_Opciones_Perfil extends CI_Model {
         return $query->result();
     }
 
+    function allWhere($where){
+        $this->db->where($where);
+        $query = $this->db->get('opciones_perfil');
+        return $query->result();   
+    }
+
     function find($id) {
     	$this->db->where('id', $id);
 		return $this->db->get('opciones_perfil')->row();

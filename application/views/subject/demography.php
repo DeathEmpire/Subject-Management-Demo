@@ -26,12 +26,16 @@
 </table>
 <br />
 <!-- legend -->
-<div id='new_query' style='text-align:right;'>
-	<?= form_open('query/demography_query_new', array('class'=>'form-horizontal')); ?>
-	<?= form_hidden('id', $subject->id); ?>
-	<?= form_button(array('type'=>'submit', 'content'=>'New Query', 'class'=>'btn btn-primary')); ?>
-	<?= form_close(); ?>
-</div>
+<?php
+	if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'demography_query_new')){
+?>
+	<div id='new_query' style='text-align:right;'>
+		<?= form_open('query/demography_query_new', array('class'=>'form-horizontal')); ?>
+		<?= form_hidden('id', $subject->id); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'New Query', 'class'=>'btn btn-primary')); ?>
+		<?= form_close(); ?>
+	</div>
+<?php }?>
 
 <?= form_open('subject/demography_update', array('class'=>'form-horizontal')); ?>    
 	
@@ -97,11 +101,16 @@
         	<td><?= form_label('Race: ', 'race', array('class'=>'control-label')); ?></td>
         	<td><?= form_dropdown('race', $races, set_value('race',$subject->race)); ?></td>
     	</tr>
-
+		
+		<?php
+				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_update')){
+			?>
 	    <tr>
+
 	        <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
 	        <?= anchor('subject/grid/'. $subject->id, 'Cancel', array('class'=>'btn')); ?></td>
 	    </tr>
+	    <?php }?>
 	</table>
 <?= form_close(); ?>
 <!-- Querys -->
@@ -129,7 +138,13 @@
 						<td><?= $query->question; ?></td>						
 						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
 						<td><?= $query->answer_user; ?></td>
-						<td><?= (($query->answer != '') ? $query->answer : anchor('query/demography_query_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
+						<?php
+							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'demography_query_show')){
+						?>
+							<td><?= (($query->answer != '') ? $query->answer : anchor('query/demography_query_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
+						<?php }else{?>
+							<td><?= $query->answer; ?></td>
+						<?php }?>
 					</tr>					
 			<?php }?>	
 

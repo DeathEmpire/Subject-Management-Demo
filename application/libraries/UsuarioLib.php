@@ -16,11 +16,23 @@ class UsuarioLib {
     		$usuario = $query->row();
             $perfil = $this->CI->Model_Perfil->find($usuario->perfil_id);
 
+            $this->CI->load->model('Model_Opciones_Perfil');
+            $opciones = $this->CI->Model_Opciones_Perfil->allWhere(array('role'=>$usuario->perfil_id));
+
+            if(isset($opciones) AND !empty($opciones)){
+                foreach ($opciones as $v) {
+                    $opcion[$v->controller] = $v->actions;
+                }
+            }else{
+                $opcion = array();
+            }
+
     		$datosSession = array('usuario' => $usuario->name,
     			                  'usuario_id' => $usuario->id,
     			                  'perfil_id' => $usuario->perfil_id,
                                   'perfil_name' => $perfil->name,
-                                  'center_id' => $usuario->center);
+                                  'center_id' => $usuario->center,
+                                  'role_options'=>$opcion);
     		$this->CI->session->set_userdata($datosSession);
 			
 			/* Actualizar ultima fecha de login */

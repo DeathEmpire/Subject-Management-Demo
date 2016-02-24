@@ -8,7 +8,7 @@
 		<span class="input-group-btn">
     		<button class="btn btn-default" type="submit">Search</button>
    		</span>
-		<?= anchor("perfil/ingresar","Nex",array("class"=>"btn btn-primary"));?>
+		<?= anchor("perfil/ingresar","New",array("class"=>"btn btn-primary"));?>
 		<!-- boton pre hechos en boostrap <i class="icon-search"></i>-->
 	</div>
 <?= form_close();?>

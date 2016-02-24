@@ -7,7 +7,11 @@
 	<span class="input-group-btn">
     	<button class="btn btn-default" type="submit">Search</button>
     </span>
+    <?php
+		if(isset($_SESSION['role_options']['usuario']) AND strpos($_SESSION['role_options']['usuario'], 'create')){
+	?>
 	<?= anchor('usuario/create', 'New', array('class'=>'btn btn-primary')); ?>
+	<?php }?>
 <?= form_close(); ?>
 
 <table class="table table-condensed table-bordered">
@@ -27,7 +31,13 @@
 	<tbody>
 		<?php foreach ($query as $registro): ?>
 		<tr>
-			<td> <?= anchor('usuario/edit/'.$registro->id, $registro->id); ?> </td>
+			<?php
+				if(isset($_SESSION['role_options']['usuario']) AND strpos($_SESSION['role_options']['usuario'], 'create')){			
+					echo "<td>". anchor('usuario/edit/'.$registro->id, $registro->id) ."</td>";
+				}else{
+					echo "<td>". $registro->id ."</td>";
+				}
+			?>
 			<td> <?= $registro->name ?> </td>
 			<td> <?= $registro->login ?> </td>
 			<td> <?= $registro->email ?> </td>

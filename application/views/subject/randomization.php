@@ -92,7 +92,11 @@ $(function(){
             	<?php
             		if ($subject->randomization_status != 'Record Complete') {
             	?>
+            		<?php
+						if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'randomization_update')){
+					?>
             			<?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
+            		<?php }?>	
             			<?= anchor('subject/grid/'.$subject->id, 'Cancel', array('class'=>'btn')); ?>
             	<?php	
             		}else{ ?>
