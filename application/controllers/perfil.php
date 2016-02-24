@@ -32,7 +32,7 @@ class Perfil extends CI_Controller {
 			$data['perfiles'] = $this->Model_Perfil->all();
 		
 			$this->load->model("Model_Opciones_Perfil");
-			$data['query'] = $this->Model_Opciones_Perfil->allFiltered("perfil",$id_buscar);
+			$data['query'] = $this->Model_Opciones_Perfil->allFiltered("role",$id_buscar);
 			
 			$this->load->view('template', $data);
 		}else{	

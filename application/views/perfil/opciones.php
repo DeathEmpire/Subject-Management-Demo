@@ -4,7 +4,7 @@
 
 </div>
 
-<?
+<?php
 foreach($perfiles as $v){
 	$arreglo[$v->id] = $v->name;
 }
@@ -15,7 +15,7 @@ foreach($perfiles as $v){
 	<div class="control-group">
 
 		<?= form_dropdown('buscar_id',$arreglo); ?>
-		<?= form_button(array('type'=>'submit','content'=>'<i class="icon-search"> </i>','class'=>'btn'));?>		
+		<?= form_button(array('type'=>'submit','content'=>'Search','class'=>'btn'));?>
 
 		<!-- boton pre hechos en boostrap <i class="icon-search"></i>-->
 
@@ -31,7 +31,7 @@ foreach($perfiles as $v){
 
 			<th>ID</th>
 
-			<th>Perfil</th>
+			<th>Role</th>
 
 			<th>Controlador</th>
 
@@ -51,11 +51,11 @@ foreach($perfiles as $v){
 
 			<td><?= anchor("perfil/editar_opciones/". $v->id,$v->id);?></td>
 
-			<td><?= $v->perfil;?></td>
+			<td><?= $v->role;?></td>
 
-			<td><?= $v->controlador;?></td>
+			<td><?= $v->controller;?></td>
 
-			<td><?= $v->accion;?></td>
+			<td><?= $v->actions;?></td>
 
 		</tr>
 
