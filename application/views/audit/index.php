@@ -27,5 +27,6 @@
 			<td> <?= date("d-M-Y - H:i:s", strtotime($registro->date)); ?> </td>			
 		</tr>
 		<?php endforeach; ?>
+		<tr><td colspan='4' style='text-align:right;'><?= $links; ?></td></tr>
 	</tbody>
 </table>
