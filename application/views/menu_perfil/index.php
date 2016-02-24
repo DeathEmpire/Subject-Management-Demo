@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1> Menu Roles <small>Maintenance </small> </h1>
+	<h1> Roles Menu <small>Add a menu option to a specific user role </small> </h1>
 </div>
 
 <?= form_open('menu_perfil/search', array('class'=>'form-search')); ?>

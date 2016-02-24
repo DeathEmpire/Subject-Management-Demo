@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Menu Options<small> Maintenance </small> </h1>
+	<h1>Menu Options<small> Add options to the left menu </small> </h1>
 </div>
 
 <?= form_open('menu/search', array('class'=>'form-search')); ?>

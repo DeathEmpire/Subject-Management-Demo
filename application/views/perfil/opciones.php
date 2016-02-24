@@ -1,6 +1,6 @@
 <div class="page-header">
 
-	<h1>Perfiles <small>Opciones de los perfiles</small></h1>	
+	<h1>Roles Options <small>Add / Remove options to a role</small></h1>	
 
 </div>
 
@@ -14,7 +14,7 @@ foreach($perfiles as $v){
 
 	<div class="control-group">
 
-		<?= form_dropdown('buscar_id',$arreglo); ?>
+		Role: <?= form_dropdown('buscar_id',$arreglo); ?>
 		<?= form_button(array('type'=>'submit','content'=>'Search','class'=>'btn'));?>
 
 		<!-- boton pre hechos en boostrap <i class="icon-search"></i>-->
@@ -28,15 +28,10 @@ foreach($perfiles as $v){
 	<thead>
 
 		<tr>
-
 			<th>ID</th>
-
 			<th>Role</th>
-
-			<th>Controlador</th>
-
-			<th>Opciones Permitidas</th>
-
+			<th>Controller</th>
+			<th>Options</th>
 		</tr>
 
 	</thead>
@@ -48,15 +43,19 @@ foreach($perfiles as $v){
 		<?php foreach($query as $v){?>
 
 		<tr>
-
 			<td><?= anchor("perfil/editar_opciones/". $v->id,$v->id);?></td>
-
 			<td><?= $v->role;?></td>
-
-			<td><?= $v->controller;?></td>
-
-			<td><?= $v->actions;?></td>
-
+			<td><?= ucfirst($v->controller);?></td>
+			<td>
+			<?php
+				$actions = explode(",", $v->actions);
+				foreach ($actions as $action) { 
+				echo $action ." ". form_checkbox('actions_'. $v->controller .'[]',$action,set_checkbox('actions_'. $v->controller .'[]',$action));
+			} 
+			?>
+			
+			</td>
+			
 		</tr>
 
 		<?php }?>
