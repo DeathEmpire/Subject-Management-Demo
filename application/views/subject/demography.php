@@ -105,11 +105,13 @@
 		<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_update')){
 			?>
-	    <tr>
-
-	        <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-	        <?= anchor('subject/grid/'. $subject->id, 'Cancel', array('class'=>'btn')); ?></td>
-	    </tr>
+	    <tr><td colspan='2' style='text-align:center;'>
+			<?php if(empty($subject->demography_signature_user) AND empty($subject->demography_lock_user) AND empty($subject->demography_verify_user)){ ?>
+				<?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>			
+			<?php }?>
+	        
+	        <?= anchor('subject/grid/'. $subject->id, 'Back', array('class'=>'btn')); ?>
+	    </td></tr>
 	    <?php }?>
 	</table>
 <?= form_close(); ?>
@@ -152,9 +154,34 @@
 		</table>
 
 <?php } ?>
+<!-- Verify -->
+<b>Verify:</b><br />
+	<?php if(!empty($subject->demography_verify_user) AND !empty($subject->demography_verify_date)){ ?>
+		
+		This form was verified by <?= $subject->demography_verify_user;?> on <?= date("d-M-Y",strtotime($subject->demography_verify_date));?>
+	
+	<?php
+	}
+	else{
+	
+		if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+	?>
+		<?= form_open('subject/demography_verify', array('class'=>'form-horizontal')); ?>    	
+		<?= form_hidden('id', $subject->id); ?>
+		<?= form_hidden('current_status', $subject->demography_status); ?>
+			
+		<?= form_button(array('type'=>'submit', 'content'=>'Verify Form', 'class'=>'btn btn-primary')); ?>
+
+		<?= form_close(); ?>
+
+<?php }else{
+		echo "This form has not yet been Verified";
+		}
+	}
+?>
+<br />
 <!--Signature-->
-<div id="signature" class="table">
-	<b>Signature:</b><br />
+	<br /><b>Signature:</b><br />
 	<?php if(!empty($subject->demography_signature_user) AND !empty($subject->demography_signature_date)){ ?>
 		
 		This form was signed by <?= $subject->demography_signature_user;?> on <?= date("d-M-Y",strtotime($subject->demography_signature_date));?>
@@ -204,4 +231,3 @@
 		}
 	}
 ?>
-</div>

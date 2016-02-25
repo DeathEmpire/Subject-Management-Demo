@@ -171,6 +171,31 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['id']);
 		}
 	}
+	
+	public function demography_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("has validation errors verifing demography form");
+			$this->demography($registro['id']);
+		}
+		else {
+			$registro['demography_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['demography_status'] = 'Form Approved by Monitor';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['demography_verify_user'] = $this->session->userdata('usuario');
+			$registro['demography_verify_date'] = date('Y-m-d');
+
+			$this->Model_Subject->update($registro);
+			$this->auditlib->save_audit("Verified demography form");
+
+			redirect('subject/grid/'.$registro['id']);
+		}
+	}
 
 	public function demography_signature(){
 		$registro = $this->input->post();
