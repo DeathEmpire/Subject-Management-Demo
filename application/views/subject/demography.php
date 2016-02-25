@@ -152,3 +152,56 @@
 		</table>
 
 <?php } ?>
+<!--Signature-->
+<div id="signature" class="table">
+	<b>Signature:</b><br />
+	<?php if(!empty($subject->demography_signature_user) AND !empty($subject->demography_signature_date)){ ?>
+		
+		This form was signed by <?= $subject->demography_signature_user;?> on <?= date("d-M-Y",strtotime($subject->demography_signature_date));?>
+	
+	<?php
+	}
+	else{
+	
+		if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_signature')){
+	?>
+		<?= form_open('subject/demography_signature', array('class'=>'form-horizontal')); ?>    	
+		<?= form_hidden('id', $subject->id); ?>
+		<?= form_hidden('current_status', $subject->demography_status); ?>
+			
+		<?= form_button(array('type'=>'submit', 'content'=>'Add Signature', 'class'=>'btn btn-primary')); ?>
+
+		<?= form_close(); ?>
+
+<?php }else{
+		echo "This form has not yet been signed";
+		}
+	}
+?>
+<br />
+<!--Signature/Lock-->
+<br /><b>Signature Lock:</b><br />
+	<?php if(!empty($subject->demography_lock_user) AND !empty($subject->demography_lock_date)){ ?>
+		
+		This form was locked by <?= $subject->demography_lock_user;?> on <?= date("d-M-Y",strtotime($subject->demography_lock_date));?>
+	
+	<?php
+	}
+	else{
+	
+		if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_lock')){
+	?>
+		<?= form_open('subject/demography_lock', array('class'=>'form-horizontal')); ?>    	
+		<?= form_hidden('id', $subject->id); ?>
+		<?= form_hidden('current_status', $subject->demography_status); ?>
+			
+		<?= form_button(array('type'=>'submit', 'content'=>'Lock Form', 'class'=>'btn btn-primary')); ?>
+
+		<?= form_close(); ?>
+
+<?php }else{
+		echo "This form has not yet been locked";
+		}
+	}
+?>
+</div>

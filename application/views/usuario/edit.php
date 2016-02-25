@@ -1,4 +1,10 @@
-<?php $centers = array("01"=>"Center 01","02"=>"Cetner 02"); ?>
+<?php 
+   
+    foreach ($centers as $center) {
+        $aux[$center->id] = $center->name;
+    }
+    $centers = array(''=>'')+$aux;
+?>
 <?= form_open('usuario/update', array('class'=>'form-horizontal')); ?>
     <legend> Actualizar Registro </legend>
 
@@ -27,7 +33,7 @@
     
     <div class="control-group">
         <?= form_label('Center', 'center', array('class'=>'control-label')); ?>
-        <?= form_dropdown('center', $centers, set_value('center')); ?>
+        <?= form_dropdown('center', $centers, set_value('center',$registro->center)); ?>
     </div> 
 
     <div class="control-group">

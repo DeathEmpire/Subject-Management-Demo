@@ -172,10 +172,55 @@ class Subject extends CI_Controller {
 		}
 	}
 
-	public function demography_status_update(){
+	public function demography_signature(){
+		$registro = $this->input->post();
 
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("has validation errors updating demography signature");
+			$this->demography($registro['id']);
+		}
+		else {
+			$registro['demography_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['demography_status'] = 'Document Approved and Signed by PI';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['demography_signature_user'] = $this->session->userdata('usuario');
+			$registro['demography_signature_date'] = date('Y-m-d');
+
+			$this->Model_Subject->update($registro);
+			$this->auditlib->save_audit("Sign demography form");
+
+			redirect('subject/grid/'.$registro['id']);
+		}
 	}
 
+	public function demography_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("has validation errors updating demography lock");
+			$this->demography($registro['id']);
+		}
+		else {
+			$registro['demography_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['demography_status'] = 'Form Approved and Locked';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['demography_lock_user'] = $this->session->userdata('usuario');
+			$registro['demography_lock_date'] = date('Y-m-d');
+
+			$this->Model_Subject->update($registro);
+			$this->auditlib->save_audit("Lock demography form");
+
+			redirect('subject/grid/'.$registro['id']);
+		}
+	}
 
 
 	public function randomization($id) {

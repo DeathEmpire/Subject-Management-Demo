@@ -102,8 +102,13 @@ class Usuario extends CI_Controller {
 
 		$data['contenido'] = 'usuario/edit';
 		$data['titulo'] = 'Update User';
+		
 		$data['registro'] = $this->Model_Usuario->find($id);
 		$data['perfiles'] = $this->Model_Usuario->get_perfiles(); /* Lista de los Perfiles */
+
+		$this->load->model('Model_Center');
+		$data['centers'] = $this->Model_Center->all();
+
 		$this->load->view('template', $data);
 	}
 
