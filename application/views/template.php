@@ -42,13 +42,30 @@
                 <div class="span2">
                     <?php
                         if(null !== $this->session->userdata('usuario')){
-                    ?>
-                        <div class="well sidebar-nav" style='position: fixed;'>
-                            <ul class="nav nav-list">
-                                <?= my_menu_app(); ?>
-                            </ul>
-                        </div>
-                    <?php } ?>    
+                            $detect = new Mobile_Detect();
+                            
+                            if($detect->isMobile() || $detect->isTablet() || $detect->isAndroidOS() || $detect->isiOS()){ 
+                                /*Mobile Users*/
+                        ?>
+                            <div class="well sidebar-nav">
+                                <ul class="nav nav-list">
+                                    <?= my_menu_app(); ?>
+                                </ul>
+                            </div>
+
+                        <?php   }else{ 
+                            /*Desktop Users*/
+                            
+                            
+                            ?>
+
+                            <div class="well sidebar-nav" style='position: fixed;'>
+                                <ul class="nav nav-list">
+                                    <?= my_menu_app(); ?>
+                                </ul>
+                            </div>
+                    <?php    }
+                     } ?>    
                 </div>                
                 <!-- Contenido de la aplicación -->
                 <div class="span10">
