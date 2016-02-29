@@ -161,7 +161,7 @@ $(function(){
 
         <tr>
         	<td>Date of Onset: </td>
-        	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_onset', 'id'=>'date_of_onset', 'value'=>set_value('date_of_onset')));?></td>
+        	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_onset', 'id'=>'date_of_onset', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('date_of_onset')));?></td>
 		</tr>
 
 		<tr>
@@ -171,7 +171,7 @@ $(function(){
 
 		<tr>
         	<td>Date of Resolution: </td>
-        	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_resolution', 'id'=>'date_of_resolution', 'value'=>set_value('date_of_resolution')));?></td>
+        	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_resolution', 'id'=>'date_of_resolution', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('date_of_resolution')));?></td>
 		</tr>
 
 		<tr>

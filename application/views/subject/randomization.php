@@ -84,7 +84,7 @@ $(function(){
 
         <tr class='randomization' style='display:none'>
             <td>Date of Randomization: </td>
-            <td><?= form_input(array('type'=>'text', 'name'=>'randomization_date', 'id'=>'randomization_date', 'value'=>set_value('randomization_date',$subject->randomization_date))); ?></td>
+            <td><?= form_input(array('type'=>'text', 'name'=>'randomization_date', 'id'=>'randomization_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('randomization_date',$subject->randomization_date))); ?></td>
         </tr>
 
 		<tr class='buttons_form' style='display:none'>

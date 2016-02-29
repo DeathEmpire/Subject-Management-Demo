@@ -164,7 +164,7 @@ $(function(){
 		</tr>
 		<tr>
         	<td>Start Date: </td>
-        	<td><?= form_input(array('type'=>'text','name'=>'start_date', 'id'=>'start_date', 'value'=>set_value('start_date'))); ?></td>
+        	<td><?= form_input(array('type'=>'text','name'=>'start_date', 'id'=>'start_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('start_date'))); ?></td>
 		</tr>
 		<tr>
         	<td>On Going: </td>
@@ -172,7 +172,7 @@ $(function(){
 		</tr>
 		<tr id="end_date_tr" stlye='display:none;'>
         	<td>End Date: </td>
-        	<td><?= form_input(array('type'=>'text','name'=>'end_date', 'id'=>'end_date', 'value'=>set_value('end_date'))); ?></td>
+        	<td><?= form_input(array('type'=>'text','name'=>'end_date', 'id'=>'end_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('end_date'))); ?></td>
 		</tr>
 		<tr>
             <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>

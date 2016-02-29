@@ -109,4 +109,19 @@ class Query extends CI_Controller {
 		$opened = $this->Model_Query->areOpenedQuery('Demography');
 	}
 
+	public function additional_form_query_new($form){
+
+	}
+
+	public function additional_form_query_insert(){
+
+	}
+
+	public function additional_form_query_show($id){
+
+	}
+
+	public function additional_form_query_update($id){
+
+	}
 }

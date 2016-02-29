@@ -59,7 +59,7 @@ $(function(){
 	<table class="table table-striped table-condensed table-bordered">       		
         <tr>
         	<td>Date of Deviation: </td>
-        	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_deviation', 'id'=>'date_of_deviation', 'value'=>set_value('date_of_deviation')));?></td>
+        	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_deviation', 'id'=>'date_of_deviation', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('date_of_deviation')));?></td>
 		</tr>
 		<tr>
         	<td>Description of deviation: </td>
