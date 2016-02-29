@@ -27,6 +27,31 @@ $(function(){
 
     });
 
+    $("#screening_date").datepicker();
+
+    /*inicialice radio buttons*/
+    if($("input[name^=selection_criteria]:checked").val() == 0){
+        $(".waiver").show();
+        $(".buttons_form").hide();
+
+    }
+    else{
+         $(".waiver").hide();            
+            $(".buttons_form").show();
+            $(".error").hide();
+    }
+
+    if($("input[name^=waiver_approving]:checked").val() == 0){
+        $(".error").show();
+        $(".buttons_form").hide();
+    }
+    else{
+        $(".error").hide();
+        $(".buttons_form").show(); 
+    }
+
+    
+
 });
 </script>
 <?= form_open('subject/insert', array('class'=>'form-horizontal')); ?>
@@ -74,7 +99,7 @@ $(function(){
 
         <tr>
             <td>Date: </td>
-            <td><?= form_input(array('type'=>'text', 'name'=>'screening_date', 'id'=>'screening_date', 'value'=>set_value('screening_date'))); ?></td>
+            <td><?= form_input(array('type'=>'text', 'name'=>'screening_date', 'id'=>'screening_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('screening_date'))); ?></td>
         </tr> 
 
         <tr>

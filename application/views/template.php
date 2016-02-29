@@ -54,9 +54,7 @@
                             </div>
 
                         <?php   }else{ 
-                            /*Desktop Users*/
-                            
-                            
+                            /*Desktop Users*/                            
                             ?>
 
                             <div class="well sidebar-nav" style='position: fixed;'>

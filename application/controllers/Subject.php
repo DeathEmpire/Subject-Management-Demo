@@ -46,7 +46,17 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('initials', 'Initials', 'required|xss_clean');
-        $this->form_validation->set_rules('screening_date', 'Screening Date', 'required|xss_clean');        
+        $this->form_validation->set_rules('screening_date', 'Screening Date', 'required|xss_clean');   
+        $this->form_validation->set_rules('sign_consent', 'Sign Consent', 'required|xss_clean');           
+        $this->form_validation->set_rules('selection_criteria', 'Selection Criteria', 'required|xss_clean');
+        
+        if(isset($registro->selection_criteria) AND $registro->selection_criteria == 0){
+        	$this->form_validation->set_rules('waiver_approving', 'Waiver Approvind Date', 'required|xss_clean');
+        }
+        else{
+        	$this->form_validation->set_rules('waiver_approving', 'Waiver Approvind Date', 'xss_clean');
+        }
+
         if ($this->form_validation->run() == FALSE) {
         	$this->auditlib->save_audit("Has validation error creating new subject");
             $this->create();

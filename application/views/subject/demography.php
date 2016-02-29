@@ -1,3 +1,8 @@
+<script type="text/javascript">
+$(function(){
+	$("#birth_date").datepicker();
+});
+</script>
 <legend style='text-align:center;'>Demographycs</legend>
 <b>Current Subject:</b>
 <table class="table table-condensed table-bordered">
@@ -46,7 +51,7 @@
     <table class="table table-condensed table-bordered table-striped">
         <tr>
         	<td><?= form_label('Date of Birth: ', 'birth_date', array('class'=>'control-label')); ?></td>
-        	<td><?= form_input(array('type'=>'text', 'name'=>'birth_date', 'id'=>'birth_date', 'value'=>set_value('birth_date',$subject->birth_date))); ?></td>
+        	<td><?= form_input(array('type'=>'text', 'name'=>'birth_date', 'id'=>'birth_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;','value'=>set_value('birth_date',$subject->birth_date))); ?></td>
     	</tr>
     
 	    <?php
