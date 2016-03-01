@@ -32,7 +32,8 @@ $(function(){
 <br />
 <!-- legend -->
 <?php
-	if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'demography_query_new')){
+	if(isset($_SESSION['role_options']['query']) AND strstr($_SESSION['role_options']['query'], 'demography_query_new')){
+		
 ?>
 	<div id='new_query' style='text-align:right;'>
 		<?= form_open('query/demography_query_new', array('class'=>'form-horizontal')); ?>
@@ -160,16 +161,19 @@ $(function(){
 
 <?php } ?>
 <!-- Verify -->
-<b>Verify:</b><br />
+<b>Monitor Approve:</b><br />
 	<?php if(!empty($subject->demography_verify_user) AND !empty($subject->demography_verify_date)){ ?>
 		
-		This form was verified by <?= $subject->demography_verify_user;?> on <?= date("d-M-Y",strtotime($subject->demography_verify_date));?>
+		This form was approved by <?= $subject->demography_verify_user;?> on <?= date("d-M-Y",strtotime($subject->demography_verify_date));?>
 	
 	<?php
 	}
 	else{
 	
-		if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+		if(isset($_SESSION['role_options']['subject']) 
+			AND strpos($_SESSION['role_options']['subject'], 'demography_verify') 
+			AND $subject->demography_status == 'Record Complete'
+		){
 	?>
 		<?= form_open('subject/demography_verify', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('id', $subject->id); ?>
@@ -180,7 +184,36 @@ $(function(){
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "This form has not yet been Verified";
+		echo "This form has not yet been Approved";
+		}
+	}
+?>
+<br />
+
+<!--Signature/Lock-->
+<br /><b>Lock:</b><br />
+	<?php if(!empty($subject->demography_lock_user) AND !empty($subject->demography_lock_date)){ ?>
+		
+		This form was locked by <?= $subject->demography_lock_user;?> on <?= date("d-M-Y",strtotime($subject->demography_lock_date));?>
+	
+	<?php
+	}
+	else{
+	
+		if(isset($_SESSION['role_options']['subject']) 
+			AND strpos($_SESSION['role_options']['subject'], 'demography_lock')
+			AND $subject->demography_status == 'Form Approved by Monitor'){
+	?>
+		<?= form_open('subject/demography_lock', array('class'=>'form-horizontal')); ?>    	
+		<?= form_hidden('id', $subject->id); ?>
+		<?= form_hidden('current_status', $subject->demography_status); ?>
+			
+		<?= form_button(array('type'=>'submit', 'content'=>'Lock Form', 'class'=>'btn btn-primary')); ?>
+
+		<?= form_close(); ?>
+
+<?php }else{
+		echo "This form has not yet been locked";
 		}
 	}
 ?>
@@ -195,7 +228,10 @@ $(function(){
 	}
 	else{
 	
-		if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_signature')){
+		if(isset($_SESSION['role_options']['subject']) 
+			AND strpos($_SESSION['role_options']['subject'], 'demography_signature')
+			AND $subject->demography_status == 'Form Approved and Locked'
+		){
 	?>
 		<?= form_open('subject/demography_signature', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('id', $subject->id); ?>
@@ -211,28 +247,3 @@ $(function(){
 	}
 ?>
 <br />
-<!--Signature/Lock-->
-<br /><b>Signature Lock:</b><br />
-	<?php if(!empty($subject->demography_lock_user) AND !empty($subject->demography_lock_date)){ ?>
-		
-		This form was locked by <?= $subject->demography_lock_user;?> on <?= date("d-M-Y",strtotime($subject->demography_lock_date));?>
-	
-	<?php
-	}
-	else{
-	
-		if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_lock')){
-	?>
-		<?= form_open('subject/demography_lock', array('class'=>'form-horizontal')); ?>    	
-		<?= form_hidden('id', $subject->id); ?>
-		<?= form_hidden('current_status', $subject->demography_status); ?>
-			
-		<?= form_button(array('type'=>'submit', 'content'=>'Lock Form', 'class'=>'btn btn-primary')); ?>
-
-		<?= form_close(); ?>
-
-<?php }else{
-		echo "This form has not yet been locked";
-		}
-	}
-?>

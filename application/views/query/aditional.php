@@ -43,7 +43,7 @@
 					echo anchor('subject/adverse_event_show/'.$subject->id, 'Back', array('class'=>'btn'));
 				}
 				elseif($form == 'Protocol Deviation'){
-					echo anchor('subject/protocol_devition_show/'.$subject->id, 'Back', array('class'=>'btn'));
+					echo anchor('subject/protocol_deviation_show/'.$subject->id, 'Back', array('class'=>'btn'));
 				}
 				elseif($form == 'Concomitant Medication'){
 					echo anchor('subject/concomitant_medication_show/'.$subject->id, 'Back', array('class'=>'btn'));

@@ -24,8 +24,9 @@ class Model_Query extends CI_Model {
     } 
 
     function allWhere($where) {
-        $this->db->select('query.*');
-        $this->db->from('query');        
+        $this->db->select('query.*, subject.code');
+        $this->db->from('query');
+        $this->db->join('subject', 'query.subject_id = subject.id', 'left');
         $this->db->where($where);
 
         $query = $this->db->get();

@@ -5,16 +5,19 @@ class To_do extends CI_Controller {
 	// Constructor de la clase
 	function __construct() {
 		parent::__construct();
-
-		$this->load->model('Model_To_do');
 		
+		$this->load->library('pendinglib');		
     }
 
     function index(){
 
     	$data['contenido'] = 'to_do/index';
 		$data['titulo'] = 'To Do List';
-		#$data['query'] = $this->Model_To_do->all();
+
+		$data['to_do'] = $this->pendinglib->pending_by_role();
+
+		$this->auditlib->save_audit("View to do list");
+		
 		$this->load->view('template', $data);
     }
 }

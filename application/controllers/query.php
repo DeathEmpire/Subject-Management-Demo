@@ -164,7 +164,7 @@ class Query extends CI_Controller {
 		
 		$form = urldecode($form);
 
-		$data['contenido'] = 'query/aditional';
+		$data['contenido'] = 'query/aditional_answer';
 		$data['titulo'] = $form .' Form Answer';				
 		$data['subject'] = $this->Model_Subject->find($subject_id);
 		
@@ -179,7 +179,7 @@ class Query extends CI_Controller {
 	public function additional_form_query_update(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('question', 'Question', 'required|xss_clean');
+		$this->form_validation->set_rules('answer', 'Answer', 'required|xss_clean');
         
         if ($this->form_validation->run() == FALSE) {
         	$this->auditlib->save_audit("Has validation error answering ". $registro['form'] ." query");
@@ -188,7 +188,7 @@ class Query extends CI_Controller {
         else {	
         	
         	$registro['answer_user'] = $this->session->userdata('usuario');
-			$registro['answer_data'] = date("Y-m-d H:i:s");			
+			$registro['answer_date'] = date("Y-m-d H:i:s");			
 			
 			$this->Model_Query->update($registro);			
 

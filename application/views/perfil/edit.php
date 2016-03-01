@@ -28,7 +28,9 @@
 	<div class="form-actions">
 		<?= form_button(array("type"=>"submit","content"=>"Actualizar","class"=>"btn btn-primary")); ?>
 		<?= anchor("perfil/index","Cancel",array("class"=>"btn"));?> 
-		<?= anchor("perfil/eliminar/". $registro->id,"Delete",array("class"=>"btn btn-warning","onclick"=>"return confirm('Are you Sure?')"));?> 
+		<?php 
+			#anchor("perfil/eliminar/". $registro->id,"Delete",array("class"=>"btn btn-warning","onclick"=>"return confirm('Are you Sure?')"));
+		?> 
 	</div>
 
 <?= form_close(); ?>
