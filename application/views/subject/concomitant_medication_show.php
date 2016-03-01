@@ -24,7 +24,19 @@
 		</tr>
 	</tbody>
 </table>
-
+<!-- New Query-->
+<?php
+	if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
+?>
+	<div id='new_query' style='text-align:right;'>
+		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
+		<?= form_hidden('subject_id', $subject->id); ?>
+		<?= form_hidden('form', "Concomitant Medication"); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'New Query', 'class'=>'btn btn-primary')); ?>
+		<?= form_close(); ?>
+	</div>
+<?php }?>
+<!-- End Query-->
 <?php
 	if(isset($list) AND !empty($list)){
 ?>		
@@ -63,3 +75,42 @@
 <?php
 	}
 ?>
+<!-- Querys -->
+<?php
+	if(isset($querys) AND !empty($querys)){ ?>
+		<b>Querys:</b>
+		<table class="table table-condensed table-bordered table-stripped">
+			<thead>
+				<tr>
+					<th>Date of Query</th>
+					<th>User</th>
+					<th>Question</th>
+					<th>Date of Answer</th>
+					<th>User</th>
+					<th>Answer</th>					
+				</tr>
+			</thead>
+			<tbody>
+				
+			<?php
+				foreach ($querys as $query) { ?>
+					<tr>
+						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
+						<td><?= $query->question_user; ?></td>
+						<td><?= $query->question; ?></td>						
+						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
+						<td><?= $query->answer_user; ?></td>
+						<?php
+							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
+						?>
+							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Concomitant Medication', 'Add',array('class'=>'btn'))); ?></td>						
+						<?php }else{?>
+							<td><?= $query->answer; ?></td>
+						<?php }?>
+					</tr>					
+			<?php }?>	
+
+			</tbody>
+		</table>
+
+<?php } ?>

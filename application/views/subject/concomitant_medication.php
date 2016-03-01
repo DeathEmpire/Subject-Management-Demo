@@ -176,7 +176,7 @@ $(function(){
 		</tr>
 		<tr>
             <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-            <?= anchor('subject/grid/'.$subject->id, 'Cancel', array('class'=>'btn')); ?></td>
+            <?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?></td>
        </tr>
     </table>
 <?= form_close(); ?>

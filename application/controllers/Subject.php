@@ -49,7 +49,7 @@ class Subject extends CI_Controller {
         $this->form_validation->set_rules('screening_date', 'Screening Date', 'required|xss_clean');   
         $this->form_validation->set_rules('sign_consent', 'Sign Consent', 'required|xss_clean');           
         $this->form_validation->set_rules('selection_criteria', 'Selection Criteria', 'required|xss_clean');
-        
+
         if(isset($registro->selection_criteria) AND $registro->selection_criteria == 0){
         	$this->form_validation->set_rules('waiver_approving', 'Waiver Approvind Date', 'required|xss_clean');
         }
@@ -435,6 +435,8 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Adverse_event_form');		
 		$data['list'] = $this->Model_Adverse_event_form->allWhere('subject_id',$id);
 
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Adverse Event"));
+
 		$this->auditlib->save_audit("View list of adverse events");
 
 		$this->load->view('template', $data);
@@ -446,7 +448,7 @@ class Subject extends CI_Controller {
 		$data['subject'] = $this->Model_Subject->find($id);
 
 		$this->load->model('Model_Protocol_deviation_form');		
-		$data['list'] = $this->Model_Protocol_deviation_form->allWhere('subject_id',$id);
+		$data['list'] = $this->Model_Protocol_deviation_form->allWhere('subject_id',$id);	
 
 		$this->auditlib->save_audit("View protocol deviation form");
 
@@ -495,6 +497,8 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Protocol_deviation_form');		
 		$data['list'] = $this->Model_Protocol_deviation_form->allWhere('subject_id',$id);
 
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Protocol Deviation"));
+
 		$this->auditlib->save_audit("View list of protocol deviation");
 
 		$this->load->view('template', $data);
@@ -507,6 +511,8 @@ class Subject extends CI_Controller {
 
 		$this->load->model('Model_Concomitant_medication_form');		
 		$data['list'] = $this->Model_Concomitant_medication_form->allWhere('subject_id',$id);
+
+
 
 		$this->auditlib->save_audit("view concomitant medication form");
 
@@ -570,6 +576,9 @@ class Subject extends CI_Controller {
 
 		$this->load->model('Model_Concomitant_medication_form');		
 		$data['list'] = $this->Model_Concomitant_medication_form->allWhere('subject_id',$id);
+
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Concomitant Medication"));
+
 		$this->auditlib->save_audit("Show list for concomitant medication for a subject");
 		$this->load->view('template', $data);
 	}

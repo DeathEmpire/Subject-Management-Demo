@@ -1,4 +1,4 @@
-<legend style='text-align:center;'>Demography Query</legend>
+<legend style='text-align:center;'><?= $form;?> Query</legend>
 <b>Current Subject:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -25,20 +25,37 @@
 	</tbody>
 </table>
 <br />
-<?= form_open('query/demography_query_insert', array('class'=>'form-horizontal')); ?>
+<?= form_open('query/additional_form_query_update', array('class'=>'form-horizontal')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
-	<?= form_hidden('subject_id', $subject->id); ?>
-	<?= form_hidden('demography_status', $subject->demography_status); ?>
+	<?= form_hidden('subject_id', $subject->id); ?>	
+	<?= form_hidden('id', $query->id); ?>
+	<?= form_hidden('form', $form); ?>	
 	
 	<table class="table table-striped table-condensed table-bordered">        
         <tr>
             <td>Question: </td>
-            <td><?= form_textarea(array('name'=>'question', 'id'=>'question', 'value'=>set_value('question'), 'rows'=>'4','cols'=>'40')); ?></td>
+            <td><?= $query->question;?></td>
+        </tr>
+        <tr>
+            <td>Answer: </td>
+            <td><?= form_textarea(array('name'=>'answer', 'id'=>'answer', 'value'=>set_value('answer'), 'rows'=>'4','cols'=>'40')); ?></td>
         </tr>
         <tr>
             <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-            <?= anchor('subject/demography/'.$subject->id, 'Back', array('class'=>'btn')); ?></td>
+            
+			<?php 
+				if($form == 'Adverse Event'){
+					echo anchor('subject/adverse_event_show/'.$subject->id, 'Back', array('class'=>'btn'));
+				}
+				elseif($form == 'Protocol Deviation'){
+					echo anchor('subject/protocol_devition_show/'.$subject->id, 'Back', array('class'=>'btn'));
+				}
+				elseif($form == 'Concomitant Medication'){
+					echo anchor('subject/concomitant_medication_show/'.$subject->id, 'Back', array('class'=>'btn'));
+				}
+			?>
+            </td>
        </tr>  
     </table>
 <?= form_close();?>

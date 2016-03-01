@@ -39,6 +39,8 @@ $(function(){
 	</tbody>
 </table>
 <br />
+
+
 <?php
 	$stages = array(	""=>"",
 						"Screening - Baseline period"=>"Screening - Baseline period",
@@ -129,9 +131,8 @@ $(function(){
 	    'style'       => 'margin:10px',
     );
 
-
-
 ?>
+
 <?= form_open('subject/adverse_event_form_insert', array('class'=>'form-horizontal')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
@@ -203,7 +204,7 @@ $(function(){
 		</tr>
 		<tr>
             <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-            <?= anchor('subject/grid/'.$subject->id, 'Cancel', array('class'=>'btn')); ?></td>
+            <?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?></td>
        </tr>
     </table>
 <?= form_close(); ?>

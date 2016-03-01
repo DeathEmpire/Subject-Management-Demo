@@ -97,7 +97,7 @@ $(function(){
 					?>
             			<?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
             		<?php }?>	
-            			<?= anchor('subject/grid/'.$subject->id, 'Cancel', array('class'=>'btn')); ?>
+            			<?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?>
             	<?php	
             		}else{ ?>
 						<?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?>
