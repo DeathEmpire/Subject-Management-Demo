@@ -1,4 +1,4 @@
-<div class="hero-unit">		
-	<hr />
-	<h1>Subject Management</h1>    
+<div class="hero-unit">			
+	<h1>Study Management</h1>    	
+	<small><b><i>Clinical Trials</i></b></small>
 </div>

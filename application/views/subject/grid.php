@@ -54,16 +54,16 @@
 			<th colspan='5' style='text-align:center;'>Visit Intervals</th>
 		</tr>
 		<tr style='background-color: #C0C0C0;'>
-			<th>Screening</th>
-			<th>Baseline</th>
-			<th>Week 4</th>
-			<th>Week 12</th>
-			<th>Week 24</th>		
+			<th>Seleccion (Día 28 a Basal)</th>
+			<th>Basal Día 1</th>
+			<th>Semana 4</th>
+			<th>Semana 12</th>
+			<th>Semana 24/ término del estudio/ terminación temprana (+/- 4 días)</th>		
 		</tr>
 	</thead>
 	<tbody>		
 		<tr>
-			<td>Demography</td>
+			<td>Demografía</td>
 			<?php
 				if(empty($subject->demography_status)){
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
@@ -92,109 +92,173 @@
 				
 			?>
 			<td style='text-align:center;'><?= anchor('subject/demography/'.$subject->id, $icon); ?></td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
-			<td>Inclusion/Exclusion Criteria</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>Criterios de Inclusion/Exclusion</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
-			<td>Medical History</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>Historia Médica</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
 			<td>MMSE</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
-			<td>Hachinski</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>Escala de Hachinski modificada</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
-			<td>Thyroid profile</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>Pruebas de Laboratorio</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
-			<td>Lab tests</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>Electrocardiograma de reposo (ECG)</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
-			<td>ECG</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>RNM o TC</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
-			<td>Brain scanner</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>Examen físico</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
-			<td>Physical examination</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>Examen neurológico</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
-			<td>Neurological examination</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>Signos vitales/peso</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
-			<td>Vital signs</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>ADAS-cog</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
-			<td>Adas-cog</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td>NPI</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
-			<td>Randomization</td> 
+			<td>TMT A</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>TMT B</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Prueba de dígito directo</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Prueba de restas seriadas</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Escala de evaluación de apatía</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>EQ-5D-3L</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Cumplimiento</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Muestras de sangre para estudio de biomarcadores</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Randomization YA NO EXISTE</td> 
 
 			<?php
 				#print_r($subject);
