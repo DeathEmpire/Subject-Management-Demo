@@ -3,13 +3,12 @@
 <table class="table table-condensed table-bordered">
 	<thead>
 		<tr style='background-color: #C0C0C0;'>
-			<th>Center</th>
-			<th>Subject ID</th>
-			<th>Subject Initials</th>
-			<th>Enrollement Date</th>
-			<th>Randomization Date</th>
-			<th>Treatment Kit Assigment 1</th>
-			<th>Treatment Kit Assigment 2</th>		
+			<th>Centro</th>
+			<th>ID del Sujeto</th>
+			<th>Iniciales</th>
+			<th>Fecha de Ingreso</th>
+			<th>Fecha de Randomizacion</th>
+			<th>Kit Asignado</th>		
 		</tr>
 	</thead>
 	<tbody>
@@ -19,8 +18,7 @@
 			<td><?= $subject->initials; ?></td>		
 			<td><?= ((isset($subject->screening_date) AND $subject->screening_date != '0000-00-00') ? date("d-M-Y",strtotime($subject->screening_date)) : ""); ?></td>
 			<td><?= ((isset($subject->randomization_date) AND $subject->randomization_date != '0000-00-00') ? date("d-M-Y",strtotime($subject->randomization_date)) : ""); ?></td>
-			<td><?= $subject->kit1; ?></td>
-			<td><?= $subject->kit2; ?></td>	
+			<td><?= $subject->kit1; ?></td>			
 		</tr>
 	</tbody>
 </table>
@@ -46,12 +44,12 @@
 </table>
 
 
-<b>Schelduled Visits:</b>
+<b>Visitas Programadas:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
 		<tr style='background-color: #C0C0C0;'>
-			<th rowspan='2' style='text-align:center;vertical-align:middle;'>Forms</th>
-			<th colspan='5' style='text-align:center;'>Visit Intervals</th>
+			<th rowspan='2' style='text-align:center;vertical-align:middle;'>Actividad del Protocolo</th>
+			<th colspan='5' style='text-align:center;'>Intervalo de Visitas</th>
 		</tr>
 		<tr style='background-color: #C0C0C0;'>
 			<th>Seleccion (Día 28 a Basal)</th>
@@ -107,8 +105,8 @@
 		</tr>
 		<tr>
 			<td>Historia Médica</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'><?= anchor('subject/historial_medico/'.$subject->id, $icon); ?></td>
+			<td style='text-align:center;'><?= anchor('subject/historial_medico/'.$subject->id, $icon); ?></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
@@ -121,9 +119,45 @@
 			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
 		</tr>
+		
+		<?php
+				if(empty($subject->hachinski_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/hachinski_form/'.$subject->id;
+				}
+				elseif ($subject->hachinski_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/hachinski_show/'.$subject->id;
+				}
+				elseif ($subject->hachinski_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/hachinski_show/'.$subject->id;
+				}
+				elseif ($subject->hachinski_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/hachinski_show/'.$subject->id;
+				}
+				elseif ($subject->hachinski_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/hachinski_show/'.$subject->id;
+				}
+				elseif ($subject->hachinski_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/hachinski_show/'.$subject->id;
+				}
+				elseif ($subject->hachinski_status == 'Error') {					
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/hachinski_show/'.$subject->id;
+				}
+				else{
+					$icon = '*';		
+					$link = "";
+				}
+				
+			?>
 		<tr>
 			<td>Escala de Hachinski modificada</td>
-			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>

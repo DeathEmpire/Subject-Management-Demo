@@ -1,21 +1,21 @@
 
-<legend style='text-align:center;'> Centers </legend>
+<legend style='text-align:center;'> Centros </legend>
 
 
 <?= form_open('center/search', array('class'=>'form-search')); ?>
-	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Search by id...', 'class'=>'input-medium search-query')); ?>	
+	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Buscar por id...', 'class'=>'input-medium search-query')); ?>	
 	<span class="input-group-btn">
-    	<button class="btn btn-default" type="submit">Search</button>
+    	<button class="btn btn-default" type="submit">Buscar</button>
     </span>
-	<?= anchor('center/create', 'New', array('class'=>'btn btn-primary')); ?>
+	<?= anchor('center/create', 'Nuevo', array('class'=>'btn btn-primary')); ?>
 <?= form_close(); ?>
 
 <table class="table table-condensed table-bordered">
 	<thead>
 		<tr>
-			<th> Center ID </th>
-			<th> Center Name </th>			
-			<th> Created At </th>			
+			<th> ID </th>
+			<th> Nombre del Centro </th>			
+			<th> Fecha Creacion </th>			
 		</tr>
 	</thead>
 

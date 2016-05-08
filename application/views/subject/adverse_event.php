@@ -167,7 +167,7 @@ $(function(){
 
 		<tr>
         	<td>Continuing: </td>
-        	<td><?= form_radio($data); ?> Yes <?= form_radio($data2); ?> No</td>
+        	<td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
 		</tr>
 
 		<tr>
@@ -182,12 +182,12 @@ $(function(){
 
 		<tr>
         	<td>Assessment of Casuality To IP: </td>
-        	<td><?= form_radio($data3); ?> Yes <?= form_radio($data4); ?> No</td>
+        	<td><?= form_radio($data3); ?> Si <?= form_radio($data4); ?> No</td>
 		</tr>
 
 		<tr>
         	<td>Was this a serious adverse event (SAE)?: </td>
-        	<td><?= form_radio($data5); ?> Yes <?= form_radio($data6); ?> No</td>
+        	<td><?= form_radio($data5); ?> Si <?= form_radio($data6); ?> No</td>
 		</tr>
 
 		<tr>

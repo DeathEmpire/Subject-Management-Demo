@@ -14,10 +14,10 @@ class Center extends CI_Controller {
     function index(){
 
     	$data['contenido'] = 'center/index';
-		$data['titulo'] = 'Centers';
+		$data['titulo'] = 'Centros';
 		$data['query'] = $this->Model_Center->all();		
 		
-		$this->auditlib->save_audit("View Center Index");
+		$this->auditlib->save_audit("Vio lista de centros");
 
 		$this->load->view('template', $data);
 
@@ -26,25 +26,55 @@ class Center extends CI_Controller {
 
      public function search() {
 		$data['contenido'] = 'center/index';
-		$data['titulo'] = 'Centers';
+		$data['titulo'] = 'Centros';
 		$value = $this->input->post('buscar');
 		$data['query'] = $this->Model_Center->allFiltered('center.id', $value);
-		$this->auditlib->save_audit("Search a Center");
+		$this->auditlib->save_audit("Busco un centro");
 		$this->load->view('template', $data);
 	}   
 
 	public function create() {
 		$data['contenido'] = 'center/create';
-		$data['titulo'] = 'New Center';
-		$this->auditlib->save_audit("Enter new center form");		
+		$data['titulo'] = 'Nuevo Centro';
+		$this->auditlib->save_audit("Ingreso al formulario para agregar un centro");		
 		$this->load->view('template', $data);
 	}
 
 	public function insert() {
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('name', 'Center Name', 'required|xss_clean');
+		/*Validacion Datos Centro*/
+		$this->form_validation->set_rules('name', 'Nombre del Centro', 'required|xss_clean');
+		$this->form_validation->set_rules('direccion', 'Direccion', 'required|xss_clean');
+		$this->form_validation->set_rules('ciudad_localidad', 'Ciudad', 'required|xss_clean');
+		$this->form_validation->set_rules('estado_provincia', 'Estado', 'required|xss_clean');
+		$this->form_validation->set_rules('zip_postal', 'Zip', 'xss_clean');
+		$this->form_validation->set_rules('pais', 'Pais', 'required|xss_clean');
+
+		/*Validacion Contacto*/
+		$this->form_validation->set_rules('contacto_nombre', 'Nombre del Contacto', 'xss_clean');
+		$this->form_validation->set_rules('contacto_codigo__pais', 'Codigo Pais', 'xss_clean');
+		$this->form_validation->set_rules('contacto_fono', 'Telefono', 'xss_clean');
+		$this->form_validation->set_rules('contacto_fax', 'Fax', 'xss_clean');
+		$this->form_validation->set_rules('contacto_email', 'Email', 'xss_clean');
+
+		/*Validacion Adicionales*/
+		$this->form_validation->set_rules('type', 'Tipo', 'xss_clean');
+		$this->form_validation->set_rules('disabled', 'Deshabilitado', 'xss_clean');
+
+		if(isset($registro['disabled']) AND $registro['disabled'] == '1'){			
+			$this->form_validation->set_rules('last_disabled', 'Fecha', 'required|xss_clean');
+			$this->form_validation->set_rules('disabled_reason', 'Rason', 'required|xss_clean');
+		}
+		else{			
+			$this->form_validation->set_rules('last_disabled', 'Fecha', 'xss_clean');	
+			$this->form_validation->set_rules('disabled_reason', 'Rason', 'xss_clean');
+		}
+		
+		#$this->form_validation->set_rules('', '', 'xss_clean');
+		#$this->form_validation->set_rules('', '', 'xss_clean');		
         
+
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         }
@@ -54,7 +84,7 @@ class Center extends CI_Controller {
 			$registro['updated'] = date('Y/m/d H:i:s');
 			
 			$this->Model_Center->insert($registro);			
-			$this->auditlib->save_audit("Create new center");
+			$this->auditlib->save_audit("Creo un nuevo centro");
 			redirect('center/index');
         }
 	}
@@ -63,24 +93,24 @@ class Center extends CI_Controller {
 		// $id = $this->uri->segment(3);
 
 		$data['contenido'] = 'center/edit';
-		$data['titulo'] = 'Update Center';
+		$data['titulo'] = 'Actualizar Centro';
 		$data['registro'] = $this->Model_Center->find($id);
 		#centros
-		$this->auditlib->save_audit("View center edit form");
+		$this->auditlib->save_audit("Entro a el formulario para editar centros");
 		$this->load->view('template', $data);
 	}
 
 	public function update() {
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('name', 'Center Name', 'required|xss_clean');
+		$this->form_validation->set_rules('name', 'Nombre del Centro', 'required|xss_clean');
 		if($this->form_validation->run() == FALSE) {
 			$this->edit($registro['id']);
 		}
 		else {
 			$registro['updated'] = date('Y/m/d H:i');
 			$this->Model_Center->update($registro);
-			$this->auditlib->save_audit("Update a center");
+			$this->auditlib->save_audit("Actualizo un centro");
 			redirect('center/index');
 		}
 	}

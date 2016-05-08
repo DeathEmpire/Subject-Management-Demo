@@ -8,6 +8,7 @@ class Subject extends CI_Controller {
 
 		$this->load->model('Model_Subject');
 		$this->load->model('Model_Query');
+
 		#$this->load->library('usuarioLib');
 		#$this->form_validation->set_message('required', 'Debe ingresar campo %s');        
     }
@@ -582,4 +583,201 @@ class Subject extends CI_Controller {
 		$this->auditlib->save_audit("Show list for concomitant medication for a subject");
 		$this->load->view('template', $data);
 	}
+
+	public function hachinski_form($id){
+		$data['contenido'] = 'subject/hachinski';
+		$data['titulo'] = 'Escala de Hachinski modificada';
+		$data['subject'] = $this->Model_Subject->find($id);
+
+		$this->load->view('template', $data);
+	}
+	public function hachinski_insert(){
+
+		$save = $this->input->post();
+		$id = $save['subject_id'];
+		/*Validamos los campos solo para que existan en caso de utilizar formularios codeigniter, ya que para este form todo es opcional*/
+		$this->form_validation->set_rules('comienzo_brusco', 'comienzo_brusco', 'xss_clean');
+		$this->form_validation->set_rules('deterioro_escalonado', 'deterioro_escalonado', 'xss_clean');
+		$this->form_validation->set_rules('curso_fluctante', 'curso_fluctante', 'xss_clean');
+		$this->form_validation->set_rules('desorientacion_noctura', 'desorientacion_noctura', 'xss_clean');
+		$this->form_validation->set_rules('preservacion_relativa', 'preservacion_relativa', 'xss_clean');
+		$this->form_validation->set_rules('depresion', 'depresion', 'xss_clean');
+		$this->form_validation->set_rules('somatizacion', 'somatizacion', 'xss_clean');
+		$this->form_validation->set_rules('labilidad_emocional', 'labilidad_emocional', 'xss_clean');
+		$this->form_validation->set_rules('hta', 'hta', 'xss_clean');
+		$this->form_validation->set_rules('ictus_previos', 'ictus_previos', 'xss_clean');
+		$this->form_validation->set_rules('evidencia_arteriosclerosis', 'evidencia_arteriosclerosis', 'xss_clean');
+		$this->form_validation->set_rules('sintomas_neurologicos', 'sintomas_neurologicos', 'xss_clean');
+		$this->form_validation->set_rules('signos_neurologicos', 'signos_neurologicos', 'xss_clean');
+		$this->form_validation->set_rules('subject_id', 'subject_id', 'xss_clean');
+		$this->form_validation->set_rules('total', 'Total', 'xss_clean');
+
+		if ($this->form_validation->run() == TRUE) {
+     		$save = $this->input->post();
+
+     		$save['created_at'] = date('Y/m/d H:i:s');		
+     		$save['updated_at'] = date('Y/m/d H:i:s');		
+     		$save['created_by'] = $this->session->userdata('usuario');		
+     		$save['status']  = "Record Complete";
+     		$save['stage']  = "stage_1";
+
+     		$this->load->model('Model_Hachinski_Form');
+     		$this->Model_Hachinski_Form->insert($save);
+     		$this->auditlib->save_audit("Escala de Hachinski ingresada");
+
+     		$this->hachinski_show($id);
+
+        }
+        else {						
+			
+        	$this->hachinski_form($id);
+        }
+
+	}
+	public function hachinski_update(){
+		
+	}
+	
+	public function hachinski_show($id){
+		$data['contenido'] = 'subject/hachinski_show';
+		$data['titulo'] = 'Escala de Hachinski modificada';
+		$data['subject'] = $this->Model_Subject->find($id);
+
+		$this->load->model('Model_Hachinski_Form');
+		$data['list'] = $this->Model_Hachinski_Form->allWhere("subject_id", $id);
+		#echo $this->db->last_query();
+		$this->load->view('template', $data);
+	}	
+
+	public function hachinski_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("has validation errors verifing demography form");
+			$this->hachinski_show($registro['id']);
+		}
+		else {
+			$registro['hachinski_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['hachinski_status'] = 'Form Approved by Monitor';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['hachinski_verify_user'] = $this->session->userdata('usuario');
+			$registro['hachinski_verify_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Hachinski_Form');
+			$this->Model_Hachinski_Form->update($registro);
+			$this->auditlib->save_audit("Verified hachinski form");
+
+			redirect('subject/grid/'.$registro['id']);
+		}
+	}
+
+	public function hachinski_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("has validation errors updating hachinski signature");
+			$this->hachinski_show($registro['id']);
+		}
+		else {
+			$registro['hachinski_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['hachinskistatus'] = 'Document Approved and Signed by PI';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['hachinski_signature_user'] = $this->session->userdata('usuario');
+			$registro['hachinski_signature_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Hachinski_Form');
+			$this->Model_Hachinski_Form->update($registro);
+			$this->auditlib->save_audit("Sign hachinski form");
+
+			redirect('subject/grid/'.$registro['id']);
+		}
+	}
+
+	public function hachinski_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("has validation errors updating hachinski lock");
+			$this->hachinski_show($registro['id']);
+		}
+		else {
+			$registro['hachinski_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['hachinski_status'] = 'Form Approved and Locked';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['hachinski_lock_user'] = $this->session->userdata('usuario');
+			$registro['hachinski_lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Hachinski_Form');
+			$this->Model_Hachinski_Form->update($registro);
+			$this->auditlib->save_audit("Lock hachinski form");
+
+			redirect('subject/grid/'.$registro['id']);
+		}
+	}
+
+	public function historial_medico($id){
+		$data['contenido'] = 'subject/historial_medico';
+		$data['titulo'] = 'Historia Medica';
+		$data['subject'] = $this->Model_Subject->find($id);
+
+		$this->load->view('template', $data);
+	}
+
+	public function historial_medico_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');
+
+		if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1){
+			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'required|xss_clean');
+			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'required|xss_clean');
+			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'required|xss_clean');
+			$this->form_validation->set_rules('neurologico', 'Neurologico', 'required|xss_clean');
+			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'required|xss_clean');
+			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'required|xss_clean');
+			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'required|xss_clean');
+			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'required|xss_clean');
+			$this->form_validation->set_rules('hepatico', 'Hepatico', 'required|xss_clean');
+			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'required|xss_clean');
+			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'required|xss_clean');
+			$this->form_validation->set_rules('cancer', 'Cancer', 'required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
+			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'xss_clean');
+			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'xss_clean');
+			$this->form_validation->set_rules('neurologico', 'Neurologico', 'xss_clean');
+			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'xss_clean');
+			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'xss_clean');
+			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'xss_clean');
+			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'xss_clean');
+			$this->form_validation->set_rules('hepatico', 'Hepatico', 'xss_clean');
+			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'xss_clean');
+			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'xss_clean');
+			$this->form_validation->set_rules('cancer', 'Cancer', 'xss_clean');
+		}
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');
+
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar historial medico");
+			$this->historial_medico($registro['id']);
+		}
+		else {
+			
+		}
+	}
+
 }
