@@ -33,6 +33,14 @@ class Model_Historial_medico extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    function allWhereArray($where) {
+        $this->db->select('historial_medico.*');
+        $this->db->from('historial_medico');        
+        $this->db->where($where);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     function find($id) {
     	$this->db->where('id', $id);

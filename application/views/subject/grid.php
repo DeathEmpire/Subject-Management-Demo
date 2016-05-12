@@ -30,33 +30,34 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td><?= img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));?> = New Record</td>
-			<td><?= img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));?> = Record Contains Error(s)</td>
-			<td><?= img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));?> = Form Approved and Locked</td>
-			<td><?= img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));?> = Form Approved by Monitor</td>
+			<td><?= img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));?> = Nuevo Registro</td>
+			<td><?= img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));?> = El Registro Tiene Errores</td>
+			<td><?= img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));?> = Formulario Aprovado y Cerrado</td>
+			<td><?= img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));?> = Formulario Aprovado por el Monitor</td>
 		</tr>
 		<tr>
-			<td><?= img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));?> = Record Complete</td>
-			<td><?= img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));?> = Document Approved and Signed by PI</td>
-			<td colspan='2'><?= img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));?> = Open Monitor Messagge(s)</td>
+			<td><?= img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));?> = Registro Completo</td>
+			<td><?= img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));?> = Documento Aprovado y Firmado por el PI</td>
+			<td colspan='2'><?= img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));?> = Mensaje Abierto del Monitor</td>
 		</tr>
 	</tbody>
 </table>
 
 
 <b>Visitas Programadas:</b>
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered table-striped table-hover">
 	<thead>
 		<tr style='background-color: #C0C0C0;'>
 			<th rowspan='2' style='text-align:center;vertical-align:middle;'>Actividad del Protocolo</th>
-			<th colspan='5' style='text-align:center;'>Intervalo de Visitas</th>
+			<th colspan='6' style='text-align:center;'>Intervalo de Visitas</th>
 		</tr>
 		<tr style='background-color: #C0C0C0;'>
-			<th>Seleccion (Día 28 a Basal)</th>
+			<th>Selección (Día 28 a Basal)</th>
 			<th>Basal Día 1</th>
 			<th>Semana 4</th>
 			<th>Semana 12</th>
-			<th>Semana 24/ término del estudio/ terminación temprana (+/- 4 días)</th>		
+			<th>Semana 24/ Término del Estudio/ (+/- 4 días)</th>		
+			<th>Terminación Temprana</th>
 		</tr>
 	</thead>
 	<tbody>		
@@ -94,6 +95,7 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
 			<td>Criterios de Inclusion/Exclusion</td>
@@ -102,11 +104,81 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
 			<td>Historia Médica</td>
-			<td style='text-align:center;'><?= anchor('subject/historial_medico/'.$subject->id, $icon); ?></td>
-			<td style='text-align:center;'><?= anchor('subject/historial_medico/'.$subject->id, $icon); ?></td>
+			<?php
+				if(empty($subject->historial_medico_1_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/historial_medico/'.$subject->id ."/1";
+				}
+				elseif ($subject->historial_medico_1_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->historial_medico_1_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->historial_medico_1_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->historial_medico_1_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->historial_medico_1_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->historial_medico_1_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/1";
+				}
+				else{
+					$icon = '*';		
+				}
+				
+			?>			
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<?php
+				if(empty($subject->historial_medico_2_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/historial_medico/'.$subject->id ."/2";
+				}
+				elseif ($subject->historial_medico_2_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->historial_medico_2_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->historial_medico_2_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->historial_medico_2_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->historial_medico_2_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->historial_medico_2_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+				}
+				else{
+					$icon = '*';		
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
@@ -116,6 +188,7 @@
 			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
 		</tr>
@@ -162,10 +235,12 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
 			<td>Pruebas de Laboratorio</td>
 			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
@@ -178,6 +253,7 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
 			<td>RNM o TC</td>
@@ -186,9 +262,11 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
 			<td>Examen físico</td>
+			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
@@ -202,6 +280,7 @@
 			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
 			<td>Signos vitales/peso</td>
@@ -210,89 +289,10 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>ADAS-cog</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
 			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
-			<td>NPI</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>TMT A</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>TMT B</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>Prueba de dígito directo</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>Prueba de restas seriadas</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>Escala de evaluación de apatía</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>EQ-5D-3L</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>Cumplimiento</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>Muestras de sangre para estudio de biomarcadores</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-		</tr>
-		<tr>
-			<td>Randomization YA NO EXISTE</td> 
+			<td>Randomizacion</td> 
 
 			<?php
 				#print_r($subject);
@@ -322,11 +322,111 @@
 				}
 				
 			?>
-			<td style='text-align:center;'>-</td>
+			<td style='text-align:center;'></td>
 			<td style='text-align:center;'><?= anchor('subject/randomization/'.$subject->id, $icon);?></td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
-			<td style='text-align:center;'>-</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+		</tr>
+		<tr>
+			<td>ADAS-cog</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>NPI</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>TMT A</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>TMT B</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Prueba de dígito directo</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Prueba de restas seriadas</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Escala de evaluación de apatía</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>EQ-5D-3L</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Cumplimiento</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Muestras de sangre para estudio de biomarcadores</td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
+		</tr>
+		<tr>
+			<td>Fin de Tratamieto</td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'>X</td>
+			<td style='text-align:center;'>X</td>
 		</tr>
 	</tbody>
 </table>
@@ -334,11 +434,11 @@
 <!--<small>*Note: If any unscheduled visits ocurr during these study days, please record de information on the applicable case report form (CRFs) under the section "Unscheduled Events".</small>-->
 
 <br />&nbsp;<br />
-<b>Aditional Forms:</b>
+<b>Formularios Adicionales:</b>
 <table class='table table-condensed table-bordered'>
 	<thead>
 		<tr style='background-color: #C0C0C0;'>
-			<th>Form</th>
+			<th>Formulario</th>
 			<th colspan='2'>Links</th>
 		</tr>
 	</thead>

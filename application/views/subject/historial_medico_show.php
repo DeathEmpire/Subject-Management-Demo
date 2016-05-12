@@ -1,17 +1,3 @@
-<script type="text/javascript">
-$(function(){
-	$("#fecha").datepicker();
-
-	$("input[name=hallazgo]").click(function(){
-		if($(this).val() == 1){
-			//todos los campos habilitados.
-		}
-		else{
-			//todos los campos bloqueados.
-		}
-	});
-});
-</script>
 <div class="row">
 		<legend style='text-align:center;'>Historia Medica</legend>
 		<b>Sujeto Actual:</b>
@@ -38,7 +24,8 @@ $(function(){
 			</tbody>
 		</table>
 		<br />
-<?php
+
+		<?php
 	$data = array(
         'name'        => 'hallazgo',                
         'value'       => '1',            
@@ -49,14 +36,17 @@ $(function(){
         'value'       => '0',
         'checked'     => set_radio('hallazgo', 0),           
         );
+
+    if(isset($list) AND !empty($list)){
 ?>
 
-	<?= form_open('subject/historial_medico_insert', array('class'=>'form-horizontal')); ?>
+	<?= form_open('subject/historial_medico_update', array('class'=>'form-horizontal')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 
 	<?= form_hidden('subject_id', $subject->id); ?>
 	<?= form_hidden('etapa', $etapa); ?>
+	<?= form_hidden('estado_anterior', $list[0]->estado); ?>
 
 		<table class='table table-striped table-hover table-bordered table-condensed'>
 			<tr>
@@ -71,84 +61,84 @@ $(function(){
 				<td>Cardiovascular: </td>
 				<td>
 					<?= form_radio(array('name'=>'cardiovascular','value'=>'1','checked'=>set_radio('cardiovascular', 1))); ?> Si
-					<?= form_radio(array('name'=>'cardiovascular','value'=>'0','checked'=>set_radio('cardiovascular', 0))); ?> No
+					<?= form_radio(array('name'=>'cardiovascular','value'=>'0','checked'=>set_radio('cardiovascular', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Vascular Periferico: </td>
 				<td>
 					<?= form_radio(array('name'=>'periferico','value'=>'1','checked'=>set_radio('periferico', 1))); ?> Si
-					<?= form_radio(array('name'=>'periferico','value'=>'0','checked'=>set_radio('periferico', 0))); ?> No
+					<?= form_radio(array('name'=>'periferico','value'=>'0','checked'=>set_radio('periferico', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Oidos y Garganta: </td>
 				<td>
 					<?= form_radio(array('name'=>'oidos','value'=>'1','checked'=>set_radio('oidos', 1))); ?> Si
-					<?= form_radio(array('name'=>'oidos','value'=>'0','checked'=>set_radio('oidos', 0))); ?> No
+					<?= form_radio(array('name'=>'oidos','value'=>'0','checked'=>set_radio('oidos', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Neurologico: </td>
 				<td>
 					<?= form_radio(array('name'=>'neurologico','value'=>'1','checked'=>set_radio('neurologico', 1))); ?> Si
-					<?= form_radio(array('name'=>'neurologico','value'=>'0','checked'=>set_radio('neurologico', 0))); ?> No
+					<?= form_radio(array('name'=>'neurologico','value'=>'0','checked'=>set_radio('neurologico', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Pulmones/Respiratorio: </td>
 				<td>
 					<?= form_radio(array('name'=>'pulmones','value'=>'1','checked'=>set_radio('pulmones', 1))); ?> Si
-					<?= form_radio(array('name'=>'pulmones','value'=>'0','checked'=>set_radio('pulmones', 0))); ?> No
+					<?= form_radio(array('name'=>'pulmones','value'=>'0','checked'=>set_radio('pulmones', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Renal/Urinario: </td>
 				<td>
 					<?= form_radio(array('name'=>'renal','value'=>'1','checked'=>set_radio('renal', 1))); ?> Si
-					<?= form_radio(array('name'=>'renal','value'=>'0','checked'=>set_radio('renal', 0))); ?> No
+					<?= form_radio(array('name'=>'renal','value'=>'0','checked'=>set_radio('renal', 0))); ?> N0
 				</td>
 			</tr>			
 			<tr>
 				<td>Ginecologico: </td>
 				<td>
 					<?= form_radio(array('name'=>'ginecologico','value'=>'1','checked'=>set_radio('ginecologico', 1))); ?> Si
-					<?= form_radio(array('name'=>'ginecologico','value'=>'0','checked'=>set_radio('ginecologico', 0))); ?> No
+					<?= form_radio(array('name'=>'ginecologico','value'=>'0','checked'=>set_radio('ginecologico', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Endocrino/Metabolico: </td>
 				<td>
 					<?= form_radio(array('name'=>'endocrino','value'=>'1','checked'=>set_radio('endocrino', 1))); ?> Si
-					<?= form_radio(array('name'=>'endocrino','value'=>'0','checked'=>set_radio('endocrino', 0))); ?> No
+					<?= form_radio(array('name'=>'endocrino','value'=>'0','checked'=>set_radio('endocrino', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Hepatico: </td>
 				<td>
 					<?= form_radio(array('name'=>'hepatico','value'=>'1','checked'=>set_radio('hepatico', 1))); ?> Si
-					<?= form_radio(array('name'=>'hepatico','value'=>'0','checked'=>set_radio('hepatico', 0))); ?> No
+					<?= form_radio(array('name'=>'hepatico','value'=>'0','checked'=>set_radio('hepatico', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Gastrointestinal: </td>
 				<td>
 					<?= form_radio(array('name'=>'gastrointestinal','value'=>'1','checked'=>set_radio('gastrointestinal', 1))); ?> Si
-					<?= form_radio(array('name'=>'gastrointestinal','value'=>'0','checked'=>set_radio('gastrointestinal', 0))); ?> No
+					<?= form_radio(array('name'=>'gastrointestinal','value'=>'0','checked'=>set_radio('gastrointestinal', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Muscular/Esqueletico: </td>
 				<td>
 					<?= form_radio(array('name'=>'muscular','value'=>'1','checked'=>set_radio('muscular', 1))); ?> Si
-					<?= form_radio(array('name'=>'muscular','value'=>'0','checked'=>set_radio('muscular', 0))); ?> No
+					<?= form_radio(array('name'=>'muscular','value'=>'0','checked'=>set_radio('muscular', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
 				<td>Cancer: </td>
 				<td>
 					<?= form_radio(array('name'=>'cancer','value'=>'1','checked'=>set_radio('cancer', 1))); ?> Si
-					<?= form_radio(array('name'=>'cancer','value'=>'0','checked'=>set_radio('cancer', 0))); ?> No
+					<?= form_radio(array('name'=>'cancer','value'=>'0','checked'=>set_radio('cancer', 0))); ?> N0
 				</td>
 			</tr>
 			<tr>
@@ -160,4 +150,6 @@ $(function(){
 			</tr>			
 		</table>
 	<?= form_close(); ?>
+
+	<?php }?>
 </div>

@@ -612,8 +612,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', 'subject_id', 'xss_clean');
 		$this->form_validation->set_rules('total', 'Total', 'xss_clean');
 
-		if ($this->form_validation->run() == TRUE) {
-     		$save = $this->input->post();
+		if ($this->form_validation->run() == TRUE) {     		
 
      		$save['created_at'] = date('Y/m/d H:i:s');		
      		$save['updated_at'] = date('Y/m/d H:i:s');		
@@ -625,7 +624,7 @@ class Subject extends CI_Controller {
      		$this->Model_Hachinski_Form->insert($save);
      		$this->auditlib->save_audit("Escala de Hachinski ingresada");
 
-     		$this->hachinski_show($id);
+     		redirect('subject/hachinski_show/'. $id);
 
         }
         else {						
@@ -636,6 +635,17 @@ class Subject extends CI_Controller {
 	}
 	public function hachinski_update(){
 		
+		$save = $this->input->post();
+		$save['updated_at'] = date('Y/m/d H:i:s');
+
+		$id = $save['subject_id'];
+
+		$this->load->model('Model_Hachinski_Form');
+ 		$this->Model_Hachinski_Form->update($save,$save['id']);
+ 		$this->auditlib->save_audit("Escala de Hachinski Modificada");
+
+ 		redirect('subject/hachinski_show/'. $id);
+
 	}
 	
 	public function hachinski_show($id){
@@ -727,10 +737,11 @@ class Subject extends CI_Controller {
 		}
 	}
 
-	public function historial_medico($id){
+	public function historial_medico($id,$etapa){
 		$data['contenido'] = 'subject/historial_medico';
 		$data['titulo'] = 'Historia Medica';
 		$data['subject'] = $this->Model_Subject->find($id);
+		$data['etapa'] = $etapa;
 
 		$this->load->view('template', $data);
 	}
@@ -738,7 +749,7 @@ class Subject extends CI_Controller {
 	public function historial_medico_insert(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 
 		if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1){
 			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'required|xss_clean');
@@ -776,8 +787,46 @@ class Subject extends CI_Controller {
 			$this->historial_medico($registro['id']);
 		}
 		else {
-			
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			$registro['estado'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+
+			$this->load->model("Model_Historial_medico");
+			$this->Model_Historial_medico->insert($registro);
+
+			$this->auditlib->save_audit("Historial Medico Ingresado");
+
+     		$this->historial_medico_show($registro['subject_id'],$registro['etapa']);
 		}
 	}
 
-}
+	public function historial_medico_show($id,$etapa){
+		$data['contenido'] = 'subject/historial_medico_show';
+		$data['titulo'] = 'Historia Medica';
+		$data['subject'] = $this->Model_Subject->find($id);
+		$data['etapa'] = $etapa;
+
+		$this->load->model("Model_Historial_medico");
+		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$id, 'etapa'=>$etapa));
+
+		$this->load->view('template', $data);
+	}
+
+	public function historial_medico_update($id,$etapa){
+
+		$registro = $this->input->post();
+	}
+
+	public function historial_medico_verify(){
+
+	}
+	
+	public function historial_medico_signature(){
+
+	}
+
+	public function historial_medico_lock(){
+
+	}
+} 

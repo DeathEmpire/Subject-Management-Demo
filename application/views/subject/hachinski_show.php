@@ -65,6 +65,7 @@ $(function(){
 			
 				<input type='hidden' name='total' id='total' value='<?php echo $list[0]->total; ?>' />
 				<input type='hidden' name='subject_id' id='subject_id' value='<?php echo $subject->id; ?>' />
+				<input type='hidden' name='id' value='<?php echo $list[0]->id; ?>' />
 				<input type='hidden' name='last_status' id='last_status' value='<?php echo $subject->hachinski_status; ?>' />
 				<table class="table table-condensed table-bordered table-striped table-hover">
 					<tr>
@@ -171,9 +172,9 @@ $(function(){
 			<?php } ?>
 			<!-- Verify -->
 			<b>Monitor Approve:</b><br />
-				<?php if(!empty($subject->demography_verify_user) AND !empty($subject->demography_verify_date)){ ?>
+				<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
 					
-					This form was approved by <?= $subject->demography_verify_user;?> on <?= date("d-M-Y",strtotime($subject->demography_verify_date));?>
+					Este formulario fue aprobado por <?= $list[0]->verify_user;?> on <?= date("d-M-Y",strtotime($list[0]->verify_date));?>
 				
 				<?php
 				}
@@ -188,12 +189,12 @@ $(function(){
 					<?= form_hidden('id', $subject->id); ?>
 					<?= form_hidden('current_status', $subject->hachinski_status); ?>
 						
-					<?= form_button(array('type'=>'submit', 'content'=>'Verify Form', 'class'=>'btn btn-primary')); ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Aprovar Formulario', 'class'=>'btn btn-primary')); ?>
 
 					<?= form_close(); ?>
 
 			<?php }else{
-					echo "This form has not yet been Approved";
+					echo "Este formulario aun no na sido aprovado";
 					}
 				}
 			?>
@@ -201,9 +202,9 @@ $(function(){
 
 			<!--Signature/Lock-->
 			<br /><b>Lock:</b><br />
-				<?php if(!empty($subject->hachinski_lock_user) AND !empty($subject->hachinski_lock_date)){ ?>
+				<?php if(!empty($list[0]->lock_user) AND !empty($list[0]->lock_date)){ ?>
 					
-					This form was locked by <?= $subject->hachinski_lock_user;?> on <?= date("d-M-Y",strtotime($subject->hachinski_lock_date));?>
+					Este formulario fue cerrado por <?= $list[0]->lock_user;?> on <?= date("d-M-Y",strtotime($list[0]->lock_date));?>
 				
 				<?php
 				}
@@ -217,21 +218,21 @@ $(function(){
 					<?= form_hidden('id', $subject->id); ?>
 					<?= form_hidden('current_status', $subject->hachinski_status); ?>
 						
-					<?= form_button(array('type'=>'submit', 'content'=>'Lock Form', 'class'=>'btn btn-primary')); ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
 					<?= form_close(); ?>
 
 			<?php }else{
-					echo "This form has not yet been locked";
+					echo "Este formulario aun no ha sido cerrado";
 					}
 				}
 			?>
 			<br />
 			<!--Signature-->
 				<br /><b>Signature:</b><br />
-				<?php if(!empty($subject->dhachinski_signature_user) AND !empty($subject->hachinski_signature_date)){ ?>
+				<?php if(!empty($list[0]->signature_user) AND !empty($list[0]->signature_date)){ ?>
 					
-					This form was signed by <?= $subject->dhachinski_signature_user;?> on <?= date("d-M-Y",strtotime($subject->hachinski_signature_date));?>
+					Este formulario fue firmado por <?= $list[0]->signature_user;?> on <?= date("d-M-Y",strtotime($list[0]->signature_date));?>
 				
 				<?php
 				}
@@ -246,12 +247,12 @@ $(function(){
 					<?= form_hidden('id', $subject->id); ?>
 					<?= form_hidden('current_status', $subject->hachinski_status); ?>
 						
-					<?= form_button(array('type'=>'submit', 'content'=>'Add Signature', 'class'=>'btn btn-primary')); ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
 					<?= form_close(); ?>
 
 			<?php }else{
-					echo "This form has not yet been signed";
+					echo "Este formulario aun no ha sido firmado";
 					}
 				}
 			?>
