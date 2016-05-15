@@ -1,23 +1,22 @@
 
-<legend style='text-align:center;'> Subject Report </legend>
+<legend style='text-align:center;'> Sujetos </legend>
 
 
 <?= form_open('subject/search', array('class'=>'form-search')); ?>
-	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Search by id...', 'class'=>'input-medium search-query')); ?>	
+	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Buscar por id...', 'class'=>'input-medium search-query')); ?>	
 	<span class="input-group-btn">
-    	<button class="btn btn-default" type="submit">Search</button>
+    	<button class="btn btn-default" type="submit">Buscar</button>
     </span>
-	<?= anchor('subject/create', 'New', array('class'=>'btn btn-primary')); ?>
+	<?= anchor('subject/create', '+ Nuevo', array('class'=>'btn btn-primary')); ?>
 <?= form_close(); ?>
-
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th> Subject ID </th>
-			<th> Center </th>
-			<th> Initials </th>
-			<th> Enrollement Date </th>
-			<th> Randomization Date </th>			
+			<th> ID del sujeto </th>
+			<th> Centro </th>
+			<th> Iniciales </th>
+			<th> Fecha de Ingreso </th>
+			<th> Fecha de Randomizacion </th>			
 		</tr>
 	</thead>
 

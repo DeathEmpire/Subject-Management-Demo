@@ -1,7 +1,6 @@
 <script type="text/javascript">
 $(function(){
 	$("#birth_date").datepicker();
-	$("#sign_consent_date").datepicker();
 });
 </script>
 <legend style='text-align:center;'>Demografia</legend>
@@ -42,109 +41,75 @@ $(function(){
 	</div>
 <?php }?>
 
-<?= form_open('subject/demography_update', array('class'=>'form-horizontal')); ?>    
+<?= form_open('subject/inclusion_insert', array('class'=>'form-horizontal')); ?>    
 	
-	<?= form_hidden('id', $subject->id); ?>
+	<?= form_hidden('subject_id', $subject->id); ?>
+	<?= form_hidden('etapa', $etapa); ?>
 
     <?= my_validation_errors(validation_errors()); ?>
 
     <table class="table table-condensed table-bordered table-striped">
-       	<?php
-       		$sign_consent_1 = array(
-			    'name'        => 'sign_consent',			    
-			    'value'       => 1,		    			    
-			    );
-	   		$sign_consent_0 = array(
-			    'name'        => 'sign_consent',			    
-			    'value'       => 0,		    			    
-			    );
-       	?>
-
-       	<tr>
-       		<td style='font-weight:bold;'>1.- Consentimiento Informado</td>
-       	<tr>
-       	<tr>	
-       		<td>a.- Firmado: </td>
-       		<td>
-       			<?= form_radio($sign_consent_1,$sign_consent_1['value'],set_radio($sign_consent_1['name'],$sign_consent_1['value'],($sign_consent_1['value'] == $subject->sign_consent) ? true : false)); ?> Si
-	        	<?= form_radio($sign_consent_0,$sign_consent_0['value'],set_radio($sign_consent_0['name'],$sign_consent_0['value'],($sign_consent_0['value'] == $subject->sign_consent) ? true : false)); ?> No
-	        </td>
-       	</tr>
-       	<tr>       		
-       		<td>b.- Fecha: </td>
-       		<td><input type='text' name='sign_consent_date' id='sign_consent_date' value='<?php set_value('sign_consent_date', $subject->sign_consent_date);?>'></td>
-       	</tr>
-
-
-        <tr>
-        	<td style='font-weight:bold;'>2.- Demografia</td>
-        </tr>
-		
-		<tr>
-			<td>Iniciales Voluntario: </td>
-			<td><?= form_input(array('type'=>'text', 'name'=>'initials', 'id'=>'initials', 'maxlength'=>'3' , 'value'=>set_value('initials', $subject->initials) ) ); ?></td>
-		</tr>
-	
-		<tr>
-			<td>Edad: </td>
-			<td><?= form_input(array('type'=>'number', 'name'=>'edad', 'id'=>'edad', 'maxlength'=>'2' , 'value'=>set_value('edad', $subject->edad) ) ); ?></td>
-		</tr>
-		<?php
+           
+	    <?php
 		    $data = array(
-			    'name'        => 'gender',			    
-			    'value'       => 'male',		    
+			    'name'        => 'cumple_criterios',			    
+			    'value'       => 1,		    
 			    #'checked'	  => set_radio('gender', 'male', TRUE),
 			    );
 		  	$data2 = array(
-			    'name'        => 'gender',			    
-			    'value'       => 'female',
+			    'name'        => 'cumple_criterios',			    
+			    'value'       => 0,
 			    #'checked'	  => set_radio('gender', 'female', TRUE),		    
 			    );
 		      
 	    ?>
 	    <tr>
-	        <td><?= form_label('Sexo: ', 'gender', array('class'=>'control-label')); ?></td>
+	        <td>El paciente cumple con los criterios de inclusión/exclusión: </td>
 	        <td>
-	        	<?= form_radio($data,$data['value'],set_radio($data['name'],$data['value'],($data['value'] == $subject->gender) ? true : false)); ?> Masc
-	        	<?= form_radio($data2,$data2['value'],set_radio($data2['name'],$data2['value'],($data2['value'] == $subject->gender) ? true : false)); ?> Fem
+	        	<?= form_radio($data,$data['value'],set_radio($data['name'], true)); ?> Si <br>
+	        	<?= form_radio($data2,$data2['value'],set_radio($data2['name'], false)); ?> NO - Por favor reporte detalles más abajo
 	        </td>
-	    </tr> 
+	    </tr>        
 
-        <tr>        
-        	<td><?= form_label('Fecha de Nacimiento: ', 'birth_date', array('class'=>'control-label')); ?></td>
-        	<td><?= form_input(array('type'=>'text', 'name'=>'birth_date', 'id'=>'birth_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;','value'=>set_value('birth_date',$subject->birth_date))); ?></td>
-    	</tr>
-    
-	    
 		<tr>
-        	<td><?= form_label('Etnia/Raza: ', 'race', array('class'=>'control-label')); ?></td>
-        	<td><?= form_input(array('type'=>'text', 'name'=>'race', 'id'=>'race', 'value'=>set_value('race',$subject->race))); ?></td>
-    	</tr>
-
-		<?php
-			$escolaridad = array(''=>'',
-								'Incompleta'=>'Incompleta',
-								'Cuarto Medio completo'=>'Cuarto Medio completo',
-								'Tecnica Incompleta'=>'Técnica Incompleta',
-								'Tecnica Completa'=>'Tecnica Completa',
-								'Universitaria Incompleta'=>'Universitaria Incompleta',
-								'Universitaria Completa'=>'Universitaria Completa',
-								'Post grado'=>'Post grado');
-		?>
-    	<tr>    		
-    		<td><?= form_label('Grado de Escolaridad: ', 'escolaridad', array('class'=>'control-label')); ?></td>
-    		<td><?= form_dropdown('escolaridad', $escolaridad, set_value('escolaridad',$subject->escolaridad)); ?></td>
-    	</tr>
+			<td colspan='2' style='font-weight:bold;'>Criterios de inclusión/ exclusión no respetados (Agregar entrada)</td>			
+		</tr>
+		<tr>
+			<td># Numero de Criterio</td>
+			<td>Comentarios</td>
+		</tr>
+		<tr>
+			<td><?=  form_input(array('type'=>'number','name'=>'numero[]')); ?></td>
+			<td><?=  form_input(array('type'=>'text','name'=>'comentario[]')); ?></td>
+		</tr>
+		<tr>
+			<td><?=  form_input(array('type'=>'number','name'=>'numero[]')); ?></td>
+			<td><?=  form_input(array('type'=>'text','name'=>'comentario[]')); ?></td>
+		</tr>
+		<tr>
+			<td><?=  form_input(array('type'=>'number','name'=>'numero[]')); ?></td>
+			<td><?=  form_input(array('type'=>'text','name'=>'comentario[]')); ?></td>
+		</tr>
+		<tr>
+			<td>Cuenta con la autorización del patrocinador para inclusión</td>
+			<td>
+				<?= form_radio(); ?> Si <br>
+				<?= form_radio(); ?> No <br>
+				<?= form_radio(); ?> No Aplica 
+			</td>
+		</tr>
+		
+	
 		
 		<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_update')){
 			?>
 	    <tr><td colspan='2' style='text-align:center;'>
 			<?php if(empty($subject->demography_signature_user) AND empty($subject->demography_lock_user) AND empty($subject->demography_verify_user)){ ?>
-				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>			
+				<?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>			
 			<?php }?>
 	        
-	        <?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
+	        <?= anchor('subject/grid/'. $subject->id, 'Back', array('class'=>'btn')); ?>
 	    </td></tr>
 	    <?php }?>
 	</table>

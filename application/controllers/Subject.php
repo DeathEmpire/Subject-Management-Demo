@@ -43,23 +43,13 @@ class Subject extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
-	public function insert() {
-		$registro = $this->input->post();
+	public function insert() {		
 
-		$this->form_validation->set_rules('initials', 'Initials', 'required|xss_clean');
-        $this->form_validation->set_rules('screening_date', 'Screening Date', 'required|xss_clean');   
-        $this->form_validation->set_rules('sign_consent', 'Sign Consent', 'required|xss_clean');           
-        $this->form_validation->set_rules('selection_criteria', 'Selection Criteria', 'required|xss_clean');
-
-        if(isset($registro->selection_criteria) AND $registro->selection_criteria == 0){
-        	$this->form_validation->set_rules('waiver_approving', 'Waiver Approvind Date', 'required|xss_clean');
-        }
-        else{
-        	$this->form_validation->set_rules('waiver_approving', 'Waiver Approvind Date', 'xss_clean');
-        }
+		$this->form_validation->set_rules('seguro', 'Esta seguro', 'required|xss_clean');
+       
 
         if ($this->form_validation->run() == FALSE) {
-        	$this->auditlib->save_audit("Has validation error creating new subject");
+        	$this->auditlib->save_audit("Error al tratar de crear un sujeto");
             $this->create();
         }
         else {				
@@ -85,13 +75,14 @@ class Subject extends CI_Controller {
 			}		
 
 
-			$registro['code'] = $center ."-". $num;
-			$registro['center'] = $this->session->userdata('center_id');
-			$registro['created'] = date('Y/m/d H:i:s');
-			$registro['updated'] = date('Y/m/d H:i:s');
+			$save['code'] = $center ."-". $num;
+			$save['center'] = $this->session->userdata('center_id');
+			$save['screening_date'] = date('Y-m-d');
+			$save['created'] = date('Y/m/d H:i:s');
+			$save['updated'] = date('Y/m/d H:i:s');
 			
-			$this->Model_Subject->insert($registro);			
-			$this->auditlib->save_audit("Create a new subject");
+			$this->Model_Subject->insert($save);			
+			$this->auditlib->save_audit("Creo un nuevo sujeto: ". $save['code']);
 			redirect('subject/index');
         }
 	}
@@ -123,17 +114,30 @@ class Subject extends CI_Controller {
 	public function update() {
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('initials', 'Initials', 'required|xss_clean');
-        $this->form_validation->set_rules('screening_date', 'Screening Date', 'required|xss_clean'); 
-        $this->form_validation->set_rules('center', 'Center', 'required|xss_clean');
+		$this->form_validation->set_rules('sign_consent', 'Firma Consentimiento', 'required|xss_clean');
+		if(isset($registro['sign_consent']) AND $registro['sign_consent'] == 1){
+			$this->form_validation->set_rules('sign_consent_date', 'Fecha Firma Consentimiento', 'required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('sign_consent_date', 'Fecha Firma Consentimiento', 'xss_clean');	
+		}
+		$this->form_validation->set_rules('initials', 'Iniciales', 'required|xss_clean');
+        $this->form_validation->set_rules('edad', 'Edad', 'required|xss_clean');
+        $this->form_validation->set_rules('gender', 'Sexo', 'required|xss_clean');
+        $this->form_validation->set_rules('birth_date', 'Fecha de Nacimiento', 'required|xss_clean');
+		$this->form_validation->set_rules('race', 'Etnia/Raza', 'required|xss_clean');
+		$this->form_validation->set_rules('escolaridad', 'Grado de escolaridad', 'required|xss_clean');        
+        $this->form_validation->set_rules('center', 'Centro', 'required|xss_clean');
+        $this->form_validation->set_rules('id', 'Id', 'required|xss_clean');
+        
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Has validation errors updating a subject");
+			$this->auditlib->save_audit("Error al editar datos demograficos del sujeto");
 			$this->edit($registro['id']);
 		}
 		else {
 			$registro['updated'] = date('Y/m/d H:i');
 			$this->Model_Subject->update($registro);
-			$this->auditlib->save_audit("Update a subject");
+			$this->auditlib->save_audit("Actualizo datos de demografia del sujeto");
 			redirect('subject/index');
 		}
 	}
@@ -829,4 +833,74 @@ class Subject extends CI_Controller {
 	public function historial_medico_lock(){
 
 	}
+
+	public function inclusion($subject_id, $etapa){
+
+		$data['contenido'] = 'subject/inclusion';
+		$data['titulo'] = '';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template', $data);			
+	}
+
+	public function inclusion_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+		$this->form_validation->set_rules('cumple_criterios', 'Cumple Criterio', 'required|xss_clean');
+		$this->form_validation->set_rules('autorizacion_patrocinador', 'Autorizacion Patrocinador', 'required|xss_clean');		
+
+		/*Validar si ingresa un numero o un comentario este tenga su par ya sea numero o comentario*/
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de inclusion exclusion");
+			$this->inclusion($registro['subject_id']);
+		}
+		else {
+			
+			$registro['estado'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+
+			/*Salvamos la lista de no respetados*/
+			$numeros = $registro['numero'];
+			$comentarios = $registro['comentario'];
+
+			unset($registro['numero']);
+			unset($registro['comentario']);
+
+			$this->load->model('Model_inclusion_exclusion');
+			$this->Model_inclusion_exclusion->insert($registro);
+
+			$nueva_id = $this->db->insert_id();
+
+			/*Ingresamos la lista de no respetados*/
+			$cant = count($numeros);
+
+			for($i=0; $i<$cant; $i++){				
+				$save['inclusion_exclusion_id'] = $nueva_id;
+				$save['numero_criterio'] = $numeros[$i];
+				$save['comentario'] = $comentarios[$i];
+				$save['created_at'] = date("Y-m-d H:i:s");
+				$save['updated_at'] = date("Y-m-d H:i:s");
+				$save['usuario_creacion'] = $this->session->userdata('usuario');
+
+				$this->load->model("Model_inclusion_exclusion_no_respetados");
+				$this->Model_inclusion_exclusion_no_respetados->insert($save);
+			}
+
+
+			$this->auditlib->save_audit("Critero de inclusion exclusion agregado");     		
+     		redirect('subject/inclusion_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}
+
+	public function inclusion_show($subject_id, $etapa){
+
+	}
+
 } 

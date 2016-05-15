@@ -21,7 +21,7 @@ if ( ! function_exists('my_validation_errors')) {
 		if ($errors) {
 			$salida = '<div class="alert alert-error">';
 			$salida = $salida.'<button type="button" class="close" data-dismiss="alert"> × </button>';
-			$salida = $salida.'<h4> Validation Errors </h4>';
+			$salida = $salida.'<h4> Validation Errores </h4>';
 			$salida = $salida.'<small><br />'. $list_ .'</small>';
 			$salida = $salida.'</div>';
 		}
@@ -34,15 +34,15 @@ if ( ! function_exists('my_validation_errors')) {
 if ( ! function_exists('my_menu_ppal')) {
 
 	function my_menu_ppal() {
-		$opciones = '<li>'.anchor('home/index', 'Home').'</li>';
+		$opciones = '<li>'.anchor('home/index', 'Inicio').'</li>';
 		// $opciones = $opciones.'<li>'.anchor('home/acerca_de', 'Acerca De').'</li>';
 
 		if (get_instance()->session->userdata('usuario')) {
-			$opciones = $opciones.'<li>'.anchor('home/cambio_clave', 'Change Password').'</li>';
-			$opciones = $opciones.'<li>'.anchor('home/salir', 'Sign Out').'</li>';
+			$opciones = $opciones.'<li>'.anchor('home/cambio_clave', 'Cambiar Clave').'</li>';
+			$opciones = $opciones.'<li>'.anchor('home/salir', 'Salir').'</li>';
 		}
 		else {
-			$opciones = $opciones.'<li>'.anchor('home/ingreso', 'Sign In').'</li>';
+			$opciones = $opciones.'<li>'.anchor('home/ingreso', 'Iniciar Sesion').'</li>';
 		}
 
 		return $opciones;

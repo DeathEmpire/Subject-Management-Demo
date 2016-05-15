@@ -1,5 +1,5 @@
-<legend style='text-align:center;'> Subject Record </legend>
-<b>Current Subject:</b>
+<legend style='text-align:center;'> Registro del Sujeto </legend>
+<b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
 		<tr style='background-color: #C0C0C0;'>
@@ -99,8 +99,76 @@
 		</tr>
 		<tr>
 			<td>Criterios de Inclusion/Exclusion</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
+			<?php
+				if(empty($subject->inclusion_exclusion_1_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/inclusion/'.$subject->id ."/1";
+				}
+				elseif ($subject->inclusion_exclusion_1_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->inclusion_exclusion_1_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->inclusion_exclusion_1_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->inclusion_exclusion_1_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->inclusion_exclusion_1_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->inclusion_exclusion_1_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/1";
+				}
+				else{
+					$icon = '*';		
+				}
+				
+			?>			
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<?php
+				if(empty($subject->inclusion_exclusion_2_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/inclusion/'.$subject->id ."/2";
+				}
+				elseif ($subject->inclusion_exclusion_2_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->inclusion_exclusion_2_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->inclusion_exclusion_2_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->inclusion_exclusion_2_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->inclusion_exclusion_2_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->inclusion_exclusion_2_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/inclusion_show/'.$subject->id ."/2";
+				}
+				else{
+					$icon = '*';		
+				}
+				
+			?>			
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>

@@ -10,7 +10,8 @@
 		<script src="<?= base_url('js/jquery-ui.js') ?>"></script>
     	<script src="<?= base_url('js/bootstrap.min.js') ?>"></script>
 		<link href="<?= base_url('css/jquery-ui.css') ?>" rel="stylesheet">
-		<title>Subject Management</title>
+        <link href="<?= base_url('css/font-awesome.css') ?>" rel="stylesheet">
+		<title>Manejo de Sujetos</title>
 	</head>
 
 	<body>
