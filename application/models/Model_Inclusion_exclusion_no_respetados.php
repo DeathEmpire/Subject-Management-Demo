@@ -33,7 +33,15 @@ class Model_inclusion_exclusion_no_respetados extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    
+    function allWhereArray($where) {
+        $this->db->select('inclusion_exclusion_no_respetados.*');
+        $this->db->from('inclusion_exclusion_no_respetados');        
+        $this->db->where($where);
 
+        $query = $this->db->get();
+        return $query->result();
+    }
     function find($id) {
     	$this->db->where('id', $id);
 		return $this->db->get('inclusion_exclusion_no_respetados')->row();

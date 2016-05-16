@@ -837,7 +837,7 @@ class Subject extends CI_Controller {
 	public function inclusion($subject_id, $etapa){
 
 		$data['contenido'] = 'subject/inclusion';
-		$data['titulo'] = '';
+		$data['titulo'] = 'Criterios de Inclusion/Exclusion';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
 
@@ -856,11 +856,17 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de inclusion exclusion");
-			$this->inclusion($registro['subject_id']);
+			$this->inclusion($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			
-			$registro['estado'] = "Record Complete";
+			if($registro['etapa'] == 1){				
+				$subjet_['inclusion_exclusion_1_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 2){
+				$subjet_['inclusion_exclusion_2_status'] = "Record Complete";
+			}
+
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
@@ -880,18 +886,23 @@ class Subject extends CI_Controller {
 			/*Ingresamos la lista de no respetados*/
 			$cant = count($numeros);
 
-			for($i=0; $i<$cant; $i++){				
-				$save['inclusion_exclusion_id'] = $nueva_id;
-				$save['numero_criterio'] = $numeros[$i];
-				$save['comentario'] = $comentarios[$i];
-				$save['created_at'] = date("Y-m-d H:i:s");
-				$save['updated_at'] = date("Y-m-d H:i:s");
-				$save['usuario_creacion'] = $this->session->userdata('usuario');
+			for($i=0; $i<$cant; $i++){
 
-				$this->load->model("Model_inclusion_exclusion_no_respetados");
-				$this->Model_inclusion_exclusion_no_respetados->insert($save);
+				if($numeros[$i] != '' AND $comentarios[$i] != ''){
+					$save['inclusion_exclusion_id'] = $nueva_id;
+					$save['numero_criterio'] = $numeros[$i];
+					$save['comentario'] = $comentarios[$i];
+					$save['created_at'] = date("Y-m-d H:i:s");
+					$save['updated_at'] = date("Y-m-d H:i:s");
+					$save['usuario_creacion'] = $this->session->userdata('usuario');
+
+					$this->load->model("Model_inclusion_exclusion_no_respetados");
+					$this->Model_inclusion_exclusion_no_respetados->insert($save);
+				}
 			}
 
+			/*Actualizamos el estado en el sujeto*/
+			$this->Model_Subject->update($subjet_,$registro['subject_id']);
 
 			$this->auditlib->save_audit("Critero de inclusion exclusion agregado");     		
      		redirect('subject/inclusion_show/'. $registro['subject_id'] ."/". $registro['etapa']);
@@ -900,7 +911,20 @@ class Subject extends CI_Controller {
 	}
 
 	public function inclusion_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/inclusion_show';
+		$data['titulo'] = 'Criterios de Inclusion/Exclusion';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		
+		/*Formulario para la etapa y sujeto correspondiente*/
+		$this->load->model('Model_inclusion_exclusion');
+		$data['list'] = $this->Model_inclusion_exclusion->allWhereArray(array('subject_id'=>'$subject_id', 'etapa'=>$etapa));
 
+		/*Buscar todos los numeros y comentarios asociados a este form*/		
+		$this->load->model("Model_inclusion_exclusion_no_respetados");
+		$data['no_respetados'] = $this->Model_inclusion_exclusion_no_respetados->allWhereArray(array('inclusion_exclusion_id'=>$data['list'][0]['id']));		
+
+		$this->load->view('template', $data);					
 	}
 
 } 

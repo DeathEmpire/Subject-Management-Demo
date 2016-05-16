@@ -18,7 +18,7 @@
 					<tr>
 						<td>Demography</td>
 						<td><?= $verify->code; ?></td>
-						<td><?= anchor('subject/demography/'. $verify->id, 'See', array('class'=>'btn')) ;?></td>						
+						<td><?= anchor('subject/demography/'. $verify->id, 'Ver', array('class'=>'btn')) ;?></td>						
 					</tr>
 
 				<?php }	?>
@@ -42,7 +42,7 @@
 					<tr>
 						<td>Demography</td>
 						<td><?= $lock->code; ?></td>
-						<td><?= anchor('subject/demography/'. $lock->id, 'See', array('class'=>'btn')) ;?></td>						
+						<td><?= anchor('subject/demography/'. $lock->id, 'Ver', array('class'=>'btn')) ;?></td>						
 					</tr>
 
 				<?php }	?>
@@ -66,7 +66,7 @@
 					<tr>
 						<td>Demography</td>
 						<td><?= $sign->code; ?></td>
-						<td><?= anchor('subject/demography/'. $sign->id, 'See', array('class'=>'btn')) ;?></td>						
+						<td><?= anchor('subject/demography/'. $sign->id, 'Ver', array('class'=>'btn')) ;?></td>						
 					</tr>
 
 				<?php }	?>
@@ -110,7 +110,7 @@
 				<tr>
 					<td><?= $query->form;?></td>
 					<td><?= $query->code;?></td>
-					<td><?= anchor($link, 'See', array('class'=>'btn'));?></td>
+					<td><?= anchor($link, 'Ver', array('class'=>'btn'));?></td>
 				</tr>	
 				
 			<?php }?>

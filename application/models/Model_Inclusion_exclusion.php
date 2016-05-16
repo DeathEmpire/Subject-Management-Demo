@@ -33,6 +33,14 @@ class Model_Inclusion_exclusion extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    function allWhereArray($where) {
+        $this->db->select('inclusion_exclusion.*');
+        $this->db->from('inclusion_exclusion');        
+        $this->db->where($where);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     function find($id) {
     	$this->db->where('id', $id);
