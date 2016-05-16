@@ -109,21 +109,25 @@ class Query extends CI_Controller {
 		$opened = $this->Model_Query->areOpenedQuery('Demography');
 	}
 
-	public function additional_form_query_new($subject_id = '', $form = ''){
+	public function additional_form_query_new($subject_id = '', $form = '', $etapa = ''){
 		
 		$registro = $this->input->post();
 
 		if(isset($registro['subject_id']) AND !empty($registro['subject_id']) AND isset($registro['form']) AND !empty($registro['form'])){
 			$subject_id = $this->input->post('subject_id');
 			$form = $this->input->post('form');
+			if(isset($registro['etapa']) AND !empty($registro['etapa'])){
+				$etapa = $this->input->post('etapa');
+			}			
 		}
 
 		$data['contenido'] = 'query/aditional';
-		$data['titulo'] = $form .' Form Query';				
+		$data['titulo'] = 'Consulta para el formulario de '. $form;
 		$data['subject'] = $this->Model_Subject->find($subject_id);
 		$data['form'] = $form;
+		$data['etapa'] = $etapa;
 
-		$this->auditlib->save_audit("Open ". $form ." query form");
+		$this->auditlib->save_audit("Abrio Formulario para nueva consulta de ". $form);
 
 		$this->load->view('template', $data);
 	}
@@ -131,10 +135,10 @@ class Query extends CI_Controller {
 	public function additional_form_query_insert(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('question', 'Question', 'required|xss_clean');
+		$this->form_validation->set_rules('question', 'Consulta', 'required|xss_clean');
         
         if ($this->form_validation->run() == FALSE) {
-        	$this->auditlib->save_audit("Has validation error creating new ". $registro['form'] ." query");
+        	$this->auditlib->save_audit("Tiene errores agregando una consulta en el formulario de ". $registro['form']);
             $this->additional_form_query_new($registro['subject_id'],$registro['form']);
         }
         else {	
@@ -144,7 +148,7 @@ class Query extends CI_Controller {
 			
 			$this->Model_Query->insert($registro);
 
-			$this->auditlib->save_audit("Add new ". $registro['form'] ." query");
+			$this->auditlib->save_audit("Agrego una nueva consula al formulario de ". $registro['form']);
 
 			if($registro['form'] == 'Adverse Event'){
 				redirect('subject/adverse_event_show/'. $registro['subject_id']);
@@ -155,6 +159,13 @@ class Query extends CI_Controller {
 			elseif ($registro['form'] == 'Concomitant Medication') {
 				redirect('subject/concomitant_medication_show/'. $registro['subject_id']);
 			}
+			elseif($registro['form'] == 'Historial Medico'){
+				redirect('subject/historial_medico_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Inclusion Exclusion'){
+				redirect('subject/inclusion_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+
 			
 		}
 
@@ -165,13 +176,13 @@ class Query extends CI_Controller {
 		$form = urldecode($form);
 
 		$data['contenido'] = 'query/aditional_answer';
-		$data['titulo'] = $form .' Form Answer';				
+		$data['titulo'] = 'Respuesta para el formulario '. $form;				
 		$data['subject'] = $this->Model_Subject->find($subject_id);
 		
 		$data['query'] = $this->Model_Query->find($query_id);
 		$data['form'] = $form;
 
-		$this->auditlib->save_audit("Open ". $form ." answer form");				
+		$this->auditlib->save_audit("Abrio el formulario para agregar una respuesta en el formulario ". $form);				
 
 		$this->load->view('template', $data);
 	}
@@ -179,10 +190,10 @@ class Query extends CI_Controller {
 	public function additional_form_query_update(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('answer', 'Answer', 'required|xss_clean');
+		$this->form_validation->set_rules('answer', 'Respuesta', 'required|xss_clean');
         
         if ($this->form_validation->run() == FALSE) {
-        	$this->auditlib->save_audit("Has validation error answering ". $registro['form'] ." query");
+        	$this->auditlib->save_audit("Tiene errores de validacion agregando una respuesta en el formulario de ". $registro['form']);
             $this->additional_form_query_show($registro['subject_id'],$registro['id'],$registro['form']);
         }
         else {	
@@ -192,7 +203,7 @@ class Query extends CI_Controller {
 			
 			$this->Model_Query->update($registro);			
 
-			$this->auditlib->save_audit("Answer a ". $registro['form'] ." query");
+			$this->auditlib->save_audit("Respondia en el formulario de ". $registro['form']);
 
 			if($registro['form'] == 'Adverse Event'){
 				redirect('subject/adverse_event_show/'. $registro['subject_id']);
@@ -202,6 +213,12 @@ class Query extends CI_Controller {
 			}
 			elseif ($registro['form'] == 'Concomitant Medication') {
 				redirect('subject/concomitant_medication_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Historial Medico'){
+				redirect('subject/historial_medico_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Inclusion Exclusion'){
+				redirect('subject/inclusion_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
 			}
 			
 		}

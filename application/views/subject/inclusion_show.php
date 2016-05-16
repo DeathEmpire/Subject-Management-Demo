@@ -34,8 +34,10 @@ $(function(){
 		
 ?>
 	<div id='new_query' style='text-align:right;'>
-		<?= form_open('query/inclusion_query_new', array('class'=>'form-horizontal')); ?>
-		<?= form_hidden('id', $subject->id); ?>
+		<?= form_open('query/additional_form_query_new' , array('class'=>'form-horizontal')); ?>		
+		<?= form_hidden('subject_id', $subject->id); ?>
+		<?= form_hidden('form', "Inclusion Exclusion"); ?>
+		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_button(array('type'=>'submit', 'content'=>'Nueva Consulta', 'class'=>'btn btn-primary')); ?>
 		<?= form_close(); ?>
 	</div>
@@ -137,7 +139,7 @@ $(function(){
 						<?php
 							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'inclusion_query_show')){
 						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/inclusion_query_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
+							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
 						<?php }else{?>
 							<td><?= $query->answer; ?></td>
 						<?php }?>
@@ -164,7 +166,9 @@ $(function(){
 		){
 	?>
 		<?= form_open('subject/inclusion_verify', array('class'=>'form-horizontal')); ?>    	
-		<?= form_hidden('id', $subject->id); ?>
+		<?= form_hidden('subject_id', $subject->id); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
+		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $subject->inclusion_status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Aprobar', 'class'=>'btn btn-primary')); ?>
@@ -193,7 +197,9 @@ $(function(){
 			AND $subject->inclusion_status == 'Form Approved by Monitor'){
 	?>
 		<?= form_open('subject/inclusion_lock', array('class'=>'form-horizontal')); ?>    	
-		<?= form_hidden('id', $subject->id); ?>
+		<?= form_hidden('subject_id', $subject->id); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
+		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $subject->inclusion_status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
@@ -222,7 +228,9 @@ $(function(){
 		){
 	?>
 		<?= form_open('subject/inclusion_signature', array('class'=>'form-horizontal')); ?>    	
-		<?= form_hidden('id', $subject->id); ?>
+		<?= form_hidden('subject_id', $subject->id); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
+		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $subject->inclusion_status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>

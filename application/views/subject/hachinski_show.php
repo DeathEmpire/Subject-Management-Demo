@@ -186,7 +186,9 @@ $(function(){
 					){
 				?>
 					<?= form_open('subject/hachinski_verify', array('class'=>'form-horizontal')); ?>    	
-					<?= form_hidden('id', $subject->id); ?>
+					
+					<?= form_hidden('id', $list[0]->id); ?>
+					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('current_status', $subject->hachinski_status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Aprovar Formulario', 'class'=>'btn btn-primary')); ?>
@@ -214,8 +216,9 @@ $(function(){
 						AND strpos($_SESSION['role_options']['subject'], 'hachinski_lock')
 						AND $subject->demography_status == 'Form Approved by Monitor'){
 				?>
-					<?= form_open('subject/hachinski_lock', array('class'=>'form-horizontal')); ?>    	
-					<?= form_hidden('id', $subject->id); ?>
+					<?= form_open('subject/hachinski_lock', array('class'=>'form-horizontal')); ?>
+					<?= form_hidden('id', $list[0]->id); ?>    	
+					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('current_status', $subject->hachinski_status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
@@ -244,7 +247,8 @@ $(function(){
 					){
 				?>
 					<?= form_open('subject/hachinski_signature', array('class'=>'form-horizontal')); ?>    	
-					<?= form_hidden('id', $subject->id); ?>
+					<?= form_hidden('id', $list[0]->id); ?>    	
+					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('current_status', $subject->hachinski_status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>

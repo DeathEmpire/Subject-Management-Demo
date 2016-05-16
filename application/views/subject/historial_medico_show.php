@@ -153,3 +153,139 @@
 
 	<?php }?>
 </div>
+<!-- Querys -->
+			<?php
+				if(isset($querys) AND !empty($querys)){ ?>
+					<b>Querys:</b>
+					<table class="table table-condensed table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Date of Query</th>
+								<th>User</th>
+								<th>Question</th>
+								<th>Date of Answer</th>
+								<th>User</th>
+								<th>Answer</th>					
+							</tr>
+						</thead>
+						<tbody>
+							
+						<?php
+							foreach ($querys as $query) { ?>
+								<tr>
+									<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
+									<td><?= $query->question_user; ?></td>
+									<td><?= $query->question; ?></td>						
+									<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
+									<td><?= $query->answer_user; ?></td>
+									<?php
+										if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'hachinski_query_show')){
+									?>
+										<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
+									<?php }else{?>
+										<td><?= $query->answer; ?></td>
+									<?php }?>
+								</tr>					
+						<?php }?>	
+
+						</tbody>
+					</table>
+
+			<?php } ?>
+			<!-- Verify -->
+			<b>Monitor Approve:</b><br />
+				<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
+					
+					Este formulario fue aprobado por <?= $list[0]->verify_user;?> on <?= date("d-M-Y",strtotime($list[0]->verify_date));?>
+				
+				<?php
+				}
+				else{
+				
+					if(isset($_SESSION['role_options']['subject']) 
+						AND strpos($_SESSION['role_options']['subject'], 'historial_medico_verify') 
+						AND $subject->demography_status == 'Record Complete'
+					){
+				?>
+					<?= form_open('subject/historial_medico_verify', array('class'=>'form-horizontal')); ?>    	
+					
+					<?= form_hidden('id', $list[0]->id); ?>
+					<?= form_hidden('subject_id', $subject->id); ?>
+					<?= form_hidden('etapa', $etapa); ?>
+					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+						
+					<?= form_button(array('type'=>'submit', 'content'=>'Aprovar Formulario', 'class'=>'btn btn-primary')); ?>
+
+					<?= form_close(); ?>
+
+			<?php }else{
+					echo "Este formulario aun no na sido aprovado";
+					}
+				}
+			?>
+			<br />
+
+			<!--Signature/Lock-->
+			<br /><b>Lock:</b><br />
+				<?php if(!empty($list[0]->lock_user) AND !empty($list[0]->lock_date)){ ?>
+					
+					Este formulario fue cerrado por <?= $list[0]->lock_user;?> on <?= date("d-M-Y",strtotime($list[0]->lock_date));?>
+				
+				<?php
+				}
+				else{
+				
+					if(isset($_SESSION['role_options']['subject']) 
+						AND strpos($_SESSION['role_options']['subject'], 'historial_medico_lock')
+						AND $subject->demography_status == 'Form Approved by Monitor'){
+				?>
+					<?= form_open('subject/historial_medico_lock', array('class'=>'form-horizontal')); ?>
+					<?= form_hidden('id', $list[0]->id); ?>    	
+					<?= form_hidden('subject_id', $subject->id); ?>
+					<?= form_hidden('etapa', $etapa); ?>
+					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+						
+					<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
+
+					<?= form_close(); ?>
+
+			<?php }else{
+					echo "Este formulario aun no ha sido cerrado";
+					}
+				}
+			?>
+			<br />
+			<!--Signature-->
+				<br /><b>Signature:</b><br />
+				<?php if(!empty($list[0]->signature_user) AND !empty($list[0]->signature_date)){ ?>
+					
+					Este formulario fue firmado por <?= $list[0]->signature_user;?> on <?= date("d-M-Y",strtotime($list[0]->signature_date));?>
+				
+				<?php
+				}
+				else{
+				
+					if(isset($_SESSION['role_options']['subject']) 
+						AND strpos($_SESSION['role_options']['subject'], 'historial_medico_signature')
+						AND $subject->demography_status == 'Form Approved and Locked'
+					){
+				?>
+					<?= form_open('subject/historial_medico_signature', array('class'=>'form-horizontal')); ?>    	
+					<?= form_hidden('id', $list[0]->id); ?>    	
+					<?= form_hidden('subject_id', $subject->id); ?>
+					<?= form_hidden('etapa', $etapa); ?>
+					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+						
+					<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
+
+					<?= form_close(); ?>
+
+			<?php }else{
+					echo "Este formulario aun no ha sido firmado";
+					}
+				}
+			?>
+			<br />
+		<?php } ?>
+	</div>
+

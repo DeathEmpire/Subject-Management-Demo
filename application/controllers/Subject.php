@@ -666,78 +666,88 @@ class Subject extends CI_Controller {
 	public function hachinski_verify(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("has validation errors verifing demography form");
-			$this->hachinski_show($registro['id']);
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario hachinski");
+			$this->hachinski_show($registro['subject_id']);
 		}
 		else {
-			$registro['hachinski_last_status'] = $registro['current_status'];
+			$registro['last_status'] = $registro['current_status'];
 			unset($registro['current_status']);			
-			$registro['hachinski_status'] = 'Form Approved by Monitor';
-			$registro['updated'] = date('Y-m-d H:i:s');
-			$registro['hachinski_verify_user'] = $this->session->userdata('usuario');
-			$registro['hachinski_verify_date'] = date('Y-m-d');
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Hachinski_Form');
-			$this->Model_Hachinski_Form->update($registro);
-			$this->auditlib->save_audit("Verified hachinski form");
+			$this->Model_Hachinski_Form->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Verificacion de el formulario hachinski");
 
-			redirect('subject/grid/'.$registro['id']);
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved by Monitor'), $registro['subject_id']);
+
+			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
 
 	public function hachinski_signature(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("has validation errors updating hachinski signature");
-			$this->hachinski_show($registro['id']);
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario hachinski");
+			$this->hachinski_show($registro['subject_id']);
 		}
 		else {
-			$registro['hachinski_last_status'] = $registro['current_status'];
+			$registro['last_status'] = $registro['current_status'];
 			unset($registro['current_status']);			
-			$registro['hachinskistatus'] = 'Document Approved and Signed by PI';
-			$registro['updated'] = date('Y-m-d H:i:s');
-			$registro['hachinski_signature_user'] = $this->session->userdata('usuario');
-			$registro['hachinski_signature_date'] = date('Y-m-d');
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Hachinski_Form');
-			$this->Model_Hachinski_Form->update($registro);
-			$this->auditlib->save_audit("Sign hachinski form");
+			$this->Model_Hachinski_Form->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Firmo el formulario hachinski");
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI'), $registro['subject_id']);
 
-			redirect('subject/grid/'.$registro['id']);
+			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
 
 	public function hachinski_lock(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("has validation errors updating hachinski lock");
-			$this->hachinski_show($registro['id']);
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario hachinski");
+			$this->hachinski_show($registro['subject_id']);
 		}
 		else {
-			$registro['hachinski_last_status'] = $registro['current_status'];
+			$registro['last_status'] = $registro['current_status'];
 			unset($registro['current_status']);			
-			$registro['hachinski_status'] = 'Form Approved and Locked';
-			$registro['updated'] = date('Y-m-d H:i:s');
-			$registro['hachinski_lock_user'] = $this->session->userdata('usuario');
-			$registro['hachinski_lock_date'] = date('Y-m-d');
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Hachinski_Form');
-			$this->Model_Hachinski_Form->update($registro);
-			$this->auditlib->save_audit("Lock hachinski form");
+			$this->Model_Hachinski_Form->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Cerro el formulario hachinski");
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked'), $registro['subject_id']);
 
-			redirect('subject/grid/'.$registro['id']);
+			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
 
@@ -823,15 +833,91 @@ class Subject extends CI_Controller {
 	}
 
 	public function historial_medico_verify(){
+		$registro = $this->input->post();
 
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Inclusion Exclusion");
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Historial_medico');
+			$this->Model_Historial_medico->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion");
+
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('inclusion_status'=>'Form Approved by Monitor'), $registro['subject_id']);
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
-	
-	public function historial_medico_signature(){
 
+	public function historial_medico_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Inclusion Exclusion");
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Historial_medico');
+			$this->Model_Historial_medico->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion");
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI'), $registro['subject_id']);
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
 
 	public function historial_medico_lock(){
+		$registro = $this->input->post();
 
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Inclusion Exclusion");
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Historial_medico');
+			$this->Model_Historial_medico->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion");
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked'), $registro['subject_id']);
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
 
 	public function inclusion($subject_id, $etapa){
@@ -927,4 +1013,91 @@ class Subject extends CI_Controller {
 		$this->load->view('template', $data);					
 	}
 
+	public function inclusion_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Inclusion Exclusion");
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Inclusion_exclusion');
+			$this->Model_Inclusion_exclusion->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion");
+
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('inclusion_status'=>'Form Approved by Monitor'), $registro['subject_id']);
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	public function inclusion_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Inclusion Exclusion");
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Inclusion_exclusion');
+			$this->Model_Inclusion_exclusion->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion");
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI'), $registro['subject_id']);
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	public function inclusion_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Inclusion Exclusion");
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Inclusion_exclusion');
+			$this->Model_Inclusion_exclusion->update($registro,$registro['id']);
+			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion");
+			/*Actualizar estado en el sujeto*/
+			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked'), $registro['subject_id']);
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
 } 

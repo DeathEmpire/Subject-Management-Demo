@@ -45,6 +45,7 @@ $(function(){
 <?= form_open('subject/demography_update', array('class'=>'form-horizontal')); ?>    
 	
 	<?= form_hidden('id', $subject->id); ?>
+	<?= form_hidden('center', $subject->center); ?>
 
     <?= my_validation_errors(validation_errors()); ?>
 
