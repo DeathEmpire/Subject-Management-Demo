@@ -23,6 +23,19 @@
 				</tr>
 			</tbody>
 		</table>
+		<?php
+			if(isset($_SESSION['role_options']['query']) AND strstr($_SESSION['role_options']['query'], 'historial_medico_query_new')){
+				
+		?>
+			<div id='new_query' style='text-align:right;'>
+				<?= form_open('query/additional_form_query_new' , array('class'=>'form-horizontal')); ?>		
+				<?= form_hidden('subject_id', $subject->id); ?>
+				<?= form_hidden('form', "Historial Medico"); ?>
+				<?= form_hidden('etapa', $etapa); ?>
+				<?= form_button(array('type'=>'submit', 'content'=>'Nueva Consulta', 'class'=>'btn btn-primary')); ?>
+				<?= form_close(); ?>
+			</div>
+		<?php }?>
 		<br />
 
 		<?php
@@ -47,6 +60,7 @@
 	<?= form_hidden('subject_id', $subject->id); ?>
 	<?= form_hidden('etapa', $etapa); ?>
 	<?= form_hidden('estado_anterior', $list[0]->estado); ?>
+	<?= form_hidden('id', $list[0]->id); ?>
 
 		<table class='table table-striped table-hover table-bordered table-condensed'>
 			<tr>
@@ -179,7 +193,7 @@
 									<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
 									<td><?= $query->answer_user; ?></td>
 									<?php
-										if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'hachinski_query_show')){
+										if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'historial_medico_query_show')){
 									?>
 										<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
 									<?php }else{?>
@@ -212,14 +226,14 @@
 					<?= form_hidden('id', $list[0]->id); ?>
 					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('etapa', $etapa); ?>
-					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+					<?= form_hidden('current_status', $subject->historial_medico_status); ?>
 						
-					<?= form_button(array('type'=>'submit', 'content'=>'Aprovar Formulario', 'class'=>'btn btn-primary')); ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Aprobar Formulario', 'class'=>'btn btn-primary')); ?>
 
 					<?= form_close(); ?>
 
 			<?php }else{
-					echo "Este formulario aun no na sido aprovado";
+					echo "Este formulario aun no na sido aprobado";
 					}
 				}
 			?>
@@ -243,7 +257,7 @@
 					<?= form_hidden('id', $list[0]->id); ?>    	
 					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('etapa', $etapa); ?>
-					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+					<?= form_hidden('current_status', $subject->historial_medico_status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -274,7 +288,7 @@
 					<?= form_hidden('id', $list[0]->id); ?>    	
 					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('etapa', $etapa); ?>
-					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+					<?= form_hidden('current_status', $subject->historial_medico_status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 

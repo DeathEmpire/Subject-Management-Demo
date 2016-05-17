@@ -660,6 +660,9 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Hachinski_Form');
 		$data['list'] = $this->Model_Hachinski_Form->allWhere("subject_id", $id);
 		#echo $this->db->last_query();
+		
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Hachinski"));
+
 		$this->load->view('template', $data);
 	}	
 
@@ -764,7 +767,9 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
+		$this->form_validation->set_rules('hallazgo', 'Hallazgo', 'required|xss_clean');
 
+		/*Si se tiene algun hallazgo todo es obligatorio*/
 		if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1){
 			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'required|xss_clean');
 			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'required|xss_clean');
@@ -780,7 +785,7 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('cancer', 'Cancer', 'required|xss_clean');
 		}
 		else{
-			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
+			/*$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
 			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'xss_clean');
 			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'xss_clean');
 			$this->form_validation->set_rules('neurologico', 'Neurologico', 'xss_clean');
@@ -791,7 +796,7 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('hepatico', 'Hepatico', 'xss_clean');
 			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'xss_clean');
 			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'xss_clean');
-			$this->form_validation->set_rules('cancer', 'Cancer', 'xss_clean');
+			$this->form_validation->set_rules('cancer', 'Cancer', 'xss_clean');*/
 		}
 		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');
 
@@ -824,12 +829,48 @@ class Subject extends CI_Controller {
 		$this->load->model("Model_Historial_medico");
 		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$id, 'etapa'=>$etapa));
 
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Historial Medico", "etapa"=>$etapa));
+
 		$this->load->view('template', $data);
 	}
 
 	public function historial_medico_update($id,$etapa){
 
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
+		$this->form_validation->set_rules('hallazgo', 'Hallazgo', 'required|xss_clean');
+
+		/*Si se tiene algun hallazgo todo es obligatorio*/
+		if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1){
+			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'required|xss_clean');
+			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'required|xss_clean');
+			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'required|xss_clean');
+			$this->form_validation->set_rules('neurologico', 'Neurologico', 'required|xss_clean');
+			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'required|xss_clean');
+			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'required|xss_clean');
+			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'required|xss_clean');
+			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'required|xss_clean');
+			$this->form_validation->set_rules('hepatico', 'Hepatico', 'required|xss_clean');
+			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'required|xss_clean');
+			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'required|xss_clean');
+			$this->form_validation->set_rules('cancer', 'Cancer', 'required|xss_clean');
+		}
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el historial medico");
+			$this->historial_medico($registro['id']);
+		}
+		else {			
+			$registro['updated_at'] = date("Y-m-d H:i:s");						
+
+			$this->load->model("Model_Historial_medico");
+			$this->Model_Historial_medico->update($registro, $registro['id']);
+
+			$this->auditlib->save_audit("Historial Medico Actualizado");
+
+     		$this->historial_medico_show($registro['subject_id'],$registro['etapa']);
+		}
 	}
 
 	public function historial_medico_verify(){
@@ -1010,6 +1051,9 @@ class Subject extends CI_Controller {
 		$this->load->model("Model_inclusion_exclusion_no_respetados");
 		$data['no_respetados'] = $this->Model_inclusion_exclusion_no_respetados->allWhereArray(array('inclusion_exclusion_id'=>$data['list'][0]['id']));		
 
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Inclusion Exclusion", "etapa"=>$etapa));
+		
 		$this->load->view('template', $data);					
 	}
 

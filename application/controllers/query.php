@@ -165,7 +165,9 @@ class Query extends CI_Controller {
 			elseif($registro['form'] == 'Inclusion Exclusion'){
 				redirect('subject/inclusion_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
 			}
-
+			elseif($registro['form'] == 'Hachinski'){
+				redirect('subject/hachinski_show/'. $registro['subject_id']);
+			}
 			
 		}
 
@@ -219,6 +221,9 @@ class Query extends CI_Controller {
 			}
 			elseif($registro['form'] == 'Inclusion Exclusion'){
 				redirect('subject/inclusion_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Hachinski'){
+				redirect('subject/hachinski_show/'. $registro['subject_id']);
 			}
 			
 		}

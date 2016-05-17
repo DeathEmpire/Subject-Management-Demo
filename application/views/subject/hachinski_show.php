@@ -48,13 +48,13 @@ $(function(){
 		<h3>Puntaje de isquemia de Hachinski modificada ≤4.</h3>
 			<!-- New Query-->
 			<?php
-				if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
+				if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'hachinski_form_query_new')){
 			?>
 				<div id='new_query' style='text-align:right;'>
 					<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
 					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('form', "Hachinski"); ?>
-					<?= form_button(array('type'=>'submit', 'content'=>'Ingresar Consulta', 'class'=>'btn btn-primary')); ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Nueva Consulta', 'class'=>'btn btn-primary')); ?>
 					<?= form_close(); ?>
 				</div>
 			<?php }?>

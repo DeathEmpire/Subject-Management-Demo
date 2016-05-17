@@ -152,9 +152,9 @@ $(function(){
 <?php } ?>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
-	<?php if(!empty($subject->inclusion_verify_user) AND !empty($subject->inclusion_verify_date)){ ?>
+	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
 		
-		Formulario aprobado por <?= $subject->inclusion_verify_user;?> el <?= date("d-M-Y",strtotime($subject->inclusion_verify_date));?>
+		Formulario aprobado por <?= $list[0]->verify_user;?> el <?= date("d-M-Y",strtotime($list[0]->verify_date));?>
 	
 	<?php
 	}
@@ -184,7 +184,7 @@ $(function(){
 
 <!--Signature/Lock-->
 <br /><b>Cierre:</b><br />
-	<?php if(!empty($subject->inclusion_lock_user) AND !empty($subject->inclusion_lock_date)){ ?>
+	<?php if(!empty($list[0]->lock_user) AND !empty($list[0]->lock_date)){ ?>
 		
 		Formulario cerrado por <?= $subject->inclusion_lock_user;?> el <?= date("d-M-Y",strtotime($subject->inclusion_lock_date));?>
 	
@@ -214,9 +214,9 @@ $(function(){
 <br />
 <!--Signature-->
 	<br /><b>Firma:</b><br />
-	<?php if(!empty($subject->inclusion_signature_user) AND !empty($subject->inclusion_signature_date)){ ?>
+	<?php if(!empty($list[0]->signature_user) AND !empty($list[0]->signature_date)){ ?>
 		
-		Formulario Firmado por <?= $subject->inclusion_signature_user;?> on <?= date("d-M-Y",strtotime($subject->inclusion_signature_date));?>
+		Formulario Firmado por <?= $list[0]->signature_user;?> on <?= date("d-M-Y",strtotime($list[0]->signature_date));?>
 	
 	<?php
 	}

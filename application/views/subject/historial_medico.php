@@ -5,9 +5,17 @@ $(function(){
 	$("input[name=hallazgo]").click(function(){
 		if($(this).val() == 1){
 			//todos los campos habilitados.
+			$("input:radio").removeAttr("readonly");
+			$("input:radio").removeAttr("disabled");
 		}
 		else{
 			//todos los campos bloqueados.
+			$("input:radio").attr("readonly","readonly");
+			$("input:radio").attr("disabled","disabled");			
+
+			$("input[name=hallazgo]").removeAttr("readonly");
+			$("input[name=hallazgo]").removeAttr("disabled");
+
 		}
 	});
 });
@@ -64,7 +72,7 @@ $(function(){
 				<td><input type='text' name='fecha' id='fecha' value=''></td>
 			</tr>
 			<tr>
-				<td>Tiene el paciente algun hallazgo en el examen fisico: </td>
+				<td style='font-weight:bold;'>Tiene el paciente algun hallazgo en el examen fisico: </td>
 				<td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
 			</tr>			
 			<tr>
