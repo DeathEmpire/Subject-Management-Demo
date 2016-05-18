@@ -15,7 +15,7 @@ class Perfil extends CI_Controller {
 
 	public function index() {
 		$data['contenido'] = 'perfil/index';
-		$data['titulo'] = 'Roles';
+		$data['titulo'] = 'Opciones de Roles';
 		$data['query'] = $this->Model_Perfil->all();
 		$this->load->view('template', $data);
 	}
@@ -26,13 +26,13 @@ class Perfil extends CI_Controller {
 	
 		if(isset($id_buscar) AND !empty($id_buscar)){
 			$data['contenido'] = 'perfil/opciones';
-			$data['titulo'] = 'Role Access';
+			$data['titulo'] = 'Opciones de Roles';
 		
 			$this->load->model("Model_Perfil");
 			$data['perfiles'] = $this->Model_Perfil->all();
 		
 			$this->load->model("Model_Opciones_Perfil");
-			$data['query'] = $this->Model_Opciones_Perfil->allFiltered("role",$id_buscar);
+			$data['opciones'] = $this->Model_Opciones_Perfil->allFiltered("role",$id_buscar);
 			
 			$this->load->view('template', $data);
 		}else{	
@@ -105,11 +105,12 @@ class Perfil extends CI_Controller {
 
 	public function opciones(){
 		$data['contenido'] = 'perfil/opciones';
-		$data['titulo'] = 'Role Access';
+		$data['titulo'] = 'Opciones de Roles';
 		
 		$this->load->model("Model_Opciones_Perfil");
-		$data['query'] = $this->Model_Opciones_Perfil->all();
+		$data['opciones'] = $this->Model_Opciones_Perfil->todo();
 		
+		/*Perfiles para filtrar*/
 		$this->load->model("Model_Perfil");
 		$data['perfiles'] = $this->Model_Perfil->all();
 		

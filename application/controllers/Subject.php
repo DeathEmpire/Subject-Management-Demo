@@ -628,6 +628,11 @@ class Subject extends CI_Controller {
      		$this->Model_Hachinski_Form->insert($save);
      		$this->auditlib->save_audit("Escala de Hachinski ingresada");
 
+     		/*Actualizar estado de hachinski en el sujeto*/
+     		$actualizar['hachinski_status'] = 'Record Complete';
+     		$actualizar['id'] = $id;
+     		$this->Model_Subject->update($actualizar);
+
      		redirect('subject/hachinski_show/'. $id);
 
         }
@@ -645,7 +650,7 @@ class Subject extends CI_Controller {
 		$id = $save['subject_id'];
 
 		$this->load->model('Model_Hachinski_Form');
- 		$this->Model_Hachinski_Form->update($save,$save['id']);
+ 		$this->Model_Hachinski_Form->update($save);
  		$this->auditlib->save_audit("Escala de Hachinski Modificada");
 
  		redirect('subject/hachinski_show/'. $id);
@@ -686,11 +691,11 @@ class Subject extends CI_Controller {
 			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Hachinski_Form');
-			$this->Model_Hachinski_Form->update($registro,$registro['id']);
+			$this->Model_Hachinski_Form->update($registro);
 			$this->auditlib->save_audit("Verificacion de el formulario hachinski");
 
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved by Monitor'), $registro['subject_id']);
+			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved by Monitor','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -716,10 +721,10 @@ class Subject extends CI_Controller {
 			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Hachinski_Form');
-			$this->Model_Hachinski_Form->update($registro,$registro['id']);
+			$this->Model_Hachinski_Form->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario hachinski");
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI'), $registro['subject_id']);
+			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI', 'id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -745,10 +750,10 @@ class Subject extends CI_Controller {
 			$registro['lock_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Hachinski_Form');
-			$this->Model_Hachinski_Form->update($registro,$registro['id']);
+			$this->Model_Hachinski_Form->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario hachinski");
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked'), $registro['subject_id']);
+			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -865,7 +870,7 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");						
 
 			$this->load->model("Model_Historial_medico");
-			$this->Model_Historial_medico->update($registro, $registro['id']);
+			$this->Model_Historial_medico->update($registro);
 
 			$this->auditlib->save_audit("Historial Medico Actualizado");
 
@@ -893,11 +898,11 @@ class Subject extends CI_Controller {
 			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Historial_medico');
-			$this->Model_Historial_medico->update($registro,$registro['id']);
+			$this->Model_Historial_medico->update($registro);
 			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion");
 
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('inclusion_status'=>'Form Approved by Monitor'), $registro['subject_id']);
+			$this->Model_Subject->update(array('inclusion_status'=>'Form Approved by Monitor','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -923,10 +928,10 @@ class Subject extends CI_Controller {
 			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Historial_medico');
-			$this->Model_Historial_medico->update($registro,$registro['id']);
+			$this->Model_Historial_medico->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion");
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI'), $registro['subject_id']);
+			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -952,10 +957,10 @@ class Subject extends CI_Controller {
 			$registro['lock_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Historial_medico');
-			$this->Model_Historial_medico->update($registro,$registro['id']);
+			$this->Model_Historial_medico->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion");
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked'), $registro['subject_id']);
+			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -1029,7 +1034,8 @@ class Subject extends CI_Controller {
 			}
 
 			/*Actualizamos el estado en el sujeto*/
-			$this->Model_Subject->update($subjet_,$registro['subject_id']);
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("Critero de inclusion exclusion agregado");     		
      		redirect('subject/inclusion_show/'. $registro['subject_id'] ."/". $registro['etapa']);
@@ -1077,11 +1083,11 @@ class Subject extends CI_Controller {
 			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Inclusion_exclusion');
-			$this->Model_Inclusion_exclusion->update($registro,$registro['id']);
+			$this->Model_Inclusion_exclusion->update($registro);
 			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion");
 
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('inclusion_status'=>'Form Approved by Monitor'), $registro['subject_id']);
+			$this->Model_Subject->update(array('inclusion_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -1107,10 +1113,10 @@ class Subject extends CI_Controller {
 			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Inclusion_exclusion');
-			$this->Model_Inclusion_exclusion->update($registro,$registro['id']);
+			$this->Model_Inclusion_exclusion->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion");
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI'), $registro['subject_id']);
+			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -1136,10 +1142,10 @@ class Subject extends CI_Controller {
 			$registro['lock_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Inclusion_exclusion');
-			$this->Model_Inclusion_exclusion->update($registro,$registro['id']);
+			$this->Model_Inclusion_exclusion->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion");
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked'), $registro['subject_id']);
+			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}

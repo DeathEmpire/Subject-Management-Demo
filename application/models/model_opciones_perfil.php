@@ -6,14 +6,30 @@ class Model_Opciones_Perfil extends CI_Model {
 		parent::__construct();
     }
 
-    function all() {
+    function all() {        
         $query = $this->db->get('opciones_perfil');
         return $query->result();
     }
 
+    function todo() {
+        /*Join con el nombre del rol*/
+        $this->db->select('opciones_perfil.*, perfil.name as role_name');
+        $this->db->from('opciones_perfil');
+        $this->db->join('perfil','opciones_perfil.role = perfil.id');
+        $this->db->order_by('role_name', 'ASC');
+        $this->db->order_by('controller', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function allFiltered($field, $value) {
+        $this->db->select('opciones_perfil.*, perfil.name as role_name');
+        $this->db->from('opciones_perfil');
+        $this->db->join('perfil','opciones_perfil.role = perfil.id');
         $this->db->like($field, $value);
-        $query = $this->db->get('opciones_perfil');
+        $this->db->order_by('role_name', 'ASC');
+        $this->db->order_by('controller', 'ASC');
+        $query = $this->db->get();
         return $query->result();
     }
 
