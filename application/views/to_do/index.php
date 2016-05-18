@@ -1,4 +1,4 @@
-<legend style='text-align:center;'>To Do List (<?= $this->session->userdata('perfil_name');?>)</legend>
+<legend style='text-align:center;'>Pendientes (<?= $this->session->userdata('perfil_name');?>)</legend>
 
 <?php
 	if(isset($to_do) AND !empty($to_do)){
@@ -8,15 +8,15 @@
 			<b>Pending Verify a Form: </b>
 			<table class='table table-striped table-condensed table-bordered'>
 				<thead>
-					<th>Form</th>					
-					<th>Subject</th>
+					<th>Formulario</th>					
+					<th>Sujeto</th>
 					<th>Link</th>					
 				</thead>
 				<tbody>
 				<?php
 				foreach ($to_do['demography_form_verify'] as $verify) {?>
 					<tr>
-						<td>Demography</td>
+						<td>Demografia</td>
 						<td><?= $verify->code; ?></td>
 						<td><?= anchor('subject/demography/'. $verify->id, 'Ver', array('class'=>'btn')) ;?></td>						
 					</tr>
@@ -30,17 +30,17 @@
 		#Pendig demography_form_lock
 		if(isset($to_do['demography_form_lock']) AND !empty($to_do['demography_form_lock'])){ ?>
 			<b>Pending Lock a Form: </b>
-			<table class='table table-striped table-condensed table-bordered'>
+			<table class='table table-striped table-condensed table-bordered table-striped table-hover'>
 				<thead>
-					<th>Form</th>					
-					<th>Subject</th>
+					<th>Formulario</th>					
+					<th>Sujeto</th>
 					<th>Link</th>					
 				</thead>
 				<tbody>
 				<?php
 				foreach ($to_do['demography_form_lock'] as $lock) {?>
 					<tr>
-						<td>Demography</td>
+						<td>Demografia</td>
 						<td><?= $lock->code; ?></td>
 						<td><?= anchor('subject/demography/'. $lock->id, 'Ver', array('class'=>'btn')) ;?></td>						
 					</tr>
@@ -54,17 +54,17 @@
 		#Pendig demography_form_sign
 		if(isset($to_do['demography_form_sign']) AND !empty($to_do['demography_form_sign'])){ ?>
 			<b>Pending Sign a Form: </b>
-			<table class='table table-striped table-condensed table-bordered'>
+			<table class='table table-striped table-condensed table-bordered table-striped table-hover'>
 				<thead>
-					<th>Form</th>					
-					<th>Subject</th>
-					<th>Link</th>					
+					<th>Formulario</th>					
+					<th>Sujeto</th>
+					<th>Link</th>				
 				</thead>
 				<tbody>
 				<?php
 				foreach ($to_do['demography_form_sign'] as $sign) {?>
 					<tr>
-						<td>Demography</td>
+						<td>Demogrfia</td>
 						<td><?= $sign->code; ?></td>
 						<td><?= anchor('subject/demography/'. $sign->id, 'Ver', array('class'=>'btn')) ;?></td>						
 					</tr>
@@ -81,8 +81,8 @@
 			<b>Pending Querys: </b>
 			<table class='table table-striped table-condensed table-bordered'>
 				<thead>
-					<th>Form</th>
-					<th>Subject</th>
+					<th>Formulario</th>					
+					<th>Sujeto</th>
 					<th>Link</th>					
 				</thead>
 				<tbody>

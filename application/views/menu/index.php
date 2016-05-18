@@ -14,14 +14,14 @@
 	<thead>
 		<tr>
 			<th> ID </th>
-			<th> Name </th>
-			<th> Controller </th>
-			<th> Action </th>
+			<th> Nombre </th>
+			<th> Controlador </th>
+			<th> Accion </th>
 			<th> URL </th>
-			<th> Order </th>
-			<th> Created At </th>
-			<th> Updated At </th>
-			<th> Access</th>
+			<th> Orden </th>
+			<th> Creado </th>
+			<th> Actualizado </th>
+			<th> Accesos</th>
 		</tr>
 	</thead>
 

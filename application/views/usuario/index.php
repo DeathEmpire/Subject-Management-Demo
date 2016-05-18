@@ -1,16 +1,16 @@
 <div class="page-header">
-	<h1> Users <small>maintenance</small> </h1>
+	<h1> Usuarios <small>Mantenedor</small> </h1>
 </div>
 
 <?= form_open('usuario/search', array('class'=>'form-search')); ?>
-	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Search by name...', 'class'=>'input-medium search-query')); ?>	
+	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Buscar por nombre ...', 'class'=>'input-medium search-query')); ?>	
 	<span class="input-group-btn">
     	<button class="btn btn-default" type="submit">Search</button>
     </span>
     <?php
 		if(isset($_SESSION['role_options']['usuario']) AND strpos($_SESSION['role_options']['usuario'], 'create')){
 	?>
-	<?= anchor('usuario/create', 'New', array('class'=>'btn btn-primary')); ?>
+	<?= anchor('usuario/create', 'Nuevo', array('class'=>'btn btn-primary')); ?>
 	<?php }?>
 <?= form_close(); ?>
 
@@ -18,13 +18,13 @@
 	<thead>
 		<tr>
 			<th> ID </th>
-			<th> Name </th>
+			<th> Nombre </th>
 			<th> Username </th>
 			<th> eMail </th>
-			<th> Role </th>
-			<th> Center </th>
-			<th> Created At </th>
-			<th> Updated At </th>
+			<th> Perfil </th>
+			<th> Centro </th>
+			<th> Creado </th>
+			<th> Actualizado </th>
 		</tr>
 	</thead>
 

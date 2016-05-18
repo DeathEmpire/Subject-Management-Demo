@@ -1,14 +1,14 @@
 <div class="page-header">
-	<h1>Roles <small>Maintenance</small></h1>	
+	<h1>Perfiles <small>Mantenedor</small></h1>	
 </div>
 
 <?= form_open('perfil/search',array('class'=>'form-search'));?>
 	<div class="control-group">
-		<?= form_input(array("type"=>"text","name"=>"buscar_nombre","id"=>"buscar_nombre","placeholder"=>"Search by name...","value"=>set_value('buscar_nombre'),"class"=>"input-medium"));?>
+		<?= form_input(array("type"=>"text","name"=>"buscar_nombre","id"=>"buscar_nombre","placeholder"=>"Buscar por nombre ...","value"=>set_value('buscar_nombre'),"class"=>"input-medium"));?>
 		<span class="input-group-btn">
-    		<button class="btn btn-default" type="submit">Search</button>
+    		<button class="btn btn-default" type="submit">Buscar</button>
    		</span>
-		<?= anchor("perfil/ingresar","New",array("class"=>"btn btn-primary"));?>
+		<?= anchor("perfil/ingresar","Nuevo",array("class"=>"btn btn-primary"));?>
 		<!-- boton pre hechos en boostrap <i class="icon-search"></i>-->
 	</div>
 <?= form_close();?>
@@ -18,9 +18,9 @@
 	<thead>
 		<tr>
 			<th>ID</th>
-			<th>Name</th>
-			<th>Created At</th>
-			<th>Updated At</th>
+			<th>Nombre</th>
+			<th>Creado</th>
+			<th>Actualizado</th>
 		</tr>
 	</thead>
 	

@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1> Kits <small> List of Kits </small> </h1>
+	<h1> Kits <small> Lista de Kits </small> </h1>
 </div>
 <?php 	
 	if(!isset($id)){
@@ -40,7 +40,7 @@
 	}
 
 	$centros = array();
-	$centros['Search by location'] = array("X"=>"","00"=>"Central Warehouse") + $cent;
+	$centros['Search by location'] = array("X"=>"","00"=>"Bodega Central") + $cent;
 	
 	//$centros = array();
 	//$centros['Search by location'] = array("X"=>"","00"=>"Central Warehouse","01"=>"01","02"=>"02","03"=>"03","04"=>"04");
@@ -56,24 +56,24 @@
 ?>
 <?= form_open('kit/search', array('class'=>'form-search')); ?>
 	<?= form_label('Search: ', 'id', array('class'=>'control-label')); ?>   	
-	<?= form_input(array('type'=>'text', 'name'=>'id', 'id'=>'id', 'placeholder'=>'Search by id', 'class'=>'input-medium search-query', 'value'=>$id)); ?>
+	<?= form_input(array('type'=>'text', 'name'=>'id', 'id'=>'id', 'placeholder'=>'Buscar por id', 'class'=>'input-medium search-query', 'value'=>$id)); ?>
 	<?= form_dropdown('tipo',$tipos,$t_selected); ?>
 	<?= form_dropdown('ubicacion_actual',$centros,$c_selected); ?>
 	<?= form_dropdown('disponible',$disponibles,$d_selected); ?>
 	
-	<?= form_button(array('type'=>'submit', 'content'=>'Serach', 'class'=>'btn')); ?>
+	<?= form_button(array('type'=>'submit', 'content'=>'Buscar', 'class'=>'btn')); ?>
 	<!--anchor('medicamentos/create', 'Agregar', array('class'=>'btn btn-primary'));-->
 <?= form_close(); ?>
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th>To Assign</th>
+			<th>Asignar</th>
 			<th> KIT </th>
-			<th> Type </th>
-			<th> Available </th>
-			<th> Center </th>			
-			<th> Subject </th>			
+			<th> Tipo </th>
+			<th> Disponible </th>
+			<th> Centro </th>			
+			<th> Sujeto </th>			
 		</tr>
 	</thead>
 
@@ -91,7 +91,7 @@
 			<td> <?= $registro->id ?> </td>
 			<td> <?= $registro->type ?> </td>
 			<td> <?= $registro->available ?> </td>
-			<td> <?= ($registro->center_id == 0) ? "Central Warehouse" : $registro->name ?> </td>			
+			<td> <?= ($registro->center_id == 0) ? "Bodega Central" : $registro->name ?> </td>			
 			<td> <?= $registro->subject_id ?> </td>			
 		</tr>
 		<?php endforeach; ?>
@@ -101,7 +101,7 @@
 <div style="text-align:center;">
 	
 	Send Center: <?= form_dropdown('center',$cent); ?><br />
-	<?= form_button(array('type'=>'submit', 'class'=>'btn', 'name'=>'enviar', "id"=>"enviar", "onclick"=>"return enviar();",'content'=>'Submit')); ?>
+	<?= form_button(array('type'=>'submit', 'class'=>'btn', 'name'=>'enviar', "id"=>"enviar", "onclick"=>"return enviar();",'content'=>'Enviar')); ?>
 	<?= form_close(); ?>
 </div>
 <script>
@@ -116,15 +116,15 @@ $(function(){
 	function enviar(){
 		var seleccionado = $("input:checked").valList(); 
 		if(seleccionado == ""){
-			alert("You must select at least one kit to send");
+			alert("Debe seleccionar al menos 1 kit para enviar");
 			return false;
 		}
 		else if($("select[name^=centros]").val() == ""){
-			alert("You must select the center to which the kits will be sent");
+			alert("Debe seleccionar el centro al cual enviar los kits");
 			return false;
 		}
 		else{
-			if(confirm("Sure to send the kits "+ seleccionado + " to center "+ $("select[name^=centros]").val())){
+			if(confirm("Seguro de enviar los kits "+ seleccionado + " al centro "+ $("select[name^=centros]").val())){
 				return true;
 			}
 			else{

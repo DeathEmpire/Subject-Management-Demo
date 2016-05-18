@@ -4,7 +4,7 @@
 	<?= my_validation_errors(validation_errors()); ?>
 
 	<div class="control-group">
-		<?= form_label('Username', 'login', array('class'=>'control-label')); ?>
+		<?= form_label('Nombre de Usuario', 'login', array('class'=>'control-label')); ?>
 		<?= form_input(array('type'=>'text', 'name'=>'login', 'id'=>'login', 'placeholder'=>'Username...', 'value'=>set_value('login'))); ?>
 	</div>
 
@@ -16,8 +16,8 @@
 	<div style="font-style:italic;text-align:right;"><a href="recuperarclave">forgot password</a></div>
 	
 	<div class="form-actions">
-		<?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-		<?= anchor('home/index', 'Cancel', array('class'=>'btn')); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+		<?= anchor('home/index', 'Cancelar', array('class'=>'btn')); ?>
 	</div>
 <?= form_close(); ?>
 	

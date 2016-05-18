@@ -17,7 +17,7 @@
     </div>
 
     <div class="control-group">
-        <?= form_label('Name', 'name', array('class'=>'control-label')); ?>
+        <?= form_label('Nombre', 'name', array('class'=>'control-label')); ?>
         <?= form_input(array('type'=>'text', 'name'=>'name', 'id'=>'name', 'value'=>$registro->name)); ?>
     </div>
 
@@ -32,7 +32,7 @@
     </div>
     
     <div class="control-group">
-        <?= form_label('Center', 'center', array('class'=>'control-label')); ?>
+        <?= form_label('Centro', 'center', array('class'=>'control-label')); ?>
         <?= form_dropdown('center', $centers, set_value('center',$registro->center)); ?>
     </div> 
 
@@ -42,8 +42,8 @@
     </div>       
 
     <div class="form-actions">
-        <?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-        <?= anchor('usuario/index', 'Cancel', array('class'=>'btn')); ?>
-        <?= anchor('usuario/delete/'.$registro->id, 'Delete', array('class'=>'btn btn-warning', 'onClick'=>"return confirm('¿Está Seguro?')")); ?>
+        <?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+        <?= anchor('usuario/index', 'Cancelar', array('class'=>'btn')); ?>
+        <?= anchor('usuario/delete/'.$registro->id, 'Eliminar', array('class'=>'btn btn-warning', 'onClick'=>"return confirm('¿Está Seguro?')")); ?>
     </div>
 <?= form_close(); ?>

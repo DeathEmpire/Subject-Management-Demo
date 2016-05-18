@@ -1,6 +1,6 @@
 <div class="page-header">
 
-	<h1>Opciones de Roles <small>Agregar o remover opciones de un Rol</small></h1>	
+	<h1>Opciones del Perfil <small>Agregar o remover opciones de un Perfil</small></h1>	
 
 </div>
 

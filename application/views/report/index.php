@@ -1,1 +1,1 @@
-<legend style='text-align:center;'>Reports</legend>
+<legend style='text-align:center;'>Reportes</legend>

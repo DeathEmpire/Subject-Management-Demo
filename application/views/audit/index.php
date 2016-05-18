@@ -1,21 +1,21 @@
 <div class="page-header">
-	<h1>Audit</h1>
+	<h1>Auditoria</h1>
 </div>
 
 <?= form_open('audit/search', array('class'=>'form-search')); ?>
-	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Search by name...', 'class'=>'input-medium search-query')); ?>	
+	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Buscar por Nombre...', 'class'=>'input-medium search-query')); ?>	
 	<span class="input-group-btn">
-    	<button class="btn btn-default" type="submit">Search</button>
+    	<button class="btn btn-default" type="submit">Buscar</button>
     </span>	
 <?= form_close(); ?>
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered table-striped table-hover">
 	<thead>
 		<tr>
 			<th> ID </th>			
-			<th> User Name</th>
-			<th> Description </th>
-			<th> Date </th>			
+			<th> Nombre de Usuario</th>
+			<th> Descripcion </th>
+			<th> Fecha </th>			
 		</tr>
 	</thead>
 	<tbody>

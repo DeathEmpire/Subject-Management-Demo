@@ -1,3 +1,3 @@
 <div class="page-header">
-	<small> A new password has been sent to your registered email. </small> </h1>
+	<small> Un nuevo password fue enviado a su cuenta de correo electronico registrado en el sistema. </small> </h1>
 </div>

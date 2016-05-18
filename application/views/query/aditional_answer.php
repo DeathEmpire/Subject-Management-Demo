@@ -1,4 +1,4 @@
-<legend style='text-align:center;'><?= $form;?> Query</legend>
+<legend style='text-align:center;'>Consulta <?= $form;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -32,25 +32,25 @@
 	
 	<table class="table table-striped table-condensed table-bordered">        
         <tr>
-            <td>Question: </td>
+            <td>Consulta: </td>
             <td><?= $query->question;?></td>
         </tr>
         <tr>
-            <td>Answer: </td>
+            <td>Respuesta: </td>
             <td><?= form_textarea(array('name'=>'answer', 'id'=>'answer', 'value'=>set_value('answer'), 'rows'=>'4','cols'=>'40')); ?></td>
         </tr>
         <tr>
-            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
+            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
             
 			<?php 
 				if($form == 'Adverse Event'){
-					echo anchor('subject/adverse_event_show/'.$subject->id, 'Back', array('class'=>'btn'));
+					echo anchor('subject/adverse_event_show/'.$subject->id, 'Cancelar', array('class'=>'btn'));
 				}
 				elseif($form == 'Protocol Deviation'){
-					echo anchor('subject/protocol_deviation_show/'.$subject->id, 'Back', array('class'=>'btn'));
+					echo anchor('subject/protocol_deviation_show/'.$subject->id, 'Cancelar', array('class'=>'btn'));
 				}
 				elseif($form == 'Concomitant Medication'){
-					echo anchor('subject/concomitant_medication_show/'.$subject->id, 'Back', array('class'=>'btn'));
+					echo anchor('subject/concomitant_medication_show/'.$subject->id, 'Cancelar', array('class'=>'btn'));
 				}
 			?>
             </td>

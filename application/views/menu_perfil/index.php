@@ -1,24 +1,24 @@
 <div class="page-header">
-	<h1> Roles Menu <small>Add a menu option to a specific user role </small> </h1>
-	<p><i>Do not forget to assign options for roles</i></p>
+	<h1> Opciones del Menu <small> Modificar los menus para un perfil </small> </h1>
+	<p><i>No olvidar asignar estas opciones al perfil</i></p>
 </div>
 
 <?= form_open('menu_perfil/search', array('class'=>'form-search')); ?>
-	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Search by role...', 'class'=>'input-medium search-query')); ?>
+	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Buscar por rol ...', 'class'=>'input-medium search-query')); ?>
 	<span class="input-group-btn">
-    	<button class="btn btn-default" type="submit">Search</button>
+    	<button class="btn btn-default" type="submit">Buscar</button>
     </span>
-	<?= anchor('menu_perfil/create', 'New', array('class'=>'btn btn-primary')); ?>
+	<?= anchor('menu_perfil/create', 'Nuevo', array('class'=>'btn btn-primary')); ?>
 <?= form_close(); ?>
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered table-striped table-hover">
 	<thead>
 		<tr>
 			<th> ID </th>
 			<th> Menu </th>
-			<th> Role </th>
-			<th> Created At </th>
-			<th> Updated At </th>
+			<th> Rol </th>
+			<th> Creado </th>
+			<th> Actualizado </th>
 		</tr>
 	</thead>
 
