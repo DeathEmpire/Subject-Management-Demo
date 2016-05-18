@@ -1,7 +1,7 @@
 <div class="hero-unit">
-	<h1> Access Denied !! </h1>
+	<h1> Acceso Denegado ! </h1>
 	<hr>
-	<p> Access to the requested page has been denied. </p>
+	<p> El acceso a la pagina solicitada ha sido negado. </p>
 	<p> <img src="<?= base_url('img/acceso_denegado.png')?>"> </p>
-    <p> Please contact the system administrator if you think there has an error. </p>
+    <p> Favor de contactar con el administrador del sistema si cree que hay un error. </p>
 </div>
