@@ -972,6 +972,7 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'Criterios de Inclusion/Exclusion';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
+		
 
 		$this->load->view('template', $data);			
 	}
@@ -1010,8 +1011,8 @@ class Subject extends CI_Controller {
 			unset($registro['numero']);
 			unset($registro['comentario']);
 
-			$this->load->model('Model_inclusion_exclusion');
-			$this->Model_inclusion_exclusion->insert($registro);
+			$this->load->model('Model_Inclusion_exclusion');
+			$this->Model_Inclusion_exclusion->insert($registro);
 
 			$nueva_id = $this->db->insert_id();
 
@@ -1028,8 +1029,8 @@ class Subject extends CI_Controller {
 					$save['updated_at'] = date("Y-m-d H:i:s");
 					$save['usuario_creacion'] = $this->session->userdata('usuario');
 
-					$this->load->model("Model_inclusion_exclusion_no_respetados");
-					$this->Model_inclusion_exclusion_no_respetados->insert($save);
+					$this->load->model("Model_Inclusion_exclusion_no_respetados");
+					$this->Model_Inclusion_exclusion_no_respetados->insert($save);
 				}
 			}
 
@@ -1050,12 +1051,12 @@ class Subject extends CI_Controller {
 		$data['etapa'] = $etapa;
 		
 		/*Formulario para la etapa y sujeto correspondiente*/
-		$this->load->model('Model_inclusion_exclusion');
-		$data['list'] = $this->Model_inclusion_exclusion->allWhereArray(array('subject_id'=>'$subject_id', 'etapa'=>$etapa));
+		$this->load->model('Model_Inclusion_exclusion');
+		$data['list'] = $this->Model_Inclusion_exclusion->allWhereArray(array('subject_id'=>'$subject_id', 'etapa'=>$etapa));
 
 		/*Buscar todos los numeros y comentarios asociados a este form*/		
-		$this->load->model("Model_inclusion_exclusion_no_respetados");
-		$data['no_respetados'] = $this->Model_inclusion_exclusion_no_respetados->allWhereArray(array('inclusion_exclusion_id'=>$data['list'][0]['id']));		
+		$this->load->model("Model_Inclusion_exclusion_no_respetados");
+		$data['no_respetados'] = $this->Model_Inclusion_exclusion_no_respetados->allWhereArray(array('inclusion_exclusion_id'=>$data['list'][0]['id']));		
 
 		/*querys*/
 		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Inclusion Exclusion", "etapa"=>$etapa));
@@ -1168,4 +1169,75 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
+
+	public function digito_directo($subject_id, $etapa){
+		$data['contenido'] = 'subject/digito_directo';
+		$data['titulo'] = 'Prueba de Digito Directo';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		$data['valores_intento'] = array(''=>'','0'=>'0','1'=>'1');
+		$data['valores_item'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2');
+		
+		$this->load->view('template', $data);
+	}
+
+	public function digito_directo_insert(){
+		
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');				
+
+		if($this->form_validation->run() == FALSE) {
+
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de prueba de digito directo");
+			$this->inclusion($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			
+			if($registro['etapa'] == 2){				
+				$subjet_['digito_2_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 4){
+				$subjet_['digito_4_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['digito_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['digito_6__status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Prueba de digito directo agregada");     		
+     		redirect('subject/digito_directo_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+		
+	}
+
+	public function digito_directo_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/digito_directo_show';
+		$data['titulo'] = 'Prueba de digito directo';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		
+		/*Formulario para la etapa y sujeto correspondiente*/
+		$this->load->model('Model_Digito_directo');
+		$data['list'] = $this->Model_Digito_directo->allWhereArray(array('subject_id'=>'$subject_id', 'etapa'=>$etapa));		
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Digito Directo", "etapa"=>$etapa));
+		
+		$this->load->view('template', $data);					
+	}
+
 } 

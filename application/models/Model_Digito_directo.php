@@ -1,14 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Model_Inclusion_exclusion_no_respetados extends CI_Model {
+class Model_Digito_directo extends CI_Model {
 
 	function __construct() {
 		parent::__construct();
     }
 
     function all() {
-        $this->db->select('inclusion_exclusion_no_respetados.*');
-        $this->db->from('inclusion_exclusion_no_respetados');
+        $this->db->select('digito_directo.*');
+        $this->db->from('digito_directo');
         #$this->db->join('perfil', 'usuario.perfil_id = perfil.id', 'left');
 
         $query = $this->db->get();
@@ -16,8 +16,8 @@ class Model_Inclusion_exclusion_no_respetados extends CI_Model {
     }
 
     function allFiltered($field, $value) {
-        $this->db->select('inclusion_exclusion_no_respetados.*');
-        $this->db->from('inclusion_exclusion_no_respetados');
+        $this->db->select('digito_directo.*');
+        $this->db->from('digito_directo');
         #$this->db->join('perfil', 'usuario.perfil_id = perfil.id', 'left');
         $this->db->like($field, $value);
 
@@ -26,8 +26,8 @@ class Model_Inclusion_exclusion_no_respetados extends CI_Model {
     }
 
     function allWhere($field, $value) {
-        $this->db->select('inclusion_exclusion_no_respetados.*');
-        $this->db->from('inclusion_exclusion_no_respetados');        
+        $this->db->select('digito_directo.*');
+        $this->db->from('digito_directo');        
         $this->db->where($field, $value);
 
         $query = $this->db->get();
@@ -35,8 +35,8 @@ class Model_Inclusion_exclusion_no_respetados extends CI_Model {
     }
     
     function allWhereArray($where) {
-        $this->db->select('inclusion_exclusion_no_respetados.*');
-        $this->db->from('inclusion_exclusion_no_respetados');        
+        $this->db->select('digito_directo.*');
+        $this->db->from('digito_directo');        
         $this->db->where($where);
 
         $query = $this->db->get();
@@ -44,18 +44,18 @@ class Model_Inclusion_exclusion_no_respetados extends CI_Model {
     }
     function find($id) {
     	$this->db->where('id', $id);
-		return $this->db->get('inclusion_exclusion_no_respetados')->row();
+		return $this->db->get('digito_directo')->row();
     }
 
     function insert($registro) {
     	$this->db->set($registro);
-		$this->db->insert('inclusion_exclusion_no_respetados');
+		$this->db->insert('digito_directo');
     }
 
     function update($registro) {
     	$this->db->set($registro);
 		$this->db->where('id', $registro['id']);
-		$this->db->update('inclusion_exclusion_no_respetados');
+		$this->db->update('digito_directo');
     }
 
 }

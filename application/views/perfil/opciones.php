@@ -79,6 +79,9 @@ foreach($perfiles as $v){
 						break;
 				}
 
+				if($seccion == 'Principal'){
+					continue;
+				}
 				?>
 
 			
@@ -180,6 +183,14 @@ foreach($perfiles as $v){
 								echo form_checkbox(array('name'=>'agregar_randomizacion_form', 'value'=>'randomization_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
 								#echo form_checkbox(array('name'=>'responder_randomizacion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
 
+							echo "<div style='font-weight:bold;'>Formulario Digito Directo</div>";
+								echo form_checkbox(array('name'=>'ver_digito_directo_form', 'value'=>'digito_directo_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_digito_directo_form', 'value'=>'digito_directo,digito_directo', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_digito_directo_form', 'value'=>'digito_directo_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_digito_directo', 'value'=>'digito_directo_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_digito_directo', 'value'=>'digito_directo_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_digito_directo', 'value'=>'digito_directo_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
+									
 							echo "<div style='font-weight:bold;'>Formularios Adicionales</div>";
 								echo form_checkbox(array('name'=>'ver_adicionales_form', 'value'=>'adverse_event_show,concomitant_medication_show,protocol_deviation_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
 								echo form_checkbox(array('name'=>'agregar_adicionales_form', 'value'=>'protocol_deviation_form,adverse_event_form,adverse_event_form_insert,concomitant_medication_form,protocol_deviation_form_insert,concomitant_medication_form_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";

@@ -1,16 +1,16 @@
 <div class="page-header">
-	<h1>Menu Options<small> Add options to the left menu </small> </h1>
+	<h1>Menu<small> Agregar opciones al menu izquierdo </small> </h1>
 </div>
 
 <?= form_open('menu/search', array('class'=>'form-search')); ?>
-	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Search by name...', 'class'=>'input-medium search-query')); ?>
+	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Buscar por nombre...', 'class'=>'input-medium search-query')); ?>
 	<span class="input-group-btn">
-    	<button class="btn btn-default" type="submit">Search</button>
+    	<button class="btn btn-default" type="submit">Buscar</button>
     </span>
-	<?= anchor('menu/create', 'New', array('class'=>'btn btn-primary')); ?>
+	<?= anchor('menu/create', 'Nuevo', array('class'=>'btn btn-primary')); ?>
 <?= form_close(); ?>
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered table-striped table-hover">
 	<thead>
 		<tr>
 			<th> ID </th>
@@ -21,7 +21,7 @@
 			<th> Orden </th>
 			<th> Creado </th>
 			<th> Actualizado </th>
-			<th> Accesos</th>
+			<!--<th> Accesos</th>-->
 		</tr>
 	</thead>
 
@@ -36,7 +36,10 @@
 			<td> <?= $registro->orden ?> </td>
 			<td> <?= date("d/m/Y - H:i", strtotime($registro->created)); ?> </td>
 			<td> <?= date("d/m/Y - H:i", strtotime($registro->updated)); ?> </td>
-			<td> <?= anchor("menu/menu_perfiles/". $registro->id,'<i class="icon-lock"></i>'); ?> </td>
+			<!--<td> <?php 
+				//echo anchor("menu/menu_perfiles/". $registro->id,'<i class="icon-lock"></i>'); 
+				?> 
+			</td>-->
 		</tr>
 		<?php endforeach; ?>
 	</tbody>
