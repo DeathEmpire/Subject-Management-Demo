@@ -4,6 +4,7 @@
         $aux[$center->id] = $center->name;
     }
     $centers = array(''=>'')+$aux;
+    $centers['Todos'] = 'Todos';
 ?>
 <?= form_open('usuario/update', array('class'=>'form-horizontal')); ?>
     <legend> Actualizar Registro </legend>

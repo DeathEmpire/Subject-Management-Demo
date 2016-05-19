@@ -190,10 +190,10 @@ $(function(){
 
 <?php } ?>
 <!-- Verify -->
-<b>Aprovacion del Monitor:</b><br />
+<b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($subject->demography_verify_user) AND !empty($subject->demography_verify_date)){ ?>
 		
-		Formulario aprovado por <?= $subject->demography_verify_user;?> el <?= date("d-M-Y",strtotime($subject->demography_verify_date));?>
+		Formulario aprobado por <?= $subject->demography_verify_user;?> el <?= date("d-M-Y",strtotime($subject->demography_verify_date));?>
 	
 	<?php
 	}
@@ -213,7 +213,7 @@ $(function(){
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiente de Aprovacion";
+		echo "Pendiente de Aprobacion";
 		}
 	}
 ?>

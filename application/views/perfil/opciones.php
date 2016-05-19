@@ -132,66 +132,58 @@ foreach($perfiles as $v){
 						elseif($seccion == 'Pendientes'){
 							echo form_checkbox(array('name'=>'ver_pendientes', 'value'=>'index,earch,create,edit,insert,update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
 						}				
-						elseif($seccion == 'Consultas'){
-							echo "<div style='font-weight:bold;'>Demografia</div>";
-							echo form_checkbox(array('name'=>'ver_demografia_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-							echo form_checkbox(array('name'=>'agregar_demografia_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-							echo form_checkbox(array('name'=>'responder_demografia_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Responder<br>";
-							#demography_query_new  demography_query_insert  demography_query_show  demography_query_update  additional_form_query_new additional_form_query_insert  additional_form_query_show  additional_form_query_update 
-							
-							echo "<div style='font-weight:bold;'>Hachinski Modificado</div>";							
-							echo form_checkbox(array('name'=>'ver_hachinski_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-							echo form_checkbox(array('name'=>'agregar_hachinski_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-							echo form_checkbox(array('name'=>'responder_hachinski_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Responder<br>";
-							
-							echo "<div style='font-weight:bold;'>Historial Medico</div>";							
-							echo form_checkbox(array('name'=>'ver_historial_medico_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-							echo form_checkbox(array('name'=>'agregar_historial_medico_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-							echo form_checkbox(array('name'=>'responder_historial_medico_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Responder<br>";
-
-							echo "<div style='font-weight:bold;'>Inclusion Exclusion</div>";							
-							echo form_checkbox(array('name'=>'ver_inclusion_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-							echo form_checkbox(array('name'=>'agregar_inclusion_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-							echo form_checkbox(array('name'=>'responder_inclusion_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Responder<br>";
-
-							echo "<div style='font-weight:bold;'>Formularios Adicionales</div>";							
-							echo form_checkbox(array('name'=>'ver_adicional_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-							echo form_checkbox(array('name'=>'agregar_adicional_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-							echo form_checkbox(array('name'=>'responder_adicional_consulta', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Responder<br>";							
-
+						elseif($seccion == 'Consultas'){							
+							echo form_checkbox(array('name'=>'ver_consulta', 'value'=>'demography_query_show,additional_form_query_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+							echo form_checkbox(array('name'=>'agregar_consulta', 'value'=>'demography_query_new,demography_query_insert,demography_query_show,additional_form_query_new,additional_form_query_insert,additional_form_query_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+							echo form_checkbox(array('name'=>'responder_consulta', 'value'=>'demography_query_show,demography_query_update,additional_form_query_show,additional_form_query_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Responder<br>";							
 						}			
 						elseif ($seccion == 'Sujetos') {
 							echo "<div style='font-weight:bold;'>Sujetos</div>";
-								echo form_checkbox(array('name'=>'ver_sujetos_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-								echo form_checkbox(array('name'=>'agregar_sujetos_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								echo form_checkbox(array('name'=>'responder_sujetosv_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'ver_sujetos_form', 'value'=>'index,search,my_validation,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_sujetos_form', 'value'=>'create,insert,my_validation,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_sujetos_form', 'value'=>'edit,update,my_validation,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
 
 							echo "<div style='font-weight:bold;'>Formulario Demografia</div>";
-								echo form_checkbox(array('name'=>'ver_demografia_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-								echo form_checkbox(array('name'=>'agregar_demografia_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								echo form_checkbox(array('name'=>'responder_sujetos_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'ver_demografia_form', 'value'=>'demography,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_demografia_form', 'value'=>'demography_update,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_demografia_form', 'value'=>'demography_update,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_demografia', 'value'=>'demography_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_demografia', 'value'=>'demography_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_demografia', 'value'=>'demography_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
 
 							echo "<div style='font-weight:bold;'>Formulario Inclusion Exclusion</div>";
-								echo form_checkbox(array('name'=>'ver_inclusion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-								echo form_checkbox(array('name'=>'agregar_inclusion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								echo form_checkbox(array('name'=>'responder_inclusion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'ver_inclusion_form', 'value'=>'grid,inclusion_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_inclusion_form', 'value'=>'inclusion_insert,inclusion', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_inclusion_form', 'value'=>'inclusion_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_inclusion', 'value'=>'inclusion_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_inclusion', 'value'=>'inclusion_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_inclusion', 'value'=>'inclusion_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
 
 							echo "<div style='font-weight:bold;'>Formulario Hachinski</div>";
-								echo form_checkbox(array('name'=>'ver_hachinski_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-								echo form_checkbox(array('name'=>'agregar_hachinski_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								echo form_checkbox(array('name'=>'responder_hachinski_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'ver_hachinski_form', 'value'=>'grid,hachinski_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_hachinski_form', 'value'=>'hachinski_insert, hachinski_form', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_hachinski_form', 'value'=>'hachinski_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_hachinski', 'value'=>'hachinski_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_hachinski', 'value'=>'hachinski_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_hachinski', 'value'=>'hachinski_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
 
 							echo "<div style='font-weight:bold;'>Formulario Historial Medico</div>";
-								echo form_checkbox(array('name'=>'ver_historila_medico_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-								echo form_checkbox(array('name'=>'agregar_historila_medico_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								echo form_checkbox(array('name'=>'responder_historila_medico_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'ver_historial_medico_form', 'value'=>'historial_medico_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_historial_medico_form', 'value'=>'historial_medico,historial_medico_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_historial_medico_form', 'value'=>'historial_medico_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_historial_medico', 'value'=>'historial_medico_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_historial_medico', 'value'=>'historial_medico_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_historial_medico', 'value'=>'historial_medico_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
 
 							echo "<div style='font-weight:bold;'>Randomizacion</div>";
-								echo form_checkbox(array('name'=>'ver_randomizacion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-								echo form_checkbox(array('name'=>'agregar_randomizacion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								echo form_checkbox(array('name'=>'responder_randomizacion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'ver_randomizacion_form', 'value'=>'randomization', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_randomizacion_form', 'value'=>'randomization_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								#echo form_checkbox(array('name'=>'responder_randomizacion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
 
-							#index  search  my_validation  create  insert  edit  update  grid  demography  demography_update  randomization  randomization_update adverse_event_form  adverse_event_form_insert  adverse_event_show  protocol_deviation_form  protocol_deviation_form_insert  protocol_deviation_show concomitant_medication_form  concomitant_medication_form_insert  concomitant_medication_show 						
+							echo "<div style='font-weight:bold;'>Formularios Adicionales</div>";
+								echo form_checkbox(array('name'=>'ver_adicionales_form', 'value'=>'adverse_event_show,concomitant_medication_show,protocol_deviation_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_adicionales_form', 'value'=>'protocol_deviation_form,adverse_event_form,adverse_event_form_insert,concomitant_medication_form,protocol_deviation_form_insert,concomitant_medication_form_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								#echo form_checkbox(array('name'=>'actualizar_adicionales_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";							
 						}						
 						else{
 							$actions = explode(",", $v->actions);

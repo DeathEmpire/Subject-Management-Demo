@@ -86,8 +86,7 @@
         </p>                                      
     </div>
     <div class="control-group">
-        El centro participara en el estudio
-            - Nombre del Estudio
+        El centro participara en el estudio (Nombre del Estudio)            
     </div>
 
     <div class="form-actions">

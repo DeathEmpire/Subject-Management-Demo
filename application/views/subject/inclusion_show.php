@@ -30,7 +30,7 @@ $(function(){
 <br />
 <!-- legend -->
 <?php
-	if(isset($_SESSION['role_options']['query']) AND strstr($_SESSION['role_options']['query'], 'inclusion_query_new')){
+	if(isset($_SESSION['role_options']['query']) AND strstr($_SESSION['role_options']['query'], 'additional_form_query_new')){
 		
 ?>
 	<div id='new_query' style='text-align:right;'>
@@ -137,9 +137,9 @@ $(function(){
 						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
 						<td><?= $query->answer_user; ?></td>
 						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'inclusion_query_show')){
+							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
 						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
+							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id, 'Responder',array('class'=>'btn'))); ?></td>						
 						<?php }else{?>
 							<td><?= $query->answer; ?></td>
 						<?php }?>

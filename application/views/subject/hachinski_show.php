@@ -48,7 +48,7 @@ $(function(){
 		<h3>Puntaje de isquemia de Hachinski modificada ≤4.</h3>
 			<!-- New Query-->
 			<?php
-				if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'hachinski_form_query_new')){
+				if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
 			?>
 				<div id='new_query' style='text-align:right;'>
 					<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
@@ -157,9 +157,9 @@ $(function(){
 									<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
 									<td><?= $query->answer_user; ?></td>
 									<?php
-										if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'hachinski_show')){
+										if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
 									?>
-										<td><?= (($query->answer != '') ? $query->answer : anchor('query/hachinski_show/'. $subject->id .'/'.$query->id, 'Add',array('class'=>'btn'))); ?></td>						
+										<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id, 'Responder',array('class'=>'btn'))); ?></td>						
 									<?php }else{?>
 										<td><?= $query->answer; ?></td>
 									<?php }?>

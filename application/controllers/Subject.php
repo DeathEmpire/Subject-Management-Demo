@@ -886,8 +886,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Inclusion Exclusion");
-			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Historial Medico");
+			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -899,10 +899,10 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Verificacion de el formulario de Historial Medico");
 
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('inclusion_status'=>'Form Approved by Monitor','id'=>$registro['subject_id']));
+			$this->Model_Subject->update(array('historial_medico_status'=>'Form Approved by Monitor','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -916,8 +916,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Inclusion Exclusion");
-			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Historial Medico");
+			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -929,9 +929,9 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Firmo el formulario de Historial Medico");
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI','id'=>$registro['subject_id']));
+			$this->Model_Subject->update(array('historial_medico_status'=>'Document Approved and Signed by PI','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -945,8 +945,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Inclusion Exclusion");
-			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Historial Medico");
+			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -958,9 +958,9 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Cerro el formulario de Historial Medico");
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked','id'=>$registro['subject_id']));
+			$this->Model_Subject->update(array('historial_medico_status'=>'Form Approved and Locked','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -1087,7 +1087,13 @@ class Subject extends CI_Controller {
 			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion");
 
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('inclusion_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
+				$this->Model_Subject->update(array('inclusion_exclusion_1_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('inclusion_exclusion_2_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -1115,8 +1121,14 @@ class Subject extends CI_Controller {
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion");
+			
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
+				$this->Model_Subject->update(array('inclusion_exclusion_1_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('inclusion_exclusion_2_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}			
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -1143,9 +1155,15 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
-			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion");			
+			
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
+				$this->Model_Subject->update(array('inclusion_exclusion_1_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('inclusion_exclusion_2_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}			
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}

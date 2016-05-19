@@ -44,6 +44,8 @@ class Usuario extends CI_Controller {
 			foreach ($centers as $value) {
 				$data['centers'][$value->id] = 	$value->name;	
 			}	
+
+			$data['centers']['Todos'] = 'Todos';
 		}
 		else{
 			$data['centers'] = 	array();
