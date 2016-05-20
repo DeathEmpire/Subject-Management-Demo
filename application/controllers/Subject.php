@@ -1052,7 +1052,7 @@ class Subject extends CI_Controller {
 		
 		/*Formulario para la etapa y sujeto correspondiente*/
 		$this->load->model('Model_Inclusion_exclusion');
-		$data['list'] = $this->Model_Inclusion_exclusion->allWhereArray(array('subject_id'=>'$subject_id', 'etapa'=>$etapa));
+		$data['list'] = $this->Model_Inclusion_exclusion->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
 		/*Buscar todos los numeros y comentarios asociados a este form*/		
 		$this->load->model("Model_Inclusion_exclusion_no_respetados");
@@ -1177,7 +1177,7 @@ class Subject extends CI_Controller {
 		$data['etapa'] = $etapa;
 		$data['valores_intento'] = array(''=>'','0'=>'0','1'=>'1');
 		$data['valores_item'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2');
-		
+
 		$this->load->view('template', $data);
 	}
 
@@ -1188,10 +1188,85 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');				
 
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', 'Fecha', 'required|xss_clean');
+
+		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
+			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_1b', 'Puntaje Intento 1', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_2a', 'Puntaje Intento 2', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_2b', 'Puntaje Intento 2', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_3a', 'Puntaje Intento 3', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_3b', 'Puntaje Intento 3', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_4a', 'Puntaje Intento 4', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_4b', 'Puntaje Intento 4', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_5a', 'Puntaje Intento 5', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_5b', 'Puntaje Intento 5', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_6a', 'Puntaje Intento 6', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_6b', 'Puntaje Intento 6', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_7a', 'Puntaje Intento 7', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_7b', 'Puntaje Intento 7', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_8a', 'Puntaje Intento 8', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_8b', 'Puntaje Intento 8', 'required|xss_clean');
+
+			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_1b', 'Puntaje Item 1', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_2b', 'Puntaje Item 2', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_3b', 'Puntaje Item 3', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_4b', 'Puntaje Item 4', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_5b', 'Puntaje Item 5', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_6b', 'Puntaje Item 6', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_7b', 'Puntaje Item 7', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_8b', 'Puntaje Item 8', 'required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_1b', 'Puntaje Intento 1', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_2a', 'Puntaje Intento 2', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_2b', 'Puntaje Intento 2', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_3a', 'Puntaje Intento 3', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_3b', 'Puntaje Intento 3', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_4a', 'Puntaje Intento 4', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_4b', 'Puntaje Intento 4', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_5a', 'Puntaje Intento 5', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_5b', 'Puntaje Intento 5', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_6a', 'Puntaje Intento 6', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_6b', 'Puntaje Intento 6', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_7a', 'Puntaje Intento 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_7b', 'Puntaje Intento 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_8a', 'Puntaje Intento 8', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_8b', 'Puntaje Intento 8', 'xss_clean');
+
+			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_1b', 'Puntaje Item 1', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_2b', 'Puntaje Item 2', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_3b', 'Puntaje Item 3', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_4b', 'Puntaje Item 4', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_5b', 'Puntaje Item 5', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_6b', 'Puntaje Item 6', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_7b', 'Puntaje Item 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_8b', 'Puntaje Item 8', 'xss_clean');	
+		}
+
+
 		if($this->form_validation->run() == FALSE) {
 
 			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de prueba de digito directo");
-			$this->inclusion($registro['subject_id'], $registro['etapa']);
+			$this->digito_directo($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			
@@ -1229,10 +1304,12 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'Prueba de digito directo';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
-		
+		$data['valores_intento'] = array(''=>'','0'=>'0','1'=>'1');
+		$data['valores_item'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2');
+
 		/*Formulario para la etapa y sujeto correspondiente*/
 		$this->load->model('Model_Digito_directo');
-		$data['list'] = $this->Model_Digito_directo->allWhereArray(array('subject_id'=>'$subject_id', 'etapa'=>$etapa));		
+		$data['list'] = $this->Model_Digito_directo->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));		
 
 		/*querys*/
 		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Digito Directo", "etapa"=>$etapa));
@@ -1240,4 +1317,19 @@ class Subject extends CI_Controller {
 		$this->load->view('template', $data);					
 	}
 
+	public function digito_directo_update(){
+
+	}
+
+	public function digito_directo_verify(){
+
+	}
+
+	public function digito_directo_signature(){
+		
+	}
+
+	public function digito_directo_lock(){
+		
+	}
 } 
