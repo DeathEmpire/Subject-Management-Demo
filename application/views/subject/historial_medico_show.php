@@ -166,7 +166,7 @@
 	<?= form_close(); ?>
 
 	<?php }?>
-</div>
+
 <!-- Querys -->
 			<?php
 				if(isset($querys) AND !empty($querys)){ ?>
@@ -174,12 +174,12 @@
 					<table class="table table-condensed table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Date of Query</th>
-								<th>User</th>
-								<th>Question</th>
-								<th>Date of Answer</th>
-								<th>User</th>
-								<th>Answer</th>					
+								<th>Fecha de Consulta</th>
+								<th>Usuario</th>
+								<th>Consulta</th>
+								<th>Fecha de Respuesta</th>
+								<th>Usuario</th>
+								<th>Respuesta</th>				
 							</tr>
 						</thead>
 						<tbody>
@@ -218,7 +218,7 @@
 				
 					if(isset($_SESSION['role_options']['subject']) 
 						AND strpos($_SESSION['role_options']['subject'], 'historial_medico_verify') 
-						AND $subject->demography_status == 'Record Complete'
+						AND $list[0]->status == 'Record Complete'
 					){
 				?>
 					<?= form_open('subject/historial_medico_verify', array('class'=>'form-horizontal')); ?>    	
@@ -226,7 +226,7 @@
 					<?= form_hidden('id', $list[0]->id); ?>
 					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('etapa', $etapa); ?>
-					<?= form_hidden('current_status', $subject->historial_medico_status); ?>
+					<?= form_hidden('current_status', $list[0]->status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Aprobar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -251,13 +251,13 @@
 				
 					if(isset($_SESSION['role_options']['subject']) 
 						AND strpos($_SESSION['role_options']['subject'], 'historial_medico_lock')
-						AND $subject->demography_status == 'Form Approved by Monitor'){
+						AND $list[0]->status == 'Form Approved by Monitor'){
 				?>
 					<?= form_open('subject/historial_medico_lock', array('class'=>'form-horizontal')); ?>
 					<?= form_hidden('id', $list[0]->id); ?>    	
 					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('etapa', $etapa); ?>
-					<?= form_hidden('current_status', $subject->historial_medico_status); ?>
+					<?= form_hidden('current_status', $list[0]->status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -281,14 +281,14 @@
 				
 					if(isset($_SESSION['role_options']['subject']) 
 						AND strpos($_SESSION['role_options']['subject'], 'historial_medico_signature')
-						AND $subject->demography_status == 'Form Approved and Locked'
+						AND $list[0]->status == 'Form Approved and Locked'
 					){
 				?>
 					<?= form_open('subject/historial_medico_signature', array('class'=>'form-horizontal')); ?>    	
 					<?= form_hidden('id', $list[0]->id); ?>    	
 					<?= form_hidden('subject_id', $subject->id); ?>
 					<?= form_hidden('etapa', $etapa); ?>
-					<?= form_hidden('current_status', $subject->historial_medico_status); ?>
+					<?= form_hidden('current_status', $list[0]->status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 

@@ -138,12 +138,12 @@ $(function(){
 					<table class="table table-condensed table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Date of Query</th>
-								<th>User</th>
-								<th>Question</th>
-								<th>Date of Answer</th>
-								<th>User</th>
-								<th>Answer</th>					
+								<th>Fecha de Consulta</th>
+								<th>Usuario</th>
+								<th>Consulta</th>
+								<th>Fecha de Respuesta</th>
+								<th>Usuario</th>
+								<th>Respuesta</th>				
 							</tr>
 						</thead>
 						<tbody>
@@ -182,21 +182,21 @@ $(function(){
 				
 					if(isset($_SESSION['role_options']['subject']) 
 						AND strpos($_SESSION['role_options']['subject'], 'hachinski_verify') 
-						AND $subject->demography_status == 'Record Complete'
+						AND $list[0]->status == 'Record Complete'
 					){
 				?>
 					<?= form_open('subject/hachinski_verify', array('class'=>'form-horizontal')); ?>    	
 					
 					<?= form_hidden('id', $list[0]->id); ?>
 					<?= form_hidden('subject_id', $subject->id); ?>
-					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+					<?= form_hidden('current_status', $list[0]->status); ?>
 						
-					<?= form_button(array('type'=>'submit', 'content'=>'Aprovar Formulario', 'class'=>'btn btn-primary')); ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Aprobar Formulario', 'class'=>'btn btn-primary')); ?>
 
 					<?= form_close(); ?>
 
 			<?php }else{
-					echo "Este formulario aun no na sido aprovado";
+					echo "Este formulario aun no na sido aprobado";
 					}
 				}
 			?>
@@ -214,12 +214,12 @@ $(function(){
 				
 					if(isset($_SESSION['role_options']['subject']) 
 						AND strpos($_SESSION['role_options']['subject'], 'hachinski_lock')
-						AND $subject->demography_status == 'Form Approved by Monitor'){
+						AND $list[0]->status == 'Form Approved by Monitor'){
 				?>
 					<?= form_open('subject/hachinski_lock', array('class'=>'form-horizontal')); ?>
 					<?= form_hidden('id', $list[0]->id); ?>    	
 					<?= form_hidden('subject_id', $subject->id); ?>
-					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+					<?= form_hidden('current_status', $list[0]->status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -243,13 +243,13 @@ $(function(){
 				
 					if(isset($_SESSION['role_options']['subject']) 
 						AND strpos($_SESSION['role_options']['subject'], 'hachinski_signature')
-						AND $subject->demography_status == 'Form Approved and Locked'
+						AND $list[0]->status == 'Form Approved and Locked'
 					){
 				?>
 					<?= form_open('subject/hachinski_signature', array('class'=>'form-horizontal')); ?>    	
 					<?= form_hidden('id', $list[0]->id); ?>    	
 					<?= form_hidden('subject_id', $subject->id); ?>
-					<?= form_hidden('current_status', $subject->hachinski_status); ?>
+					<?= form_hidden('current_status', $list[0]->status); ?>
 						
 					<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 

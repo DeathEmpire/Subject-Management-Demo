@@ -75,12 +75,12 @@
 		<table class="table table-condensed table-bordered table-stripped">
 			<thead>
 				<tr>
-					<th>Date of Query</th>
-					<th>User</th>
-					<th>Question</th>
-					<th>Date of Answer</th>
-					<th>User</th>
-					<th>Answer</th>					
+					<th>Fecha de Consulta</th>
+								<th>Usuario</th>
+								<th>Consulta</th>
+								<th>Fecha de Respuesta</th>
+								<th>Usuario</th>
+								<th>Respuesta</th>				
 				</tr>
 			</thead>
 			<tbody>

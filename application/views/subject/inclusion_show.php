@@ -162,14 +162,14 @@ $(function(){
 	
 		if(isset($_SESSION['role_options']['subject']) 
 			AND strpos($_SESSION['role_options']['subject'], 'inclusion_verify') 
-			AND $subject->inclusion_status == 'Record Complete'
+			AND $list[0]->status == 'Record Complete'
 		){
 	?>
 		<?= form_open('subject/inclusion_verify', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('current_status', $subject->inclusion_status); ?>
+		<?= form_hidden('current_status', $list[0]->status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Aprobar', 'class'=>'btn btn-primary')); ?>
 
@@ -194,13 +194,13 @@ $(function(){
 	
 		if(isset($_SESSION['role_options']['subject']) 
 			AND strpos($_SESSION['role_options']['subject'], 'inclusion_lock')
-			AND $subject->inclusion_status == 'Form Approved by Monitor'){
+			AND $list[0]->status == 'Form Approved by Monitor'){
 	?>
 		<?= form_open('subject/inclusion_lock', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('current_status', $subject->inclusion_status); ?>
+		<?= form_hidden('current_status', $list[0]->status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -224,14 +224,14 @@ $(function(){
 	
 		if(isset($_SESSION['role_options']['subject']) 
 			AND strpos($_SESSION['role_options']['subject'], 'inclusion_signature')
-			AND $subject->inclusion_status == 'Form Approved and Locked'
+			AND $list[0]->status == 'Form Approved and Locked'
 		){
 	?>
 		<?= form_open('subject/inclusion_signature', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('current_status', $subject->inclusion_status); ?>
+		<?= form_hidden('current_status', $list[0]->status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
