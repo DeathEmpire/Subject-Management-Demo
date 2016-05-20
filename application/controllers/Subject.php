@@ -369,7 +369,7 @@ class Subject extends CI_Controller {
 		$qty = $this->Model_Kit->qtyByCenter($center);
 
 		if($qty[0]->qty == 0){
-			$this->form_validation->set_message('stock', 'No stock in the center');
+			$this->form_validation->set_message('stock', 'No hay stock en el centro');
 			return false;
 		}
 		else{
@@ -651,7 +651,7 @@ class Subject extends CI_Controller {
 
 		$this->load->model('Model_Hachinski_Form');
  		$this->Model_Hachinski_Form->update($save);
- 		$this->auditlib->save_audit("Escala de Hachinski Modificada");
+ 		$this->auditlib->save_audit("Escala de Hachinski Actualizada");
 
  		redirect('subject/hachinski_show/'. $id);
 
@@ -1322,14 +1322,129 @@ class Subject extends CI_Controller {
 	}
 
 	public function digito_directo_verify(){
+		$registro = $this->input->post();
 
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Digiti Directo");
+			$this->digito_directo_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Digito_directo');
+			$this->Model_Digito_directo->update($registro);
+			$this->auditlib->save_audit("Verificacion de el formulario de Digito Directo");
+
+			/*Actualizar estado en el sujeto*/
+			if(isset($registro['etapa']) AND $registro['etapa'] == 2){
+				$this->Model_Subject->update(array('digito_2_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif(isset($registro['etapa']) AND $registro['etapa'] == 4){
+				$this->Model_Subject->update(array('digito_4_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif(isset($registro['etapa']) AND $registro['etapa'] == 5){
+				$this->Model_Subject->update(array('digito_5_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('digito_6_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
 
 	public function digito_directo_signature(){
-		
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Digito Directo");
+			$this->digito_directo_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Digito_directo');
+			$this->Model_Digito_directo->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de Digito Directo");
+			
+			/*Actualizar estado en el sujeto*/
+			if(isset($registro['etapa']) AND $registro['etapa'] == 2){
+				$this->Model_Subject->update(array('digito_2_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('digito_4_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('digito_5_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('digito_6_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
 
 	public function digito_directo_lock(){
-		
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Digito Directo");
+			$this->digito_directo_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Digito_directo');
+			$this->Model_Digito_directo->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de Digito Directo");			
+			
+			/*Actualizar estado en el sujeto*/
+			if(isset($registro['etapa']) AND $registro['etapa'] == 2){
+				$this->Model_Subject->update(array('digito_2_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('digito_4_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('digito_5_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('digito_6_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
 } 

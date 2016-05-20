@@ -436,11 +436,155 @@
 		<tr>
 			<td>Prueba de dígito directo</td>
 			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
+			<?php
+				#print_r($subject);
+				if(empty($subject->digito_2_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/digito_directo/'.$subject->id .'/2';
+				}
+				elseif ($subject->digito_2_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->digito_2_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->digito_2_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->digito_2_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->digito_2_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->digito_2_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/2';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
+			<?php
+				#print_r($subject);
+				if(empty($subject->digito_4_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/digito_directo/'.$subject->id .'/4';
+				}
+				elseif ($subject->digito_4_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->digito_4_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->digito_4_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->digito_4_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->digito_4_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->digito_4_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php
+				#print_r($subject);
+				if(empty($subject->digito_5_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/digito_directo/'.$subject->id .'/5';
+				}
+				elseif ($subject->digito_5_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->digito_5_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->digito_5_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->digito_5_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->digito_5_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->digito_5_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php
+				#print_r($subject);
+				if(empty($subject->digito_6_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/digito_directo/'.$subject->id .'/6';
+				}
+				elseif ($subject->digito_6_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->digito_6_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->digito_6_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->digito_6_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->digito_6_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->digito_6_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/digito_directo_show/'.$subject->id .'/6';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 		</tr>
 		<tr>
 			<td>Prueba de restas seriadas</td>
