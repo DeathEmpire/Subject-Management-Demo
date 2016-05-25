@@ -835,32 +835,32 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>Adverse Event/Serious Adverse Event</td>
+			<td>Eventos Adversos</td>
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'adverse_event_form')){
 			?>
-				<td><?= anchor('subject/adverse_event_form/'.$subject->id,'Add'); ?></td>
+				<td><?= anchor('subject/adverse_event_form/'.$subject->id,'Agregar'); ?></td>
 			<?php }?>	
-			<td><?= anchor('subject/adverse_event_show/'.$subject->id,'Show'); ?></td>
+			<td><?= anchor('subject/adverse_event_show/'.$subject->id,'Ver'); ?></td>
 		</tr>
 		<tr>	
 			<td>Protocol Deviation</td>
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'protocol_deviation_form')){
 			?>
-				<td><?= anchor('subject/protocol_deviation_form/'.$subject->id,'Add'); ?></td>
+				<td><?= anchor('subject/protocol_deviation_form/'.$subject->id,'Agregar'); ?></td>
 			<?php }?>
 
-			<td><?= anchor('subject/protocol_deviation_show/'.$subject->id,'Show'); ?></td>
+			<td><?= anchor('subject/protocol_deviation_show/'.$subject->id,'Ver'); ?></td>
 		</tr>
 		<tr>	
 			<td>Concomitant Medication</td>
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'concomitant_medication_form')){
 			?>
-				<td><?= anchor('subject/concomitant_medication_form/'.$subject->id,'Add'); ?></td>
+				<td><?= anchor('subject/concomitant_medication_form/'.$subject->id,'Agregar'); ?></td>
 			<?php }?>
-			<td><?= anchor('subject/concomitant_medication_show/'.$subject->id,'Show'); ?></td>
+			<td><?= anchor('subject/concomitant_medication_show/'.$subject->id,'Ver'); ?></td>
 		</tr>		
 	</tbody>
 </table>

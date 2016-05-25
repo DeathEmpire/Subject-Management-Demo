@@ -1168,7 +1168,7 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
-
+/*-------------------------------------------DIGITO DIRECTO---------------------------------------------------------------------------*/
 	public function digito_directo($subject_id, $etapa){
 		$data['contenido'] = 'subject/digito_directo';
 		$data['titulo'] = 'Prueba de Digito Directo';
@@ -1446,7 +1446,7 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
-
+/*----------------------------------------------MMSE------------------------------------------------------------------------------*/
 	public function mmse($subject_id, $etapa){
 
 		$data['contenido'] = 'subject/mmse';
@@ -1466,6 +1466,23 @@ class Subject extends CI_Controller {
 
 	}
 
+	public function mmse_update(){
+		$registro = $this->input->post();
+	}
+
+	public function mmse_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function mmse_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function mmse_lock(){
+		$registro = $this->input->post();
+	}
+	/*----------------------------------------------ECG------------------------------------------------------------------------------*/
+
 	public function ecg($subject_id){
 
 		$data['contenido'] = 'subject/ecg';
@@ -1482,4 +1499,254 @@ class Subject extends CI_Controller {
 	public function ecg_show($subject_id, $etapa){
 
 	}
+
+	public function ecg_update(){
+		$registro = $this->input->post();
+	}
+
+	public function ecg_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function ecg_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function ecg_lock(){
+		$registro = $this->input->post();
+	}
+
+	/*----------------------------------------------Signos Vitales------------------------------------------------------------------------------*/
+	public function signos_vitales($subject_id, $etapa){
+		$data['contenido'] = 'subject/signos_vitales';
+		$data['titulo'] = 'Signos Vitales';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template',$data);
+	}
+
+	public function signos_vitales_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function signos_vitales_show($subject_id, $etapa){
+
+	}
+
+	public function signos_vitales_update(){
+		$registro = $this->input->post();
+	}
+
+	public function signos_vitales_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function signos_vitales_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function signos_vitales_lock(){
+		$registro = $this->input->post();
+	}
+
+	/*----------------------------------------------Cumplimiento------------------------------------------------------------------------------*/
+	public function cumplimiento($subject_id, $etapa){
+		$data['contenido'] = 'subject/cumplimiento';
+		$data['titulo'] = 'Cumplimiento';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template',$data);
+	}
+
+	public function cumplimiento_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function cumplimiento_show($subject_id, $etapa){
+
+	}
+
+	public function cumplimiento_update(){
+		$registro = $this->input->post();
+	}
+
+	public function cumplimiento_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function cumplimiento_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function cumplimiento_lock(){
+		$registro = $this->input->post();
+	}
+	/*----------------------------------------------Fin Tratamiento------------------------------------------------------------------------------*/
+	public function fin_tratamiento($subject_id, $etapa){
+		$data['contenido'] = 'subject/fin_tratamiento';
+		$data['titulo'] = 'Fin Tratamiento';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template',$data);
+	}
+
+	public function fin_tratamiento_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function fin_tratamiento_show($subject_id, $etapa){
+
+	}
+
+	public function fin_tratamiento_update(){
+		$registro = $this->input->post();
+	}
+
+	public function fin_tratamiento_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function fin_tratamiento_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function fin_tratamiento_lock(){
+		$registro = $this->input->post();
+	}
+	/*----------------------------------------------Fin Tratamiento Temprano------------------------------------------------------------------------------*/
+	public function fin_tratamiento_temprano($subject_id, $etapa){
+		$data['contenido'] = 'subject/fin_tratamiento_temprano';
+		$data['titulo'] = 'Fin Tratamiento Temprano';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template',$data);
+	}
+
+	public function fin_tratamiento_temprano_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function fin_tratamiento_temprano_show($subject_id, $etapa){
+
+	}
+
+	public function fin_tratamiento_temprano_update(){
+		$registro = $this->input->post();
+	}
+
+	public function fin_tratamiento_temprano_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function fin_tratamiento_temprano_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function fin_tratamiento_temprano_lock(){
+		$registro = $this->input->post();
+	}
+	/*----------------------------------------------Muestra de Sangre------------------------------------------------------------------------------*/
+	public function muestra_de_sangre($subject_id, $etapa){
+		$data['contenido'] = 'subject/muestra_de_sangre';
+		$data['titulo'] = 'Muestra de Sangre';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template',$data);
+	}
+
+	public function muestra_de_sangre_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function muestra_de_sangre_show($subject_id, $etapa){
+
+	}
+
+	public function muestra_de_sangre_update(){
+		$registro = $this->input->post();
+	}
+
+	public function muestra_de_sangre_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function muestra_de_sangre_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function muestra_de_sangre_lock(){
+		$registro = $this->input->post();
+	}
+	/*----------------------------------------------Examen Neurologico------------------------------------------------------------------------------*/	
+	public function examen_neurologico($subject_id, $etapa){
+		$data['contenido'] = 'subject/examen_neurologico';
+		$data['titulo'] = 'Examen Neurologico';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template',$data);
+	}
+
+	public function examen_neurologico_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function examen_neurologico_show($subject_id, $etapa){
+
+	}
+
+	public function examen_neurologico_update(){
+		$registro = $this->input->post();
+	}
+
+	public function examen_neurologico_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function examen_neurologico_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function examen_neurologico_lock(){
+		$registro = $this->input->post();
+	}
+	/*----------------------------------------------Examen Laboratorio------------------------------------------------------------------------------*/
+	public function examen_laboratorio($subject_id, $etapa){
+		$data['contenido'] = 'subject/examen_laboratorio';
+		$data['titulo'] = 'Examen Laboratorio';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template',$data);
+	}
+
+	public function examen_laboratorio_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function examen_laboratorio_show($subject_id, $etapa){
+
+	}
+
+	public function examen_laboratorio_update(){
+		$registro = $this->input->post();
+	}
+
+	public function examen_laboratorio_verify(){
+		$registro = $this->input->post();
+	}
+
+	public function examen_laboratorio_signature(){
+		$registro = $this->input->post();
+	}
+
+	public function examen_laboratorio_lock(){
+		$registro = $this->input->post();
+	}
+	
 } 
