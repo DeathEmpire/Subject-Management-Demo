@@ -129,7 +129,8 @@
 					$link = 'subject/inclusion_show/'.$subject->id ."/1";
 				}
 				else{
-					$icon = '*';		
+					$icon = '*';	
+					$link = '';	
 				}
 				
 			?>			
@@ -165,6 +166,7 @@
 				}
 				else{
 					$icon = '*';		
+					$link = '';
 				}
 				
 			?>			
@@ -206,7 +208,8 @@
 					$link = 'subject/historial_medico_show/'.$subject->id ."/1";
 				}
 				else{
-					$icon = '*';		
+					$icon = '*';
+					$link = '';		
 				}
 				
 			?>			
@@ -241,7 +244,8 @@
 					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
 				}
 				else{
-					$icon = '*';		
+					$icon = '*';
+					$link = '';		
 				}
 				
 			?>
@@ -253,12 +257,152 @@
 		</tr>
 		<tr>
 			<td>MMSE</td>
-			<td style='text-align:center;'>X</td>
+			<?php
+				if(empty($subject->mmse_1_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/mmse/'.$subject->id ."/1";
+				}
+				elseif ($subject->mmse_1_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->mmse_1_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->mmse_1_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->mmse_1_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->mmse_1_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/1";
+				}
+				elseif ($subject->mmse_1_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/1";
+				}
+				else{
+					$icon = '*';
+					$link = '';		
+				}
+				
+			?>			
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>			
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
+			<?php
+				if(empty($subject->mmse_4_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/mmse/'.$subject->id ."/4";
+				}
+				elseif ($subject->mmse_4_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/4";
+				}
+				elseif ($subject->mmse_4_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/4";
+				}
+				elseif ($subject->mmse_4_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/4";
+				}
+				elseif ($subject->mmse_4_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/4";
+				}
+				elseif ($subject->mmse_4_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/4";
+				}
+				elseif ($subject->mmse_4_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/4";
+				}
+				else{
+					$icon = '*';
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<?php
+				if(empty($subject->mmse_5_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/mmse/'.$subject->id ."/5";
+				}
+				elseif ($subject->mmse_5_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/5";
+				}
+				elseif ($subject->mmse_5_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/5";
+				}
+				elseif ($subject->mmse_5_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/5";
+				}
+				elseif ($subject->mmse_5_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/5";
+				}
+				elseif ($subject->mmse_5_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/5";
+				}
+				elseif ($subject->mmse_5_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/5";
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<?php
+				if(empty($subject->mmse_6_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/mmse/'.$subject->id ."/6";
+				}
+				elseif ($subject->mmse_6_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/6";
+				}
+				elseif ($subject->mmse_6_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/6";
+				}
+				elseif ($subject->mmse_6_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/6";
+				}
+				elseif ($subject->mmse_6_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/6";
+				}
+				elseif ($subject->mmse_6_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/6";
+				}
+				elseif ($subject->mmse_6_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/6";
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 		</tr>
 		
 		<?php
@@ -316,7 +460,42 @@
 		</tr>
 		<tr>
 			<td>Electrocardiograma de reposo (ECG)</td>
-			<td style='text-align:center;'>X</td>
+			<?php
+				if(empty($subject->ecg_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
+					$link = 'subject/ecg/'.$subject->id;
+				}
+				elseif ($subject->ecg_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/ecg_show/'.$subject->id;
+				}
+				elseif ($subject->ecg_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/ecg_show/'.$subject->id;
+				}
+				elseif ($subject->ecg_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/ecg_show/'.$subject->id;
+				}
+				elseif ($subject->ecg_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/ecg_show/'.$subject->id;
+				}
+				elseif ($subject->ecg_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/ecg_show/'.$subject->id;
+				}
+				elseif ($subject->ecg_status == 'Error') {					
+					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
+					$link = 'subject/ecg_show/'.$subject->id;
+				}
+				else{
+					$icon = '*';		
+					$link = "";
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>

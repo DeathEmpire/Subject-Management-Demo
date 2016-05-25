@@ -32,7 +32,6 @@ class Subject extends CI_Controller {
 	}
 
     public function my_validation() {
-		return false;
 		#return $this->usuariolib->my_validation($this->input->post());
 	}
 
@@ -1446,5 +1445,41 @@ class Subject extends CI_Controller {
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
+	}
+
+	public function mmse($subject_id, $etapa){
+
+		$data['contenido'] = 'subject/mmse';
+		$data['titulo'] = 'MMSE';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		$data['puntaje'] = array(''=>'','0'=>'0','1'=>'1');
+
+		$this->load->view('template',$data);
+	}
+
+	public function mmse_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function mmse_show($subject_id, $etapa){
+
+	}
+
+	public function ecg($subject_id){
+
+		$data['contenido'] = 'subject/ecg';
+		$data['titulo'] = 'ECG';
+		$data['subject'] = $this->Model_Subject->find($subject_id);						
+
+		$this->load->view('template',$data);
+	}
+
+	public function ecg_insert(){
+		$registro = $this->input->post();
+	}
+
+	public function ecg_show($subject_id, $etapa){
+
 	}
 } 
