@@ -376,6 +376,13 @@ class Subject extends CI_Controller {
 		}
 	}
 
+/*-----------------------| | |---------------------------------------| | |-----------------------------------------------------------------*/
+/*-----------------------| | |------------------FORMULARIOS----------| | |-----------------------------------------------------------------*/
+/*-----------------------V V V---------------------------------------V V V-----------------------------------------------------------------*/
+
+
+
+/*-------------------------------------------ADVERSE EVENT---------------------------------------------------------------------------*/
 	public function adverse_event_form($id){
 		$data['contenido'] = 'subject/adverse_event';
 		$data['titulo'] = 'Adverse Event/Serious Adverse Event';
@@ -445,7 +452,7 @@ class Subject extends CI_Controller {
 
 		$this->load->view('template', $data);
 	}
-
+/*-------------------------------------------PROTOCOL DEVIATON---------------------------------------------------------------------------*/
 	public function protocol_deviation_form($id){
 		$data['contenido'] = 'subject/protocol_deviation';
 		$data['titulo'] = 'Protocol Deviation';
@@ -507,7 +514,7 @@ class Subject extends CI_Controller {
 
 		$this->load->view('template', $data);
 	}
-
+/*-------------------------------------------CONCOMICANT MEDICATION--------------------------------------------------------------------------*/
 	public function concomitant_medication_form($id){
 		$data['contenido'] = 'subject/concomitant_medication';
 		$data['titulo'] = 'Concomitant Medication';
@@ -586,6 +593,7 @@ class Subject extends CI_Controller {
 		$this->auditlib->save_audit("Show list for concomitant medication for a subject");
 		$this->load->view('template', $data);
 	}
+	/*-------------------------------------------HACHINSKI---------------------------------------------------------------------------*/
 
 	public function hachinski_form($id){
 		$data['contenido'] = 'subject/hachinski';
@@ -757,7 +765,7 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
-
+/*-------------------------------------------HISTORIAL MEDICO---------------------------------------------------------------------------*/
 	public function historial_medico($id,$etapa){
 		$data['contenido'] = 'subject/historial_medico';
 		$data['titulo'] = 'Historia Medica';
@@ -964,7 +972,7 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
-
+/*-------------------------------------------INCLUSION EXCLUSION---------------------------------------------------------------------------*/
 	public function inclusion($subject_id, $etapa){
 
 		$data['contenido'] = 'subject/inclusion';

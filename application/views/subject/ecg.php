@@ -129,8 +129,9 @@ $(function(){
 		</table>
 
 		INTERPRETACIÓN ECG: <?= form_radio('interpretacion_ecg', 1); ?> Normal <?= form_radio('interpretacion_ecg', 0); ?> Anormal<br />
-		Comentarios: <br />
-		<textarea></textarea>
+		Comentarios: <br />		
+		<?= form_textarea(array('name'=>'comentarios', 'id'=>'comentarios', 'value'=>set_value('comentarios'), 'rows'=>'4','cols'=>'40')); ?>
+		<br />
 
 
 	<?= form_close(); ?>
