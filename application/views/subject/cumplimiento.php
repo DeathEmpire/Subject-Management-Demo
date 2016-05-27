@@ -45,13 +45,23 @@ $(function(){
 			    'checked'     => set_checkbox('realizado','1')			    
 		    );
 		?>
-
-		No Realizado: <?= form_checkbox($realizado);?><br />
-		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
-
-		Numero Comprimidos Entregados: <?= form_input(array('type'=>'text','name'=>'comprimidos_entregados', 'id'=>'comprimidos_entregados', 'maxlenght'=>'3','value'=>set_value('comprimidos_entregados'))); ?><br />
-		Numero Comprimidos Utilizados: <?= form_input(array('type'=>'text','name'=>'comprimidos_utilizados', 'id'=>'comprimidos_utilizados', 'maxlenght'=>'3','value'=>set_value('comprimidos_utilizados'))); ?><br />
-		Numero Comprimidos Devueltos: <?= form_input(array('type'=>'text','name'=>'comprimidos_devueltos', 'id'=>'comprimidos_devueltos', 'maxlenght'=>'3','value'=>set_value('comprimidos_devueltos'))); ?><br />
+	<table class="table table-bordered table-striper table-hover">
+		<tr>		
+			<td>No Realizado: </td><td><?= form_checkbox($realizado);?></td>
+		</tr>
+		<tr>
+			<td>Fecha: </td><td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
+		</tr>
+		<tr>
+			<td>Numero Comprimidos Entregados: </td><td><?= form_input(array('type'=>'text','name'=>'comprimidos_entregados', 'id'=>'comprimidos_entregados', 'maxlenght'=>'3','value'=>set_value('comprimidos_entregados'))); ?></td>
+		</tr>
+		<tr>
+			<td>Numero Comprimidos Utilizados: </td><td><?= form_input(array('type'=>'text','name'=>'comprimidos_utilizados', 'id'=>'comprimidos_utilizados', 'maxlenght'=>'3','value'=>set_value('comprimidos_utilizados'))); ?></td>
+		</tr>
+		<tr>
+			<td>Numero Comprimidos Devueltos: </td><td><?= form_input(array('type'=>'text','name'=>'comprimidos_devueltos', 'id'=>'comprimidos_devueltos', 'maxlenght'=>'3','value'=>set_value('comprimidos_devueltos'))); ?></td>
+		</tr>
+		<tr>
 
 		<?php
        		$si = array(
@@ -65,10 +75,22 @@ $(function(){
 			    'checked'     => set_radio('se_perdio_algun_comprimido', 0)
 			    );
        	?>
-		Se Perdio Algun Comprimido: <?= form_radio($si); ?> Si <?= form_radio($no); ?> No
-		<br />
-		Numero de Comprimido Perdidos: <?= form_input(array('type'=>'text','name'=>'comprimidos_perdidos', 'id'=>'comprimidos_perdidos', 'maxlenght'=>'3','value'=>set_value('comprimidos_perdidos'))); ?><br />
-		Días (desde entrega anterior hasta Día de visita): <?= form_input(array('type'=>'text','name'=>'dias', 'id'=>'dias', 'maxlenght'=>'3','value'=>set_value('dias'))); ?><br />
-		% cumplimiento (Comprimidos/2/días x 100): <?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlenght'=>'3','value'=>set_value('porcentaje_cumplimiento'))); ?><br />
-
+			<td>Se Perdio Algun Comprimido: </td><td><?= form_radio($si); ?> Si <?= form_radio($no); ?> No
+		</tr>
+		<tr>		
+			<td>Numero de Comprimido Perdidos: </td><td><?= form_input(array('type'=>'text','name'=>'comprimidos_perdidos', 'id'=>'comprimidos_perdidos', 'maxlenght'=>'3','value'=>set_value('comprimidos_perdidos'))); ?></td>
+		</tr>
+		<tr>
+			<td>Días (desde entrega anterior hasta Día de visita): </td><td><?= form_input(array('type'=>'text','name'=>'dias', 'id'=>'dias', 'maxlenght'=>'3','value'=>set_value('dias'))); ?></td>
+		</tr>
+		<tr>
+			<td>% cumplimiento (Comprimidos/2/días x 100): </td><td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlenght'=>'3','value'=>set_value('porcentaje_cumplimiento'))); ?></td>
+		</tr>
+		<tr>
+			<td colspan='2' style='text-align:center;'>
+				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+	        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+			</td>
+		</tr>
+	</table>
 <?= form_close(); ?>

@@ -32,7 +32,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/fin_tratamiento_temprano_insert', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/muestra_de_sangre_insert', array('class'=>'form-horizontal')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	
@@ -46,9 +46,21 @@ $(function(){
 			    'checked'     => set_checkbox('realizado','1')			    
 		    );
 		?>
-
-		No Realizado: <?= form_checkbox($realizado);?><br />
-		Fecha Toma Muestra: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
-		
+	<table class="table table-bordered table-striper table-hover">
+		<tr>
+			<td>No Realizado:</td>
+			<td> <?= form_checkbox($realizado);?></td>
+		</tr>
+		<tr>
+			<td>Fecha Toma Muestra: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
+		</tr>
+		<tr>
+			<td colspan='2' style='text-align:center;'>
+				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+	        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+			</td>
+		</tr>
+	</table>
 
 <?= form_close(); ?>

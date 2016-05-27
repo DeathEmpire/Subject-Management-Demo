@@ -45,19 +45,48 @@ $(function(){
 			    'checked'     => set_checkbox('realizado','1')			    
 		    );
 		?>
-
-		No Realizado: <?= form_checkbox($realizado);?><br />
-		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
-
-		Estatura: <?= form_input(array('type'=>'text','name'=>'estatura', 'id'=>'estatura', 'maxlenght'=>'3','value'=>set_value('estatura'))); ?> cms<br />
-
-		Presion Sistolica: <?= form_input(array('type'=>'text','name'=>'presion_sistolica', 'id'=>'presion_sistolica', 'maxlenght'=>'3','value'=>set_value('presion_sistolica'))); ?> mmHg<br />
-		Presion Diastolica: <?= form_input(array('type'=>'text','name'=>'presion_diastolica', 'id'=>'presion_diastolica', 'maxlenght'=>'3','value'=>set_value('presion_diastolica'))); ?> mmHg<br />
-		Frecuencia Cardiaca: <?= form_input(array('type'=>'text','name'=>'frecuencia_cardiaca', 'id'=>'frecuencia_cardiaca', 'maxlenght'=>'3','value'=>set_value('frecuencia_cardiaca'))); ?> latidos/minuto<br />
-		Frecuencia Respiratoria: <?= form_input(array('type'=>'text','name'=>'frecuencia_respiratoria', 'id'=>'frecuencia_respiratoria', 'maxlenght'=>'3','value'=>set_value('frecuencia_respiratoria'))); ?> minuto<br />
-		Temperatura: <?= form_input(array('type'=>'text','name'=>'temperatura', 'id'=>'temperatura', 'maxlenght'=>'3','value'=>set_value('temperatura'))); ?> °C<br />
-		Peso: <?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlenght'=>'3','value'=>set_value('peso'))); ?> kgs<br />
-
-
-
+	<table class="table table-bordered table-striper table-hover">
+		<tr>	
+			<td>No Realizado: </td>
+			<td><?= form_checkbox($realizado);?></td>
+		</tr>
+		<tr>		
+			<td>Fecha: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
+		</tr>
+		<tr>
+			<td>Estatura: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'estatura', 'id'=>'estatura', 'maxlenght'=>'3','value'=>set_value('estatura'))); ?> cms</td>
+		</tr>
+		<tr>
+			<td>Presion Sistolica: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'presion_sistolica', 'id'=>'presion_sistolica', 'maxlenght'=>'3','value'=>set_value('presion_sistolica'))); ?> mmHg</td>
+		</tr>
+		<tr>
+			<td>Presion Diastolica: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'presion_diastolica', 'id'=>'presion_diastolica', 'maxlenght'=>'3','value'=>set_value('presion_diastolica'))); ?> mmHg</td>
+		</tr>
+		<tr>	
+			<td>Frecuencia Cardiaca: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_cardiaca', 'id'=>'frecuencia_cardiaca', 'maxlenght'=>'3','value'=>set_value('frecuencia_cardiaca'))); ?> latidos/minuto</td>
+		</tr>
+		<tr>
+			<td>Frecuencia Respiratoria: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_respiratoria', 'id'=>'frecuencia_respiratoria', 'maxlenght'=>'3','value'=>set_value('frecuencia_respiratoria'))); ?> minuto</td>
+		</tr>
+		<tr>
+			<td>Temperatura: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'temperatura', 'id'=>'temperatura', 'maxlenght'=>'3','value'=>set_value('temperatura'))); ?> °C</td>
+		</tr>
+		<tr>
+			<td>Peso: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlenght'=>'3','value'=>set_value('peso'))); ?> kgs</td>
+		</tr>
+		<tr>
+			<td colspan='2' style='text-align:center;'>
+				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+	        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+	        </td>
+	    </tr>
+	</table>
 <?= form_close(); ?>

@@ -335,7 +335,8 @@ Dibujo: página con el diagrama).</td>
 		<tr>
 			<td colspan='3' style='text-align:center;'>
 				<?= form_hidden('puntaje_total'); ?>
-				<input type='submit' class='btn btn-primary' value='Enviar'>
+				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+            	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
 			</td>
 		</tr>
 	</table>

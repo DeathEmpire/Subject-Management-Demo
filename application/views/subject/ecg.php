@@ -128,13 +128,27 @@ $(function(){
 					<?= form_radio('qrs2_normal_anormal', 0); ?>
 				</td>
 			</tr>
-			
+			<tr>
+				<td colspan='3'>INTERPRETACIÓN ECG:</td>
+				<td><?= form_radio('interpretacion_ecg', 1); ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<?= form_radio('interpretacion_ecg', 0); ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Comentarios: </td>		
+				<td colspan='3'>
+					<?= form_textarea(array('name'=>'comentarios', 'id'=>'comentarios', 'value'=>set_value('comentarios'), 'rows'=>'4','cols'=>'40')); ?>
+				</td>
+			</tr>
+		
+			<tr>
+				<td colspan='4' style='text-align:center;'>
+					<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+            		<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+            	</td>
+			</tr>
 		</table>
-
-		INTERPRETACIÓN ECG: <?= form_radio('interpretacion_ecg', 1); ?> Normal <?= form_radio('interpretacion_ecg', 0); ?> Anormal<br />
-		Comentarios: <br />		
-		<?= form_textarea(array('name'=>'comentarios', 'id'=>'comentarios', 'value'=>set_value('comentarios'), 'rows'=>'4','cols'=>'40')); ?>
-		<br />
+		
 
 
 	<?= form_close(); ?>

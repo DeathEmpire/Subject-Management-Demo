@@ -878,16 +878,16 @@ class Subject extends CI_Controller {
 		}
 	}
 
-	public function historial_medico_show($id,$etapa){
+	public function historial_medico_show($subject_id,$etapa){
 		$data['contenido'] = 'subject/historial_medico_show';
 		$data['titulo'] = 'Historia Medica';
 		$data['subject'] = $this->Model_Subject->find($id);
 		$data['etapa'] = $etapa;
 
 		$this->load->model("Model_Historial_medico");
-		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$id, 'etapa'=>$etapa));
+		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Historial Medico", "etapa"=>$etapa));
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Historial Medico", "etapa"=>$etapa));
 
 		$this->load->view('template', $data);
 	}
@@ -1359,6 +1359,10 @@ class Subject extends CI_Controller {
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
+			/*Actualizamos Form*/
+			$this->load->model('Model_Digito_directo');
+			$this->Model_Digito_directo->insert($registro);
+
 			/*Actualizamos el estado en el sujeto*/
 			$subjet_['id'] = $registro['subject_id'];
 			$this->Model_Subject->update($subjet_);
@@ -1383,7 +1387,7 @@ class Subject extends CI_Controller {
 		$data['list'] = $this->Model_Digito_directo->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));		
 
 		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Digito Directo", "etapa"=>$etapa));
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Digito Directo", "etapa"=>$etapa));
 		
 		$this->load->view('template', $data);					
 	}
@@ -1590,11 +1594,60 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('cierre_los_ojos', '', 'required|xss_clean');
 		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'required|xss_clean');
 		$this->form_validation->set_rules('dibujo_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('', '', 'required|xss_clean');
-		$this->form_validation->set_rules('', '', 'required|xss_clean');
+		$this->form_validation->set_rules('puntaje_total', '', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar estudio MMSE", $registro['subject_id']);
+			$this->mmse($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['etapa'] == 1){				
+				$subjet_['mmse_1_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 4){
+				$subjet_['mmse_4_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['mmse_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['mmse_6_status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Mmse');
+			$this->Model_Mmse->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("MMSE agregado", $registro['subject_id']);     		
+     		redirect('subject/mmse_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+
 	}
 
 	public function mmse_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/mmse_show';
+		$data['titulo'] = 'MMSE';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		
+		$this->load->model('Model_Mmse');
+		$data['list'] = $this->Model_Mmse->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"MMSE", "etapa"=>$etapa));
+
+		$data['puntaje'] = array(''=>'','0'=>'0','1'=>'1');
 
 	}
 
@@ -1626,6 +1679,61 @@ class Subject extends CI_Controller {
 
 	public function ecg_insert(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
+
+		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
+			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('fc_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('pr_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qrs_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qt_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qtc_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('interpretacion_ecg', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comentarios', '', 'required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('fecha', '', 'xss_clean');
+			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
+			$this->form_validation->set_rules('comentarios', '', 'xss_clean');	
+		}
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar estudio ECG", $registro['subject_id']);
+			$this->ecg($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Electrocardiograma_de_reposo');
+			$this->Model_Electrocardiograma_de_reposo->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$subjet_['ecg_status'] = "Record Complete";
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("ECG agregado", $registro['subject_id']);     		
+     		redirect('subject/ecg_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function ecg_show($subject_id, $etapa){
@@ -1660,6 +1768,58 @@ class Subject extends CI_Controller {
 
 	public function signos_vitales_insert(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('estatura', '', 'required|xss_clean');
+		$this->form_validation->set_rules('presion_sistolica', '', 'required|xss_clean');
+		$this->form_validation->set_rules('presion_diastolica', '', 'required|xss_clean');
+		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'required|xss_clean');
+		$this->form_validation->set_rules('frecuencia_respiratoria', '', 'required|xss_clean');
+		$this->form_validation->set_rules('temperatura', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso', '', 'required|xss_clean');
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar signos vitales", $registro['subject_id']);
+			$this->signos_vitales($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['etapa'] == 1){				
+				$subjet_['signos_vitales_1_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 3){
+				$subjet_['signos_vitales_3_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 4){
+				$subjet_['signos_vitales_4_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['signos_vitales_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['signos_vitales_6_status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Signos_vitales');
+			$this->Model_Signos_vitales->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Sginos vitales agregados", $registro['subject_id']);     		
+     		redirect('subject/signos_vitales_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function signos_vitales_show($subject_id, $etapa){
@@ -1694,6 +1854,58 @@ class Subject extends CI_Controller {
 
 	public function cumplimiento_insert(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comprimidos_entregados', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comprimidos_utilizados', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comprimidos_devueltos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comprimidos_perdidos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('dias', '', 'required|xss_clean');
+		$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'required|xss_clean');		
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar cumplimiento", $registro['subject_id']);
+			$this->cumplimiento($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['etapa'] == 2){				
+				$subjet_['cumplimiento_2_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 3){
+				$subjet_['cumplimiento_3_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 4){
+				$subjet_['cumplimiento_4_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['cumplimiento_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['cumplimiento_6_status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Cumplimiento');
+			$this->Model_Cumplimiento->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Sginos vitales agregados", $registro['subject_id']);     		
+     		redirect('subject/signos_vitales_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function cumplimiento_show($subject_id, $etapa){
@@ -1727,6 +1939,38 @@ class Subject extends CI_Controller {
 
 	public function fin_tratamiento_insert(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('no_aplica', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_visita', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'required|xss_clean');
+		$this->form_validation->set_rules('termino_el_estudio', '', 'required|xss_clean');		
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar fin de tratamiento", $registro['subject_id']);
+			$this->fin_tratamiento($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Fin_tratamiento');
+			$this->Model_Fin_tratamiento->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$subjet_['fin_tratamiento_status'] = "Record Complete";
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Fin tratamiento agregado", $registro['subject_id']);     		
+     		redirect('subject/fin_tratamiento_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function fin_tratamiento_show($subject_id, $etapa){
@@ -1760,6 +2004,44 @@ class Subject extends CI_Controller {
 
 	public function fin_tratamiento_temprano_insert(){
 		$registro = $this->input->post();
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('no_aplica', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_visita', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'required|xss_clean');
+		$this->form_validation->set_rules('motivo', '', 'required|xss_clean');		
+		
+		if(isset($registro['motivo']) AND $registro['motivo'] == 'Otro'){
+			$this->form_validation->set_rules('otro', '', 'required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('otro', '', 'xss_clean');	
+		}
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar fin de tratamiento", $registro['subject_id']);
+			$this->fin_tratamiento_temprano($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Fin_tratamiento_temprano');
+			$this->Model_Fin_tratamiento_temprano->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$subjet_['fin_tratamiento_temprano_status'] = "Record Complete";
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Fin tratamiento temprano agregado", $registro['subject_id']);     		
+     		redirect('subject/fin_tratamiento_temprano_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function fin_tratamiento_temprano_show($subject_id, $etapa){
@@ -1793,6 +2075,46 @@ class Subject extends CI_Controller {
 
 	public function muestra_de_sangre_insert(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar muestra de sangre", $registro['subject_id']);
+			$this->muestra_de_sangre($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['etapa'] == 2){				
+				$subjet_['muestra_de_sangre_1_status'] = "Record Complete";
+			}			
+			elseif($registro['etapa'] == 5){
+				$subjet_['muestra_de_sangre_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['muestra_de_sangre_6_status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Muestra_de_sangre');
+			$this->Model_Muestra_de_sangre->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Muestra de sangre agregada", $registro['subject_id']);     		
+     		redirect('subject/muestra_de_sangre_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function muestra_de_sangre_show($subject_id, $etapa){
@@ -1826,6 +2148,70 @@ class Subject extends CI_Controller {
 
 	public function examen_neurologico_insert(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha_examen_misma_visita', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');
+		$this->form_validation->set_rules('examen_motor_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('examen_motor', '', 'xss_clean');
+		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('examen_sensitivo', '', 'xss_clean');
+		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('reflejos', '', 'xss_clean');
+		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('funcion_cerebelosa', '', 'xss_clean');
+		$this->form_validation->set_rules('marcha_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('marcha', '', 'xss_clean');
+		$this->form_validation->set_rules('', '', 'required|xss_clean');
+		$this->form_validation->set_rules('', '', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar examen neurologico, top, text)", $registro['subject_id']);
+			$this->examen_neurologico($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['etapa'] == 1){				
+				$subjet_['examen_neurologico_1_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 2){
+				$subjet_['examen_neurologico_2_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 3){
+				$subjet_['examen_neurologico_3_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 4){
+				$subjet_['examen_neurologico_4_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['examen_neurologico_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['examen_neurologico_6_status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Examen_neurologico');
+			$this->Model_Examen_neurologico->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen Neurologico agregado", $registro['subject_id']);     		
+     		redirect('subject/examen_neurologico_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+
 	}
 
 	public function examen_neurologico_show($subject_id, $etapa){

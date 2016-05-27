@@ -4,6 +4,15 @@
 <script type="text/javascript">
 $(function(){
 	$("#fecha_visita, #fecha_ultima_dosis").datepicker();
+
+	$("select[name=motivo]").change(function(){
+		if($(this).val() == 'Otro'){
+			$("#tr_otro").show();
+		}
+		else{
+			$("#tr_otro").hide();
+		}
+	});
 });
 </script>
 <legend style='text-align:center;'>Fin Tratamiento Temprano</legend>
@@ -46,10 +55,20 @@ $(function(){
 			    'checked'     => set_checkbox('no_aplica','1')			    
 		    );
 		?>
-
-		No aplica: <?= form_checkbox($no_aplica);?><br />
-		Fecha Visita: <?= form_input(array('type'=>'text','name'=>'fecha_visita', 'id'=>'fecha_visita', 'value'=>set_value('fecha_visita'))); ?><br />
-		Fecha ultima dosis: <?= form_input(array('type'=>'text','name'=>'fecha_ultima_dosis', 'id'=>'fecha_ultima_dosis', 'value'=>set_value('fecha_ultima_dosis'))); ?><br />
+	<table class="table table-bordered table-striper table-hover">
+		<tr>
+			<td>No aplica:</td>
+			<td><?= form_checkbox($no_aplica);?></td>
+		</tr>
+		<tr>
+			<td>Fecha Visita:</td>
+			<td> <?= form_input(array('type'=>'text','name'=>'fecha_visita', 'id'=>'fecha_visita', 'value'=>set_value('fecha_visita'))); ?></td>
+		</tr>
+		<tr>
+			<td>Fecha ultima dosis: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha_ultima_dosis', 'id'=>'fecha_ultima_dosis', 'value'=>set_value('fecha_ultima_dosis'))); ?></td>
+		</tr>
+		<tr>
 		<?php
 
 			$motivo = array(''=>'',
@@ -63,7 +82,18 @@ $(function(){
 
 		?>
 
-		Motivo por el cual sujeto no terminó el estudio: <?= form_dropdown("motivo",$motivo,set_value('motivo')); ?><br/>
-		<?= form_input(array('type'=>'text','name'=>'otro', 'id'=>'otro', 'value'=>set_value('otro'))); ?><br />
-
+			<td>Motivo por el cual sujeto no terminó el estudio: </td>
+			<td><?= form_dropdown("motivo",$motivo,set_value('motivo')); ?></td>
+		</tr>
+		<tr id='tr_otro' style='display:none;'>
+			<td>Otro Motivo: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'otro', 'id'=>'otro', 'value'=>set_value('otro'))); ?></td>
+		</tr>		
+		<tr>
+			<td colspan='2' style='text-align:center;'>
+				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+	        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+	        </td>
+	    </tr>
+	</table>
 <?= form_close(); ?>

@@ -70,8 +70,8 @@ $(function(){
 		La fecha del examen neurológico es la misma fecha de la visita?	 <?= form_radio($si2); ?> Si <?= form_radio($no2); ?> No<br />
  
 		Si la respuesta es “NO”, por favor reporte fecha del examen: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
-
-		<table>
+		<br />
+		<table class='table table-bordered table-striped table-hover'>
 			<tr>
 				<th>Examen</th>
 				<th>Normal/Anormal</th>
@@ -106,12 +106,20 @@ $(function(){
 				<td>Marcha</td>
 				<td><?= form_dropdown("marcha_normal_anormal",$normal_anormal,set_value('marcha_normal_anormal')); ?></td>
 				<td><?= form_input(array('type'=>'text','name'=>'marcha', 'id'=>'marcha', 'value'=>set_value('marcha')));?></td>
+			</tr>		
+			<tr>
+				<td style='font-weight:bold;' colspan='3'>Anormalidades de significancia clínica en la visita de screening deben reportarse como historia médica si el consentimiento informado está firmado.</td>
+			</tr>
+			<tr>
+				<td style='font-weight:bold;' colspan='3'>Anormalidades de significancia clínica después de la visita de screening deben reportarse como eventos adversos.</td>
+			</tr>
+			<tr>
+				<td colspan='3' style='text-align:center;'>
+					<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+            		<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+				</td>
 			</tr>
 		</table>
-
-		<p style='font-weight:bold;'>Anormalidades de significancia clínica en la visita de screening deben reportarse como historia médica si el consentimiento informado está firmado.</p>
-		<br />
-		<p style='font-weight:bold;'>Anormalidades de significancia clínica después de la visita de screening deben reportarse como eventos adversos.</p>
 
 		
 <?= form_close(); ?>

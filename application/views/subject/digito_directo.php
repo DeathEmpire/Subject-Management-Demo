@@ -169,7 +169,13 @@ $(function(){
 			</tr>		
 			<tr>
 				<td colspan='5' style='text-align:right;'>MSDD<br><small>(Maximo = 9)</small></td>
-				<td colspan='3' style='text-align:right;'>Dígitos Orden Directo (DOD)<br>Puntaje Bruto Total<br><small>(Maximo = 16)</small></td>				
+				<td style='text-align:right;'>Dígitos Orden Directo (DOD)<br>Puntaje Bruto Total<br><small>(Maximo = 16)</small></td>				
+			</tr>
+			<tr>
+				<td colspan='6' style='text-align:center;'>
+					<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+	        		<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+				</td>
 			</tr>
 		</table>
 
