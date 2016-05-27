@@ -18,7 +18,7 @@ class Subject extends CI_Controller {
     	$data['contenido'] = 'subject/index';
 		$data['titulo'] = 'Subject Report';
 		$data['query'] = $this->Model_Subject->all();
-		$this->auditlib->save_audit("View list of subject");
+		$this->auditlib->save_audit("Vio la lista de sujetos");
 		$this->load->view('template', $data);
     }
 
@@ -27,7 +27,7 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'Subject Report';
 		$value = $this->input->post('buscar');
 		$data['query'] = $this->Model_Subject->allFiltered('subject.id', $value);
-		$this->auditlib->save_audit("Search a Subject");
+		$this->auditlib->save_audit("Busco a un sujeto");
 		$this->load->view('template', $data);
 	}
 
@@ -38,7 +38,7 @@ class Subject extends CI_Controller {
 	public function create() {
 		$data['contenido'] = 'subject/create';
 		$data['titulo'] = 'New Subject';		
-		$this->auditlib->save_audit("View new subject form");
+		$this->auditlib->save_audit("Entro al formulario de ingreso de sujetos");
 		$this->load->view('template', $data);
 	}
 
@@ -90,7 +90,7 @@ class Subject extends CI_Controller {
 		// $id = $this->uri->segment(3);
 
 		$data['contenido'] = 'subject/edit';
-		$data['titulo'] = 'Update Subject';
+		$data['titulo'] = 'Actualizar Sujeto';
 		$data['registro'] = $this->Model_Subject->find($id);
 		#centros
 		$this->load->Model("Model_Center");
@@ -106,7 +106,7 @@ class Subject extends CI_Controller {
 			$data['centers'] = 	array();
 		}
 
-		$this->auditlib->save_audit("View edit subject form");
+		$this->auditlib->save_audit("Entro al formulario de edicion de sujetos", $id);
 		$this->load->view('template', $data);
 	}
 
@@ -130,13 +130,13 @@ class Subject extends CI_Controller {
         $this->form_validation->set_rules('id', 'Id', 'required|xss_clean');
         
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al editar datos demograficos del sujeto");
+			$this->auditlib->save_audit("Error al editar datos demograficos del sujeto", $registro['id']);
 			$this->edit($registro['id']);
 		}
 		else {
 			$registro['updated'] = date('Y/m/d H:i');
 			$this->Model_Subject->update($registro);
-			$this->auditlib->save_audit("Actualizo datos de demografia del sujeto");
+			$this->auditlib->save_audit("Actualizo datos de demografia del sujeto", $registro['id']);
 			redirect('subject/index');
 		}
 	}
@@ -147,7 +147,7 @@ class Subject extends CI_Controller {
 		$data['contenido'] = 'subject/grid';
 		$data['titulo'] = 'Subject Record';
 		$data['subject'] = $this->Model_Subject->find($id);
-		$this->auditlib->save_audit("View a subject record");
+		$this->auditlib->save_audit("Entro a la vista de formularios del sujeto", $id);
 		$this->load->view('template', $data);
 	}
 
@@ -159,7 +159,7 @@ class Subject extends CI_Controller {
 		#querys about demography
 		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Demography"));
 		
-		$this->auditlib->save_audit("View demography info for a subject");
+		$this->auditlib->save_audit("Entro al formulario de demografia",$id);
 		
 		$this->load->view('template', $data);
 
@@ -168,20 +168,34 @@ class Subject extends CI_Controller {
 
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('birth_date', 'Date of Birth', 'required|xss_clean');
-        $this->form_validation->set_rules('gender', 'Gender', 'required|xss_clean'); 
-        $this->form_validation->set_rules('is_hispanic', 'Ethnicity', 'required|xss_clean');
-		$this->form_validation->set_rules('race', 'Race', 'required|xss_clean');
+		$this->form_validation->set_rules('sign_consent', 'Firmo el Concentimiento', 'required|xss_clean');
+
+		if(isset($registro['sign_consent']) AND $registro['sign_consent'] != ''){
+			$this->form_validation->set_rules('sign_consent_date', 'Fecha firma del concentimiento', 'required|xss_clean');					
+		}
+		else{
+			$this->form_validation->set_rules('sign_consent_date', 'Fecha firma del concentimiento', 'xss_clean');
+		}
+
+		$this->form_validation->set_rules('birth_date', 'Fecha de Nacimiento', 'required|xss_clean');
+        $this->form_validation->set_rules('initials', 'Iniciales', 'required|xss_clean');
+        $this->form_validation->set_rules('edad', 'Edad', 'required|xss_clean');
+        $this->form_validation->set_rules('gender', 'Sexo', 'required|xss_clean'); 
+        $this->form_validation->set_rules('race', 'Etnia/Raza', 'required|xss_clean');
+        $this->form_validation->set_rules('escolaridad', 'Grado de Escolaridad', 'required|xss_clean');	
+		
+        
+		
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("has validation errors updating demography info for a subject");
+			$this->auditlib->save_audit("Tiene errores de validacion al editar la demografia",$registro['id']);
 			$this->demography($registro['id']);
 		}
 		else {
 			$registro['demography_status'] = 'Record Complete';
 			$registro['updated'] = date('Y/m/d H:i');
 			$this->Model_Subject->update($registro);
-			$this->auditlib->save_audit("Update demography info for a subject");
+			$this->auditlib->save_audit("Actualizo la informacion demografica", $registro['id']);
 			redirect('subject/grid/'.$registro['id']);
 		}
 	}
@@ -193,7 +207,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("has validation errors verifing demography form");
+			$this->auditlib->save_audit("Tuvo errores de validacion al tratar de verificar el formulario de demografia", $registro['id']);
 			$this->demography($registro['id']);
 		}
 		else {
@@ -205,7 +219,7 @@ class Subject extends CI_Controller {
 			$registro['demography_verify_date'] = date('Y-m-d');
 
 			$this->Model_Subject->update($registro);
-			$this->auditlib->save_audit("Verified demography form");
+			$this->auditlib->save_audit("Verifico el formulario de demografia", $registro['id']);
 
 			redirect('subject/grid/'.$registro['id']);
 		}
@@ -218,7 +232,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("has validation errors updating demography signature");
+			$this->auditlib->save_audit("Errores de validacion al firmar formulario de demografia", $registro['id']);
 			$this->demography($registro['id']);
 		}
 		else {
@@ -230,7 +244,7 @@ class Subject extends CI_Controller {
 			$registro['demography_signature_date'] = date('Y-m-d');
 
 			$this->Model_Subject->update($registro);
-			$this->auditlib->save_audit("Sign demography form");
+			$this->auditlib->save_audit("Firmo el formulario de demografia", $registro['id']);
 
 			redirect('subject/grid/'.$registro['id']);
 		}
@@ -243,7 +257,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("has validation errors updating demography lock");
+			$this->auditlib->save_audit("Errores de validacion al cerrar el formulario de demografia", $registro['id']);
 			$this->demography($registro['id']);
 		}
 		else {
@@ -255,7 +269,7 @@ class Subject extends CI_Controller {
 			$registro['demography_lock_date'] = date('Y-m-d');
 
 			$this->Model_Subject->update($registro);
-			$this->auditlib->save_audit("Lock demography form");
+			$this->auditlib->save_audit("Cerro el formulario de demografia", $registro['id']);
 
 			redirect('subject/grid/'.$registro['id']);
 		}
@@ -268,7 +282,7 @@ class Subject extends CI_Controller {
 		$data['contenido'] = 'subject/randomization';
 		$data['titulo'] = 'Subject Randomization';
 		$data['subject'] = $this->Model_Subject->find($id);
-		$this->auditlib->save_audit("View randomization form");
+		$this->auditlib->save_audit("Entro al formulario de randomizacion", $id);
 		$this->load->view('template', $data);
 	}
 
@@ -283,7 +297,7 @@ class Subject extends CI_Controller {
         $this->form_validation->set_rules('randomization_date', 'Randomization Date', 'required|xss_clean');     
 
         if ($this->form_validation->run() == FALSE) {
-        	$this->auditlib->save_audit("has validation errors in randomization");        	
+        	$this->auditlib->save_audit("Tiene errores al tratar de randomizar", $registro['id']);        	
             $this->randomization($id);
         }
         else {						
@@ -356,7 +370,7 @@ class Subject extends CI_Controller {
 
 			$registro['kit1'] = $kit_id;			
 			$this->Model_Subject->update($registro);			
-			$this->auditlib->save_audit("Randomize a subject");
+			$this->auditlib->save_audit("Randomizo un sujeto", $id);
 			redirect('subject/grid/'. $id);
         }
         
@@ -390,7 +404,7 @@ class Subject extends CI_Controller {
 
 		#$this->load->model('Model_Adverse_event_form');		
 		#$data['list'] = $this->Model_Adverse_event_form->allWhere('subject_id',$id);
-		$this->auditlib->save_audit("View a Adverse Event form");
+		$this->auditlib->save_audit("Entro al formulario de evento adverso", $id);
 		$this->load->view('template', $data);
 	}
 
@@ -424,7 +438,7 @@ class Subject extends CI_Controller {
         
 
         if ($this->form_validation->run() == FALSE) {
-        	$this->auditlib->save_audit("Has validation error in adverse event form");
+        	$this->auditlib->save_audit("Tiene errores de validacion en el formulario de evento adverso",$id);
             $this->adverse_event_form($id);
         }
         else {						
@@ -433,14 +447,14 @@ class Subject extends CI_Controller {
 			
 			$this->load->model("Model_Adverse_event_form");
 			$this->Model_Adverse_event_form->insert($registro);			
-			$this->auditlib->save_audit("Insert new adverse event info");
+			$this->auditlib->save_audit("Agrego informacion de evento adverso",$id);
 			redirect('subject/adverse_event_show/'. $id);
         }
 	}
 
 	public function adverse_event_show($id){
 		$data['contenido'] = 'subject/adverse_event_show';
-		$data['titulo'] = 'Adverse Event/Serious Adverse Event';
+		$data['titulo'] = 'Evento Adverso';
 		$data['subject'] = $this->Model_Subject->find($id);
 
 		$this->load->model('Model_Adverse_event_form');		
@@ -448,7 +462,7 @@ class Subject extends CI_Controller {
 
 		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Adverse Event"));
 
-		$this->auditlib->save_audit("View list of adverse events");
+		$this->auditlib->save_audit("Entro a lista de eventos adversos",$id);
 
 		$this->load->view('template', $data);
 	}
@@ -633,7 +647,7 @@ class Subject extends CI_Controller {
 
      		$this->load->model('Model_Hachinski_Form');
      		$this->Model_Hachinski_Form->insert($save);
-     		$this->auditlib->save_audit("Escala de Hachinski ingresada");
+     		$this->auditlib->save_audit("Escala de Hachinski ingresada",$id);
 
      		/*Actualizar estado de hachinski en el sujeto*/
      		$actualizar['hachinski_status'] = 'Record Complete';
@@ -649,6 +663,7 @@ class Subject extends CI_Controller {
         }
 
 	}
+
 	public function hachinski_update(){
 		
 		$save = $this->input->post();
@@ -656,11 +671,33 @@ class Subject extends CI_Controller {
 
 		$id = $save['subject_id'];
 
-		$this->load->model('Model_Hachinski_Form');
- 		$this->Model_Hachinski_Form->update($save);
- 		$this->auditlib->save_audit("Escala de Hachinski Actualizada");
+		$this->form_validation->set_rules('comienzo_brusco', 'comienzo_brusco', 'xss_clean');
+		$this->form_validation->set_rules('deterioro_escalonado', 'deterioro_escalonado', 'xss_clean');
+		$this->form_validation->set_rules('curso_fluctante', 'curso_fluctante', 'xss_clean');
+		$this->form_validation->set_rules('desorientacion_noctura', 'desorientacion_noctura', 'xss_clean');
+		$this->form_validation->set_rules('preservacion_relativa', 'preservacion_relativa', 'xss_clean');
+		$this->form_validation->set_rules('depresion', 'depresion', 'xss_clean');
+		$this->form_validation->set_rules('somatizacion', 'somatizacion', 'xss_clean');
+		$this->form_validation->set_rules('labilidad_emocional', 'labilidad_emocional', 'xss_clean');
+		$this->form_validation->set_rules('hta', 'hta', 'xss_clean');
+		$this->form_validation->set_rules('ictus_previos', 'ictus_previos', 'xss_clean');
+		$this->form_validation->set_rules('evidencia_arteriosclerosis', 'evidencia_arteriosclerosis', 'xss_clean');
+		$this->form_validation->set_rules('sintomas_neurologicos', 'sintomas_neurologicos', 'xss_clean');
+		$this->form_validation->set_rules('signos_neurologicos', 'signos_neurologicos', 'xss_clean');
+		$this->form_validation->set_rules('subject_id', 'subject_id', 'xss_clean');
+		$this->form_validation->set_rules('total', 'Total', 'xss_clean');
 
- 		redirect('subject/hachinski_show/'. $id);
+		if ($this->form_validation->run() == TRUE) {     		
+
+			$this->load->model('Model_Hachinski_Form');
+	 		$this->Model_Hachinski_Form->update($save);
+	 		$this->auditlib->save_audit("Escala de Hachinski Actualizada",$id);
+
+	 		redirect('subject/hachinski_show/'. $id);
+ 		}
+ 		else{
+ 			$this->hachinski_form($id);
+ 		}
 
 	}
 	
@@ -686,7 +723,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de verificar el formulario hachinski");
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario hachinski", $registro['subject_id']);
 			$this->hachinski_show($registro['subject_id']);
 		}
 		else {
@@ -699,7 +736,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Hachinski_Form');
 			$this->Model_Hachinski_Form->update($registro);
-			$this->auditlib->save_audit("Verificacion de el formulario hachinski");
+			$this->auditlib->save_audit("Verificacion de el formulario hachinski", $registro['subject_id']);
 
 			/*Actualizar estado en el sujeto*/
 			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved by Monitor','id'=>$registro['subject_id']));
@@ -716,7 +753,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de firmar el formulario hachinski");
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario hachinski", $registro['subject_id']);
 			$this->hachinski_show($registro['subject_id']);
 		}
 		else {
@@ -729,7 +766,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Hachinski_Form');
 			$this->Model_Hachinski_Form->update($registro);
-			$this->auditlib->save_audit("Firmo el formulario hachinski");
+			$this->auditlib->save_audit("Firmo el formulario hachinski", $registro['subject_id']);
 			/*Actualizar estado en el sujeto*/
 			$this->Model_Subject->update(array('hachinski_status'=>'Document Approved and Signed by PI', 'id'=>$registro['subject_id']));
 
@@ -745,7 +782,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de cerrar el formulario hachinski");
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario hachinski", $registro['subject_id']);
 			$this->hachinski_show($registro['subject_id']);
 		}
 		else {
@@ -758,7 +795,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Hachinski_Form');
 			$this->Model_Hachinski_Form->update($registro);
-			$this->auditlib->save_audit("Cerro el formulario hachinski");
+			$this->auditlib->save_audit("Cerro el formulario hachinski", $registro['subject_id']);
 			/*Actualizar estado en el sujeto*/
 			$this->Model_Subject->update(array('hachinski_status'=>'Form Approved and Locked','id'=>$registro['subject_id']));
 
@@ -810,23 +847,32 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'xss_clean');
 			$this->form_validation->set_rules('cancer', 'Cancer', 'xss_clean');*/
 		}
-		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Tuvo errores al tratar de agregar historial medico");
-			$this->historial_medico($registro['id']);
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar historial medico", $registro['subject_id']);
+			$this->historial_medico($registro['subject_id'],$registro['etapa']);
 		}
 		else {
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['estado'] = "Record Complete";
+			$registro['status'] = "Record Complete";
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 
 			$this->load->model("Model_Historial_medico");
 			$this->Model_Historial_medico->insert($registro);
 
-			$this->auditlib->save_audit("Historial Medico Ingresado");
+			$this->auditlib->save_audit("Historial Medico Ingresado", $registro['subject_id']);
+
+
+			/*Actualizar estado en el sujeto*/
+			if($registro['etapa'] == 1){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'historial_medico_1_status'=>'Record Complete'));
+			}
+			elseif($registro['etapa'] == 2){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'historial_medico_2_status'=>'Record Complete'));
+			}
 
      		$this->historial_medico_show($registro['subject_id'],$registro['etapa']);
 		}
@@ -846,7 +892,7 @@ class Subject extends CI_Controller {
 		$this->load->view('template', $data);
 	}
 
-	public function historial_medico_update($id,$etapa){
+	public function historial_medico_update(){
 
 		$registro = $this->input->post();
 
@@ -870,8 +916,8 @@ class Subject extends CI_Controller {
 		}
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el historial medico");
-			$this->historial_medico($registro['id']);
+			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el historial medico", $registro['subject_id']);
+			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {			
 			$registro['updated_at'] = date("Y-m-d H:i:s");						
@@ -879,7 +925,7 @@ class Subject extends CI_Controller {
 			$this->load->model("Model_Historial_medico");
 			$this->Model_Historial_medico->update($registro);
 
-			$this->auditlib->save_audit("Historial Medico Actualizado");
+			$this->auditlib->save_audit("Historial Medico Actualizado",$registro['subject_id']);
 
      		$this->historial_medico_show($registro['subject_id'],$registro['etapa']);
 		}
@@ -893,7 +939,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Historial Medico");
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Historial Medico", $registro['subject_id']);
 			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -906,7 +952,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Verificacion de el formulario de Historial Medico");
+			$this->auditlib->save_audit("Verificacion de el formulario de Historial Medico", $registro['subject_id']);
 
 			/*Actualizar estado en el sujeto*/
 			$this->Model_Subject->update(array('historial_medico_status'=>'Form Approved by Monitor','id'=>$registro['subject_id']));
@@ -923,7 +969,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Historial Medico");
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Historial Medico", $registro['subject_id']);
 			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -936,7 +982,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Firmo el formulario de Historial Medico");
+			$this->auditlib->save_audit("Firmo el formulario de Historial Medico", $registro['subject_id']);
 			/*Actualizar estado en el sujeto*/
 			$this->Model_Subject->update(array('historial_medico_status'=>'Document Approved and Signed by PI','id'=>$registro['subject_id']));
 
@@ -952,7 +998,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Historial Medico");
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Historial Medico", $registro['subject_id']);
 			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -965,7 +1011,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Cerro el formulario de Historial Medico");
+			$this->auditlib->save_audit("Cerro el formulario de Historial Medico", $registro['subject_id']);
 			/*Actualizar estado en el sujeto*/
 			$this->Model_Subject->update(array('historial_medico_status'=>'Form Approved and Locked','id'=>$registro['subject_id']));
 
@@ -995,7 +1041,7 @@ class Subject extends CI_Controller {
 		/*Validar si ingresa un numero o un comentario este tenga su par ya sea numero o comentario*/
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de inclusion exclusion");
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de inclusion exclusion", $registro['subject_id']);
 			$this->inclusion($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1045,7 +1091,7 @@ class Subject extends CI_Controller {
 			$subjet_['id'] = $registro['subject_id'];
 			$this->Model_Subject->update($subjet_);
 
-			$this->auditlib->save_audit("Critero de inclusion exclusion agregado");     		
+			$this->auditlib->save_audit("Critero de inclusion exclusion agregado", $registro['subject_id']);     		
      		redirect('subject/inclusion_show/'. $registro['subject_id'] ."/". $registro['etapa']);
 
 		}
@@ -1060,15 +1106,33 @@ class Subject extends CI_Controller {
 		/*Formulario para la etapa y sujeto correspondiente*/
 		$this->load->model('Model_Inclusion_exclusion');
 		$data['list'] = $this->Model_Inclusion_exclusion->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
-
+		
 		/*Buscar todos los numeros y comentarios asociados a este form*/		
 		$this->load->model("Model_Inclusion_exclusion_no_respetados");
-		$data['no_respetados'] = $this->Model_Inclusion_exclusion_no_respetados->allWhereArray(array('inclusion_exclusion_id'=>$data['list'][0]['id']));		
+		$data['no_respetados'] = $this->Model_Inclusion_exclusion_no_respetados->allWhereArray(array('inclusion_exclusion_id'=>$data['list'][0]->id));		
 
 		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Inclusion Exclusion", "etapa"=>$etapa));
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Inclusion Exclusion", "etapa"=>$etapa));
 		
 		$this->load->view('template', $data);					
+	}
+
+
+	public function inclusion_update(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+		$this->form_validation->set_rules('cumple_criterios', 'Cumple Criterio', 'required|xss_clean');
+		$this->form_validation->set_rules('autorizacion_patrocinador', 'Autorizacion Patrocinador', 'required|xss_clean');	
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el formulario de inclusion exclusion", $registro['subject_id']);
+			$this->inclusion($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			/*Separar los datos de inclusion con los de no respetados*/
+		}
 	}
 
 	public function inclusion_verify(){
@@ -1079,7 +1143,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Inclusion Exclusion", $registro['subject_id']);
 			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1092,7 +1156,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
-			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion", $registro['subject_id']);
 
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
@@ -1115,7 +1179,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Inclusion Exclusion", $registro['subject_id']);
 			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1128,7 +1192,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
-			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion", $registro['subject_id']);
 			
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
@@ -1150,7 +1214,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Inclusion Exclusion");
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Inclusion Exclusion", $registro['subject_id']);
 			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1163,7 +1227,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
-			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion");			
+			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
@@ -1272,7 +1336,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 
-			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de prueba de digito directo");
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de prueba de digito directo", $registro['subject_id']);
 			$this->digito_directo($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1299,7 +1363,7 @@ class Subject extends CI_Controller {
 			$subjet_['id'] = $registro['subject_id'];
 			$this->Model_Subject->update($subjet_);
 
-			$this->auditlib->save_audit("Prueba de digito directo agregada");     		
+			$this->auditlib->save_audit("Prueba de digito directo agregada", $registro['subject_id']);     		
      		redirect('subject/digito_directo_show/'. $registro['subject_id'] ."/". $registro['etapa']);
 
 		}
@@ -1337,7 +1401,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Digiti Directo");
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Digiti Directo", $registro['subject_id']);
 			$this->digito_directo_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1350,7 +1414,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Digito_directo');
 			$this->Model_Digito_directo->update($registro);
-			$this->auditlib->save_audit("Verificacion de el formulario de Digito Directo");
+			$this->auditlib->save_audit("Verificacion de el formulario de Digito Directo", $registro['subject_id']);
 
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 2){
@@ -1380,7 +1444,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Digito Directo");
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Digito Directo", $registro['subject_id']);
 			$this->digito_directo_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1393,7 +1457,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Digito_directo');
 			$this->Model_Digito_directo->update($registro);
-			$this->auditlib->save_audit("Firmo el formulario de Digito Directo");
+			$this->auditlib->save_audit("Firmo el formulario de Digito Directo", $registro['subject_id']);
 			
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 2){
@@ -1422,7 +1486,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Digito Directo");
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Digito Directo", $registro['subject_id']);
 			$this->digito_directo_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1435,7 +1499,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Digito_directo');
 			$this->Model_Digito_directo->update($registro);
-			$this->auditlib->save_audit("Cerro el formulario de Digito Directo");			
+			$this->auditlib->save_audit("Cerro el formulario de Digito Directo", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 2){
@@ -1468,6 +1532,66 @@ class Subject extends CI_Controller {
 
 	public function mmse_insert(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('tiene_problemas_memoria', '', 'xss_clean');
+		$this->form_validation->set_rules('le_puedo_hacer_preguntas', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_ano_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_estacion_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_mes_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_dia_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_fecha_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_region_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('donde_estas_ahora', '', 'required|xss_clean');
+		$this->form_validation->set_rules('donde_estas_ahora_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comuna_estamos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comuna_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('barrio_estamos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('barrio_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('edificio_estamos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('edificio_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('manzana', '', 'required|xss_clean');
+		$this->form_validation->set_rules('manzana_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('mesa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('mesa_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_93', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_93_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_86', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_86_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_79', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_79_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_72', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_72_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_65', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_65_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('manzana_2', '', 'required|xss_clean');
+		$this->form_validation->set_rules('manzana_2_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso_2', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso_2_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('mesa_2', '', 'required|xss_clean');
+		$this->form_validation->set_rules('mesa_2_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('que_es_1', '', 'required|xss_clean');
+		$this->form_validation->set_rules('que_es_1_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('que_es_2', '', 'required|xss_clean');
+		$this->form_validation->set_rules('que_es_2_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('no_si_cuando_porque', '', 'required|xss_clean');
+		$this->form_validation->set_rules('no_si_cuando_porque_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('tomar_con_la_mano_derecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('tomar_con_la_mano_derecha_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('doblar_por_la_mitad', '', 'required|xss_clean');
+		$this->form_validation->set_rules('doblar_por_la_mitad_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('poner_en_el_piso', '', 'required|xss_clean');
+		$this->form_validation->set_rules('poner_en_el_piso_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cierre_los_ojos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('dibujo_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('', '', 'required|xss_clean');
+		$this->form_validation->set_rules('', '', 'required|xss_clean');
 	}
 
 	public function mmse_show($subject_id, $etapa){

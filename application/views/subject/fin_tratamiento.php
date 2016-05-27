@@ -1,3 +1,6 @@
+<style type="text/css">
+	#ui-datepicker-div { display: none; }
+</style>
 <script type="text/javascript">
 $(function(){
 	$("#fecha_visita, #fecha_ultima_dosis").datepicker();

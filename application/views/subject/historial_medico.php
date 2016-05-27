@@ -1,3 +1,6 @@
+<style type="text/css">
+	#ui-datepicker-div { display: none; }
+</style>
 <script type="text/javascript">
 $(function(){
 	$("#fecha").datepicker();
@@ -37,7 +40,7 @@ $(function(){
 			<tbody>
 				<tr>
 					<td><?= $subject->center_name; ?></td>
-					<td><?= $subject->code; ?></td>
+					<td><?= anchor('subject/grid/'.$subject->id, $subject->code); ?></td>
 					<td><?= $subject->initials; ?></td>		
 					<td><?= ((isset($subject->screening_date) AND $subject->screening_date != '0000-00-00') ? date("d-M-Y",strtotime($subject->screening_date)) : ""); ?></td>
 					<td><?= ((isset($subject->randomization_date) AND $subject->randomization_date != '0000-00-00') ? date("d-M-Y",strtotime($subject->randomization_date)) : ""); ?></td>
@@ -69,7 +72,7 @@ $(function(){
 		<table class='table table-striped table-hover table-bordered table-condensed'>
 			<tr>
 				<td>Fecha: </td>
-				<td><input type='text' name='fecha' id='fecha' value=''></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 			</tr>
 			<tr>
 				<td style='font-weight:bold;'>Tiene el paciente algun hallazgo en el examen fisico: </td>

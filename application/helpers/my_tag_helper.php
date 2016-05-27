@@ -21,7 +21,7 @@ if ( ! function_exists('my_validation_errors')) {
 		if ($errors) {
 			$salida = '<div class="alert alert-error">';
 			$salida = $salida.'<button type="button" class="close" data-dismiss="alert"> × </button>';
-			$salida = $salida.'<h4> Validation Errores </h4>';
+			$salida = $salida.'<h4> Errores de Validacion </h4>';
 			$salida = $salida.'<small><br />'. $list_ .'</small>';
 			$salida = $salida.'</div>';
 		}

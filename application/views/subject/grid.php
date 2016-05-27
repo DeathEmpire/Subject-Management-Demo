@@ -32,12 +32,12 @@
 		<tr>
 			<td><?= img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));?> = Nuevo Registro</td>
 			<td><?= img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));?> = El Registro Tiene Errores</td>
-			<td><?= img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));?> = Formulario Aprovado y Cerrado</td>
-			<td><?= img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));?> = Formulario Aprovado por el Monitor</td>
+			<td><?= img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));?> = Formulario Aprobado y Cerrado</td>
+			<td><?= img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));?> = Formulario Aprobado por el Monitor</td>
 		</tr>
 		<tr>
 			<td><?= img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));?> = Registro Completo</td>
-			<td><?= img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));?> = Documento Aprovado y Firmado por el PI</td>
+			<td><?= img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));?> = Documento Aprobado y Firmado por el PI</td>
 			<td colspan='2'><?= img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));?> = Mensaje Abierto del Monitor</td>
 		</tr>
 	</tbody>

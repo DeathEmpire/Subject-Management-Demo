@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(function(){
-	$("#birth_date").datepicker();
+	
 });
 </script>
 <legend style='text-align:center;'>Criterios de Inclusion/Exclusion</legend>
@@ -53,8 +53,8 @@ $(function(){
 	    <tr>
 	        <td>El paciente cumple con los criterios de inclusión/exclusión: </td>
 	        <td>
-	        	<?= form_radio($data,$data['value'],set_radio($data['name'], true)); ?> Si <br>
-	        	<?= form_radio($data2,$data2['value'],set_radio($data2['name'], false)); ?> NO - Por favor reporte detalles más abajo
+	        	<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si <br>
+	        	<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO - Por favor reporte detalles más abajo
 	        </td>
 	    </tr>        
 

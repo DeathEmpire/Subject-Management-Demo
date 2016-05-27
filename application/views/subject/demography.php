@@ -1,7 +1,24 @@
+<style type="text/css">
+	#ui-datepicker-div { display: none; }
+</style>
 <script type="text/javascript">
 $(function(){
-	$("#birth_date").datepicker();
+	$("#birth_date").datepicker({changeMonth: true, changeYear: true, yearRange: '-100:+0',});
 	$("#sign_consent_date").datepicker();
+
+	$("input[name=sign_consent]").change(function(){
+		if($(this).val() == 1){
+			$("#sign_consent_date").removeAttr('disabled');
+		}
+		else if($(this).val() == 0){
+			$("#sign_consent_date").attr('disabled','disabled');
+		}
+	});
+
+	if($("input[name=sign_consent]:checked").val() == 0){
+		$("#sign_consent_date").attr('disabled','disabled');
+	}
+
 });
 </script>
 <legend style='text-align:center;'>Demografia</legend>
@@ -65,15 +82,15 @@ $(function(){
        		<td style='font-weight:bold;'>1.- Consentimiento Informado</td>
        	<tr>
        	<tr>	
-       		<td>a.- Firmado: </td>
+       		<td class='control-label'>Firmado: </td>
        		<td>
        			<?= form_radio($sign_consent_1,$sign_consent_1['value'],set_radio($sign_consent_1['name'],$sign_consent_1['value'],($sign_consent_1['value'] == $subject->sign_consent) ? true : false)); ?> Si
 	        	<?= form_radio($sign_consent_0,$sign_consent_0['value'],set_radio($sign_consent_0['name'],$sign_consent_0['value'],($sign_consent_0['value'] == $subject->sign_consent) ? true : false)); ?> No
 	        </td>
        	</tr>
        	<tr>       		
-       		<td>b.- Fecha: </td>
-       		<td><input type='text' name='sign_consent_date' id='sign_consent_date' value='<?php set_value('sign_consent_date', $subject->sign_consent_date);?>'></td>
+       		<td class='control-label'>Fecha: </td>
+       		<td><?= form_input(array('type'=>'text', 'name'=>'sign_consent_date', 'id'=>'sign_consent_date', 'value'=>set_value('sign_consent_date', $subject->sign_consent_date)));?></td>
        	</tr>
 
 
@@ -82,12 +99,12 @@ $(function(){
         </tr>
 		
 		<tr>
-			<td>Iniciales Voluntario: </td>
+			<td class='control-label'>Iniciales Voluntario: </td>
 			<td><?= form_input(array('type'=>'text', 'name'=>'initials', 'id'=>'initials', 'maxlength'=>'3' , 'value'=>set_value('initials', $subject->initials) ) ); ?></td>
 		</tr>
 	
 		<tr>
-			<td>Edad: </td>
+			<td class='control-label'>Edad: </td>
 			<td><?= form_input(array('type'=>'number', 'name'=>'edad', 'id'=>'edad', 'maxlength'=>'2' , 'value'=>set_value('edad', $subject->edad) ) ); ?></td>
 		</tr>
 		<?php
