@@ -63,7 +63,12 @@ $(function(){
 				<tr><td>Síntomas neurológicos focales: </td><td><input type='checkbox' name='sintomas_neurologicos' id='sintomas_neurologicos' value='2' /></td></tr>
 				<tr><td>Signos neurológicos focales: </td><td><input type='checkbox' name='signos_neurologicos' id='signos_neurologicos' value='2' /></td></tr>
 				<tr><td><b>Puntaje Total: </b></td><td style='text-align:rigth;font-weight:bold;' id='td_total'></td></tr>
-				<tr><td colspan='2' style='text-align:center;'><input type='submit' class='btn btn-primary' value='Guardar' /></td></tr>
+				<tr>
+					<td colspan='2' style='text-align:center;'>
+						<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+						<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+					</td>
+				</tr>
 			</table>
 		<?= form_close(); ?>
 	</div>

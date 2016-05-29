@@ -37,18 +37,26 @@ $(function(){
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	
 	<?= form_hidden('etapa', $etapa); ?>	
+	
 	<?php
-			$realizado = array(
-			    'name'        => 'realizado',
-			    'id'          => 'realizado',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('realizado','1')			    
+		$data = array(
+			    'name'        => 'realizado',			    
+			    'value'       => 1,		    			    
 		    );
-		?>
+	  	$data2 = array(
+		    'name'        => 'realizado',			    
+		    'value'       => 0,		    
+		    );
+
+	?>
+
 	<table class="table table-bordered table-striper table-hover">
 		<tr>	
-			<td>No Realizado: </td>
-			<td><?= form_checkbox($realizado);?></td>
+			<td>Realizado: </td>
+			<td>
+				<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si
+				<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
+			</td>
 		</tr>
 		<tr>		
 			<td>Fecha: </td>

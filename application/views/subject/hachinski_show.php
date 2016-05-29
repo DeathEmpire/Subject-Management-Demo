@@ -126,7 +126,10 @@ $(function(){
 						<td style='text-align:rigth;font-weight:bold;' id='td_total'><?php echo $list[0]->total; ?></td>
 					</tr>
 					<tr>
-						<td colspan='2' style='text-align:center;'><input type='submit' class='btn btn-primary' value='Guardar' /></td>
+						<td colspan='2' style='text-align:center;'>
+							<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+							<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+						</td>
 					</tr>
 				</table>
 			<?= form_close(); ?>

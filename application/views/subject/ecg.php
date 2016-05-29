@@ -39,15 +39,22 @@ $(function(){
 	<?= form_hidden('subject_id', $subject->id); ?>	
 		
 		<?php
-			$realizado = array(
-			    'name'        => 'realizado',
-			    'id'          => 'realizado',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('realizado','1')			    
+			$data = array(
+			    'name'        => 'realizado',			    
+			    'value'       => 1,		    
+			    #'checked'	  => set_radio('gender', 'male', TRUE),
+		    );
+	  		$data2 = array(
+			    'name'        => 'realizado',			    
+			    'value'       => 0,
+			    #'checked'	  => set_radio('gender', 'female', TRUE),		    
 		    );
 		?>
-
-		No Realizado: <?= form_checkbox($realizado);?><br />
+	
+		Realizado:
+		<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si
+		<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
+		<br />
 		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?>
 
 
@@ -60,12 +67,12 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Ritmo Sinusal</td>
-				<td>Si</td>
-				<td>No</td>
+				<td><?= form_radio('ritmo_sinusal', 1, set_radio('ritmo_sinusal', 1)); ?> Si</td>
+				<td><?= form_radio('ritmo_sinusal', 0, set_radio('ritmo_sinusal', 0)); ?> No</td>
 				<td>
-					<?= form_radio('ritmo_sinusal_normal_anormal', 1); ?>
+					<?= form_radio('ritmo_sinusal_normal_anormal', 1, set_radio('ritmo_sinusal_normal_anormal', 1)); ?>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<?= form_radio('ritmo_sinusal_normal_anormal', 0); ?>
+					<?= form_radio('ritmo_sinusal_normal_anormal', 0, set_radio('ritmo_sinusal_normal_anormal', 0)); ?>
 				</td>
 			</tr>
 			<tr>
@@ -73,9 +80,9 @@ $(function(){
 				<td></td>
 				<td>Lat/min</td>
 				<td>
-					<?= form_radio('fc_normal_anormal', 1); ?>
+					<?= form_radio('fc_normal_anormal', 1, set_radio('fc_normal_anormal', 1)); ?>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<?= form_radio('fc_normal_anormal', 0); ?>
+					<?= form_radio('fc_normal_anormal', 0, set_radio('fc_normal_anormal', 0)); ?>
 				</td>
 			</tr>
 			<tr>
@@ -83,9 +90,9 @@ $(function(){
 				<td></td>
 				<td>ms</td>
 				<td>
-					<?= form_radio('pr_normal_anormal', 1); ?>
+					<?= form_radio('pr_normal_anormal', 1, set_radio('pr_normal_anormal', 1)); ?>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<?= form_radio('pr_normal_anormal', 0); ?>
+					<?= form_radio('pr_normal_anormal', 0, set_radio('pr_normal_anormal', 0)); ?>
 				</td>
 			</tr>
 			<tr>
@@ -93,9 +100,9 @@ $(function(){
 				<td></td>
 				<td>ms</td>
 				<td>
-					<?= form_radio('qrs_normal_anormal', 1); ?>
+					<?= form_radio('qrs_normal_anormal', 1, set_radio('qrs_normal_anormal', 1)); ?>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<?= form_radio('qrs_normal_anormal', 0); ?>
+					<?= form_radio('qrs_normal_anormal', 0, set_radio('qrs_normal_anormal', 0)); ?>
 				</td>
 			</tr>
 			<tr>
@@ -103,9 +110,9 @@ $(function(){
 				<td></td>
 				<td>ms</td>
 				<td>
-					<?= form_radio('qt_normal_anormal', 1); ?>
+					<?= form_radio('qt_normal_anormal', 1, set_radio('qt_normal_anormal', 1)); ?>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<?= form_radio('qt_normal_anormal', 0); ?>
+					<?= form_radio('qt_normal_anormal', 0, set_radio('qt_normal_anormal', 0)); ?>
 				</td>
 			</tr>
 			<tr>
@@ -113,9 +120,9 @@ $(function(){
 				<td></td>
 				<td>ms</td>
 				<td>
-					<?= form_radio('qtc_normal_anormal', 1); ?>
+					<?= form_radio('qtc_normal_anormal', 1, set_radio('qtc_normal_anormal', 1)); ?>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<?= form_radio('qtc_normal_anormal', 0); ?>
+					<?= form_radio('qtc_normal_anormal', 0, set_radio('qtc_normal_anormal', 0)); ?>
 				</td>
 			</tr>
 			<tr>
@@ -123,15 +130,15 @@ $(function(){
 				<td></td>
 				<td>°</td>
 				<td>
-					<?= form_radio('qrs2_normal_anormal', 1); ?>
+					<?= form_radio('qrs2_normal_anormal', 1, set_radio('qrs2_normal_anormal', 1)); ?>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<?= form_radio('qrs2_normal_anormal', 0); ?>
+					<?= form_radio('qrs2_normal_anormal', 0, set_radio('qrs2_normal_anormal', 0)); ?>
 				</td>
 			</tr>
 			<tr>
 				<td colspan='3'>INTERPRETACIÓN ECG:</td>
-				<td><?= form_radio('interpretacion_ecg', 1); ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<?= form_radio('interpretacion_ecg', 0); ?>
+				<td><?= form_radio('interpretacion_ecg', 1, set_radio('interpretacion_ecg', 1)); ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<?= form_radio('interpretacion_ecg', 0, set_radio('interpretacion_ecg', 0)); ?>
 				</td>
 			</tr>
 			<tr>

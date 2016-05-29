@@ -32,7 +32,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/fin_tratamiento_temprano_insert', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/examen_neurologico_insert', array('class'=>'form-horizontal')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	

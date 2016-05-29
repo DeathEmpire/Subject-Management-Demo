@@ -689,6 +689,46 @@ class Subject extends CI_Controller {
 
 		if ($this->form_validation->run() == TRUE) {     		
 
+			if(!isset($save['comienzo_brusco']) OR empty($save['comienzo_brusco'])){
+				$save['comienzo_brusco'] = 0;
+			}
+			if(!isset($save['deterioro_escalonado']) OR empty($save['deterioro_escalonado'])){
+				$save['deterioro_escalonado'] = 0;
+			}
+			if(!isset($save['curso_fluctante']) OR empty($save['curso_fluctante'])){
+				$save['curso_fluctante'] = 0;
+			}
+			if(!isset($save['desorientacion_noctura']) OR empty($save['desorientacion_noctura'])){
+				$save['desorientacion_noctura'] = 0;
+			}
+			if(!isset($save['preservacion_relativa']) OR empty($save['preservacion_relativa'])){
+				$save['preservacion_relativa'] = 0;
+			}
+			if(!isset($save['depresion']) OR empty($save['depresion'])){
+				$save['depresion'] = 0;
+			}
+			if(!isset($save['somatizacion']) OR empty($save['somatizacion'])){
+				$save['somatizacion'] = 0;
+			}
+			if(!isset($save['labilidad_emocional']) OR empty($save['labilidad_emocional'])){
+				$save['labilidad_emocional'] = 0;
+			}
+			if(!isset($save['hta']) OR empty($save['hta'])){
+				$save['hta'] = 0;
+			}
+			if(!isset($save['ictus_previos']) OR empty($save['ictus_previos'])){
+				$save['ictus_previos'] = 0;
+			}
+			if(!isset($save['evidencia_arteriosclerosis']) OR empty($save['evidencia_arteriosclerosis'])){
+				$save['evidencia_arteriosclerosis'] = 0;
+			}
+			if(!isset($save['sintomas_neurologicos']) OR empty($save['sintomas_neurologicos'])){
+				$save['sintomas_neurologicos'] = 0;
+			}
+			if(!isset($save['signos_neurologicos']) OR empty($save['signos_neurologicos'])){
+				$save['signos_neurologicos'] = 0;
+			}
+
 			$this->load->model('Model_Hachinski_Form');
 	 		$this->Model_Hachinski_Form->update($save);
 	 		$this->auditlib->save_audit("Escala de Hachinski Actualizada",$id);
@@ -881,7 +921,7 @@ class Subject extends CI_Controller {
 	public function historial_medico_show($subject_id,$etapa){
 		$data['contenido'] = 'subject/historial_medico_show';
 		$data['titulo'] = 'Historia Medica';
-		$data['subject'] = $this->Model_Subject->find($id);
+		$data['subject'] = $this->Model_Subject->find($subject_id);
 		$data['etapa'] = $etapa;
 
 		$this->load->model("Model_Historial_medico");
@@ -1594,6 +1634,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('cierre_los_ojos', '', 'required|xss_clean');
 		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'required|xss_clean');
 		$this->form_validation->set_rules('dibujo_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('escritura_puntaje', '', 'required|xss_clean');
 		$this->form_validation->set_rules('puntaje_total', '', 'required|xss_clean');		
 
 		if($this->form_validation->run() == FALSE) {
@@ -1649,10 +1690,97 @@ class Subject extends CI_Controller {
 
 		$data['puntaje'] = array(''=>'','0'=>'0','1'=>'1');
 
+		$this->load->view('template',$data);
+
 	}
 
 	public function mmse_update(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('tiene_problemas_memoria', '', 'xss_clean');
+		$this->form_validation->set_rules('le_puedo_hacer_preguntas', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_ano_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_estacion_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_mes_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_dia_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_fecha_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('en_que_region_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('donde_estas_ahora', '', 'required|xss_clean');
+		$this->form_validation->set_rules('donde_estas_ahora_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comuna_estamos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comuna_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('barrio_estamos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('barrio_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('edificio_estamos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('edificio_estamos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('manzana', '', 'required|xss_clean');
+		$this->form_validation->set_rules('manzana_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('mesa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('mesa_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_93', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_93_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_86', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_86_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_79', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_79_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_72', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_72_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_65', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cuanto_65_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('manzana_2', '', 'required|xss_clean');
+		$this->form_validation->set_rules('manzana_2_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso_2', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso_2_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('mesa_2', '', 'required|xss_clean');
+		$this->form_validation->set_rules('mesa_2_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('que_es_1', '', 'required|xss_clean');
+		$this->form_validation->set_rules('que_es_1_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('que_es_2', '', 'required|xss_clean');
+		$this->form_validation->set_rules('que_es_2_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('no_si_cuando_porque', '', 'required|xss_clean');
+		$this->form_validation->set_rules('no_si_cuando_porque_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('tomar_con_la_mano_derecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('tomar_con_la_mano_derecha_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('doblar_por_la_mitad', '', 'required|xss_clean');
+		$this->form_validation->set_rules('doblar_por_la_mitad_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('poner_en_el_piso', '', 'required|xss_clean');
+		$this->form_validation->set_rules('poner_en_el_piso_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cierre_los_ojos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('dibujo_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('escritura_puntaje', '', 'required|xss_clean');
+		$this->form_validation->set_rules('puntaje_total', '', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar el estudio MMSE", $registro['subject_id']);
+			$this->mmse($registro['subject_id'], $registro['etapa']);
+
+		}else{
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+
+			if(!isset($registro['le_puedo_hacer_preguntas']) OR empty($registro['le_puedo_hacer_preguntas'])){
+				$registro['le_puedo_hacer_preguntas'] = 0;
+			}
+
+			if(!isset($registro['tiene_problemas_memoria']) OR empty($registro['tiene_problemas_memoria'])){
+				$registro['tiene_problemas_memoria'] = 0;
+			}
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Mmse');
+			$this->Model_Mmse->update($registro);			
+
+			$this->auditlib->save_audit("MMSE actualizado", $registro['subject_id']);     		
+     		redirect('subject/mmse_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function mmse_verify(){
@@ -1799,6 +1927,7 @@ class Subject extends CI_Controller {
 
 		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
 			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+			$this->form_validation->set_rules('ritmo_sinusal', '', 'required|xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'required|xss_clean');
 			$this->form_validation->set_rules('fc_normal_anormal', '', 'required|xss_clean');
 			$this->form_validation->set_rules('pr_normal_anormal', '', 'required|xss_clean');
@@ -1811,6 +1940,7 @@ class Subject extends CI_Controller {
 		}
 		else{
 			$this->form_validation->set_rules('fecha', '', 'xss_clean');
+			$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
 			$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
 			$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
@@ -1824,7 +1954,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar estudio ECG", $registro['subject_id']);
-			$this->ecg($registro['subject_id'], $registro['etapa']);
+			$this->ecg($registro['subject_id']);
 
 		}else{
 
@@ -1843,17 +1973,74 @@ class Subject extends CI_Controller {
 			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("ECG agregado", $registro['subject_id']);     		
-     		redirect('subject/ecg_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+     		redirect('subject/ecg_show/'. $registro['subject_id']);
 
 		}
 	}
 
 	public function ecg_show($subject_id){
+		$data['contenido'] = 'subject/ecg_show';
+		$data['titulo'] = 'ECG';
+		$data['subject'] = $this->Model_Subject->find($subject_id);						
+		
+		$this->load->model('Model_Electrocardiograma_de_reposo');
+		$data['list'] = $this->Model_Electrocardiograma_de_reposo->allWhereArray(array('subject_id'=>$subject_id));
 
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"ECG"));
+
+		$this->load->view('template',$data);
 	}
 
 	public function ecg_update(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
+
+		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
+			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+			$this->form_validation->set_rules('ritmo_sinusal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('fc_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('pr_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qrs_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qt_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qtc_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('interpretacion_ecg', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comentarios', '', 'required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('fecha', '', 'xss_clean');
+			$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
+			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
+			$this->form_validation->set_rules('comentarios', '', 'xss_clean');	
+		}
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar estudio ECG", $registro['subject_id']);
+			$this->ecg($registro['subject_id']);
+
+		}else{
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Electrocardiograma_de_reposo');
+			$this->Model_Electrocardiograma_de_reposo->update($registro);
+			
+			$this->auditlib->save_audit("ECG actualizado", $registro['subject_id']);     		
+     		redirect('subject/ecg_show/'. $registro['subject_id']);
+
+		}
 	}
 
 	public function ecg_verify(){
@@ -2006,18 +2193,58 @@ class Subject extends CI_Controller {
 			$subjet_['id'] = $registro['subject_id'];
 			$this->Model_Subject->update($subjet_);
 
-			$this->auditlib->save_audit("Sginos vitales agregados", $registro['subject_id']);     		
+			$this->auditlib->save_audit("Signos vitales agregados", $registro['subject_id']);     		
      		redirect('subject/signos_vitales_show/'. $registro['subject_id'] ."/". $registro['etapa']);
 
 		}
 	}
 
 	public function signos_vitales_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/signos_vitales_show';
+		$data['titulo'] = 'Signos Vitales';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
 
+		$this->load->model('Model_Signos_vitales');
+		$data['list'] = $this->Model_Signos_vitales->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Signos Vitales"));
+
+		$this->load->view('template',$data);
 	}
 
 	public function signos_vitales_update(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('estatura', '', 'required|xss_clean');
+		$this->form_validation->set_rules('presion_sistolica', '', 'required|xss_clean');
+		$this->form_validation->set_rules('presion_diastolica', '', 'required|xss_clean');
+		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'required|xss_clean');
+		$this->form_validation->set_rules('frecuencia_respiratoria', '', 'required|xss_clean');
+		$this->form_validation->set_rules('temperatura', '', 'required|xss_clean');
+		$this->form_validation->set_rules('peso', '', 'required|xss_clean');
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar signos vitales", $registro['subject_id']);
+			$this->signos_vitales($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Signos_vitales');
+			$this->Model_Signos_vitales->update($registro);		
+
+			$this->auditlib->save_audit("Signos vitales actualizados", $registro['subject_id']);     		
+     		redirect('subject/signos_vitales_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function signos_vitales_verify(){
@@ -2216,18 +2443,58 @@ class Subject extends CI_Controller {
 			$subjet_['id'] = $registro['subject_id'];
 			$this->Model_Subject->update($subjet_);
 
-			$this->auditlib->save_audit("Sginos vitales agregados", $registro['subject_id']);     		
-     		redirect('subject/signos_vitales_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+			$this->auditlib->save_audit("Cumplimiento agregado", $registro['subject_id']);     		
+     		redirect('subject/cumplimiento_show/'. $registro['subject_id'] ."/". $registro['etapa']);
 
 		}
 	}
 
 	public function cumplimiento_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/cumplimiento_show';
+		$data['titulo'] = 'Cumplimiento';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
 
+		$this->load->model('Model_Cumplimiento');
+		$data['list'] = $this->Model_Cumplimiento->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Cumplimiento"));
+
+		$this->load->view('template',$data);
 	}
 
 	public function cumplimiento_update(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comprimidos_entregados', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comprimidos_utilizados', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comprimidos_devueltos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'required|xss_clean');
+		$this->form_validation->set_rules('comprimidos_perdidos', '', 'required|xss_clean');
+		$this->form_validation->set_rules('dias', '', 'required|xss_clean');
+		$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'required|xss_clean');		
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar cumplimiento", $registro['subject_id']);
+			$this->cumplimiento($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Cumplimiento');
+			$this->Model_Cumplimiento->update($registro);
+
+			$this->auditlib->save_audit("Cumplimiento actualizado", $registro['subject_id']);     		
+     		redirect('subject/cumplimiento_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function cumplimiento_verify(){
@@ -2717,11 +2984,45 @@ class Subject extends CI_Controller {
 	}
 
 	public function muestra_de_sangre_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/muestra_de_sangre_show';
+		$data['titulo'] = 'Muestra de Sangre';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
 
+		$this->load->model('Model_Muestra_de_sangre');
+		$data['list'] = $this->Model_Muestra_de_sangre->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Muestra de Sangre"));
+
+		$this->load->view('template',$data);
 	}
 
 	public function muestra_de_sangre_update(){
 		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar muestra de sangre", $registro['subject_id']);
+			$this->muestra_de_sangre($registro['subject_id'], $registro['etapa']);
+
+		}else{
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Muestra_de_sangre');
+			$this->Model_Muestra_de_sangre->update($registro);
+
+			$this->auditlib->save_audit("Muestra de sangre actualizada", $registro['subject_id']);     		
+     		redirect('subject/muestra_de_sangre_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function muestra_de_sangre_verify(){
@@ -2869,9 +3170,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'required|xss_clean');
 		$this->form_validation->set_rules('funcion_cerebelosa', '', 'xss_clean');
 		$this->form_validation->set_rules('marcha_normal_anormal', '', 'required|xss_clean');
-		$this->form_validation->set_rules('marcha', '', 'xss_clean');
-		$this->form_validation->set_rules('', '', 'required|xss_clean');
-		$this->form_validation->set_rules('', '', 'required|xss_clean');
+		$this->form_validation->set_rules('marcha', '', 'xss_clean');		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar examen neurologico", $registro['subject_id']);
@@ -2919,11 +3218,57 @@ class Subject extends CI_Controller {
 	}
 
 	public function examen_neurologico_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/examen_neurologico_show';
+		$data['titulo'] = 'Examen Neurologico';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
 
+		$this->load->model('Model_Examen_neurologico');
+		$data['list'] = $this->Model_Examen_neurologico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Examen Neurologico"));
+
+		$this->load->view('template',$data);
 	}
 
 	public function examen_neurologico_update(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha_examen_misma_visita', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');
+		$this->form_validation->set_rules('examen_motor_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('examen_motor', '', 'xss_clean');
+		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('examen_sensitivo', '', 'xss_clean');
+		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('reflejos', '', 'xss_clean');
+		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('funcion_cerebelosa', '', 'xss_clean');
+		$this->form_validation->set_rules('marcha_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('marcha', '', 'xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar el examen neurologico", $registro['subject_id']);
+			$this->examen_neurologico($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Examen_neurologico');
+			$this->Model_Examen_neurologico->update($registro);			
+
+			$this->auditlib->save_audit("Examen Neurologico actualizado", $registro['subject_id']);     		
+     		redirect('subject/examen_neurologico_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function examen_neurologico_verify(){
