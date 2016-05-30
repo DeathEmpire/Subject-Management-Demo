@@ -86,12 +86,12 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'hemoglobina_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('hemoglobina_nom_anom', 'Anormal_sin')));?></td>
 				</td>
 				<tr>
-					<td>Recuento eritrocitos (RBC)</td>
-					<td><?= form_input(array('type'=>'text', 'name'=>'eritrocitos', 'id'=>'eritrocitos', 'value'=>set_value('eritrocitos')));?></td>
+					<td>Recuento eritocritos (RBC)</td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'eritocritos', 'id'=>'eritocritos', 'value'=>set_value('eritocritos')));?></td>
 					<td>M/µl</td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'eritrocitos_nom_anom','value'=>'Normal','checked'=>set_radio('eritrocitos_nom_anom', 'Normal')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'eritrocitos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('eritrocitos_nom_anom', 'Anormal_con')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'eritrocitos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('eritrocitos_nom_anom', 'Anormal_sin')));?></td>
+					<td style='text-align:center;'><?= form_radio(array('name'=>'eritocritos_nom_anom','value'=>'Normal','checked'=>set_radio('eritocritos_nom_anom', 'Normal')));?></td>
+					<td style='text-align:center;'><?= form_radio(array('name'=>'eritocritos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('eritocritos_nom_anom', 'Anormal_con')));?></td>
+					<td style='text-align:center;'><?= form_radio(array('name'=>'eritocritos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('eritocritos_nom_anom', 'Anormal_sin')));?></td>
 				</td>
 				<tr>
 					<td>Recuento leucocitos (WBC)</td>

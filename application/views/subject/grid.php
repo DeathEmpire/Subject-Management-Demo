@@ -1519,31 +1519,31 @@
 			<?php				
 				if(empty($subject->fin_tratamiento_status)){					
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
-					$link = 'subject/fin_tratamiento/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_status == 'Record Complete') {					
 					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_status == 'Document Approved and Signed by PI') {
 					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_status == 'Form Approved and Locked') {
 					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_status == 'Form Approved by Monitor') {
 					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_status == 'Query') {
 					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_status == 'Error') {
 					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_show/'.$subject->id;
 				}
 				else{
 					$icon = '*';		
@@ -1555,31 +1555,31 @@
 			<?php				
 				if(empty($subject->fin_tratamiento_temprano_status)){					
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'width'=>'25','height'=>'25'));
-					$link = 'subject/fin_tratamiento_temprano/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_temprano/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_temprano_status == 'Record Complete') {					
 					$icon = img(array('src'=>base_url('img/document_write.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_temprano_status == 'Document Approved and Signed by PI') {
 					$icon = img(array('src'=>base_url('img/document_check.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_temprano_status == 'Form Approved and Locked') {
 					$icon = img(array('src'=>base_url('img/document_lock.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_temprano_status == 'Form Approved by Monitor') {
 					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_temprano_status == 'Query') {
 					$icon = img(array('src'=>base_url('img/document_question.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
 				}
 				elseif ($subject->fin_tratamiento_temprano_status == 'Error') {
 					$icon = img(array('src'=>base_url('img/document_error.png'),'width'=>'25','height'=>'25'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id .'/6';
+					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
 				}
 				else{
 					$icon = '*';		

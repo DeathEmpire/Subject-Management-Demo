@@ -29,29 +29,27 @@ $(function(){
 
 });	
 </script>
-<legend style='text-align:center;'>Randomization</legend>
-<b>Current Subject:</b>
+<legend style='text-align:center;'>Randomizacion</legend>
+<b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
 		<tr style='background-color: #C0C0C0;'>
-			<th>Center</th>
-			<th>Subject ID</th>
-			<th>Subject Initials</th>
-			<th>Enrollement Date</th>
-			<th>Randomization Date</th>
-			<th>Treatment Kit Assigment 1</th>
-			<th>Treatment Kit Assigment 2</th>		
+			<th>Centro</th>
+			<th>ID del Sujeto</th>
+			<th>Iniciales</th>
+			<th>Fecha de Ingreso</th>
+			<th>Fecha de Randomizacion</th>
+			<th>Kit Asignado</th>		
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 			<td><?= $subject->center_name; ?></td>
-			<td><?= $subject->code; ?></td>
+			<td><?= anchor('subject/grid/'.$subject->id, $subject->code); ?></td>
 			<td><?= $subject->initials; ?></td>		
 			<td><?= ((isset($subject->screening_date) AND $subject->screening_date != '0000-00-00') ? date("d-M-Y",strtotime($subject->screening_date)) : ""); ?></td>
 			<td><?= ((isset($subject->randomization_date) AND $subject->randomization_date != '0000-00-00') ? date("d-M-Y",strtotime($subject->randomization_date)) : ""); ?></td>
-			<td><?= $subject->kit1; ?></td>
-			<td><?= $subject->kit2; ?></td>	
+			<td><?= $subject->kit1; ?></td>			
 		</tr>
 	</tbody>
 </table>
@@ -78,15 +76,15 @@ $(function(){
 	<?= my_validation_errors(validation_errors()); ?>
 	<table class="table table-condensed table-bordered">        
         <tr>
-            <td>Is the subject elegible for randomization? : </td>
+            <td>¿ Es el sujeto elegible para randomizacion ? : </td>
             <td>
-            	<?= form_radio($data,$data['value'],set_radio($data['name'],$data['value'],($data['value'] == $subject->is_randomizable) ? true : false)); ?> Yes 
+            	<?= form_radio($data,$data['value'],set_radio($data['name'],$data['value'],($data['value'] == $subject->is_randomizable) ? true : false)); ?> Si 
             	<?= form_radio($data2,$data2['value'],set_radio($data2['name'],$data2['value'],($data2['value'] == $subject->is_randomizable) ? true : false)); ?> No
             </td>
         </tr>
 
         <tr class='randomization' style='display:none'>
-            <td>Date of Randomization: </td>
+            <td>Fecha de Randomizacion: </td>
             <td><?= form_input(array('type'=>'text', 'name'=>'randomization_date', 'id'=>'randomization_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('randomization_date',$subject->randomization_date))); ?></td>
         </tr>
 

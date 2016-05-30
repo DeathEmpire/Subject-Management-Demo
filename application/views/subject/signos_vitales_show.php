@@ -40,7 +40,7 @@ $(function(){
 		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('form', "MMSE"); ?>
+		<?= form_hidden('form', "Signos Vitales"); ?>
 		<?= form_button(array('type'=>'submit', 'content'=>'Nueva Consulta', 'class'=>'btn btn-primary')); ?>
 		<?= form_close(); ?>
 	</div>

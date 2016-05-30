@@ -168,6 +168,46 @@ class Query extends CI_Controller {
 			elseif($registro['form'] == 'Hachinski'){
 				redirect('subject/hachinski_show/'. $registro['subject_id']);
 			}
+			elseif($registro['form'] == 'Cumplimiento'){
+				redirect('subject/cumplimiento_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Digito Directo'){
+				redirect('subject/digito_directo_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'ECG'){
+				redirect('subject/ecg_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Examen Laboratorio'){
+				redirect('subject/examen_laboratorio_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Examen Neurologico'){
+				redirect('subject/examen_neurologico_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Fin Tratamiento'){
+				redirect('subject/fin_tratamiento_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Fin Tratamiento Temprano'){
+				redirect('subject/fin_tratamiento_temprano_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Historial Medico'){
+				redirect('subject/historial_medico_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'MMSE'){
+				redirect('subject/mmse_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Muestra de Sangre'){
+				redirect('subject/muestra_de_sangre_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Sginos Vitales'){
+				redirect('subject/signos_vitales_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			// elseif($registro['form'] == ''){
+			// 	redirect('subject/_show/'. $registro['subject_id']);
+			// }
+			else{
+				redirect('subject/grid/'. $registro['subject_id']);	
+			}
+			
 			
 		}
 
@@ -224,6 +264,45 @@ class Query extends CI_Controller {
 			}
 			elseif($registro['form'] == 'Hachinski'){
 				redirect('subject/hachinski_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Cumplimiento'){
+				redirect('subject/cumplimiento_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Digito Directo'){
+				redirect('subject/digito_directo_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'ECG'){
+				redirect('subject/ecg_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Examen Laboratorio'){
+				redirect('subject/examen_laboratorio_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Examen Neurologico'){
+				redirect('subject/examen_neurologico_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Fin Tratamiento'){
+				redirect('subject/fin_tratamiento_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Fin Tratamiento Temprano'){
+				redirect('subject/fin_tratamiento_temprano_show/'. $registro['subject_id']);
+			}
+			elseif($registro['form'] == 'Historial Medico'){
+				redirect('subject/historial_medico_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'MMSE'){
+				redirect('subject/mmse_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Muestra de Sangre'){
+				redirect('subject/muestra_de_sangre_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'Sginos Vitales'){
+				redirect('subject/signos_vitales_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			// elseif($registro['form'] == ''){
+			// 	redirect('subject/_show/'. $registro['subject_id']);
+			// }
+			else{
+				redirect('subject/grid/'. $registro['subject_id']);	
 			}
 			
 		}

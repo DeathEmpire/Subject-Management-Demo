@@ -1433,7 +1433,103 @@ class Subject extends CI_Controller {
 	}
 
 	public function digito_directo_update(){
+		$registro = $this->input->post();
 
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');				
+
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', 'Fecha', 'required|xss_clean');
+
+		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
+			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_1b', 'Puntaje Intento 1', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_2a', 'Puntaje Intento 2', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_2b', 'Puntaje Intento 2', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_3a', 'Puntaje Intento 3', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_3b', 'Puntaje Intento 3', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_4a', 'Puntaje Intento 4', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_4b', 'Puntaje Intento 4', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_5a', 'Puntaje Intento 5', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_5b', 'Puntaje Intento 5', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_6a', 'Puntaje Intento 6', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_6b', 'Puntaje Intento 6', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_7a', 'Puntaje Intento 7', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_7b', 'Puntaje Intento 7', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_8a', 'Puntaje Intento 8', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_8b', 'Puntaje Intento 8', 'required|xss_clean');
+
+			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_1b', 'Puntaje Item 1', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_2b', 'Puntaje Item 2', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_3b', 'Puntaje Item 3', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_4b', 'Puntaje Item 4', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_5b', 'Puntaje Item 5', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_6b', 'Puntaje Item 6', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_7b', 'Puntaje Item 7', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'required|xss_clean');
+			$this->form_validation->set_rules('puntaje_item_8b', 'Puntaje Item 8', 'required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_1b', 'Puntaje Intento 1', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_2a', 'Puntaje Intento 2', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_2b', 'Puntaje Intento 2', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_3a', 'Puntaje Intento 3', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_3b', 'Puntaje Intento 3', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_4a', 'Puntaje Intento 4', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_4b', 'Puntaje Intento 4', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_5a', 'Puntaje Intento 5', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_5b', 'Puntaje Intento 5', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_6a', 'Puntaje Intento 6', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_6b', 'Puntaje Intento 6', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_7a', 'Puntaje Intento 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_7b', 'Puntaje Intento 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_8a', 'Puntaje Intento 8', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_intento_8b', 'Puntaje Intento 8', 'xss_clean');
+
+			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_1b', 'Puntaje Item 1', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_2b', 'Puntaje Item 2', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_3b', 'Puntaje Item 3', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_4b', 'Puntaje Item 4', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_5b', 'Puntaje Item 5', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_6b', 'Puntaje Item 6', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_7b', 'Puntaje Item 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_8b', 'Puntaje Item 8', 'xss_clean');	
+		}
+
+
+		if($this->form_validation->run() == FALSE) {
+
+			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar formulario de prueba de digito directo", $registro['subject_id']);
+			$this->digito_directo($registro['subject_id'], $registro['etapa']);
+		}
+		else {			
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos Form*/
+			$this->load->model('Model_Digito_directo');
+			$this->Model_Digito_directo->update($registro);
+
+			$this->auditlib->save_audit("Prueba de digito directo actualizada", $registro['subject_id']);     		
+     		redirect('subject/digito_directo_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function digito_directo_verify(){
@@ -2635,8 +2731,7 @@ class Subject extends CI_Controller {
 	public function fin_tratamiento($subject_id){
 		$data['contenido'] = 'subject/fin_tratamiento';
 		$data['titulo'] = 'Fin Tratamiento';
-		$data['subject'] = $this->Model_Subject->find($subject_id);		
-		$data['etapa'] = $etapa;
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
 
 		$this->load->view('template',$data);
 	}
@@ -2644,8 +2739,7 @@ class Subject extends CI_Controller {
 	public function fin_tratamiento_insert(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
-		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('no_aplica', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha_visita', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'required|xss_clean');
@@ -2653,7 +2747,7 @@ class Subject extends CI_Controller {
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar fin de tratamiento", $registro['subject_id']);
-			$this->fin_tratamiento($registro['subject_id'], $registro['etapa']);
+			$this->fin_tratamiento($registro['subject_id']);
 
 		}else{
 
@@ -2663,8 +2757,8 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
 			/*Actualizamos el Form*/
-			$this->load->model('Model_Fin_tratamiento');
-			$this->Model_Fin_tratamiento->insert($registro);
+			$this->load->model('Model_Fin_de_tratamiento');
+			$this->Model_Fin_de_tratamiento->insert($registro);
 
 			/*Actualizamos el estado en el sujeto*/
 			$subjet_['id'] = $registro['subject_id'];
@@ -2672,17 +2766,50 @@ class Subject extends CI_Controller {
 			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("Fin tratamiento agregado", $registro['subject_id']);     		
-     		redirect('subject/fin_tratamiento_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+     		redirect('subject/fin_tratamiento_show/'. $registro['subject_id']);
 
 		}
 	}
 
-	public function fin_tratamiento_show($subject_id, $etapa){
+	public function fin_tratamiento_show($subject_id){
+		$data['contenido'] = 'subject/fin_tratamiento_show';
+		$data['titulo'] = 'Fin Tratamiento';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
 
+		$this->load->model('Model_Fin_de_tratamiento');
+		$data['list'] = $this->Model_Fin_de_tratamiento->allWhereArray(array('subject_id'=>$subject_id));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Fin Tratamiento"));
+
+		$this->load->view('template',$data);
 	}
 
 	public function fin_tratamiento_update(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('no_aplica', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_visita', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'required|xss_clean');
+		$this->form_validation->set_rules('termino_el_estudio', '', 'required|xss_clean');		
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar fin de tratamiento", $registro['subject_id']);
+			$this->fin_tratamiento($registro['subject_id']);
+
+		}else{
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Fin_de_tratamiento');
+			$this->Model_Fin_de_tratamiento->update($registro);
+
+			$this->auditlib->save_audit("Fin tratamiento actualizado", $registro['subject_id']);     		
+     		redirect('subject/fin_tratamiento_show/'. $registro['subject_id']);
+
+		}
 	}
 
 	public function fin_tratamiento_verify(){
@@ -2704,8 +2831,8 @@ class Subject extends CI_Controller {
 			$registro['lock_user'] = $this->session->userdata('usuario');
 			$registro['lock_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Fin_tratamiento');
-			$this->Model_Fin_tratamiento->update($registro);
+			$this->load->model('Model_Fin_de_tratamiento');
+			$this->Model_Fin_de_tratamiento->update($registro);
 			$this->auditlib->save_audit("Verifico el formulario Fin Tratamiento", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
@@ -2735,8 +2862,8 @@ class Subject extends CI_Controller {
 			$registro['lock_user'] = $this->session->userdata('usuario');
 			$registro['lock_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Fin_tratamiento');
-			$this->Model_Fin_tratamiento->update($registro);
+			$this->load->model('Model_Fin_de_tratamiento');
+			$this->Model_Fin_de_tratamiento->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario Fin Tratamiento", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
@@ -2766,8 +2893,8 @@ class Subject extends CI_Controller {
 			$registro['lock_user'] = $this->session->userdata('usuario');
 			$registro['lock_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Fin_tratamiento');
-			$this->Model_Fin_tratamiento->update($registro);
+			$this->load->model('Model_Fin_de_tratamiento');
+			$this->Model_Fin_de_tratamiento->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario Fin Tratamiento", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
@@ -2781,31 +2908,29 @@ class Subject extends CI_Controller {
 	public function fin_tratamiento_temprano($subject_id){
 		$data['contenido'] = 'subject/fin_tratamiento_temprano';
 		$data['titulo'] = 'Fin Tratamiento Temprano';
-		$data['subject'] = $this->Model_Subject->find($subject_id);		
-		$data['etapa'] = $etapa;
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
 
 		$this->load->view('template',$data);
 	}
 
 	public function fin_tratamiento_temprano_insert(){
 		$registro = $this->input->post();
-		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
-		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('no_aplica', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha_visita', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'required|xss_clean');
 		$this->form_validation->set_rules('motivo', '', 'required|xss_clean');		
 
 		if(isset($registro['motivo']) AND $registro['motivo'] == 'Otro'){
-			$this->form_validation->set_rules('otro', '', 'required|xss_clean');
+			$this->form_validation->set_rules('otro_motivo', '', 'required|xss_clean');
 		}
 		else{
-			$this->form_validation->set_rules('otro', '', 'xss_clean');	
+			$this->form_validation->set_rules('otro_motivo', '', 'xss_clean');	
 		}
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar fin de tratamiento", $registro['subject_id']);
-			$this->fin_tratamiento_temprano($registro['subject_id'], $registro['etapa']);
+			$this->fin_tratamiento_temprano($registro['subject_id']);
 
 		}else{
 
@@ -2815,8 +2940,8 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
 			/*Actualizamos el Form*/
-			$this->load->model('Model_Fin_tratamiento_temprano');
-			$this->Model_Fin_tratamiento_temprano->insert($registro);
+			$this->load->model('Model_Fin_de_tratamiento_temprano');
+			$this->Model_Fin_de_tratamiento_temprano->insert($registro);
 
 			/*Actualizamos el estado en el sujeto*/
 			$subjet_['id'] = $registro['subject_id'];
@@ -2824,17 +2949,56 @@ class Subject extends CI_Controller {
 			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("Fin tratamiento temprano agregado", $registro['subject_id']);     		
-     		redirect('subject/fin_tratamiento_temprano_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+     		redirect('subject/fin_tratamiento_temprano_show/'. $registro['subject_id']);
 
 		}
 	}
 
-	public function fin_tratamiento_temprano_show($subject_id, $etapa){
+	public function fin_tratamiento_temprano_show($subject_id){
+		$data['contenido'] = 'subject/fin_tratamiento_temprano_show';
+		$data['titulo'] = 'Fin Tratamiento Temprano';
+		$data['subject'] = $this->Model_Subject->find($subject_id);
 
+		$this->load->model('Model_Fin_de_tratamiento_temprano');
+		$data['list'] = $this->Model_Fin_de_tratamiento_temprano->allWhereArray(array('subject_id'=>$subject_id));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Fin Tratamiento Temprano"));
+
+		$this->load->view('template',$data);
 	}
 
 	public function fin_tratamiento_temprano_update(){
 		$registro = $this->input->post();
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('no_aplica', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_visita', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'required|xss_clean');
+		$this->form_validation->set_rules('motivo', '', 'required|xss_clean');		
+
+		if(isset($registro['motivo']) AND $registro['motivo'] == 'Otro'){
+			$this->form_validation->set_rules('otro_motivo', '', 'required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('otro_motivo', '', 'xss_clean');	
+		}
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar fin de tratamiento", $registro['subject_id']);
+			$this->fin_tratamiento_temprano($registro['subject_id']);
+
+		}else{
+
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Fin_de_tratamiento_temprano');
+			$this->Model_Fin_de_tratamiento_temprano->update($registro);
+			
+			$this->auditlib->save_audit("Fin tratamiento temprano actualizado", $registro['subject_id']);     		
+     		redirect('subject/fin_tratamiento_temprano_show/'. $registro['subject_id']);
+
+		}
 	}
 
 	public function fin_tratamiento_temprano_verify(){
@@ -2856,8 +3020,8 @@ class Subject extends CI_Controller {
 			$registro['lock_user'] = $this->session->userdata('usuario');
 			$registro['lock_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Fin_tratamiento_temprano');
-			$this->Model_Fin_tratamiento_temprano->update($registro);
+			$this->load->model('Model_Fin_de_tratamiento_temprano');
+			$this->Model_Fin_de_tratamiento_temprano->update($registro);
 			$this->auditlib->save_audit("Verifico el formulario Fin Tratamiento Temprano", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
@@ -2887,8 +3051,8 @@ class Subject extends CI_Controller {
 			$registro['lock_user'] = $this->session->userdata('usuario');
 			$registro['lock_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Fin_tratamiento_temprano');
-			$this->Model_Fin_tratamiento_temprano->update($registro);
+			$this->load->model('Model_Fin_de_tratamiento_temprano');
+			$this->Model_Fin_de_tratamiento_temprano->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario Fin Tratamiento Temprano", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
@@ -2918,8 +3082,8 @@ class Subject extends CI_Controller {
 			$registro['lock_user'] = $this->session->userdata('usuario');
 			$registro['lock_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Fin_tratamiento_temprano');
-			$this->Model_Fin_tratamiento_temprano->update($registro);
+			$this->load->model('Model_Fin_de_tratamiento_temprano');
+			$this->Model_Fin_de_tratamiento_temprano->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario Fin Tratamiento Temprano", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
@@ -3000,7 +3164,7 @@ class Subject extends CI_Controller {
 
 	public function muestra_de_sangre_update(){
 		$registro = $this->input->post();
-		
+
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
@@ -3532,11 +3696,116 @@ class Subject extends CI_Controller {
 	}
 
 	public function examen_laboratorio_show($subject_id){
+		$data['contenido'] = 'subject/examen_laboratorio_show';
+		$data['titulo'] = 'Examen Laboratorio';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
 
+		$this->load->model('Model_Examen_laboratorio');
+		$data['list'] = $this->Model_Examen_laboratorio->allWhereArray(array('subject_id'=>$subject_id));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Examen Laboratorio"));
+
+		$this->load->view('template',$data);
 	}
 
 	public function examen_laboratorio_update(){
 		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('hematocrito', '', 'xss_clean');
+		$this->form_validation->set_rules('hematocrito_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('hemoglobina', '', 'xss_clean');
+		$this->form_validation->set_rules('hemoglobina_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('eritocritos', '', 'xss_clean');
+		$this->form_validation->set_rules('eritocritos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('leucocitos', '', 'xss_clean');
+		$this->form_validation->set_rules('leucocitos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('neutrofilos', '', 'xss_clean');
+		$this->form_validation->set_rules('neutrofilos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('linfocitos', '', 'xss_clean');
+		$this->form_validation->set_rules('linfocitos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('monocitos', '', 'xss_clean');
+		$this->form_validation->set_rules('monocitos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('eosinofilos', '', 'xss_clean');
+		$this->form_validation->set_rules('eosinofilos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('basofilos', '', 'xss_clean');
+		$this->form_validation->set_rules('basofilos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('recuento_plaquetas', '', 'xss_clean');
+		$this->form_validation->set_rules('recuento_plaquetas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('vhs', '', 'xss_clean');
+		$this->form_validation->set_rules('vhs_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('glucosa_ayunas', '', 'xss_clean');
+		$this->form_validation->set_rules('glucosa_ayunas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('bun', '', 'xss_clean');
+		$this->form_validation->set_rules('bun_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('creatinina', '', 'xss_clean');
+		$this->form_validation->set_rules('creatinina_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('bilirrubina_total', '', 'xss_clean');
+		$this->form_validation->set_rules('bilirrubina_total_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('proteinas_totales', '', 'xss_clean');
+		$this->form_validation->set_rules('proteinas_totales_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('fosfatasas_alcalinas', '', 'xss_clean');
+		$this->form_validation->set_rules('fosfatasas_alcalinas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('ast', '', 'xss_clean');
+		$this->form_validation->set_rules('ast_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('alt', '', 'xss_clean');
+		$this->form_validation->set_rules('alt_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('calcio', '', 'xss_clean');
+		$this->form_validation->set_rules('calcio_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('sodio', '', 'xss_clean');
+		$this->form_validation->set_rules('sodio_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('potasio', '', 'xss_clean');
+		$this->form_validation->set_rules('potasio_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('cloro', '', 'xss_clean');
+		$this->form_validation->set_rules('cloro_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('acido_urico', '', 'xss_clean');
+		$this->form_validation->set_rules('acido_urico_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('albumina', '', 'xss_clean');
+		$this->form_validation->set_rules('albumina_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_ph', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_ph_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_glucosa', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_glucosa_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_proteinas', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_proteinas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_sangre', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_sangre_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_cetonas', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_cetonas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_microscospia', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_microscospia_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_sangre_homocisteina', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_sangre_homocisteina_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_perfil_tiroideo', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_perfil_tiroideo_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_nivel_b12', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_nivel_b12_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_acido_folico', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_acido_folico_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_hba1c', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_hba1c_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('sifilis', '', 'xss_clean');
+		$this->form_validation->set_rules('sifilis_nom_anom', '', 'xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar examen de laboratorio", $registro['subject_id']);
+			$this->examen_laboratorio($registro['subject_id']);
+
+		}else{
+
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Examen_laboratorio');
+			$this->Model_Examen_laboratorio->update($registro);
+
+			$this->auditlib->save_audit("Examen de Laboratorio actualizado", $registro['subject_id']);     		
+     		redirect('subject/examen_laboratorio_show/'. $registro['subject_id']);
+
+		}
 	}
 
 	public function examen_laboratorio_verify(){

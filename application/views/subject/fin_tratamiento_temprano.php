@@ -13,6 +13,13 @@ $(function(){
 			$("#tr_otro").hide();
 		}
 	});
+
+	if($("select[name=motivo]").val() == 'Otro'){
+		$("#tr_otro").show();
+	}
+	else{
+		$("#tr_otro").hide();
+	}
 });
 </script>
 <legend style='text-align:center;'>Fin Tratamiento Temprano</legend>
@@ -44,8 +51,7 @@ $(function(){
 <?= form_open('subject/fin_tratamiento_temprano_insert', array('class'=>'form-horizontal')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
-	<?= form_hidden('subject_id', $subject->id); ?>	
-	<?= form_hidden('etapa', $etapa); ?>	
+	<?= form_hidden('subject_id', $subject->id); ?>		
 	 
 	<?php
 			$no_aplica = array(
@@ -87,7 +93,7 @@ $(function(){
 		</tr>
 		<tr id='tr_otro' style='display:none;'>
 			<td>Otro Motivo: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'otro', 'id'=>'otro', 'value'=>set_value('otro'))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'otro_motivo', 'id'=>'otro_motivo', 'value'=>set_value('otro_motivo'))); ?></td>
 		</tr>		
 		<tr>
 			<td colspan='2' style='text-align:center;'>

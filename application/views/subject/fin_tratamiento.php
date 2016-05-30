@@ -44,8 +44,7 @@ $(function(){
 <?= form_open('subject/fin_tratamiento_insert', array('class'=>'form-horizontal')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
-	<?= form_hidden('subject_id', $subject->id); ?>	
-	<?= form_hidden('etapa', $etapa); ?>	
+	<?= form_hidden('subject_id', $subject->id); ?>		
 	 
 	<?php
 			$no_aplica = array(
