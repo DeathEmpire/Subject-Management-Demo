@@ -3897,5 +3897,483 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
+
+/*-----------------------------------------------------TMT A ------------------------------------------------------------------------*/
+
+	public function tmt_a($subject_id, $etapa){
+		$data['contenido'] = 'subject/tmt_a';
+		$data['titulo'] = 'TMT A';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template', $data);
+	}
+
+	public function tmt_a_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
+
+		if(isset($registro['realizado']) AND $registro['realizado'] == 1){
+			$this->form_validation->set_rules('fecha','Fecha','required|xss_clean');
+			$this->form_validation->set_rules('segundos','Segundos','required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+			$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		}
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar TMT A", $registro['subject_id']);
+			$this->tmt_a($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['etapa'] == 2){
+				$subjet_['tmt_a_2_status'] = "Record Complete";
+			}			
+			elseif($registro['etapa'] == 4){
+				$subjet_['tmt_a_4_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['tmt_a_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['tmt_a_6_status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Tmt_a');
+			$this->Model_Tmt_a->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen TMT A agregado", $registro['subject_id']);     		
+     		redirect('subject/tmt_a_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}	
+
+	public function tmt_a_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/tmt_a_show';
+		$data['titulo'] = 'TMT A';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->model('Model_Tmt_a');
+		$data['list'] = $this->Model_Tmt_a->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"TMT A", 'etapa'=>$etapa));
+
+		$this->load->view('template', $data);
+	}
+
+	public function tmt_a_update(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
+
+		if(isset($registro['realizado']) AND $registro['realizado'] == 1){
+			$this->form_validation->set_rules('fecha','Fecha','required|xss_clean');
+			$this->form_validation->set_rules('segundos','Segundos','required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+			$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		}
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al actualizar de agregar TMT A", $registro['subject_id']);
+			$this->tmt_a($registro['subject_id'], $registro['etapa']);
+
+		}else{
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Tmt_a');
+			$this->Model_Tmt_a->update($registro);			
+
+			$this->auditlib->save_audit("Examen TMT A actualizado", $registro['subject_id']);     		
+     		redirect('subject/tmt_a_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}
+
+	public function tmt_a_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de TMT A", $registro['subject_id']);
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Tmt_a');
+			$this->Model_Tmt_a->update($registro);
+			$this->auditlib->save_audit("Verificacion de el formulario TMT A", $registro['subject_id']);
+
+			/*Actualizar estado en el sujeto*/
+			if(isset($registro['etapa']) AND $registro['etapa'] == 2){
+				$this->Model_Subject->update(array('tmt_a_2_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif(isset($registro['etapa']) AND $registro['etapa'] == 4){
+				$this->Model_Subject->update(array('tmt_a_4_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif(isset($registro['etapa']) AND $registro['etapa'] == 5){
+				$this->Model_Subject->update(array('tmt_a_5_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('tmt_a_6_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	
+	public function tmt_a_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de TMT A", $registro['subject_id']);
+			$this->examen_neurologico_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Tmt_a');
+			$this->Model_Tmt_a->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de TMT A", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/			
+			if (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('tmt_a_2_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('tmt_a_4_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('tmt_a_5_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('tmt_a_6_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	
+	public function tmt_a_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de TMT A", $registro['subject_id']);
+			$this->examen_neurologico_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Tmt_a');
+			$this->Model_Tmt_a->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de TMT A", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/			
+			if (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('tmt_a_2_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('tmt_a_4_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('tmt_a_5_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('tmt_a_6_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+/*-----------------------------------------------------TMT B ------------------------------------------------------------------------*/
+
+	public function tmt_b($subject_id, $etapa){
+		$data['contenido'] = 'subject/tmt_b';
+		$data['titulo'] = 'TMT B';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template', $data);
+	}
+
+	public function tmt_b_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
+
+		if(isset($registro['realizado']) AND $registro['realizado'] == 1){
+			$this->form_validation->set_rules('fecha','Fecha','required|xss_clean');
+			$this->form_validation->set_rules('segundos','Segundos','required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+			$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		}
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar TMT B", $registro['subject_id']);
+			$this->tmt_a($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['etapa'] == 2){
+				$subjet_['tmt_b_2_status'] = "Record Complete";
+			}			
+			elseif($registro['etapa'] == 4){
+				$subjet_['tmt_b_4_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['tmt_b_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['tmt_b_6_status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Tmt_b');
+			$this->Model_Tmt_b->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen TMT B agregado", $registro['subject_id']);     		
+     		redirect('subject/tmt_b_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}	
+
+	public function tmt_b_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/tmt_b_show';
+		$data['titulo'] = 'TMT B';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->model('Model_Tmt_b');
+		$data['list'] = $this->Model_Tmt_b->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"TMT B", 'etapa'=>$etapa));
+
+		$this->load->view('template', $data);
+	}
+
+	public function tmt_b_update(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
+
+		if(isset($registro['realizado']) AND $registro['realizado'] == 1){
+			$this->form_validation->set_rules('fecha','Fecha','required|xss_clean');
+			$this->form_validation->set_rules('segundos','Segundos','required|xss_clean');
+		}
+		else{
+			$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+			$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		}
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al actualizar de agregar TMT B", $registro['subject_id']);
+			$this->tmt_a($registro['subject_id'], $registro['etapa']);
+
+		}else{
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Tmt_b');
+			$this->Model_Tmt_b->update($registro);			
+
+			$this->auditlib->save_audit("Examen TMT B actualizado", $registro['subject_id']);     		
+     		redirect('subject/tmt_b_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}
+
+	public function tmt_b_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de TMT B", $registro['subject_id']);
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Tmt_b');
+			$this->Model_Tmt_b->update($registro);
+			$this->auditlib->save_audit("Verificacion de el formulario TMT B", $registro['subject_id']);
+
+			/*Actualizar estado en el sujeto*/
+			if(isset($registro['etapa']) AND $registro['etapa'] == 2){
+				$this->Model_Subject->update(array('tmt_b_2_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif(isset($registro['etapa']) AND $registro['etapa'] == 4){
+				$this->Model_Subject->update(array('tmt_b_4_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif(isset($registro['etapa']) AND $registro['etapa'] == 5){
+				$this->Model_Subject->update(array('tmt_b_5_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('tmt_b_6_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	
+	public function tmt_b_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de TMT B", $registro['subject_id']);
+			$this->examen_neurologico_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Tmt_b');
+			$this->Model_Tmt_b->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de TMT B", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/			
+			if (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('tmt_b_2_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('tmt_b_4_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('tmt_b_5_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('tmt_b_6_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	
+	public function tmt_b_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de TMT B", $registro['subject_id']);
+			$this->examen_neurologico_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Tmt_b');
+			$this->Model_Tmt_b->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de TMT B", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/			
+			if (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('tmt_b_2_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('tmt_b_4_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('tmt_b_5_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('tmt_b_6_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
 	
 } 

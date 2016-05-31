@@ -201,6 +201,12 @@ class Query extends CI_Controller {
 			elseif($registro['form'] == 'Sginos Vitales'){
 				redirect('subject/signos_vitales_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
 			}
+			elseif($registro['form'] == 'TMT A'){
+				redirect('subject/tmt_a_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'TMT B'){
+				redirect('subject/tmt_b_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
 			// elseif($registro['form'] == ''){
 			// 	redirect('subject/_show/'. $registro['subject_id']);
 			// }
@@ -297,6 +303,12 @@ class Query extends CI_Controller {
 			}
 			elseif($registro['form'] == 'Sginos Vitales'){
 				redirect('subject/signos_vitales_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'TMT A'){
+				redirect('subject/tmt_a_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
+			}
+			elseif($registro['form'] == 'TMT B'){
+				redirect('subject/tmt_b_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
 			}
 			// elseif($registro['form'] == ''){
 			// 	redirect('subject/_show/'. $registro['subject_id']);
