@@ -21,7 +21,7 @@ $(function(){
 
 });
 </script>
-<legend style='text-align:center;'>Demografia</legend>
+<legend style='text-align:center;'>Demograf&iacute;a</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -66,12 +66,11 @@ $(function(){
 
     <?= my_validation_errors(validation_errors()); ?>
 
-    <table class="table table-condensed table-bordered table-striped">
+    <table class="table table-condensed table-bordered table-striped table-hover">
        	<?php
        		$sign_consent_1 = array(
 			    'name'        => 'sign_consent',			    
-			    'value'       => 1,		    			    
-			    );
+			    'value'       => 1,		    			    			    );
 	   		$sign_consent_0 = array(
 			    'name'        => 'sign_consent',			    
 			    'value'       => 0,		    			    
@@ -79,32 +78,30 @@ $(function(){
        	?>
 
        	<tr>
-       		<td style='font-weight:bold;'>1.- Consentimiento Informado</td>
-       	<tr>
+       		<td style='font-weight:bold;' colspan='2'>1.- Consentimiento Informado</td>
+       	</tr>
        	<tr>	
-       		<td class='control-label'>Firmado: </td>
+       		<td>Firmado: </td>
        		<td>
        			<?= form_radio($sign_consent_1,$sign_consent_1['value'],set_radio($sign_consent_1['name'],$sign_consent_1['value'],($sign_consent_1['value'] == $subject->sign_consent) ? true : false)); ?> Si
 	        	<?= form_radio($sign_consent_0,$sign_consent_0['value'],set_radio($sign_consent_0['name'],$sign_consent_0['value'],($sign_consent_0['value'] == $subject->sign_consent) ? true : false)); ?> No
 	        </td>
        	</tr>
        	<tr>       		
-       		<td class='control-label'>Fecha: </td>
-       		<td><?= form_input(array('type'=>'text', 'name'=>'sign_consent_date', 'id'=>'sign_consent_date', 'value'=>set_value('sign_consent_date', $subject->sign_consent_date)));?></td>
+       		<td>Fecha: </td>
+       		<td>
+       			<?= form_input(array('type'=>'text', 'name'=>'sign_consent_date', 'id'=>'sign_consent_date', 'value'=>set_value('sign_consent_date', $subject->sign_consent_date)));?>
+       		</td>
        	</tr>
-
-
         <tr>
-        	<td style='font-weight:bold;'>2.- Demografia</td>
-        </tr>
-		
+        	<td style='font-weight:bold;' colspan='2'>2.- Demograf&iacute;a</td>
+        </tr>		
 		<tr>
-			<td class='control-label'>Iniciales Voluntario: </td>
+			<td>Iniciales Sujeto: </td>
 			<td><?= form_input(array('type'=>'text', 'name'=>'initials', 'id'=>'initials', 'maxlength'=>'3' , 'value'=>set_value('initials', $subject->initials) ) ); ?></td>
-		</tr>
-	
+		</tr>	
 		<tr>
-			<td class='control-label'>Edad: </td>
+			<td>Edad: </td>
 			<td><?= form_input(array('type'=>'number', 'name'=>'edad', 'id'=>'edad', 'maxlength'=>'2' , 'value'=>set_value('edad', $subject->edad) ) ); ?></td>
 		</tr>
 		<?php
@@ -121,7 +118,7 @@ $(function(){
 		      
 	    ?>
 	    <tr>
-	        <td><?= form_label('Sexo: ', 'gender', array('class'=>'control-label')); ?></td>
+	        <td><?= form_label('Sexo: ', 'gender'); ?></td>
 	        <td>
 	        	<?= form_radio($data,$data['value'],set_radio($data['name'],$data['value'],($data['value'] == $subject->gender) ? true : false)); ?> Masc
 	        	<?= form_radio($data2,$data2['value'],set_radio($data2['name'],$data2['value'],($data2['value'] == $subject->gender) ? true : false)); ?> Fem
@@ -129,13 +126,13 @@ $(function(){
 	    </tr> 
 
         <tr>        
-        	<td><?= form_label('Fecha de Nacimiento: ', 'birth_date', array('class'=>'control-label')); ?></td>
+        	<td><?= form_label('Fecha de Nacimiento: ', 'birth_date'); ?></td>
         	<td><?= form_input(array('type'=>'text', 'name'=>'birth_date', 'id'=>'birth_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;','value'=>set_value('birth_date',$subject->birth_date))); ?></td>
     	</tr>
     
 	    
 		<tr>
-        	<td><?= form_label('Etnia/Raza: ', 'race', array('class'=>'control-label')); ?></td>
+        	<td><?= form_label('Etnia/Raza: ', 'race'); ?></td>
         	<td><?= form_input(array('type'=>'text', 'name'=>'race', 'id'=>'race', 'value'=>set_value('race',$subject->race))); ?></td>
     	</tr>
 
@@ -150,7 +147,7 @@ $(function(){
 								'Post grado'=>'Post grado');
 		?>
     	<tr>    		
-    		<td><?= form_label('Grado de Escolaridad: ', 'escolaridad', array('class'=>'control-label')); ?></td>
+    		<td><?= form_label('Grado de Escolaridad: ', 'escolaridad'); ?></td>
     		<td><?= form_dropdown('escolaridad', $escolaridad, set_value('escolaridad',$subject->escolaridad)); ?></td>
     	</tr>
 		
@@ -159,7 +156,7 @@ $(function(){
 			?>
 	    <tr><td colspan='2' style='text-align:center;'>
 			<?php if(empty($subject->demography_signature_user) AND empty($subject->demography_lock_user) AND empty($subject->demography_verify_user)){ ?>
-				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>			
+				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>			
 			<?php }?>
 	        
 	        <?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>

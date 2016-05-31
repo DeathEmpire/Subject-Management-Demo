@@ -3,7 +3,7 @@ $(function(){
 	
 });
 </script>
-<legend style='text-align:center;'>Criterios de Inclusion/Exclusion</legend>
+<legend style='text-align:center;'>Criterios de Inclusión/Exclusión</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -88,7 +88,7 @@ $(function(){
 		
 	    <tr>
 	    	<td colspan='2' style='text-align:center;'>
-				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 	        	<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
 	    	</td>
 	   	</tr>

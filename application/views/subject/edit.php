@@ -25,8 +25,8 @@
     </div>    
 
     <div class="form-actions">
-        <?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-        <?= anchor('subject/index', 'Cancel', array('class'=>'btn')); ?>
-        <?= anchor('subject/delete/'.$registro->id, 'Delete', array('class'=>'btn btn-warning', 'onClick'=>"return confirm('Are you sure?')")); ?>
+        <?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+        <?= anchor('subject/index', 'Volver', array('class'=>'btn')); ?>
+        <?= anchor('subject/delete/'.$registro->id, 'Eliminar', array('class'=>'btn btn-warning', 'onClick'=>"return confirm('Are you sure?')")); ?>
     </div>
 <?= form_close(); ?>

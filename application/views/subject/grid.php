@@ -99,7 +99,7 @@
 			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
-			<td>Criterios de Inclusion/Exclusion</td>
+			<td>Criterios de Inclusión/Exclusión</td>
 			<?php
 				if(empty($subject->inclusion_exclusion_1_status)){
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));

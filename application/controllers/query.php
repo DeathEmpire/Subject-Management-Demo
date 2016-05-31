@@ -15,9 +15,9 @@ class Query extends CI_Controller {
 		$id = $this->input->post('id');
 
 		$data['contenido'] = 'query/demography';
-		$data['titulo'] = 'Demograhpy Form Query';				
+		$data['titulo'] = 'Demograf&iacute;a Query';				
 		$data['subject'] = $this->Model_Subject->find($id);
-		$this->auditlib->save_audit("Open Demography query form");				
+		$this->auditlib->save_audit("Abrio el formulario de querys en demografia", $id);				
 
 		$this->load->view('template', $data);
 	}
@@ -28,7 +28,7 @@ class Query extends CI_Controller {
 		$this->form_validation->set_rules('question', 'Question', 'required|xss_clean');
         
         if ($this->form_validation->run() == FALSE) {
-        	$this->auditlib->save_audit("Has validation error creating new demography query");
+        	$this->auditlib->save_audit("Tiene errores de validacion al crear una query", $id);
             $this->demography_query_new($registro['subject_id']);
         }
         else {	

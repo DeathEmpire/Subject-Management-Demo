@@ -8,7 +8,7 @@ $(function(){
 	$('#comprimidos_utilizados, #dias').change(function(){
 		if($('#comprimidos_utilizados').val() != '' && $('#dias').val() != '')
 		{
-			var valor = $('#comprimidos_utilizados').val() / 2 / ($('#dias').val() * 100);		
+			var valor = $('#comprimidos_entregados').val() / 2 / ($('#dias').val() * 100);		
 			$('#porcentaje_cumplimiento	').val(valor);
 		}
 	});
@@ -107,12 +107,12 @@ $(function(){
 			<td><?= form_input(array('type'=>'text','name'=>'dias', 'id'=>'dias', 'maxlenght'=>'3','value'=>set_value('dias'))); ?></td>
 		</tr>
 		<tr>
-			<td>% cumplimiento (Comprimidos/2/días x 100): </td>
+			<td>% cumplimiento: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlenght'=>'3','value'=>set_value('porcentaje_cumplimiento'))); ?></td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>
-				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 	        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
 			</td>
 		</tr>

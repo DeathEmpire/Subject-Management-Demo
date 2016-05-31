@@ -1,4 +1,4 @@
-<legend style='text-align:center;'>Consulta Demografia</legend>
+<legend style='text-align:center;'>Consulta Demograf&iacute;a</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>

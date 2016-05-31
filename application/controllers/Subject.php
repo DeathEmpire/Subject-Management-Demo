@@ -1062,7 +1062,7 @@ class Subject extends CI_Controller {
 	public function inclusion($subject_id, $etapa){
 
 		$data['contenido'] = 'subject/inclusion';
-		$data['titulo'] = 'Criterios de Inclusion/Exclusion';
+		$data['titulo'] = 'Criterios de Inclusión/Exclusión';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
 		
@@ -1081,7 +1081,7 @@ class Subject extends CI_Controller {
 		/*Validar si ingresa un numero o un comentario este tenga su par ya sea numero o comentario*/
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de inclusion exclusion", $registro['subject_id']);
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar formulario de inclusión exclusión", $registro['subject_id']);
 			$this->inclusion($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1131,7 +1131,7 @@ class Subject extends CI_Controller {
 			$subjet_['id'] = $registro['subject_id'];
 			$this->Model_Subject->update($subjet_);
 
-			$this->auditlib->save_audit("Critero de inclusion exclusion agregado", $registro['subject_id']);     		
+			$this->auditlib->save_audit("Critero de inclusión exclusión agregado", $registro['subject_id']);     		
      		redirect('subject/inclusion_show/'. $registro['subject_id'] ."/". $registro['etapa']);
 
 		}
@@ -1139,7 +1139,7 @@ class Subject extends CI_Controller {
 
 	public function inclusion_show($subject_id, $etapa){
 		$data['contenido'] = 'subject/inclusion_show';
-		$data['titulo'] = 'Criterios de Inclusion/Exclusion';
+		$data['titulo'] = 'Criterios de Inclusión/Exclusión';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
 		
@@ -1167,7 +1167,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('autorizacion_patrocinador', 'Autorizacion Patrocinador', 'required|xss_clean');	
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el formulario de inclusion exclusion", $registro['subject_id']);
+			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el formulario de inclusión exclusión", $registro['subject_id']);
 			$this->inclusion($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1183,7 +1183,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Inclusion Exclusion", $registro['subject_id']);
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Inclusión Exclusión", $registro['subject_id']);
 			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1196,7 +1196,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
-			$this->auditlib->save_audit("Verificacion de el formulario de Inclusion Exclusion", $registro['subject_id']);
+			$this->auditlib->save_audit("Verificacion de el formulario de Inclusión Exclusión", $registro['subject_id']);
 
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
@@ -1219,7 +1219,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Inclusion Exclusion", $registro['subject_id']);
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Inclusión Exclusión", $registro['subject_id']);
 			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1232,7 +1232,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
-			$this->auditlib->save_audit("Firmo el formulario de Inclusion Exclusion", $registro['subject_id']);
+			$this->auditlib->save_audit("Firmo el formulario de Inclusión Exclusión", $registro['subject_id']);
 			
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
@@ -1254,7 +1254,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Inclusion Exclusion", $registro['subject_id']);
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Inclusión Exclusión", $registro['subject_id']);
 			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
@@ -1267,7 +1267,7 @@ class Subject extends CI_Controller {
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
-			$this->auditlib->save_audit("Cerro el formulario de Inclusion Exclusion", $registro['subject_id']);			
+			$this->auditlib->save_audit("Cerro el formulario de Inclusión Exclusión", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
@@ -2025,11 +2025,17 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal', '', 'required|xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('fc', '', 'required|xss_clean');
 			$this->form_validation->set_rules('fc_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('pr', '', 'required|xss_clean');
 			$this->form_validation->set_rules('pr_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qrs', '', 'required|xss_clean');
 			$this->form_validation->set_rules('qrs_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qt', '', 'required|xss_clean');
 			$this->form_validation->set_rules('qt_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qtc', '', 'required|xss_clean');
 			$this->form_validation->set_rules('qtc_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qrs2', '', 'required|xss_clean');
 			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'required|xss_clean');
 			$this->form_validation->set_rules('interpretacion_ecg', '', 'required|xss_clean');
 			$this->form_validation->set_rules('comentarios', '', 'required|xss_clean');
@@ -2038,11 +2044,17 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('fecha', '', 'xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('fc', '', 'xss_clean');
 			$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('pr', '', 'xss_clean');
 			$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qrs', '', 'xss_clean');
 			$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qt', '', 'xss_clean');
 			$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qtc', '', 'xss_clean');
 			$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qrs2', '', 'xss_clean');
 			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
 			$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
 			$this->form_validation->set_rules('comentarios', '', 'xss_clean');	
@@ -2098,11 +2110,17 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal', '', 'required|xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('fc', '', 'required|xss_clean');
 			$this->form_validation->set_rules('fc_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('pr', '', 'required|xss_clean');
 			$this->form_validation->set_rules('pr_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qrs', '', 'required|xss_clean');
 			$this->form_validation->set_rules('qrs_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qt', '', 'required|xss_clean');
 			$this->form_validation->set_rules('qt_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qtc', '', 'required|xss_clean');
 			$this->form_validation->set_rules('qtc_normal_anormal', '', 'required|xss_clean');
+			$this->form_validation->set_rules('qrs2', '', 'required|xss_clean');
 			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'required|xss_clean');
 			$this->form_validation->set_rules('interpretacion_ecg', '', 'required|xss_clean');
 			$this->form_validation->set_rules('comentarios', '', 'required|xss_clean');
@@ -2111,11 +2129,17 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('fecha', '', 'xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
 			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('fc', '', 'xss_clean');
 			$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('pr', '', 'xss_clean');
 			$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qrs', '', 'xss_clean');
 			$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qt', '', 'xss_clean');
 			$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qtc', '', 'xss_clean');
 			$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
+			$this->form_validation->set_rules('qrs2', '', 'xss_clean');
 			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
 			$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
 			$this->form_validation->set_rules('comentarios', '', 'xss_clean');	
@@ -2246,7 +2270,13 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('estatura', '', 'required|xss_clean');
+		if(isset($registro['etapa']) AND $registro['etapa'] == 1){
+			$this->form_validation->set_rules('estatura', '', 'required|xss_clean');	
+		}
+		else{
+			$this->form_validation->set_rules('estatura', '', 'xss_clean');
+		}
+		
 		$this->form_validation->set_rules('presion_sistolica', '', 'required|xss_clean');
 		$this->form_validation->set_rules('presion_diastolica', '', 'required|xss_clean');
 		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'required|xss_clean');
@@ -2317,7 +2347,12 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('estatura', '', 'required|xss_clean');
+		if(isset($registro['etapa']) AND $registro['etapa'] == 1){
+			$this->form_validation->set_rules('estatura', '', 'required|xss_clean');	
+		}
+		else{
+			$this->form_validation->set_rules('estatura', '', 'xss_clean');
+		}
 		$this->form_validation->set_rules('presion_sistolica', '', 'required|xss_clean');
 		$this->form_validation->set_rules('presion_diastolica', '', 'required|xss_clean');
 		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'required|xss_clean');

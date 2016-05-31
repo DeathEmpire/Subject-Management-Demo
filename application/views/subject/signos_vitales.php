@@ -62,10 +62,18 @@ $(function(){
 			<td>Fecha: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 		</tr>
+		<?php
+			if(isset($etapa) AND $etapa == 1){
+		?>
 		<tr>
 			<td>Estatura: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'estatura', 'id'=>'estatura', 'maxlenght'=>'3','value'=>set_value('estatura'))); ?> cms</td>
 		</tr>
+		<?php }else{ ?>
+			
+				<?= form_hidden('estatura', ''); ?>
+
+		<?php }?>
 		<tr>
 			<td>Presion Sistolica: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'presion_sistolica', 'id'=>'presion_sistolica', 'maxlenght'=>'3','value'=>set_value('presion_sistolica'))); ?> mmHg</td>
@@ -92,7 +100,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>
-				<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 	        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
 	        </td>
 	    </tr>

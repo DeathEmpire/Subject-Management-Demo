@@ -167,7 +167,10 @@ $(function(){
 				<td></td>
 			</tr>			
 			<tr>
-				<td colspan='2' style='text-align:center;'><input type='submit' class='btn btn-primary' value='Enviar'></td>				
+				<td colspan='2' style='text-align:center;'>
+					<input type='submit' class='btn btn-primary' value='Guardar'>
+					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
+				</td>				
 			</tr>			
 		</table>
 	<?= form_close(); ?>

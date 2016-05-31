@@ -224,7 +224,7 @@ $(function(){
 			</tr>
 			<tr>
 				<td colspan='6' style='text-align:center;'>
-					<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 	        		<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
 				</td>
 			</tr>
