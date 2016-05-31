@@ -56,7 +56,7 @@ $(function(){
 		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
 		<?= form_hidden('subject_id', $subject->id); ?>		
 		<?= form_hidden('form', "Fin Tratamiento Temprano"); ?>
-		<?= form_button(array('type'=>'submit', 'content'=>'Nueva Consulta', 'class'=>'btn btn-primary')); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
 		<?= form_close(); ?>
 	</div>
 <?php }?>
