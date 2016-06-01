@@ -4,6 +4,35 @@
 <script type="text/javascript">
 $(function(){
 	$("#fecha").datepicker();
+
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_ecg :input").attr('readonly','readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});			
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_ecg :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled', 'disabled');
+			});
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_ecg :input").attr('readonly','readonly');
+		$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_ecg :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled', 'disabled');
+		});
+	}
 });
 </script>
 <legend style='text-align:center;'>Electrocardiograma de reposo (ECG)</legend>
@@ -48,7 +77,7 @@ $(function(){
 <?php
 	if(isset($list) AND !empty($list)){
 ?>
-<?= form_open('subject/ecg_update', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/ecg_update', array('class'=>'form-horizontal','id'=>'form_ecg')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	
@@ -102,7 +131,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>FC</td>
-					<td><?= form_input(array('type'=>'text', 'name'='fc', 'id'=>'fc', 'value'=>set_value('fc', $list[0]->fc))); ?></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'fc', 'id'=>'fc', 'value'=>set_value('fc', $list[0]->fc))); ?></td>
 					<td>Lat/min</td>
 					<td>
 						<?= form_radio('fc_normal_anormal', 1, set_radio('fc_normal_anormal', 1, (($list[0]->fc_normal_anormal == 1) ? true : false))); ?>
@@ -112,7 +141,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>PR</td>
-					<td><?= form_input(array('type'=>'text', 'name'='pr', 'id'=>'pr', 'value'=>set_value('pr', $list[0]->pr))); ?></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'pr', 'id'=>'pr', 'value'=>set_value('pr', $list[0]->pr))); ?></td>
 					<td>ms</td>
 					<td>
 						<?= form_radio('pr_normal_anormal', 1, set_radio('pr_normal_anormal', 1, (($list[0]->pr_normal_anormal == 1) ? true : false))); ?>
@@ -122,7 +151,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>QRS</td>
-					<td><?= form_input(array('type'=>'text', 'name'='qrs', 'id'=>'qrs', 'value'=>set_value('qrs', $list[0]->qrs))); ?></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'qrs', 'id'=>'qrs', 'value'=>set_value('qrs', $list[0]->qrs))); ?></td>
 					<td>ms</td>
 					<td>
 						<?= form_radio('qrs_normal_anormal', 1, set_radio('qrs_normal_anormal', 1, (($list[0]->qrs_normal_anormal == 1) ? true : false))); ?>
@@ -132,7 +161,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>QT</td>
-					<td><?= form_input(array('type'=>'text', 'name'='qt', 'id'=>'qt', 'value'=>set_value('qt', $list[0]->qt))); ?></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'qt', 'id'=>'qt', 'value'=>set_value('qt', $list[0]->qt))); ?></td>
 					<td>ms</td>
 					<td>
 						<?= form_radio('qt_normal_anormal', 1, set_radio('qt_normal_anormal', 1, (($list[0]->qt_normal_anormal == 1) ? true : false))); ?>
@@ -142,7 +171,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>QTc</td>
-					<td><?= form_input(array('type'=>'text', 'name'='qtc', 'id'=>'qtc', 'value'=>set_value('qtc', $list[0]->qtc))); ?></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'qtc', 'id'=>'qtc', 'value'=>set_value('qtc', $list[0]->qtc))); ?></td>
 					<td>ms</td>
 					<td>
 						<?= form_radio('qtc_normal_anormal', 1, set_radio('qtc_normal_anormal', 1, (($list[0]->qtc_normal_anormal == 1) ? true : false))); ?>
@@ -152,7 +181,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>QRS</td>
-					<td><?= form_input(array('type'=>'text', 'name'='qrs2', 'id'=>'qrs2', 'value'=>set_value('qrs2', $list[0]->qrs2))); ?></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'qrs2', 'id'=>'qrs2', 'value'=>set_value('qrs2', $list[0]->qrs2))); ?></td>
 					<td>°</td>
 					<td>
 						<?= form_radio('qrs2_normal_anormal', 1, set_radio('qrs2_normal_anormal', 1, (($list[0]->qrs2_normal_anormal == 1) ? true : false))); ?>

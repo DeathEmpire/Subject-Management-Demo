@@ -1678,60 +1678,60 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
 		$this->form_validation->set_rules('tiene_problemas_memoria', '', 'xss_clean');
 		$this->form_validation->set_rules('le_puedo_hacer_preguntas', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_ano_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_estacion_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_mes_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_dia_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_fecha_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_region_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('donde_estas_ahora', '', 'required|xss_clean');
-		$this->form_validation->set_rules('donde_estas_ahora_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comuna_estamos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comuna_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('barrio_estamos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('barrio_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('edificio_estamos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('edificio_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('manzana', '', 'required|xss_clean');
-		$this->form_validation->set_rules('manzana_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('mesa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('mesa_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_93', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_93_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_86', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_86_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_79', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_79_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_72', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_72_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_65', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_65_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('manzana_2', '', 'required|xss_clean');
-		$this->form_validation->set_rules('manzana_2_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso_2', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso_2_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('mesa_2', '', 'required|xss_clean');
-		$this->form_validation->set_rules('mesa_2_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('que_es_1', '', 'required|xss_clean');
-		$this->form_validation->set_rules('que_es_1_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('que_es_2', '', 'required|xss_clean');
-		$this->form_validation->set_rules('que_es_2_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('no_si_cuando_porque', '', 'required|xss_clean');
-		$this->form_validation->set_rules('no_si_cuando_porque_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('tomar_con_la_mano_derecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('tomar_con_la_mano_derecha_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('doblar_por_la_mitad', '', 'required|xss_clean');
-		$this->form_validation->set_rules('doblar_por_la_mitad_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('poner_en_el_piso', '', 'required|xss_clean');
-		$this->form_validation->set_rules('poner_en_el_piso_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cierre_los_ojos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('dibujo_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('escritura_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('puntaje_total', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_ano_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_estacion_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_mes_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_dia_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_fecha_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_region_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('donde_estas_ahora', '', 'xss_clean');
+		$this->form_validation->set_rules('donde_estas_ahora_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('comuna_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('comuna_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('barrio_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('barrio_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('edificio_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('edificio_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('manzana', '', 'xss_clean');
+		$this->form_validation->set_rules('manzana_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('peso', '', 'xss_clean');
+		$this->form_validation->set_rules('peso_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('mesa', '', 'xss_clean');
+		$this->form_validation->set_rules('mesa_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_93', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_93_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_86', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_86_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_79', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_79_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_72', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_72_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_65', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_65_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('manzana_2', '', 'xss_clean');
+		$this->form_validation->set_rules('manzana_2_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('peso_2', '', 'xss_clean');
+		$this->form_validation->set_rules('peso_2_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('mesa_2', '', 'xss_clean');
+		$this->form_validation->set_rules('mesa_2_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('que_es_1', '', 'xss_clean');
+		$this->form_validation->set_rules('que_es_1_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('que_es_2', '', 'xss_clean');
+		$this->form_validation->set_rules('que_es_2_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('no_si_cuando_porque', '', 'xss_clean');
+		$this->form_validation->set_rules('no_si_cuando_porque_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('tomar_con_la_mano_derecha', '', 'xss_clean');
+		$this->form_validation->set_rules('tomar_con_la_mano_derecha_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('doblar_por_la_mitad', '', 'xss_clean');
+		$this->form_validation->set_rules('doblar_por_la_mitad_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('poner_en_el_piso', '', 'xss_clean');
+		$this->form_validation->set_rules('poner_en_el_piso_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cierre_los_ojos', '', 'xss_clean');
+		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('dibujo_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('escritura_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('puntaje_total', '', 'xss_clean');		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar estudio MMSE", $registro['subject_id']);
@@ -1798,60 +1798,60 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
 		$this->form_validation->set_rules('tiene_problemas_memoria', '', 'xss_clean');
 		$this->form_validation->set_rules('le_puedo_hacer_preguntas', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_ano_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_estacion_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_mes_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_dia_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_fecha_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('en_que_region_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('donde_estas_ahora', '', 'required|xss_clean');
-		$this->form_validation->set_rules('donde_estas_ahora_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comuna_estamos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comuna_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('barrio_estamos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('barrio_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('edificio_estamos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('edificio_estamos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('manzana', '', 'required|xss_clean');
-		$this->form_validation->set_rules('manzana_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('mesa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('mesa_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_93', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_93_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_86', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_86_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_79', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_79_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_72', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_72_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_65', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cuanto_65_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('manzana_2', '', 'required|xss_clean');
-		$this->form_validation->set_rules('manzana_2_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso_2', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso_2_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('mesa_2', '', 'required|xss_clean');
-		$this->form_validation->set_rules('mesa_2_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('que_es_1', '', 'required|xss_clean');
-		$this->form_validation->set_rules('que_es_1_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('que_es_2', '', 'required|xss_clean');
-		$this->form_validation->set_rules('que_es_2_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('no_si_cuando_porque', '', 'required|xss_clean');
-		$this->form_validation->set_rules('no_si_cuando_porque_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('tomar_con_la_mano_derecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('tomar_con_la_mano_derecha_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('doblar_por_la_mitad', '', 'required|xss_clean');
-		$this->form_validation->set_rules('doblar_por_la_mitad_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('poner_en_el_piso', '', 'required|xss_clean');
-		$this->form_validation->set_rules('poner_en_el_piso_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cierre_los_ojos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('dibujo_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('escritura_puntaje', '', 'required|xss_clean');
-		$this->form_validation->set_rules('puntaje_total', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_ano_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_estacion_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_mes_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_dia_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_fecha_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_region_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('donde_estas_ahora', '', 'xss_clean');
+		$this->form_validation->set_rules('donde_estas_ahora_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('comuna_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('comuna_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('barrio_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('barrio_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('edificio_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('edificio_estamos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('manzana', '', 'xss_clean');
+		$this->form_validation->set_rules('manzana_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('peso', '', 'xss_clean');
+		$this->form_validation->set_rules('peso_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('mesa', '', 'xss_clean');
+		$this->form_validation->set_rules('mesa_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_93', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_93_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_86', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_86_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_79', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_79_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_72', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_72_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_65', '', 'xss_clean');
+		$this->form_validation->set_rules('cuanto_65_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('manzana_2', '', 'xss_clean');
+		$this->form_validation->set_rules('manzana_2_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('peso_2', '', 'xss_clean');
+		$this->form_validation->set_rules('peso_2_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('mesa_2', '', 'xss_clean');
+		$this->form_validation->set_rules('mesa_2_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('que_es_1', '', 'xss_clean');
+		$this->form_validation->set_rules('que_es_1_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('que_es_2', '', 'xss_clean');
+		$this->form_validation->set_rules('que_es_2_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('no_si_cuando_porque', '', 'xss_clean');
+		$this->form_validation->set_rules('no_si_cuando_porque_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('tomar_con_la_mano_derecha', '', 'xss_clean');
+		$this->form_validation->set_rules('tomar_con_la_mano_derecha_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('doblar_por_la_mitad', '', 'xss_clean');
+		$this->form_validation->set_rules('doblar_por_la_mitad_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('poner_en_el_piso', '', 'xss_clean');
+		$this->form_validation->set_rules('poner_en_el_piso_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('cierre_los_ojos', '', 'xss_clean');
+		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('dibujo_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('escritura_puntaje', '', 'xss_clean');
+		$this->form_validation->set_rules('puntaje_total', '', 'xss_clean');		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar el estudio MMSE", $registro['subject_id']);
@@ -2269,20 +2269,16 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		if(isset($registro['etapa']) AND $registro['etapa'] == 1){
-			$this->form_validation->set_rules('estatura', '', 'required|xss_clean');	
-		}
-		else{
-			$this->form_validation->set_rules('estatura', '', 'xss_clean');
-		}
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');		
+		$this->form_validation->set_rules('estatura', '', 'xss_clean');
 		
-		$this->form_validation->set_rules('presion_sistolica', '', 'required|xss_clean');
-		$this->form_validation->set_rules('presion_diastolica', '', 'required|xss_clean');
-		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'required|xss_clean');
-		$this->form_validation->set_rules('frecuencia_respiratoria', '', 'required|xss_clean');
-		$this->form_validation->set_rules('temperatura', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso', '', 'required|xss_clean');
+		
+		$this->form_validation->set_rules('presion_sistolica', '', 'xss_clean');
+		$this->form_validation->set_rules('presion_diastolica', '', 'xss_clean');
+		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'xss_clean');
+		$this->form_validation->set_rules('frecuencia_respiratoria', '', 'xss_clean');
+		$this->form_validation->set_rules('temperatura', '', 'xss_clean');
+		$this->form_validation->set_rules('peso', '', 'xss_clean');
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar signos vitales", $registro['subject_id']);
@@ -2346,19 +2342,14 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		if(isset($registro['etapa']) AND $registro['etapa'] == 1){
-			$this->form_validation->set_rules('estatura', '', 'required|xss_clean');	
-		}
-		else{
-			$this->form_validation->set_rules('estatura', '', 'xss_clean');
-		}
-		$this->form_validation->set_rules('presion_sistolica', '', 'required|xss_clean');
-		$this->form_validation->set_rules('presion_diastolica', '', 'required|xss_clean');
-		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'required|xss_clean');
-		$this->form_validation->set_rules('frecuencia_respiratoria', '', 'required|xss_clean');
-		$this->form_validation->set_rules('temperatura', '', 'required|xss_clean');
-		$this->form_validation->set_rules('peso', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('estatura', '', 'xss_clean');
+		$this->form_validation->set_rules('presion_sistolica', '', 'xss_clean');
+		$this->form_validation->set_rules('presion_diastolica', '', 'xss_clean');
+		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'xss_clean');
+		$this->form_validation->set_rules('frecuencia_respiratoria', '', 'xss_clean');
+		$this->form_validation->set_rules('temperatura', '', 'xss_clean');
+		$this->form_validation->set_rules('peso', '', 'xss_clean');
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar signos vitales", $registro['subject_id']);
@@ -2529,16 +2520,29 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comprimidos_entregados', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comprimidos_utilizados', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comprimidos_devueltos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comprimidos_perdidos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('dias', '', 'required|xss_clean');
-		$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'required|xss_clean');		
-		
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
+
+		if(isset($registro['realizado']) AND $registro['realizado'] == 0){
+			$this->form_validation->set_rules('fecha', '', 'xss_clean');
+			$this->form_validation->set_rules('comprimidos_entregados', '', 'xss_clean');
+			$this->form_validation->set_rules('comprimidos_utilizados', '', 'xss_clean');
+			$this->form_validation->set_rules('comprimidos_devueltos', '', 'xss_clean');
+			$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'xss_clean');
+			$this->form_validation->set_rules('comprimidos_perdidos', '', 'xss_clean');
+			$this->form_validation->set_rules('dias', '', 'xss_clean');
+			$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'xss_clean');		
+		}
+		else{
+			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comprimidos_entregados', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comprimidos_utilizados', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comprimidos_devueltos', '', 'required|xss_clean');
+			$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comprimidos_perdidos', '', 'required|xss_clean');
+			$this->form_validation->set_rules('dias', '', 'required|xss_clean');
+			$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'required|xss_clean');		
+		}
+
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar cumplimiento", $registro['subject_id']);
 			$this->cumplimiento($registro['subject_id'], $registro['etapa']);
@@ -2600,15 +2604,28 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comprimidos_entregados', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comprimidos_utilizados', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comprimidos_devueltos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'required|xss_clean');
-		$this->form_validation->set_rules('comprimidos_perdidos', '', 'required|xss_clean');
-		$this->form_validation->set_rules('dias', '', 'required|xss_clean');
-		$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
+		
+		if(isset($registro['realizado']) AND $registro['realizado'] == 0){
+			$this->form_validation->set_rules('fecha', '', 'xss_clean');
+			$this->form_validation->set_rules('comprimidos_entregados', '', 'xss_clean');
+			$this->form_validation->set_rules('comprimidos_utilizados', '', 'xss_clean');
+			$this->form_validation->set_rules('comprimidos_devueltos', '', 'xss_clean');
+			$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'xss_clean');
+			$this->form_validation->set_rules('comprimidos_perdidos', '', 'xss_clean');
+			$this->form_validation->set_rules('dias', '', 'xss_clean');
+			$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'xss_clean');		
+		}
+		else{
+			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comprimidos_entregados', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comprimidos_utilizados', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comprimidos_devueltos', '', 'required|xss_clean');
+			$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'required|xss_clean');
+			$this->form_validation->set_rules('comprimidos_perdidos', '', 'required|xss_clean');
+			$this->form_validation->set_rules('dias', '', 'required|xss_clean');
+			$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'required|xss_clean');		
+		}
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar cumplimiento", $registro['subject_id']);
@@ -3144,7 +3161,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		
 		
 		if($this->form_validation->run() == FALSE) {
@@ -3203,7 +3220,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		
 		
 		if($this->form_validation->run() == FALSE) {
@@ -3356,19 +3373,19 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
-		$this->form_validation->set_rules('fecha_examen_misma_visita', '', 'required|xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha_examen_misma_visita', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');
-		$this->form_validation->set_rules('examen_motor_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('examen_motor_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('examen_motor', '', 'xss_clean');
-		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('examen_sensitivo', '', 'xss_clean');
-		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('reflejos', '', 'xss_clean');
-		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('funcion_cerebelosa', '', 'xss_clean');
-		$this->form_validation->set_rules('marcha_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('marcha_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('marcha', '', 'xss_clean');		
 
 		if($this->form_validation->run() == FALSE) {
@@ -3437,19 +3454,19 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
-		$this->form_validation->set_rules('fecha_examen_misma_visita', '', 'required|xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha_examen_misma_visita', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');
-		$this->form_validation->set_rules('examen_motor_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('examen_motor_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('examen_motor', '', 'xss_clean');
-		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('examen_sensitivo', '', 'xss_clean');
-		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('reflejos', '', 'xss_clean');
-		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('funcion_cerebelosa', '', 'xss_clean');
-		$this->form_validation->set_rules('marcha_normal_anormal', '', 'required|xss_clean');
+		$this->form_validation->set_rules('marcha_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('marcha', '', 'xss_clean');		
 
 		if($this->form_validation->run() == FALSE) {
@@ -3951,14 +3968,10 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
 		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
 
-		if(isset($registro['realizado']) AND $registro['realizado'] == 1){
-			$this->form_validation->set_rules('fecha','Fecha','required|xss_clean');
-			$this->form_validation->set_rules('segundos','Segundos','required|xss_clean');
-		}
-		else{
-			$this->form_validation->set_rules('fecha','Fecha','xss_clean');
-			$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
-		}
+		
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar TMT A", $registro['subject_id']);
@@ -4020,14 +4033,10 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
 		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
 
-		if(isset($registro['realizado']) AND $registro['realizado'] == 1){
-			$this->form_validation->set_rules('fecha','Fecha','required|xss_clean');
-			$this->form_validation->set_rules('segundos','Segundos','required|xss_clean');
-		}
-		else{
-			$this->form_validation->set_rules('fecha','Fecha','xss_clean');
-			$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
-		}
+		
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al actualizar de agregar TMT A", $registro['subject_id']);
@@ -4190,14 +4199,9 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
 		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
 
-		if(isset($registro['realizado']) AND $registro['realizado'] == 1){
-			$this->form_validation->set_rules('fecha','Fecha','required|xss_clean');
-			$this->form_validation->set_rules('segundos','Segundos','required|xss_clean');
-		}
-		else{
-			$this->form_validation->set_rules('fecha','Fecha','xss_clean');
-			$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
-		}
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar TMT B", $registro['subject_id']);
@@ -4259,14 +4263,9 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
 		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
 
-		if(isset($registro['realizado']) AND $registro['realizado'] == 1){
-			$this->form_validation->set_rules('fecha','Fecha','required|xss_clean');
-			$this->form_validation->set_rules('segundos','Segundos','required|xss_clean');
-		}
-		else{
-			$this->form_validation->set_rules('fecha','Fecha','xss_clean');
-			$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
-		}
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al actualizar de agregar TMT B", $registro['subject_id']);

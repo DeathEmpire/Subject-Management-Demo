@@ -8,10 +8,26 @@ $(function(){
 	$('#comprimidos_utilizados, #dias').change(function(){
 		if($('#comprimidos_utilizados').val() != '' && $('#dias').val() != '')
 		{
-			var valor = $('#comprimidos_entregados').val() / 2 / ($('#dias').val() * 100);		
+			var valor = ($('#comprimidos_utilizados').val() / 2 / $('#dias').val()) * 100;		
 			$('#porcentaje_cumplimiento	').val(valor);
 		}
 	});
+
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_cumplimiento :input").attr('readonly','readonly');
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_cumplimiento :input").removeAttr('readonly');
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0) {
+		$("#form_cumplimiento :input").attr('readonly','readonly');
+		$("input[name=realizado]").removeAttr('readonly');
+	}else{
+		$("#form_cumplimiento :input").removeAttr('readonly');
+	}
 });
 </script>
 <legend style='text-align:center;'>Cumplimiento</legend>
@@ -57,7 +73,7 @@ $(function(){
 <?php
 	if(isset($list) AND !empty($list)){
 ?>	
-<?= form_open('subject/cumplimiento_update', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/cumplimiento_update', array('class'=>'form-horizontal','id'=>'form_cumplimiento')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	

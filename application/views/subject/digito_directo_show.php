@@ -47,6 +47,36 @@ $(function(){
     });	
 	$("#primer_puntaje").html(total2);
 
+
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_digito_directo :input").attr('readonly','readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_digito_directo :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled', 'disabled');
+			});
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_digito_directo :input").attr('readonly','readonly');
+		$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_digito_directo :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled', 'disabled');
+		});
+	}
+
 });
 </script>
 <div class="row">
@@ -90,7 +120,7 @@ $(function(){
 			<?php }?>
 	<!-- legend -->
 
-	<?= form_open('subject/digito_directo_update', array('class'=>'form-horizontal')); ?>
+	<?= form_open('subject/digito_directo_update', array('class'=>'form-horizontal', 'id'=>'form_digito_directo')); ?>
 		
 		<?= my_validation_errors(validation_errors()); ?>
 		<?= form_hidden('subject_id', $subject->id); ?>
@@ -98,19 +128,27 @@ $(function(){
 		<?= form_hidden('id', $list[0]->id); ?>
 			
 			<?php
-				$realizado = array(
-				    'name'        => 'realizado',
-				    'id'          => 'realizado',
-				    'value'       => '1',
-				    'checked'     => set_checkbox('realizado','1', (($list[0]->realizado == 1) ? true : false))
-			    );
-			?>
+			$data = array(
+			    'name'        => 'realizado',			    
+			    'value'       => 1,		    
+			    #'checked'	  => set_radio('gender', 'male', TRUE),
+		    );
+	  	$data2 = array(
+		    'name'        => 'realizado',			    
+		    'value'       => 0,
+		    #'checked'	  => set_radio('gender', 'female', TRUE),		    
+		    );
+		?>
 
-			No Realizado: <?= form_checkbox($realizado);?><br />
+		Realizado: 
+		<?= form_radio($data,$data['value'],set_radio($data['name'], 1, (($list[0]->realizado == 1) ? true : false))); ?> Si
+		<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0, (($list[0]->realizado == 0) ? true : false))); ?> NO
+		<br />
 			Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', $list[0]->fecha))); ?>
 
 
-			<table class='table table-striped table-hover table-bordered table-condensed'>
+		<table class='table table-striped table-hover table-bordered table-condensed'>
+			<thead>
 				<tr>
 					<th></th>
 					<th>Item</th>
@@ -119,7 +157,8 @@ $(function(){
 					<th>Puntaje Intento</th>
 					<th>Puntaje Item</th>
 				</tr>
-
+			</thead>
+			<tbody>
 				<tr>
 					<td rowspan='16'>-></td>
 					<td rowspan='2'>1</td>
@@ -232,11 +271,12 @@ $(function(){
 				</tr>
 				<tr>
 					<td colspan='6' style='text-align:center;'>
-					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
-	        		<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
-				</td>
-			</tr>
-			</table>
+						<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+	        			<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 
 		<?= form_close(); ?>
 	<!-- Querys -->

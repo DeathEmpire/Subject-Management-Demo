@@ -4,6 +4,35 @@
 <script type="text/javascript">
 $(function(){
 	$("#fecha").datepicker();
+
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_examen_laboratorio :input").attr('readonly','readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_examen_laboratorio :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled', 'disabled');
+			});
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_examen_laboratorio :input").attr('readonly','readonly');
+		$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_examen_laboratorio :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled', 'disabled');
+		});
+	}
 });
 </script>
 <legend style='text-align:center;'>Examen Laboratorio</legend>
@@ -38,9 +67,8 @@ $(function(){
 ?>
 	<div id='new_query' style='text-align:right;'>
 		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('form', "Signos Vitales"); ?>
+		<?= form_hidden('subject_id', $subject->id); ?>		
+		<?= form_hidden('form', "Examen Laboratorio"); ?>
 		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
 		<?= form_close(); ?>
 	</div>
@@ -49,7 +77,7 @@ $(function(){
 <?php
 	if(isset($list) AND !empty($list)){
 ?>	
-<?= form_open('subject/examen_laboratorio_update', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/examen_laboratorio_update', array('class'=>'form-horizontal','id'=>'form_examen_laboratorio')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	

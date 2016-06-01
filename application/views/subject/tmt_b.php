@@ -20,6 +20,35 @@ $(function(){
 		$("#fecha, #segundos").removeAttr('readonly');
 	}
 
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_tmtb :input").attr('readonly','readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_tmtb :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled', 'disabled');
+			});
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_tmtb :input").attr('readonly','readonly');
+		$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_tmtb :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled', 'disabled');
+		});
+	}
+
 });
 </script>
 <legend style='text-align:center;'>TMT B</legend>
@@ -48,7 +77,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/tmt_b_insert', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/tmt_b_insert', array('class'=>'form-horizontal','id'=>'form_tmtb')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	

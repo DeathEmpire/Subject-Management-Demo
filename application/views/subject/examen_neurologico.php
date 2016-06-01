@@ -4,6 +4,35 @@
 <script type="text/javascript">
 $(function(){
 	$("#fecha").datepicker();
+
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_examen_neurologico :input").attr('readonly','readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_examen_neurologico :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled', 'disabled');
+			});
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_examen_neurologico :input").attr('readonly','readonly');
+		$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_examen_neurologico :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled', 'disabled');
+		});
+	}
 });
 </script>
 <legend style='text-align:center;'>Examen Neurologico</legend>
@@ -32,7 +61,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/examen_neurologico_insert', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/examen_neurologico_insert', array('class'=>'form-horizontal','id'=>'form_examen_neurologico')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	

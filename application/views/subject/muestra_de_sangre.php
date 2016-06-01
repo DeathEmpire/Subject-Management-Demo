@@ -4,6 +4,35 @@
 <script type="text/javascript">
 $(function(){
 	$("#fecha").datepicker();
+
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_muestra :input").attr('readonly','readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_muestra :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled', 'disabled');
+			});
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_muestra :input").attr('readonly','readonly');
+		$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_muestra :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled', 'disabled');
+		});
+	}
 });
 </script>
 <legend style='text-align:center;'>Muestra de Sangre</legend>
@@ -32,7 +61,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/muestra_de_sangre_insert', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/muestra_de_sangre_insert', array('class'=>'form-horizontal','id'=>'form_muestra')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	

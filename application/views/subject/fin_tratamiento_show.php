@@ -57,7 +57,7 @@ $(function(){
 <?php
 	if(isset($list) AND !empty($list)){
 ?>
-<?= form_open('subject/fin_tratamiento_update', array('class'=>'form-horizontal')); ?>
+<?= form_open('subject/fin_tratamiento_update', array('class'=>'form-horizontal','id'=>'form_fin_tratamiento')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>		
