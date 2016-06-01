@@ -860,18 +860,31 @@ class Subject extends CI_Controller {
 
 		/*Si se tiene algun hallazgo todo es obligatorio*/
 		if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1){
-			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'required|xss_clean');
-			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'required|xss_clean');
-			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'required|xss_clean');
-			$this->form_validation->set_rules('neurologico', 'Neurologico', 'required|xss_clean');
-			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'required|xss_clean');
-			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'required|xss_clean');
-			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'required|xss_clean');
-			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'required|xss_clean');
-			$this->form_validation->set_rules('hepatico', 'Hepatico', 'required|xss_clean');
-			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'required|xss_clean');
-			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'required|xss_clean');
-			$this->form_validation->set_rules('cancer', 'Cancer', 'required|xss_clean');
+			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
+			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'xss_clean');
+			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'xss_clean');
+			$this->form_validation->set_rules('neurologico', 'Neurologico', 'xss_clean');
+			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'xss_clean');
+			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'xss_clean');
+			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'xss_clean');
+			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'xss_clean');
+			$this->form_validation->set_rules('hepatico', 'Hepatico', 'xss_clean');
+			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'xss_clean');
+			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'xss_clean');
+			
+			$this->form_validation->set_rules('cancer_desc', 'Cancer', 'xss_clean');
+			$this->form_validation->set_rules('cardiovascular_desc', 'Cardiovascular', 'xss_clean');
+			$this->form_validation->set_rules('periferico_desc', 'Vascular Periferico', 'xss_clean');
+			$this->form_validation->set_rules('oidos_desc', 'Oidos y Garganta', 'xss_clean');
+			$this->form_validation->set_rules('neurologico_desc', 'Neurologico', 'xss_clean');
+			$this->form_validation->set_rules('pulmones_desc', 'Pulmones/Respiratorio', 'xss_clean');
+			$this->form_validation->set_rules('renal_desc', 'Renal/Urinario', 'xss_clean');
+			$this->form_validation->set_rules('ginecologico_desc', 'Ginecologico', 'xss_clean');
+			$this->form_validation->set_rules('endocrino_desc', 'Endocrino/Metabolico', 'xss_clean');
+			$this->form_validation->set_rules('hepatico_desc', 'Hepatico', 'xss_clean');
+			$this->form_validation->set_rules('gastrointestinal_desc', 'Gastrointestinal', 'xss_clean');
+			$this->form_validation->set_rules('muscular_desc', 'Muscular/Esqueletico', 'xss_clean');
+			$this->form_validation->set_rules('cancer_desc', 'Cancer', 'xss_clean');
 		}
 		else{
 			/*$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
@@ -941,18 +954,31 @@ class Subject extends CI_Controller {
 
 		/*Si se tiene algun hallazgo todo es obligatorio*/
 		if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1){
-			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'required|xss_clean');
-			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'required|xss_clean');
-			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'required|xss_clean');
-			$this->form_validation->set_rules('neurologico', 'Neurologico', 'required|xss_clean');
-			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'required|xss_clean');
-			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'required|xss_clean');
-			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'required|xss_clean');
-			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'required|xss_clean');
-			$this->form_validation->set_rules('hepatico', 'Hepatico', 'required|xss_clean');
-			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'required|xss_clean');
-			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'required|xss_clean');
-			$this->form_validation->set_rules('cancer', 'Cancer', 'required|xss_clean');
+			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
+			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'xss_clean');
+			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'xss_clean');
+			$this->form_validation->set_rules('neurologico', 'Neurologico', 'xss_clean');
+			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'xss_clean');
+			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'xss_clean');
+			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'xss_clean');
+			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'xss_clean');
+			$this->form_validation->set_rules('hepatico', 'Hepatico', 'xss_clean');
+			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'xss_clean');
+			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'xss_clean');
+			$this->form_validation->set_rules('cancer', 'Cancer', 'xss_clean');
+			$this->form_validation->set_rules('cancer_desc', 'Cancer', 'xss_clean');
+			$this->form_validation->set_rules('cardiovascular_desc', 'Cardiovascular', 'xss_clean');
+			$this->form_validation->set_rules('periferico_desc', 'Vascular Periferico', 'xss_clean');
+			$this->form_validation->set_rules('oidos_desc', 'Oidos y Garganta', 'xss_clean');
+			$this->form_validation->set_rules('neurologico_desc', 'Neurologico', 'xss_clean');
+			$this->form_validation->set_rules('pulmones_desc', 'Pulmones/Respiratorio', 'xss_clean');
+			$this->form_validation->set_rules('renal_desc', 'Renal/Urinario', 'xss_clean');
+			$this->form_validation->set_rules('ginecologico_desc', 'Ginecologico', 'xss_clean');
+			$this->form_validation->set_rules('endocrino_desc', 'Endocrino/Metabolico', 'xss_clean');
+			$this->form_validation->set_rules('hepatico_desc', 'Hepatico', 'xss_clean');
+			$this->form_validation->set_rules('gastrointestinal_desc', 'Gastrointestinal', 'xss_clean');
+			$this->form_validation->set_rules('muscular_desc', 'Muscular/Esqueletico', 'xss_clean');
+			$this->form_validation->set_rules('cancer_desc', 'Cancer', 'xss_clean');
 		}
 
 		if($this->form_validation->run() == FALSE) {
@@ -1076,7 +1102,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
 		$this->form_validation->set_rules('cumple_criterios', 'Cumple Criterio', 'required|xss_clean');
-		$this->form_validation->set_rules('autorizacion_patrocinador', 'Autorizacion Patrocinador', 'required|xss_clean');		
+		$this->form_validation->set_rules('autorizacion_patrocinador', 'Autorizacion Patrocinador', 'xss_clean');		
 
 		/*Validar si ingresa un numero o un comentario este tenga su par ya sea numero o comentario*/
 
@@ -1164,7 +1190,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
 		$this->form_validation->set_rules('cumple_criterios', 'Cumple Criterio', 'required|xss_clean');
-		$this->form_validation->set_rules('autorizacion_patrocinador', 'Autorizacion Patrocinador', 'required|xss_clean');	
+		$this->form_validation->set_rules('autorizacion_patrocinador', 'Autorizacion Patrocinador', 'xss_clean');	
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el formulario de inclusión exclusión", $registro['subject_id']);

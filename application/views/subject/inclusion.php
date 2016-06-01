@@ -1,6 +1,44 @@
 <script type="text/javascript">
 $(function(){
-	
+	$("input[name=cumple_criterios]").change(function(){
+		if($(this).val() == 1){
+			$("#tr_autorizacion").hide();
+			$("input[name=autorizacion_patrocinador][value='No Aplica']").prop("checked",true);
+			$("#tr_no_ingresa").hide();
+			$("#tr_submit").show();
+		}
+		else{
+			$("#tr_autorizacion").show();
+		}
+	});
+	if($('input[name=cumple_criterios]:checked').val() == 1){
+		$("#tr_autorizacion").hide();
+		$("input[name=autorizacion_patrocinador][value='No Aplica']").prop("checked",true);
+		$("#tr_no_ingresa").hide();
+		$("#tr_submit").show();
+	}
+	else{
+		$("#tr_autorizacion").show();
+	}
+
+	$("input[name=autorizacion_patrocinador]").change(function(){
+		if($(this).val() == 'No'){
+			$("#tr_submit").hide();
+			$("#tr_no_ingresa").show();			
+		}
+		else{
+			$("#tr_submit").show();
+			$("#tr_no_ingresa").hide();
+		}
+	});
+	if($("input[name=autorizacion_patrocinador]:checked").val() == 'No'){
+		$("#tr_submit").hide();
+		$("#tr_no_ingresa").show();			
+	}
+	else{
+		$("#tr_submit").show();
+		$("#tr_no_ingresa").hide();
+	}
 });
 </script>
 <legend style='text-align:center;'>Criterios de Inclusión/Exclusión</legend>
@@ -77,7 +115,7 @@ $(function(){
 			<td><?=  form_input(array('type'=>'number','name'=>'numero[]', 'min'=>'1')); ?></td>
 			<td><?=  form_input(array('type'=>'text','name'=>'comentario[]')); ?></td>
 		</tr>
-		<tr>
+		<tr id='tr_autorizacion'>
 			<td>Cuenta con la autorización del patrocinador para inclusión</td>
 			<td>
 				<?= form_radio('autorizacion_patrocinador','Si'); ?> Si <br>
@@ -85,8 +123,10 @@ $(function(){
 				<?= form_radio('autorizacion_patrocinador', 'No Aplica'); ?> No Aplica 
 			</td>
 		</tr>	
-		
-	    <tr>
+		<tr id='tr_no_ingresa'>
+			<td colspan='2' style='background-color:red;font-weight:bold;'>NO se puede ingresar ningún sujeto sin la firma del Consentimiento Informado.</td>			
+		</tr>
+	    <tr id='tr_submit'>
 	    	<td colspan='2' style='text-align:center;'>
 				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 	        	<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>

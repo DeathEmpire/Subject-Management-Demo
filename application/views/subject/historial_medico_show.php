@@ -4,6 +4,23 @@
 <script type="text/javascript">
 $(function(){
 	$("#fecha").datepicker();
+
+	$("input[name=hallazgo]").click(function(){
+		if($(this).val() == 1){
+			//todos los campos habilitados.
+			$("input:radio").removeAttr("readonly");
+			$("input:radio").removeAttr("disabled");
+		}
+		else{
+			//todos los campos bloqueados.
+			$("input:radio").attr("readonly","readonly");
+			$("input:radio").attr("disabled","disabled");			
+
+			$("input[name=hallazgo]").removeAttr("readonly");
+			$("input[name=hallazgo]").removeAttr("disabled");
+
+		}
+	});
 });
 </script>
 <div class="row">
@@ -64,6 +81,12 @@ $(function(){
 			<tr>
 				<td>Fecha: </td>
 				<td><?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha',$list[0]->fecha))); ?></td>
+				<td></td>
+			</tr>
+			<tr style='background-color:#ddd;'>
+				<td></td>
+				<td></td>
+				<td style='font-weight:bold;'>Describa hallazgos</td>
 			</tr>
 			<tr>
 				<td>Tiene el paciente algun hallazgo en el examen fisico: </td>
@@ -71,6 +94,7 @@ $(function(){
 					<?= form_radio(array('name'=>'hallazgo', 'value'=>1, 'checked'=>set_radio('hallazgo', 1, (($list[0]->hallazgo  == 1 ) ? true : false)))); ?> Si 
 					<?= form_radio(array('name'=>'hallazgo', 'value'=>0, 'checked'=>set_radio('hallazgo', 0, (($list[0]->hallazgo  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td></td>
 			</tr>			
 			<tr>
 				<td>Cardiovascular: </td>
@@ -78,6 +102,7 @@ $(function(){
 					<?= form_radio(array('name'=>'cardiovascular','value'=>'1','checked'=>set_radio('cardiovascular', 1,(($list[0]->cardiovascular  == 1 ) ? true : false)  ))); ?> Si
 					<?= form_radio(array('name'=>'cardiovascular','value'=>'0','checked'=>set_radio('cardiovascular', 0,(($list[0]->cardiovascular  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'cardiovascular_desc', 'id'=>'cardiovascular_desc', 'value'=>set_value('cardiovascular_desc', $list[0]->cardiovascular_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Vascular Periferico: </td>
@@ -85,6 +110,7 @@ $(function(){
 					<?= form_radio(array('name'=>'periferico','value'=>'1','checked'=>set_radio('periferico', 1,(($list[0]->periferico  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'periferico','value'=>'0','checked'=>set_radio('periferico', 0,(($list[0]->periferico  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'periferico_desc','id'=>'periferico_desc', 'value'=>set_value('periferico_desc', $list[0]->periferico_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Oidos y Garganta: </td>
@@ -92,13 +118,15 @@ $(function(){
 					<?= form_radio(array('name'=>'oidos','value'=>'1','checked'=>set_radio('oidos', 1,(($list[0]->oidos  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'oidos','value'=>'0','checked'=>set_radio('oidos', 0,(($list[0]->oidos  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'oidos_desc','id'=>'oidos_desc', 'value'=>set_value('oidos_desc', $list[0]->oidos_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Neurologico: </td>
 				<td>
 					<?= form_radio(array('name'=>'neurologico','value'=>'1','checked'=>set_radio('neurologico', 1,(($list[0]->neurologico  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'neurologico','value'=>'0','checked'=>set_radio('neurologico', 0,(($list[0]->neurologico  == 0 ) ? true : false)))); ?> No
-				</td>
+				</td>, 'rows'=>3
+				<td><?= form_textarea(array('name'=>'neurologico_desc','id'=>'neurologico_desc', 'value'=>set_value('neurologico_desc', $list[0]->neurologico_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Pulmones/Respiratorio: </td>
@@ -106,6 +134,7 @@ $(function(){
 					<?= form_radio(array('name'=>'pulmones','value'=>'1','checked'=>set_radio('pulmones', 1,(($list[0]->pulmones  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'pulmones','value'=>'0','checked'=>set_radio('pulmones', 0,(($list[0]->pulmones  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'pulmones_desc','id'=>'pulmones_desc', 'value'=>set_value('pulmones_desc', $list[0]->pulmones_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Renal/Urinario: </td>
@@ -113,6 +142,7 @@ $(function(){
 					<?= form_radio(array('name'=>'renal','value'=>'1','checked'=>set_radio('renal', 1,(($list[0]->renal  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'renal','value'=>'0','checked'=>set_radio('renal', 0,(($list[0]->renal  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'renal_desc','id'=>'renal_desc', 'value'=>set_value('renal_desc', $list[0]->renal_desc), 'rows'=>3)); ?></td>
 			</tr>			
 			<tr>
 				<td>Ginecologico: </td>
@@ -120,6 +150,7 @@ $(function(){
 					<?= form_radio(array('name'=>'ginecologico','value'=>'1','checked'=>set_radio('ginecologico', 1,(($list[0]->ginecologico  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'ginecologico','value'=>'0','checked'=>set_radio('ginecologico', 0,(($list[0]->ginecologico  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'ginecologico_desc','id'=>'ginecologico_desc', 'value'=>set_value('ginecologico_desc', $list[0]->ginecologico_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Endocrino/Metabolico: </td>
@@ -127,6 +158,7 @@ $(function(){
 					<?= form_radio(array('name'=>'endocrino','value'=>'1','checked'=>set_radio('endocrino', 1,(($list[0]->endocrino  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'endocrino','value'=>'0','checked'=>set_radio('endocrino', 0,(($list[0]->endocrino  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'endocrino_desc','id'=>'endocrino_desc', 'value'=>set_value('endocrino_desc', $list[0]->endocrino_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Hepatico: </td>
@@ -134,6 +166,7 @@ $(function(){
 					<?= form_radio(array('name'=>'hepatico','value'=>'1','checked'=>set_radio('hepatico', 1,(($list[0]->hepatico  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'hepatico','value'=>'0','checked'=>set_radio('hepatico', 0,(($list[0]->hepatico  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'hepatico_desc','id'=>'hepatico_desc', 'value'=>set_value('hepatico_desc', $list[0]->hepatico_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Gastrointestinal: </td>
@@ -141,6 +174,7 @@ $(function(){
 					<?= form_radio(array('name'=>'gastrointestinal','value'=>'1','checked'=>set_radio('gastrointestinal', 1,(($list[0]->gastrointestinal  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'gastrointestinal','value'=>'0','checked'=>set_radio('gastrointestinal', 0,(($list[0]->gastrointestinal  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'gastrointestinal_desc','id'=>'gastrointestinal_desc', 'value'=>set_value('gastrointestinal_desc', $list[0]->gastrointestinal_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Muscular/Esqueletico: </td>
@@ -148,6 +182,7 @@ $(function(){
 					<?= form_radio(array('name'=>'muscular','value'=>'1','checked'=>set_radio('muscular', 1,(($list[0]->muscular  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'muscular','value'=>'0','checked'=>set_radio('muscular', 0,(($list[0]->muscular  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'muscular_desc','id'=>'muscular_desc', 'value'=>set_value('muscular_desc', $list[0]->muscular_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Cancer: </td>
@@ -155,13 +190,15 @@ $(function(){
 					<?= form_radio(array('name'=>'cancer','value'=>'1','checked'=>set_radio('cancer', 1,(($list[0]->cancer  == 1 ) ? true : false)))); ?> Si
 					<?= form_radio(array('name'=>'cancer','value'=>'0','checked'=>set_radio('cancer', 0,(($list[0]->cancer  == 0 ) ? true : false)))); ?> No
 				</td>
+				<td><?= form_textarea(array('name'=>'cancer_desc','id'=>'cancer_desc', 'value'=>set_value('cancer_desc', $list[0]->cancer_desc), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
 				<td>Otros: </td>
 				<td></td>
+				<td></td>
 			</tr>			
 			<tr>
-				<td colspan='2' style='text-align:center;'>
+				<td colspan='3' style='text-align:center;'>
 					<input type='submit' class='btn btn-primary' value='Guardar'>
 					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
 				</td>				
