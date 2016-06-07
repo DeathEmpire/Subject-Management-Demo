@@ -4435,5 +4435,90 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
+
+	public function eq_5d_5l($subject_id, $etapa){
+		$data['contenido'] = 'subject/eq_5d_5l';
+		$data['titulo'] = 'EQ-5D-5L';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template', $data);
+	}
 	
+	public function eq_5d_5l_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
+
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('movilidad','Movilidad','xss_clean');	
+		$this->form_validation->set_rules('autocuidado','Autocuidado','xss_clean');
+		$this->form_validation->set_rules('actividades_habituales','Actividades Habituales','xss_clean');
+		$this->form_validation->set_rules('dolor_malestar','Dolor Malestar','xss_clean');
+		$this->form_validation->set_rules('angustia_depresion','Angustia Depresion','xss_clean');
+		$this->form_validation->set_rules('salud_hoy','Salud Hoy','xss_clean');
+		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar EQ-5D-5L", $registro['subject_id']);
+			$this->eq_5d_5l($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['etapa'] == 2){
+				$subjet_['eq_5d_5l_2_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 3){
+				$subjet_['eq_5d_5l_3_status'] = "Record Complete";
+			}			
+			elseif($registro['etapa'] == 4){
+				$subjet_['eq_5d_5l_4_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['eq_5d_5l_5_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['eq_5d_5l_6_status'] = "Record Complete";
+			}
+
+			$registro['status'] = "Record Complete";
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Eq_5d_5l');
+			$this->Model_Eq_5d_5l->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen EQ-5D-5L agregado", $registro['subject_id']);     		
+     		redirect('subject/eq_5d_5l_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}
+
+	public function eq_5d_5l_show($subject_id, $etapa){
+
+	}
+
+	public function eq_5d_5l_update(){
+
+	}
+
+	public function eq_5d_5l_verify(){
+
+	}
+
+	public function eq_5d_5l_signature(){
+
+	}
+
+	public function eq_5d_5l_lock(){
+
+	}
 } 

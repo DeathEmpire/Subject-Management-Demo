@@ -1493,13 +1493,188 @@
 			<td style='text-align:center;'>X</td>
 		</tr>
 		<tr>
-			<td>EQ-5D-3L</td>
+			<td>EQ-5D-5L</td>
 			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
+			<?php				
+				if(empty($subject->eq_5d_5l_2_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/eq_5d_5l/'.$subject->id .'/2';
+				}
+				elseif ($subject->eq_5d_5l_2_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->eq_5d_5l_2_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->eq_5d_5l_2_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->eq_5d_5l_2_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->eq_5d_5l_2_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->eq_5d_5l_2_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/2';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php				
+				if(empty($subject->eq_5d_5l_3_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/eq_5d_5l/'.$subject->id .'/3';
+				}
+				elseif ($subject->eq_5d_5l_3_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+				}
+				elseif ($subject->eq_5d_5l_3_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+				}
+				elseif ($subject->eq_5d_5l_3_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+				}
+				elseif ($subject->eq_5d_5l_3_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+				}
+				elseif ($subject->eq_5d_5l_3_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+				}
+				elseif ($subject->eq_5d_5l_3_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php				
+				if(empty($subject->eq_5d_5l_4_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/eq_5d_5l/'.$subject->id .'/4';
+				}
+				elseif ($subject->eq_5d_5l_4_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->eq_5d_5l_4_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->eq_5d_5l_4_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->eq_5d_5l_4_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->eq_5d_5l_4_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->eq_5d_5l_4_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php				
+				if(empty($subject->eq_5d_5l_5_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/eq_5d_5l/'.$subject->id .'/5';
+				}
+				elseif ($subject->eq_5d_5l_5_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->eq_5d_5l_5_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->eq_5d_5l_5_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->eq_5d_5l_5_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->eq_5d_5l_5_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->eq_5d_5l_5_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php				
+				if(empty($subject->eq_5d_5l_6_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/eq_5d_5l/'.$subject->id .'/6';
+				}
+				elseif ($subject->eq_5d_5l_6_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->eq_5d_5l_6_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->eq_5d_5l_6_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->eq_5d_5l_6_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->eq_5d_5l_6_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->eq_5d_5l_6_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/6';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 		</tr>
 		<tr>
 			<td>Cumplimiento</td>
