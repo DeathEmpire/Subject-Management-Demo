@@ -3,35 +3,27 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();
-
-	$('#comprimidos_utilizados, #dias').change(function(){
-		if($('#comprimidos_utilizados').val() != '' && $('#dias').val() != '')
-		{
-			var valor = ($('#comprimidos_utilizados').val() / 2 / $('#dias').val()) * 100;		
-			$('#porcentaje_cumplimiento	').val(valor);
-		}
-	});
+	$("#fecha").datepicker();	
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
-			$("#form_cumplimiento :input").attr('readonly','readonly');
+			$("#form_eq :input").attr('readonly','readonly');
 			$("input[name=realizado]").removeAttr('readonly');
 
 		}else{
-			$("#form_cumplimiento :input").removeAttr('readonly');
+			$("#form_eq :input").removeAttr('readonly');
 		}
 	});
 	if($("input[name=realizado]:checked").val() == 0){
-		$("#form_cumplimiento :input").attr('readonly','readonly');
+		$("#form_eq :input").attr('readonly','readonly');
 		$("input[name=realizado]").removeAttr('readonly');
 
 	}else{
-		$("#form_cumplimiento :input").removeAttr('readonly');
+		$("#form_eq :input").removeAttr('readonly');
 	}
 });
 </script>
-<legend style='text-align:center;'>Cumplimiento</legend>
+<legend style='text-align:center;'>EQ-5D-5L</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -57,7 +49,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/eq_5d_5l_insert', array('class'=>'form-horizontal', 'id'=>'form_cumplimiento')); ?>
+<?= form_open('subject/eq_5d_5l_insert', array('class'=>'form-horizontal', 'id'=>'form_eq')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	
@@ -200,6 +192,22 @@ $(function(){
 		<tr>
 			<td>Estoy extremadamente angustiado/a o deprimido/a</td>
 			<td><?= form_radio('angustia_depresion','Estoy extremadamente angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Estoy extremadamente angustiado/a o deprimido/a')); ?></td>
+		</tr>		
+		<tr>
+			<td colspan='2'>
+				<ul>
+					<li>Nos gustaria sabar lo buena o mala que es su salud HOY.</li>
+					<li>Esta escala está numerada del 0 al 100.</li>
+					<li>100 representa la <u>mejor</u> salud que usted se pueda imaginar.<br />
+						0 representala <u>peor</u> salud que usted se pueda imaginar.</li>
+					<li>Marque con una X en la escala para indicar cual es su estado de salud HOY.</li>
+					<li>Ahora, por favor escriba en la casilla que encontrará abajo, el número que ha marcado en la escala.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>SU SALUD HOY = </td>
+			<td><?= form_input(array('type'=>'number', 'name'=>'salud_hoy', 'id'=>'salud_hoy', 'value'=>set_value('salud_hoy'))); ?></td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

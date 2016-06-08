@@ -1194,7 +1194,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el formulario de inclusión exclusión", $registro['subject_id']);
-			$this->inclusion($registro['subject_id'], $registro['etapa']);
+			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			/*Separar los datos de inclusion con los de no respetados*/
@@ -1542,7 +1542,7 @@ class Subject extends CI_Controller {
 		if($this->form_validation->run() == FALSE) {
 
 			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar formulario de prueba de digito directo", $registro['subject_id']);
-			$this->digito_directo($registro['subject_id'], $registro['etapa']);
+			$this->digito_directo_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {			
 			
@@ -1881,7 +1881,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar el estudio MMSE", $registro['subject_id']);
-			$this->mmse($registro['subject_id'], $registro['etapa']);
+			$this->mmse_show($registro['subject_id'], $registro['etapa']);
 
 		}else{
 			
@@ -1922,8 +1922,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Mmse');
 			$this->Model_Mmse->update($registro);
@@ -2173,7 +2173,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar estudio ECG", $registro['subject_id']);
-			$this->ecg($registro['subject_id']);
+			$this->ecg_show($registro['subject_id']);
 
 		}else{
 			
@@ -2205,8 +2205,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Electrocardiograma_de_reposo');
 			$this->Model_Electrocardiograma_de_reposo->update($registro);
@@ -2379,7 +2379,7 @@ class Subject extends CI_Controller {
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar signos vitales", $registro['subject_id']);
-			$this->signos_vitales($registro['subject_id'], $registro['etapa']);
+			$this->signos_vitales_show($registro['subject_id'], $registro['etapa']);
 
 		}else{
 
@@ -2412,8 +2412,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Signos_vitales');
 			$this->Model_Signos_vitales->update($registro);
@@ -2457,8 +2457,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Signos_vitales');
 			$this->Model_Signos_vitales->update($registro);
@@ -2655,7 +2655,7 @@ class Subject extends CI_Controller {
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar cumplimiento", $registro['subject_id']);
-			$this->cumplimiento($registro['subject_id'], $registro['etapa']);
+			$this->cumplimiento_show($registro['subject_id'], $registro['etapa']);
 
 		}else{
 
@@ -2688,8 +2688,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Cumplimiento');
 			$this->Model_Cumplimiento->update($registro);
@@ -2733,8 +2733,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Cumplimiento');
 			$this->Model_Cumplimiento->update($registro);
@@ -2874,7 +2874,7 @@ class Subject extends CI_Controller {
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar fin de tratamiento", $registro['subject_id']);
-			$this->fin_tratamiento($registro['subject_id']);
+			$this->fin_tratamiento_show($registro['subject_id']);
 
 		}else{
 			
@@ -2906,8 +2906,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Fin_de_tratamiento');
 			$this->Model_Fin_de_tratamiento->update($registro);
@@ -2937,8 +2937,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Fin_de_tratamiento');
 			$this->Model_Fin_de_tratamiento->update($registro);
@@ -3063,7 +3063,7 @@ class Subject extends CI_Controller {
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar fin de tratamiento", $registro['subject_id']);
-			$this->fin_tratamiento_temprano($registro['subject_id']);
+			$this->fin_tratamiento_temprano_show($registro['subject_id']);
 
 		}else{
 
@@ -3095,8 +3095,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Fin_de_tratamiento_temprano');
 			$this->Model_Fin_de_tratamiento_temprano->update($registro);
@@ -3126,8 +3126,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Fin_de_tratamiento_temprano');
 			$this->Model_Fin_de_tratamiento_temprano->update($registro);
@@ -3251,7 +3251,7 @@ class Subject extends CI_Controller {
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar muestra de sangre", $registro['subject_id']);
-			$this->muestra_de_sangre($registro['subject_id'], $registro['etapa']);
+			$this->muestra_de_sangre_show($registro['subject_id'], $registro['etapa']);
 
 		}else{
 			
@@ -3284,8 +3284,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Muestra_de_sangre');
 			$this->Model_Muestra_de_sangre->update($registro);
@@ -3323,8 +3323,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Muestra_de_sangre');
 			$this->Model_Muestra_de_sangre->update($registro);
@@ -3497,7 +3497,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar el examen neurologico", $registro['subject_id']);
-			$this->examen_neurologico($registro['subject_id'], $registro['etapa']);
+			$this->examen_neurologico_show($registro['subject_id'], $registro['etapa']);
 
 		}else{
 
@@ -3530,8 +3530,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Examen_neurologico');
 			$this->Model_Examen_neurologico->update($registro);
@@ -3578,8 +3578,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Examen_neurologico');
 			$this->Model_Examen_neurologico->update($registro);
@@ -3870,7 +3870,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar examen de laboratorio", $registro['subject_id']);
-			$this->examen_laboratorio($registro['subject_id']);
+			$this->examen_laboratorio_show($registro['subject_id']);
 
 		}else{
 
@@ -3902,8 +3902,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Examen_laboratorio');
 			$this->Model_Examen_laboratorio->update($registro);
@@ -3932,8 +3932,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Examen_laboratorio');
 			$this->Model_Examen_laboratorio->update($registro);
@@ -4066,7 +4066,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al actualizar de agregar TMT A", $registro['subject_id']);
-			$this->tmt_a($registro['subject_id'], $registro['etapa']);
+			$this->tmt_a_show($registro['subject_id'], $registro['etapa']);
 
 		}else{
 			
@@ -4091,7 +4091,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de verificar el formulario de TMT A", $registro['subject_id']);
-			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+			$this->tmt_a_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -4133,15 +4133,15 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de firmar el formulario de TMT A", $registro['subject_id']);
-			$this->examen_neurologico_show($registro['subject_id'], $registro['etapa']);
+			$this->tmt_a_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Tmt_a');
 			$this->Model_Tmt_a->update($registro);
@@ -4175,7 +4175,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de TMT A", $registro['subject_id']);
-			$this->examen_neurologico_show($registro['subject_id'], $registro['etapa']);
+			$this->tmt_a_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -4231,7 +4231,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar TMT B", $registro['subject_id']);
-			$this->tmt_a($registro['subject_id'], $registro['etapa']);
+			$this->tmt_b($registro['subject_id'], $registro['etapa']);
 
 		}else{
 
@@ -4295,7 +4295,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al actualizar de agregar TMT B", $registro['subject_id']);
-			$this->tmt_a($registro['subject_id'], $registro['etapa']);
+			$this->tmt_b_show($registro['subject_id'], $registro['etapa']);
 
 		}else{
 			
@@ -4320,7 +4320,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de verificar el formulario de TMT B", $registro['subject_id']);
-			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
+			$this->tmt_b_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -4362,15 +4362,15 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de firmar el formulario de TMT B", $registro['subject_id']);
-			$this->examen_neurologico_show($registro['subject_id'], $registro['etapa']);
+			$this->tmt_b_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
 			unset($registro['current_status']);			
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
 
 			$this->load->model('Model_Tmt_b');
 			$this->Model_Tmt_b->update($registro);
@@ -4436,6 +4436,8 @@ class Subject extends CI_Controller {
 		}
 	}
 
+/*-----------------------------------------------------EQ-5D-5L ------------------------------------------------------------------------*/
+
 	public function eq_5d_5l($subject_id, $etapa){
 		$data['contenido'] = 'subject/eq_5d_5l';
 		$data['titulo'] = 'EQ-5D-5L';
@@ -4467,23 +4469,33 @@ class Subject extends CI_Controller {
 
 		}else{
 
-			if($registro['etapa'] == 2){
-				$subjet_['eq_5d_5l_2_status'] = "Record Complete";
+			if($registro['realizado'] == 1 
+				AND (empty($registro['fecha']) OR !isset($registro['movilidad']) OR !isset($registro['autocuidado']) OR !isset($registro['actividades_habituales']) 
+					OR !isset($registro['dolor_malestar']) OR !isset($registro['angustia_depresion']) OR $registro['salud_hoy'] == '')
+			){
+				$estado = 'Error';
 			}
-			elseif($registro['etapa'] == 3){
-				$subjet_['eq_5d_5l_3_status'] = "Record Complete";
-			}			
-			elseif($registro['etapa'] == 4){
-				$subjet_['eq_5d_5l_4_status'] = "Record Complete";
-			}
-			elseif($registro['etapa'] == 5){
-				$subjet_['eq_5d_5l_5_status'] = "Record Complete";
-			}
-			elseif($registro['etapa'] == 6){
-				$subjet_['eq_5d_5l_6_status'] = "Record Complete";
+			else{
+				$estado = 'Record Complete';
 			}
 
-			$registro['status'] = "Record Complete";
+			if($registro['etapa'] == 2){
+				$subjet_['eq_5d_5l_2_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 3){
+				$subjet_['eq_5d_5l_3_status'] = $estado;
+			}			
+			elseif($registro['etapa'] == 4){
+				$subjet_['eq_5d_5l_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['eq_5d_5l_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['eq_5d_5l_6_status'] = $estado;
+			}
+
+			$registro['status'] = $estado;
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
@@ -4503,22 +4515,454 @@ class Subject extends CI_Controller {
 	}
 
 	public function eq_5d_5l_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/eq_5d_5l_show';
+		$data['titulo'] = 'EQ-5D-5L';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
 
+		$this->load->model('Model_Eq_5d_5l');
+		$data['list'] = $this->Model_Eq_5d_5l->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"EQ-5D-5L", 'etapa'=>$etapa));
+
+		$this->load->view('template', $data);
 	}
 
 	public function eq_5d_5l_update(){
+		$registro = $this->input->post();
 
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
+
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('movilidad','Movilidad','xss_clean');	
+		$this->form_validation->set_rules('autocuidado','Autocuidado','xss_clean');
+		$this->form_validation->set_rules('actividades_habituales','Actividades Habituales','xss_clean');
+		$this->form_validation->set_rules('dolor_malestar','Dolor Malestar','xss_clean');
+		$this->form_validation->set_rules('angustia_depresion','Angustia Depresion','xss_clean');
+		$this->form_validation->set_rules('salud_hoy','Salud Hoy','xss_clean');
+		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar EQ-5D-5L", $registro['subject_id']);
+			$this->eq_5d_5l_show($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['realizado'] == 1 
+				AND (empty($registro['fecha']) OR !isset($registro['movilidad']) OR !isset($registro['autocuidado']) OR !isset($registro['actividades_habituales']) 
+					OR !isset($registro['dolor_malestar']) OR !isset($registro['angustia_depresion']) OR $registro['salud_hoy'] == '')
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['eq_5d_5l_2_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 3){
+				$subjet_['eq_5d_5l_3_status'] = $estado;
+			}			
+			elseif($registro['etapa'] == 4){
+				$subjet_['eq_5d_5l_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['eq_5d_5l_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['eq_5d_5l_6_status'] = $estado;
+			}
+
+			$registro['status'] = $estado;			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Eq_5d_5l');
+			$this->Model_Eq_5d_5l->update($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen EQ-5D-5L actualizado", $registro['subject_id']);     		
+     		redirect('subject/eq_5d_5l_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
 	}
 
 	public function eq_5d_5l_verify(){
+		$registro = $this->input->post();
 
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de EQ-5D-5L", $registro['subject_id']);
+			$this->eq_5d_5l_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Eq_5d_5l');
+			$this->Model_Eq_5d_5l->update($registro);
+			$this->auditlib->save_audit("Verifico el formulario de EQ-5D-5L", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/			
+			if (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('eq_5d_5l_2_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 3) {
+				$this->Model_Subject->update(array('eq_5d_5l_3_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('eq_5d_5l_4_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('eq_5d_5l_5_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('eq_5d_5l_6_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
 
 	public function eq_5d_5l_signature(){
+		$registro = $this->input->post();
 
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de EQ-5D-5L", $registro['subject_id']);
+			$this->eq_5d_5l_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Eq_5d_5l');
+			$this->Model_Eq_5d_5l->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de EQ-5D-5L", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/			
+			if (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('eq_5d_5l_2_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 3) {
+				$this->Model_Subject->update(array('eq_5d_5l_3_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('eq_5d_5l_4_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('eq_5d_5l_5_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('eq_5d_5l_6_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
 
 	public function eq_5d_5l_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de EQ-5D-5L", $registro['subject_id']);
+			$this->eq_5d_5l_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Eq_5d_5l');
+			$this->Model_Eq_5d_5l->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de EQ-5D-5L", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/			
+			if (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('eq_5d_5l_2_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 3) {
+				$this->Model_Subject->update(array('eq_5d_5l_3_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('eq_5d_5l_4_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('eq_5d_5l_5_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('eq_5d_5l_6_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	/*----------------------------------------------------- NPI ------------------------------------------------------------------------*/
+
+	public function npi($subject_id, $etapa){
+		$data['contenido'] = 'subject/npi';
+		$data['titulo'] = 'NPI';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template', $data);
+	}
+
+	public function npi_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
+
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('puntaje_total_npi','','xss_clean');			
+		$this->form_validation->set_rules('puntaje_total_para_angustia','','xss_clean');
+		$this->form_validation->set_rules('delirio_status','','xss_clean');
+		$this->form_validation->set_rules('delirio_puntaje','','xss_clean');
+		$this->form_validation->set_rules('delirio_angustia','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_status','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_puntaje','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_angustia','','xss_clean');
+		$this->form_validation->set_rules('agitacion_status','','xss_clean');
+		$this->form_validation->set_rules('agitacion_puntaje','','xss_clean');
+		$this->form_validation->set_rules('agitacion_angustia','','xss_clean');
+		$this->form_validation->set_rules('depresion_status','','xss_clean');
+		$this->form_validation->set_rules('depresion_puntaje','','xss_clean');			
+		$this->form_validation->set_rules('depresion_angustia','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_status','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_puntaje','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_angustia','','xss_clean');
+		$this->form_validation->set_rules('elacion_status','','xss_clean');
+		$this->form_validation->set_rules('elacion_puntaje','','xss_clean');
+		$this->form_validation->set_rules('elacion_angustia','','xss_clean');
+		$this->form_validation->set_rules('apatia_status','','xss_clean');
+		$this->form_validation->set_rules('apatia_puntaje','','xss_clean');
+		$this->form_validation->set_rules('apatia_angustia','','xss_clean');
+		$this->form_validation->set_rules('deshinibicion_status','','xss_clean');
+		$this->form_validation->set_rules('deshinibicion_puntaje','','xss_clean');			
+		$this->form_validation->set_rules('deshinibicion_angustia','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_status','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_puntaje','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_angustia','','xss_clean');
+		$this->form_validation->set_rules('conducta_status','','xss_clean');
+		$this->form_validation->set_rules('conducta_puntaje','','xss_clean');
+		$this->form_validation->set_rules('conducta_angustia','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_status','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_puntaje','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_angustia','','xss_clean');
+		$this->form_validation->set_rules('trastornos_apetito_status','','xss_clean');
+		$this->form_validation->set_rules('trastornos_apetito_puntaje','','xss_clean');			
+		$this->form_validation->set_rules('trastornos_apetito_angustia','','xss_clean');
+
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar NPI", $registro['subject_id']);
+			$this->npi($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['realizado'] == 1 
+				AND (empty($registro['fecha']) OR $registro['puntaje_total_npi'] == ''  OR $registro['puntaje_total_para_angustia'] == '' 
+				 OR $registro['delirio_status'] == '' OR $registro['alucinaciones_status'] == '' OR $registro['agitacion_status'] == '' 
+				 OR $registro['depresion_status'] == '' OR $registro['ansiedad_status'] == '' OR $registro['elacion_status'] == '' 
+				 OR $registro['apatia_status'] == ''  OR $registro['deshinibicion_status'] == '' OR $registro['irritabilidad_status'] == '' 
+				 OR $registro['conducta_status'] == '' OR $registro['trastornos_sueno_status'] == '' OR $registro['trastornos_apetito_status'] == ''
+				)
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['npi_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 4){
+				$subjet_['npi_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['npi_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['npi_6_status'] = $estado;
+			}
+
+			$registro['status'] = $estado;
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Npi');
+			$this->Model_Npi->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen NPI agregado", $registro['subject_id']);     		
+     		redirect('subject/npi_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}
+
+	public function npi_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/npi_show';
+		$data['titulo'] = 'NPI';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->model('Model_Npi');
+		$data['list'] = $this->Model_Npi->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"NPI", 'etapa'=>$etapa));
+
+		$this->load->view('template', $data);
+	}
+
+	public function npi_update(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
+
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('puntaje_total_npi','','xss_clean');			
+		$this->form_validation->set_rules('puntaje_total_para_angustia','','xss_clean');
+		$this->form_validation->set_rules('delirio_status','','xss_clean');
+		$this->form_validation->set_rules('delirio_puntaje','','xss_clean');
+		$this->form_validation->set_rules('delirio_angustia','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_status','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_puntaje','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_angustia','','xss_clean');
+		$this->form_validation->set_rules('agitacion_status','','xss_clean');
+		$this->form_validation->set_rules('agitacion_puntaje','','xss_clean');
+		$this->form_validation->set_rules('agitacion_angustia','','xss_clean');
+		$this->form_validation->set_rules('depresion_status','','xss_clean');
+		$this->form_validation->set_rules('depresion_puntaje','','xss_clean');			
+		$this->form_validation->set_rules('depresion_angustia','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_status','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_puntaje','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_angustia','','xss_clean');
+		$this->form_validation->set_rules('elacion_status','','xss_clean');
+		$this->form_validation->set_rules('elacion_puntaje','','xss_clean');
+		$this->form_validation->set_rules('elacion_angustia','','xss_clean');
+		$this->form_validation->set_rules('apatia_status','','xss_clean');
+		$this->form_validation->set_rules('apatia_puntaje','','xss_clean');
+		$this->form_validation->set_rules('apatia_angustia','','xss_clean');
+		$this->form_validation->set_rules('deshinibicion_status','','xss_clean');
+		$this->form_validation->set_rules('deshinibicion_puntaje','','xss_clean');			
+		$this->form_validation->set_rules('deshinibicion_angustia','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_status','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_puntaje','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_angustia','','xss_clean');
+		$this->form_validation->set_rules('conducta_status','','xss_clean');
+		$this->form_validation->set_rules('conducta_puntaje','','xss_clean');
+		$this->form_validation->set_rules('conducta_angustia','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_status','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_puntaje','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_angustia','','xss_clean');
+		$this->form_validation->set_rules('trastornos_apetito_status','','xss_clean');
+		$this->form_validation->set_rules('trastornos_apetito_puntaje','','xss_clean');			
+		$this->form_validation->set_rules('trastornos_apetito_angustia','','xss_clean');
+
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar NPI", $registro['subject_id']);
+			$this->npi_show($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if($registro['realizado'] == 1 
+				AND (empty($registro['fecha']) OR $registro['puntaje_total_npi'] == ''  OR $registro['puntaje_total_para_angustia'] == '' 
+				 OR $registro['delirio_status'] == '' OR $registro['alucinaciones_status'] == '' OR $registro['agitacion_status'] == '' 
+				 OR $registro['depresion_status'] == '' OR $registro['ansiedad_status'] == '' OR $registro['elacion_status'] == '' 
+				 OR $registro['apatia_status'] == ''  OR $registro['deshinibicion_status'] == '' OR $registro['irritabilidad_status'] == '' 
+				 OR $registro['conducta_status'] == '' OR $registro['trastornos_sueno_status'] == '' OR $registro['trastornos_apetito_status'] == ''
+				)
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['npi_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 4){
+				$subjet_['npi_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['npi_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['npi_6_status'] = $estado;
+			}
+
+			$registro['status'] = $estado;
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Npi');
+			$this->Model_Npi->update($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen NPI actualizado", $registro['subject_id']);     		
+     		redirect('subject/npi_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}
+
+	public function npi_verify(){
+
+	}
+
+	public function npi_signature(){
+
+	}
+
+	public function npi_lock(){
 
 	}
 } 

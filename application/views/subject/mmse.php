@@ -38,7 +38,7 @@ $(function(){
 		}else{
 			$("#form_mmse :input").removeAttr('readonly');
 			$('select option:not(:selected)').each(function(){
-				$(this).removeAttr('disabled', 'disabled');
+				$(this).removeAttr('disabled');
 			});
 		}
 	});
