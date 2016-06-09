@@ -4955,7 +4955,7 @@ class Subject extends CI_Controller {
 	}
 
 	public function npi_verify(){
-
+		
 	}
 
 	public function npi_signature(){
@@ -4965,4 +4965,373 @@ class Subject extends CI_Controller {
 	public function npi_lock(){
 
 	}
+
+	/*----------------------------------------------------- APATIA ------------------------------------------------------------------------*/
+
+	public function apatia($subject_id, $etapa){
+		$data['contenido'] = 'subject/apatia';
+		$data['titulo'] = 'APATIA';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template', $data);
+	}
+
+	public function apatia_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+
+		$this->form_validation->set_rules('autoevaluacion_realizado','Realizado','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_1','','xss_clean');			
+		$this->form_validation->set_rules('autoevaluacion_2','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_3','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_4','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_5','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_6','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_7','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_8','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_9','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_10','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_11','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_12','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_13','','xss_clean');			
+		$this->form_validation->set_rules('autoevaluacion_14','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_15','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_16','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_17','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_18','','xss_clean');
+
+		$this->form_validation->set_rules('version_clinica_realizado','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_fecha','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_1','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_2','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_3','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_4','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_5','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_6','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_7','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_8','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_9','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_10','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_11','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_12','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_13','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_14','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_15','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_16','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_17','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_18','','xss_clean');
+
+		$this->form_validation->set_rules('apatia_realizado','','xss_clean');
+		$this->form_validation->set_rules('apatia_fecha','','xss_clean');
+		$this->form_validation->set_rules('apatia_1','','xss_clean');
+		$this->form_validation->set_rules('apatia_2','','xss_clean');
+		$this->form_validation->set_rules('apatia_3','','xss_clean');
+		$this->form_validation->set_rules('apatia_4','','xss_clean');
+		$this->form_validation->set_rules('apatia_5','','xss_clean');
+		$this->form_validation->set_rules('apatia_6','','xss_clean');
+		$this->form_validation->set_rules('apatia_7','','xss_clean');
+		$this->form_validation->set_rules('apatia_8','','xss_clean');
+		$this->form_validation->set_rules('apatia_9','','xss_clean');
+		$this->form_validation->set_rules('apatia_10','','xss_clean');
+		$this->form_validation->set_rules('apatia_11','','xss_clean');
+		$this->form_validation->set_rules('apatia_12','','xss_clean');
+		$this->form_validation->set_rules('apatia_13','','xss_clean');
+		$this->form_validation->set_rules('apatia_14','','xss_clean');
+		$this->form_validation->set_rules('apatia_15','','xss_clean');
+		$this->form_validation->set_rules('apatia_16','','xss_clean');
+		$this->form_validation->set_rules('apatia_17','','xss_clean');
+		$this->form_validation->set_rules('apatia_18','','xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar Autoevaluacion", $registro['subject_id']);
+			$this->autoevaluacion($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if(
+				( $registro['autoevaluacion_realizado'] == 1 
+				 AND (empty($registro['autoevaluacion_fecha']) OR !isset($registro['autoevaluacion_1']) OR !isset($registro['autoevaluacion_2'])
+					OR !isset($registro['autoevaluacion_3']) OR !isset($registro['autoevaluacion_4']) OR !isset($registro['autoevaluacion_5'])
+					OR !isset($registro['autoevaluacion_6']) OR !isset($registro['autoevaluacion_7']) OR !isset($registro['autoevaluacion_8'])
+					OR !isset($registro['autoevaluacion_9']) OR !isset($registro['autoevaluacion_10']) OR !isset($registro['autoevaluacion_11'])
+					OR !isset($registro['autoevaluacion_12']) OR !isset($registro['autoevaluacion_13']) OR !isset($registro['autoevaluacion_14'])
+					OR !isset($registro['autoevaluacion_15']) OR !isset($registro['autoevaluacion_16']) OR !isset($registro['autoevaluacion_17'])
+					OR !isset($registro['autoevaluacion_18'])
+					)
+				)
+				OR
+				($registro['version_clinica_realizado'] == 1 
+					AND (empty($registro['version_clinica_fecha']) OR !isset($registro['version_clinica_1']) OR !isset($registro['version_clinica_2'])
+					OR !isset($registro['version_clinica_3']) OR !isset($registro['version_clinica_4']) OR !isset($registro['version_clinica_5'])
+					OR !isset($registro['version_clinica_6']) OR !isset($registro['version_clinica_7']) OR !isset($registro['version_clinica_8'])
+					OR !isset($registro['version_clinica_9']) OR !isset($registro['version_clinica_10']) OR !isset($registro['version_clinica_11'])
+					OR !isset($registro['version_clinica_12']) OR !isset($registro['version_clinica_13']) OR !isset($registro['version_clinica_14'])
+					OR !isset($registro['version_clinica_15']) OR !isset($registro['version_clinica_16']) OR !isset($registro['version_clinica_17'])
+					OR !isset($registro['version_clinica_18'])
+					)
+				)
+				OR
+				($registro['apatia_realizado'] == 1 
+					AND (empty($registro['apatia_fecha']) OR !isset($registro['apatia_1']) OR !isset($registro['apatia_2'])
+					OR !isset($registro['apatia_3']) OR !isset($registro['apatia_4']) OR !isset($registro['apatia_5'])
+					OR !isset($registro['apatia_6']) OR !isset($registro['apatia_7']) OR !isset($registro['apatia_8'])
+					OR !isset($registro['apatia_9']) OR !isset($registro['apatia_10']) OR !isset($registro['apatia_11'])
+					OR !isset($registro['apatia_12']) OR !isset($registro['apatia_13']) OR !isset($registro['apatia_14'])
+					OR !isset($registro['apatia_15']) OR !isset($registro['apatia_16']) OR !isset($registro['apatia_17'])
+					OR !isset($registro['apatia_18'])
+					)
+				)
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['apatia_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 3){
+				$subjet_['apatia_3_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 4){
+				$subjet_['apatia_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['apatia_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['apatia_6_status'] = $estado;
+			}
+
+			$registro['status'] = $estado;
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Apatia');
+			$this->Model_Apatia->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen de Apatia agregado", $registro['subject_id']);     		
+     		redirect('subject/apatia_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}
+	
+	public function apatia_show($subject_id, $etapa){
+			$data['contenido'] = 'subject/apatia_show';
+			$data['titulo'] = 'APATIA';
+			$data['subject'] = $this->Model_Subject->find($subject_id);		
+			$data['etapa'] = $etapa;
+
+			$this->load->model('Model_Apatia');
+			$data['list'] = $this->Model_Apatia->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+			/*querys*/
+			$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"APATIA", 'etapa'=>$etapa));
+
+			$this->load->view('template', $data);
+	}
+
+	public function apatia_update(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');
+		$this->form_validation->set_rules('etapa','Etapa','required|xss_clean');
+
+		$this->form_validation->set_rules('autoevaluacion_realizado','Realizado','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_1','','xss_clean');			
+		$this->form_validation->set_rules('autoevaluacion_2','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_3','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_4','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_5','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_6','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_7','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_8','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_9','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_10','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_11','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_12','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_13','','xss_clean');			
+		$this->form_validation->set_rules('autoevaluacion_14','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_15','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_16','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_17','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_18','','xss_clean');
+
+		$this->form_validation->set_rules('version_clinica_realizado','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_fecha','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_1','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_2','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_3','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_4','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_5','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_6','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_7','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_8','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_9','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_10','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_11','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_12','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_13','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_14','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_15','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_16','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_17','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_18','','xss_clean');
+
+		$this->form_validation->set_rules('apatia_realizado','','xss_clean');
+		$this->form_validation->set_rules('apatia_fecha','','xss_clean');
+		$this->form_validation->set_rules('apatia_1','','xss_clean');
+		$this->form_validation->set_rules('apatia_2','','xss_clean');
+		$this->form_validation->set_rules('apatia_3','','xss_clean');
+		$this->form_validation->set_rules('apatia_4','','xss_clean');
+		$this->form_validation->set_rules('apatia_5','','xss_clean');
+		$this->form_validation->set_rules('apatia_6','','xss_clean');
+		$this->form_validation->set_rules('apatia_7','','xss_clean');
+		$this->form_validation->set_rules('apatia_8','','xss_clean');
+		$this->form_validation->set_rules('apatia_9','','xss_clean');
+		$this->form_validation->set_rules('apatia_10','','xss_clean');
+		$this->form_validation->set_rules('apatia_11','','xss_clean');
+		$this->form_validation->set_rules('apatia_12','','xss_clean');
+		$this->form_validation->set_rules('apatia_13','','xss_clean');
+		$this->form_validation->set_rules('apatia_14','','xss_clean');
+		$this->form_validation->set_rules('apatia_15','','xss_clean');
+		$this->form_validation->set_rules('apatia_16','','xss_clean');
+		$this->form_validation->set_rules('apatia_17','','xss_clean');
+		$this->form_validation->set_rules('apatia_18','','xss_clean');
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar Autoevaluacion", $registro['subject_id']);
+			$this->autoevaluacion_show($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			if(
+				( $registro['autoevaluacion_realizado'] == 1 
+				 AND (empty($registro['autoevaluacion_fecha']) OR !isset($registro['autoevaluacion_1']) OR !isset($registro['autoevaluacion_2'])
+					OR !isset($registro['autoevaluacion_3']) OR !isset($registro['autoevaluacion_4']) OR !isset($registro['autoevaluacion_5'])
+					OR !isset($registro['autoevaluacion_6']) OR !isset($registro['autoevaluacion_7']) OR !isset($registro['autoevaluacion_8'])
+					OR !isset($registro['autoevaluacion_9']) OR !isset($registro['autoevaluacion_10']) OR !isset($registro['autoevaluacion_11'])
+					OR !isset($registro['autoevaluacion_12']) OR !isset($registro['autoevaluacion_13']) OR !isset($registro['autoevaluacion_14'])
+					OR !isset($registro['autoevaluacion_15']) OR !isset($registro['autoevaluacion_16']) OR !isset($registro['autoevaluacion_17'])
+					OR !isset($registro['autoevaluacion_18'])
+					)
+				)
+				OR
+				($registro['version_clinica_realizado'] == 1 
+					AND (empty($registro['version_clinica_fecha']) OR !isset($registro['version_clinica_1']) OR !isset($registro['version_clinica_2'])
+					OR !isset($registro['version_clinica_3']) OR !isset($registro['version_clinica_4']) OR !isset($registro['version_clinica_5'])
+					OR !isset($registro['version_clinica_6']) OR !isset($registro['version_clinica_7']) OR !isset($registro['version_clinica_8'])
+					OR !isset($registro['version_clinica_9']) OR !isset($registro['version_clinica_10']) OR !isset($registro['version_clinica_11'])
+					OR !isset($registro['version_clinica_12']) OR !isset($registro['version_clinica_13']) OR !isset($registro['version_clinica_14'])
+					OR !isset($registro['version_clinica_15']) OR !isset($registro['version_clinica_16']) OR !isset($registro['version_clinica_17'])
+					OR !isset($registro['version_clinica_18'])
+					)
+				)
+				OR
+				($registro['apatia_realizado'] == 1 
+					AND (empty($registro['apatia_fecha']) OR !isset($registro['apatia_1']) OR !isset($registro['apatia_2'])
+					OR !isset($registro['apatia_3']) OR !isset($registro['apatia_4']) OR !isset($registro['apatia_5'])
+					OR !isset($registro['apatia_6']) OR !isset($registro['apatia_7']) OR !isset($registro['apatia_8'])
+					OR !isset($registro['apatia_9']) OR !isset($registro['apatia_10']) OR !isset($registro['apatia_11'])
+					OR !isset($registro['apatia_12']) OR !isset($registro['apatia_13']) OR !isset($registro['apatia_14'])
+					OR !isset($registro['apatia_15']) OR !isset($registro['apatia_16']) OR !isset($registro['apatia_17'])
+					OR !isset($registro['apatia_18'])
+					)
+				)
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['apatia_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 3){
+				$subjet_['apatia_3_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 4){
+				$subjet_['apatia_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['apatia_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['apatia_6_status'] = $estado;
+			}
+
+			$registro['status'] = $estado;			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Apatia');
+			$this->Model_Apatia->update($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen de Apatia actualizado", $registro['subject_id']);     		
+     		redirect('subject/apatia_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+
+		}
+	}
+
+	public function apata_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Apatia", $registro['subject_id']);
+			$this->apatia_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d');
+
+			$this->load->model('Model_Apatia');
+			$this->Model_Apatia->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de Apatia", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/			
+			if (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('apatia_2_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 3) {
+				$this->Model_Subject->update(array('apatia_3_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}			
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
+				$this->Model_Subject->update(array('apatia_4_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 5) {
+				$this->Model_Subject->update(array('apatia_5_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 6) {
+				$this->Model_Subject->update(array('apatia_6_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+
+			redirect('subject/grid/'.$registro['subject_id']);
+	}
+	
 } 

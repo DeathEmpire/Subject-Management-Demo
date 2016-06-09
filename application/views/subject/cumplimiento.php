@@ -74,7 +74,7 @@ $(function(){
 		    #'checked'	  => set_radio('gender', 'female', TRUE),		    
 		    );	   
 	?>
-	<table class="table table-bordered table-striper table-hover">
+	<table class="table table-bordered table-striped table-hover">
 		<tr>		
 			<td>Realizado: </td>
 			<td>
