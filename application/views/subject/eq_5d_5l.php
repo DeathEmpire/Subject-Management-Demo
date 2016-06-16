@@ -192,22 +192,10 @@ $(function(){
 		<tr>
 			<td>Estoy extremadamente angustiado/a o deprimido/a</td>
 			<td><?= form_radio('angustia_depresion','Estoy extremadamente angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Estoy extremadamente angustiado/a o deprimido/a')); ?></td>
-		</tr>		
+		</tr>				
 		<tr>
-			<td colspan='2'>
-				<ul>
-					<li>Nos gustaria sabar lo buena o mala que es su salud HOY.</li>
-					<li>Esta escala está numerada del 0 al 100.</li>
-					<li>100 representa la <u>mejor</u> salud que usted se pueda imaginar.<br />
-						0 representala <u>peor</u> salud que usted se pueda imaginar.</li>
-					<li>Marque con una X en la escala para indicar cual es su estado de salud HOY.</li>
-					<li>Ahora, por favor escriba en la casilla que encontrará abajo, el número que ha marcado en la escala.</li>
-				</ul>
-			</td>
-		</tr>
-		<tr>
-			<td>SU SALUD HOY = </td>
-			<td><?= form_input(array('type'=>'number', 'name'=>'salud_hoy', 'id'=>'salud_hoy', 'value'=>set_value('salud_hoy'))); ?></td>
+			<td style='font-weight:bold;background-color:#ddd;'>SU SALUD HOY = </td>
+			<td style='font-weight:bold;background-color:#ddd;'><?= form_input(array('type'=>'number', 'name'=>'salud_hoy', 'id'=>'salud_hoy', 'value'=>set_value('salud_hoy'))); ?></td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

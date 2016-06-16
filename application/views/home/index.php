@@ -1,4 +1,3 @@
 <div class="hero-unit">			
-	<h1>Study Management</h1>    	
-	<small><b><i>Clinical Trials</i></b></small>
+	<img src='<?php echo base_url('img/icc_logo.png'); ?>'>
 </div>

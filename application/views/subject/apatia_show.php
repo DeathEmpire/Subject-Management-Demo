@@ -5,23 +5,71 @@
 $(function(){
 	$("#autoevaluacion_fecha, #version_clinica_fecha, #apatia_fecha").datepicker();	
 
-	$("input[name=realizado]").change(function(){
+	$("input[name=autoevaluacion_realizado]").change(function(){
 		if($(this).val() == '0'){
-			$("#form_apatia :input").attr('readonly','readonly');
-			$("input[name=realizado]").removeAttr('readonly');
-
+			$("input[name^=autoevaluacion_]").attr('readonly','readonly');
+			$("input[name^=autoevaluacion_]").attr('disabled','disabled');
+			$("input[name=autoevaluacion_realizado]").removeAttr('readonly');
+			$("input[name=autoevaluacion_realizado]").removeAttr('disabled');
 		}else{
-			$("#form_apatia :input").removeAttr('readonly');
+			$("input[name^=autoevaluacion_]").removeAttr('readonly');
+			$("input[name^=autoevaluacion_]").removeAttr('disabled');
 		}
 	});
-	if($("input[name=realizado]:checked").val() == '0'){
-		$("#form_apatia :input").attr('readonly','readonly');
-		$("input[name=realizado]").removeAttr('readonly');
+	if($("input[name=autoevaluacion_realizado]:checked").val() == '0'){
+		$("input[name^=autoevaluacion_]").attr('readonly','readonly');
+		$("input[name^=autoevaluacion_]").attr('disabled','disabled');
+		$("input[name=autoevaluacion_realizado]").removeAttr('readonly');
+		$("input[name=autoevaluacion_realizado]").removeAttr('disabled');
 
 	}else{
-		$("#form_apatia :input").removeAttr('readonly');
+		$("input[name^=autoevaluacion_]").removeAttr('readonly');
+		$("input[name^=autoevaluacion_]").removeAttr('disabled');
 	}
 
+	$("input[name=version_clinica_realizado]").change(function(){
+		if($(this).val() == '0'){
+			$("input[name^=version_clinica_]").attr('readonly','readonly');
+			$("input[name^=version_clinica_]").attr('disabled','disabled');
+			$("input[name=version_clinica_realizado]").removeAttr('readonly');
+			$("input[name=version_clinica_realizado]").removeAttr('disabled');
+		}else{
+			$("input[name^=version_clinica_]").removeAttr('readonly');
+			$("input[name^=version_clinica_]").removeAttr('disabled');
+		}
+	});
+	if($("input[name=version_clinica_realizado]:checked").val() == '0'){
+		$("input[name^=version_clinica_]").attr('readonly','readonly');
+		$("input[name^=version_clinica_]").attr('disabled','disabled');
+		$("input[name=version_clinica_realizado]").removeAttr('readonly');
+		$("input[name=version_clinica_realizado]").removeAttr('disabled');
+
+	}else{
+		$("input[name^=version_clinica_]").removeAttr('readonly');
+		$("input[name^=version_clinica_]").removeAttr('disabled');
+	}
+
+	$("input[name=apatia_realizado]").change(function(){
+		if($(this).val() == '0'){
+			$("input[name^=apatia_]").attr('readonly','readonly');
+			$("input[name^=apatia_]").attr('disabled','disabled');
+			$("input[name=apatia_realizado]").removeAttr('readonly');
+			$("input[name=vapatia_realizado]").removeAttr('disabled');
+		}else{
+			$("input[name^=apatia_]").removeAttr('readonly');
+			$("input[name^=apatia_]").removeAttr('disabled');
+		}
+	});
+	if($("input[name=apatia_realizado]:checked").val() == '0'){
+		$("input[name^=apatia_]").attr('readonly','readonly');
+		$("input[name^=apatia_]").attr('disabled','disabled');
+		$("input[name=apatia_realizado]").removeAttr('readonly');
+		$("input[name=apatia_realizado]").removeAttr('disabled');
+
+	}else{
+		$("input[name^=apatia_]").removeAttr('readonly');
+		$("input[name^=apatia_]").removeAttr('disabled');
+	}
 
 	$('input[name^=autoevaluacion_]').click(function(){
 		var total = 0;

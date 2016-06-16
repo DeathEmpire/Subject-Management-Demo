@@ -25,7 +25,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#"> <?= $titulo ?> </a>
+                    <a class="brand" href="#"> <img src='<?php echo base_url('img/icc_logo.png'); ?>' style='width:50px;'> </a>
 
                     <div class="nav-collapse collapse">
                         <ul class="nav">

@@ -842,17 +842,17 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
-/*-------------------------------------------HISTORIAL MEDICO---------------------------------------------------------------------------*/
-	public function historial_medico($id,$etapa){
-		$data['contenido'] = 'subject/historial_medico';
-		$data['titulo'] = 'Historia Medica';
+/*-------------------------------------------EXAMEN FISICO (Antes HISTORIAL MEDICO)---------------------------------------------------------------------------*/
+	public function examen_fisico($id,$etapa){
+		$data['contenido'] = 'subject/examen_fisico';
+		$data['titulo'] = 'Examen Fisico';
 		$data['subject'] = $this->Model_Subject->find($id);
 		$data['etapa'] = $etapa;
 
 		$this->load->view('template', $data);
 	}
 
-	public function historial_medico_insert(){
+	public function examen_fisico_insert(){
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
@@ -886,26 +886,13 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('muscular_desc', 'Muscular/Esqueletico', 'xss_clean');
 			$this->form_validation->set_rules('cancer_desc', 'Cancer', 'xss_clean');
 		}
-		else{
-			/*$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
-			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'xss_clean');
-			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'xss_clean');
-			$this->form_validation->set_rules('neurologico', 'Neurologico', 'xss_clean');
-			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'xss_clean');
-			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'xss_clean');
-			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'xss_clean');
-			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'xss_clean');
-			$this->form_validation->set_rules('hepatico', 'Hepatico', 'xss_clean');
-			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'xss_clean');
-			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'xss_clean');
-			$this->form_validation->set_rules('cancer', 'Cancer', 'xss_clean');*/
-		}
+		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Tuvo errores al tratar de agregar historial medico", $registro['subject_id']);
-			$this->historial_medico($registro['subject_id'],$registro['etapa']);
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar Examen Fisico", $registro['subject_id']);
+			$this->examen_fisico($registro['subject_id'],$registro['etapa']);
 		}
 		else {
 			$registro['created_at'] = date("Y-m-d H:i:s");
@@ -913,39 +900,51 @@ class Subject extends CI_Controller {
 			$registro['status'] = "Record Complete";
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 
-			$this->load->model("Model_Historial_medico");
-			$this->Model_Historial_medico->insert($registro);
+			$this->load->model("Model_Examen_fisico");
+			$this->Model_Examen_fisico->insert($registro);
 
-			$this->auditlib->save_audit("Historial Medico Ingresado", $registro['subject_id']);
+			$this->auditlib->save_audit("Examen Fisico Ingresado", $registro['subject_id']);
 
 
 			/*Actualizar estado en el sujeto*/
 			if($registro['etapa'] == 1){
-				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'historial_medico_1_status'=>'Record Complete'));
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_1_status'=>'Record Complete'));
 			}
 			elseif($registro['etapa'] == 2){
-				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'historial_medico_2_status'=>'Record Complete'));
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_2_status'=>'Record Complete'));
+			}
+			elseif($registro['etapa'] == 3){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_3_status'=>'Record Complete'));
+			}
+			elseif($registro['etapa'] == 4){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_4_status'=>'Record Complete'));
+			}
+			elseif($registro['etapa'] == 5){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_5_status'=>'Record Complete'));
+			}
+			elseif($registro['etapa'] == 6){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_6_status'=>'Record Complete'));
 			}
 
-     		$this->historial_medico_show($registro['subject_id'],$registro['etapa']);
+     		$this->examen_fisico_show($registro['subject_id'],$registro['etapa']);
 		}
 	}
 
-	public function historial_medico_show($subject_id,$etapa){
-		$data['contenido'] = 'subject/historial_medico_show';
-		$data['titulo'] = 'Historia Medica';
+	public function examen_fisico_show($subject_id,$etapa){
+		$data['contenido'] = 'subject/examen_fisico_show';
+		$data['titulo'] = 'Examen Fisico';
 		$data['subject'] = $this->Model_Subject->find($subject_id);
 		$data['etapa'] = $etapa;
 
-		$this->load->model("Model_Historial_medico");
-		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+		$this->load->model("Model_Examen_fisico");
+		$data['list'] = $this->Model_Examen_fisico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Historial Medico", "etapa"=>$etapa));
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Examen Fisico", "etapa"=>$etapa));
 
 		$this->load->view('template', $data);
 	}
 
-	public function historial_medico_update(){
+	public function examen_fisico_update(){
 
 		$registro = $this->input->post();
 
@@ -982,22 +981,22 @@ class Subject extends CI_Controller {
 		}
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el historial medico", $registro['subject_id']);
-			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
+			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el examen fisico", $registro['subject_id']);
+			$this->examen_fisico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {			
 			$registro['updated_at'] = date("Y-m-d H:i:s");						
 
-			$this->load->model("Model_Historial_medico");
-			$this->Model_Historial_medico->update($registro);
+			$this->load->model("Model_Examen_fisico");
+			$this->Model_Examen_fisico->update($registro);
 
-			$this->auditlib->save_audit("Historial Medico Actualizado",$registro['subject_id']);
+			$this->auditlib->save_audit("Examn Fisico Actualizado",$registro['subject_id']);
 
-     		$this->historial_medico_show($registro['subject_id'],$registro['etapa']);
+     		$this->examen_fisico_show($registro['subject_id'],$registro['etapa']);
 		}
 	}
 
-	public function historial_medico_verify(){
+	public function examen_fisico_verify(){
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
@@ -1005,8 +1004,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Historial Medico", $registro['subject_id']);
-			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de examen fisico", $registro['subject_id']);
+			$this->examen_fisico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -1016,18 +1015,35 @@ class Subject extends CI_Controller {
 			$registro['verify_user'] = $this->session->userdata('usuario');
 			$registro['verify_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Historial_medico');
-			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Verificacion de el formulario de Historial Medico", $registro['subject_id']);
+			$this->load->model('Model_Examen_fisico');
+			$this->Model_Examen_fisico->update($registro);
+			$this->auditlib->save_audit("Verificacion de el formulario de examen fisico", $registro['subject_id']);
 
-			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('historial_medico_status'=>'Form Approved by Monitor','id'=>$registro['subject_id']));
+						/*Actualizar estado en el sujeto*/
+			if($registro['etapa'] == 1){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_1_status'=>'Form Approved by Monitor'));
+			}
+			elseif($registro['etapa'] == 2){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_2_status'=>'Form Approved by Monitor'));
+			}
+			elseif($registro['etapa'] == 3){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_3_status'=>'Form Approved by Monitor'));
+			}
+			elseif($registro['etapa'] == 4){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_4_status'=>'Form Approved by Monitor'));
+			}
+			elseif($registro['etapa'] == 5){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_5_status'=>'Form Approved by Monitor'));
+			}
+			elseif($registro['etapa'] == 6){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_6_status'=>'Form Approved by Monitor'));
+			}
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
 
-	public function historial_medico_signature(){
+	public function examen_fisico_signature(){
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
@@ -1035,8 +1051,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Historial Medico", $registro['subject_id']);
-			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de examen fisico", $registro['subject_id']);
+			$this->examen_fisico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -1046,17 +1062,34 @@ class Subject extends CI_Controller {
 			$registro['signature_user'] = $this->session->userdata('usuario');
 			$registro['signature_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Historial_medico');
-			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Firmo el formulario de Historial Medico", $registro['subject_id']);
-			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('historial_medico_status'=>'Document Approved and Signed by PI','id'=>$registro['subject_id']));
+			$this->load->model('Model_Examen_fisico');
+			$this->Model_Examen_fisico->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de examen fisico", $registro['subject_id']);
+						/*Actualizar estado en el sujeto*/
+			if($registro['etapa'] == 1){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_1_status'=>'Document Approved and Signed by PI'));
+			}
+			elseif($registro['etapa'] == 2){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_2_status'=>'Document Approved and Signed by PI'));
+			}
+			elseif($registro['etapa'] == 3){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_3_status'=>'Document Approved and Signed by PI'));
+			}
+			elseif($registro['etapa'] == 4){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_4_status'=>'Document Approved and Signed by PI'));
+			}
+			elseif($registro['etapa'] == 5){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_5_status'=>'Document Approved and Signed by PI'));
+			}
+			elseif($registro['etapa'] == 6){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_6_status'=>'Document Approved and Signed by PI'));
+			}
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
 	}
 
-	public function historial_medico_lock(){
+	public function examen_fisico_lock(){
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
@@ -1064,8 +1097,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Historial Medico", $registro['subject_id']);
-			$this->historial_medico_show($registro['subject_id'], $registro['etapa']);
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de examen fisico", $registro['subject_id']);
+			$this->examen_fisico_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -1075,11 +1108,28 @@ class Subject extends CI_Controller {
 			$registro['lock_user'] = $this->session->userdata('usuario');
 			$registro['lock_date'] = date('Y-m-d');
 
-			$this->load->model('Model_Historial_medico');
-			$this->Model_Historial_medico->update($registro);
-			$this->auditlib->save_audit("Cerro el formulario de Historial Medico", $registro['subject_id']);
+			$this->load->model('Model_Examen_fisico');
+			$this->Model_Examen_fisico->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de examen fisico", $registro['subject_id']);
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('historial_medico_status'=>'Form Approved and Locked','id'=>$registro['subject_id']));
+			if($registro['etapa'] == 1){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_1_status'=>'Form Approved and Locked'));
+			}
+			elseif($registro['etapa'] == 2){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_2_status'=>'Form Approved and Locked'));
+			}
+			elseif($registro['etapa'] == 3){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_3_status'=>'Form Approved and Locked'));
+			}
+			elseif($registro['etapa'] == 4){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_4_status'=>'Form Approved and Locked'));
+			}
+			elseif($registro['etapa'] == 5){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_5_status'=>'Form Approved and Locked'));
+			}
+			elseif($registro['etapa'] == 6){
+				$this->Model_Subject->update(array('id'=>$registro['subject_id'],'examen_fisico_6_status'=>'Form Approved and Locked'));
+			}
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -5290,7 +5340,7 @@ class Subject extends CI_Controller {
 		}
 	}
 
-	public function apata_verify(){
+	public function apatia_verify(){
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
@@ -5332,6 +5382,446 @@ class Subject extends CI_Controller {
 			}
 
 			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
+	
+	public function apatia_signature(){
+
+	}
+	public function apatia_lock(){
+		
+	}
+/*----------------------------------------------------- RNM o TC ------------------------------------------------------------------------*/	
+	
+	public function rnm($subject_id){
+		$data['contenido'] = 'subject/rnm';
+		$data['titulo'] = 'RNM o TC';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->view('template', $data);
+	}
+
+	public function rnm_insert(){
+		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('resonancia', '', 'xss_clean');
+		$this->form_validation->set_rules('resonancia_fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('resonancia_comentario', '', 'xss_clean');
+		$this->form_validation->set_rules('tomografia', '', 'xss_clean');
+		$this->form_validation->set_rules('tomografia_fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('tomografia_comentario', '', 'xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de agregar el formulario de RNM o TC", $registro['subject_id']);
+			$this->rnm($registro['subject_id']);
+		}
+		else {
+
+			if(
+				(
+					isset($registro['resonancia']) AND $registro['resonancia'] == 1 AND 
+					(
+						empty($registro['resonancia_fecha']) OR empty($registro['resonancia_comentario'])
+					)
+				)
+				OR
+				(
+					isset($registro['tomografia']) AND $registro['tomografia'] == 1 AND 
+					(
+						empty($registro['tomografia_fecha']) OR empty($registro['tomografia_comentario'])
+					)
+				)
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			$subjet_['rnm_status'] = $estado;
+
+			$registro['status'] = $estado;
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Rnm');
+			$this->Model_Rnm->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen de RNM o TC agregado", $registro['subject_id']);     		
+     		redirect('subject/rnm_show/'. $registro['subject_id']);
+		}
+
+	}
+
+	public function rnm_show($subject_id){
+		$data['contenido'] = 'subject/rnm_show';
+		$data['titulo'] = 'RNM o TC';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->model('Model_Rnm');
+		$data['list'] = $this->Model_Rnm->allWhereArray(array('subject_id'=>$subject_id));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"RNM o TC"));
+
+		$this->load->view('template', $data);
+	}
+
+	public function rnm_update(){
+		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('id', 'ID', 'required|xss_clean'); 
+		$this->form_validation->set_rules('resonancia', '', 'xss_clean');
+		$this->form_validation->set_rules('resonancia_fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('resonancia_comentario', '', 'xss_clean');
+		$this->form_validation->set_rules('tomografia', '', 'xss_clean');
+		$this->form_validation->set_rules('tomografia_fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('tomografia_comentario', '', 'xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de actualizar el formulario de RNM o TC", $registro['subject_id']);
+			$this->rnm($registro['subject_id']);
+		}
+		else {
+
+			if(
+				(
+					isset($registro['resonancia']) AND $registro['resonancia'] == 1 AND 
+					(
+						empty($registro['resonancia_fecha']) OR empty($registro['resonancia_comentario'])
+					)
+				)
+				OR
+				(
+					isset($registro['tomografia']) AND $registro['tomografia'] == 1 AND 
+					(
+						empty($registro['tomografia_fecha']) OR empty($registro['tomografia_comentario'])
+					)
+				)
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			$subjet_['rnm_status'] = $estado;
+
+			$registro['status'] = $estado;			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Rnm');
+			$this->Model_Rnm->update($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen de RNM o TC actualizado", $registro['subject_id']);     		
+     		redirect('subject/rnm_show/'. $registro['subject_id']);
+		}
+	}
+
+	public function rnm_verify(){
+
+	}
+	public function rnm_signature(){
+		
+	}
+	public function rnm_lock(){
+		
+	}
+	/*----------------------------------------------------- Historial Medico -----------------------------------------------------------------*/
+	
+	public function historial_medico($subject_id, $etapa){
+		$data['contenido'] = 'subject/historial_medico';
+		$data['titulo'] = 'Historia Medica';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		
+		$this->load->view('template', $data);
+	}
+
+	public function historial_medico_insert(){
+		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('hipertension', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('asma', '', 'xss_clean');
+		$this->form_validation->set_rules('asma_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('alergia', '', 'xss_clean');
+		$this->form_validation->set_rules('alergia_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('tabaquismo', '', 'xss_clean');
+		$this->form_validation->set_rules('tabaquismo_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ingesta_alcohol', '', 'xss_clean');
+		$this->form_validation->set_rules('ingesta_alcohol_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('drogas', '', 'xss_clean');
+		$this->form_validation->set_rules('drogas_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cirugia', '', 'xss_clean');
+		$this->form_validation->set_rules('cirugia_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('donado_sangre', '', 'xss_clean');
+		$this->form_validation->set_rules('donado_sangre_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('tratamiento_farma', '', 'xss_clean');
+		$this->form_validation->set_rules('tratamiento_farma_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('suplemento_dietetico', '', 'xss_clean');
+		$this->form_validation->set_rules('suplemento_dietetico_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('alzheimer', '', 'xss_clean');
+		$this->form_validation->set_rules('alzheimer_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_ea', '', 'xss_clean');
+		$this->form_validation->set_rules('morbido', '', 'xss_clean');
+		$this->form_validation->set_rules('morbido_desc', '', 'xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de agregar el formulario de Historia Medica", $registro['subject_id']);
+			$this->historial_medico($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			
+			/*estado del form segun lo que se envia*/
+			if(
+					(!empty($registro['hipertension']) AND empty($registro['hipertension_fecha_diagnostico']))
+				OR	(!empty($registro['ulcera']) AND empty($registro['ulcera_fecha_diagnostico']))
+				OR	(!empty($registro['diabetes']) AND empty($registro['diabetes_fecha_diagnostico']))
+				OR	(!empty($registro['hipo_hipertiroidismo']) AND empty($registro['hipo_hipertiroidismo_fecha_diagnostico']))
+				OR	(!empty($registro['hiperlipidemia']) AND empty($registro['hiperlipidemia_fecha_diagnostico']))
+				OR	(!empty($registro['epoc']) AND empty($registro['epoc_fecha_diagnostico']))
+				OR	(!empty($registro['coronaria']) AND empty($registro['coronaria_fecha_diagnostico']))
+				OR	(!empty($registro['rinitis']) AND empty($registro['rinitis_fecha_diagnostico']))
+				OR	(!empty($registro['acc_vascular']) AND empty($registro['acc_vascular_fecha_diagnostico']))
+				OR	(!empty($registro['asma']) AND empty($registro['asma_fecha_diagnostico']))
+				OR	(!empty($registro['gastritis']) AND empty($registro['gastritis_fecha_diagnostico']))
+				OR	(!empty($registro['cefaleas']) AND empty($registro['cefaleas_fecha_diagnostico']))
+				OR	(!empty($registro['alergia']) AND empty($registro['alergia_desc']))
+				OR	(!empty($registro['tabaquismo']) AND empty($registro['tabaquismo_desc']))
+				OR	(!empty($registro['ingesta_alcohol']) AND empty($registro['ingesta_alcohol_desc']))
+				OR	(!empty($registro['drogas']) AND empty($registro['drogas_desc']))
+				OR	(!empty($registro['cirugia']) AND empty($registro['cirugia_desc']))
+				OR	(!empty($registro['donado_sangre']) AND empty($registro['donado_sangre_desc']))
+				OR	(!empty($registro['tratamiento_farma']) AND empty($registro['tratamiento_farma_desc']))
+				OR	(!empty($registro['suplemento_dietetico']) AND empty($registro['suplemento_dietetico_desc']))
+				OR	(!empty($registro['alzheimer']) AND empty($registro['alzheimer_desc']))
+				OR	empty($registro['fecha_ea'])
+				OR	(!empty($registro['morbido']) AND empty($registro['morbido_desc']))
+				OR $registro['hipertension'] == '' OR $registro['ulcera'] == '' OR $registro['diabetes'] == '' OR $registro['hipo_hipertiroidismo'] == ''
+				OR $registro['hiperlipidemia'] == '' OR $registro['epoc'] == '' OR $registro['coronaria'] == '' OR $registro['rinitis'] == ''
+				OR $registro['acc_vascular'] == '' OR $registro['asma'] == '' OR $registro['gastritis'] == '' OR $registro['cefaleas'] == ''
+				OR $registro['alergia'] == '' OR $registro['tabaquismo'] == '' OR $registro['ingesta_alcohol'] == '' OR $registro['drogas'] == ''
+				OR $registro['cirugia'] == '' OR $registro['donado_sangre'] == '' OR $registro['tratamiento_farma'] == '' OR $registro['suplemento_dietetico'] == ''
+				OR $registro['alzheimer'] == '' OR $registro['morbido'] == ''
+				
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['historial_medico_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 1){
+				$subjet_['historial_medico_1_status'] = $estado;
+			}
+			
+
+			$registro['status'] = $estado;
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Historial_medico');
+			$this->Model_Historial_medico->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Historia medica agregada", $registro['subject_id']);     		
+     		redirect('subject/historial_medico_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+		}
+	}
+
+	public function historial_medico_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/historial_medico_show';
+		$data['titulo'] = 'Historia Medica';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		
+		$this->load->model('Model_Historial_medico');
+		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$subject_id));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Historia Medica"));
+
+		$this->load->view('template', $data);
+	}
+
+	public function historial_medico_update($subject_id, $etapa){
+		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('hipertension', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('asma', '', 'xss_clean');
+		$this->form_validation->set_rules('asma_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('alergia', '', 'xss_clean');
+		$this->form_validation->set_rules('alergia_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('tabaquismo', '', 'xss_clean');
+		$this->form_validation->set_rules('tabaquismo_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ingesta_alcohol', '', 'xss_clean');
+		$this->form_validation->set_rules('ingesta_alcohol_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('drogas', '', 'xss_clean');
+		$this->form_validation->set_rules('drogas_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cirugia', '', 'xss_clean');
+		$this->form_validation->set_rules('cirugia_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('donado_sangre', '', 'xss_clean');
+		$this->form_validation->set_rules('donado_sangre_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('tratamiento_farma', '', 'xss_clean');
+		$this->form_validation->set_rules('tratamiento_farma_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('suplemento_dietetico', '', 'xss_clean');
+		$this->form_validation->set_rules('suplemento_dietetico_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('alzheimer', '', 'xss_clean');
+		$this->form_validation->set_rules('alzheimer_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_ea', '', 'xss_clean');
+		$this->form_validation->set_rules('morbido', '', 'xss_clean');
+		$this->form_validation->set_rules('morbido_desc', '', 'xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de actualizar el formulario de Historia Medica", $registro['subject_id']);
+			$this->historial_medico($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			
+			/*estado del form segun lo que se envia*/
+			if(
+					(!empty($registro['hipertension']) AND empty($registro['hipertension_fecha_diagnostico']))
+				OR	(!empty($registro['ulcera']) AND empty($registro['ulcera_fecha_diagnostico']))
+				OR	(!empty($registro['diabetes']) AND empty($registro['diabetes_fecha_diagnostico']))
+				OR	(!empty($registro['hipo_hipertiroidismo']) AND empty($registro['hipo_hipertiroidismo_fecha_diagnostico']))
+				OR	(!empty($registro['hiperlipidemia']) AND empty($registro['hiperlipidemia_fecha_diagnostico']))
+				OR	(!empty($registro['epoc']) AND empty($registro['epoc_fecha_diagnostico']))
+				OR	(!empty($registro['coronaria']) AND empty($registro['coronaria_fecha_diagnostico']))
+				OR	(!empty($registro['rinitis']) AND empty($registro['rinitis_fecha_diagnostico']))
+				OR	(!empty($registro['acc_vascular']) AND empty($registro['acc_vascular_fecha_diagnostico']))
+				OR	(!empty($registro['asma']) AND empty($registro['asma_fecha_diagnostico']))
+				OR	(!empty($registro['gastritis']) AND empty($registro['gastritis_fecha_diagnostico']))
+				OR	(!empty($registro['cefaleas']) AND empty($registro['cefaleas_fecha_diagnostico']))
+				OR	(!empty($registro['alergia']) AND empty($registro['alergia_desc']))
+				OR	(!empty($registro['tabaquismo']) AND empty($registro['tabaquismo_desc']))
+				OR	(!empty($registro['ingesta_alcohol']) AND empty($registro['ingesta_alcohol_desc']))
+				OR	(!empty($registro['drogas']) AND empty($registro['drogas_desc']))
+				OR	(!empty($registro['cirugia']) AND empty($registro['cirugia_desc']))
+				OR	(!empty($registro['donado_sangre']) AND empty($registro['donado_sangre_desc']))
+				OR	(!empty($registro['tratamiento_farma']) AND empty($registro['tratamiento_farma_desc']))
+				OR	(!empty($registro['suplemento_dietetico']) AND empty($registro['suplemento_dietetico_desc']))
+				OR	(!empty($registro['alzheimer']) AND empty($registro['alzheimer_desc']))
+				OR	empty($registro['fecha_ea'])
+				OR	(!empty($registro['morbido']) AND empty($registro['morbido_desc']))
+				OR $registro['hipertension'] == '' OR $registro['ulcera'] == '' OR $registro['diabetes'] == '' OR $registro['hipo_hipertiroidismo'] == ''
+				OR $registro['hiperlipidemia'] == '' OR $registro['epoc'] == '' OR $registro['coronaria'] == '' OR $registro['rinitis'] == ''
+				OR $registro['acc_vascular'] == '' OR $registro['asma'] == '' OR $registro['gastritis'] == '' OR $registro['cefaleas'] == ''
+				OR $registro['alergia'] == '' OR $registro['tabaquismo'] == '' OR $registro['ingesta_alcohol'] == '' OR $registro['drogas'] == ''
+				OR $registro['cirugia'] == '' OR $registro['donado_sangre'] == '' OR $registro['tratamiento_farma'] == '' OR $registro['suplemento_dietetico'] == ''
+				OR $registro['alzheimer'] == '' OR $registro['morbido'] == ''
+				
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['historial_medico_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 1){
+				$subjet_['historial_medico_1_status'] = $estado;
+			}
+			
+
+			$registro['status'] = $estado;			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Historial_medico');
+			$this->Model_Historial_medico->update($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Historia medica actualizada", $registro['subject_id']);     		
+     		redirect('subject/historial_medico_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+		}
+	}
+
+	public function historial_medico_verify($subject_id, $etapa){
+
+	}
+
+	public function historial_medico_signature($subject_id, $etapa){
+
+	}
+
+	public function historial_medico_lock($subject_id, $etapa){
+
+	}
+
+	/*----------------------------------------------------- ADAS ACOG ------------------------------------------------------------------------*/
+
+	/*----------------------------------------------------- Prueba de restas seriadas --------------------------------------------------------*/	
 	
 } 

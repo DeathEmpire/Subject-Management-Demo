@@ -6,7 +6,7 @@ class To_do extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		
-		$this->load->library('pendinglib');		
+		$this->load->library('pendingLib');		
     }
 
     function index(){

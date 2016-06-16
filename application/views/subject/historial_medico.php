@@ -1,27 +1,9 @@
+<script src="<?= base_url('js/historial_medico.js') ?>"></script>
 <style type="text/css">
 	#ui-datepicker-div { display: none; }
 </style>
 <script type="text/javascript">
-$(function(){
-	$("#fecha").datepicker();
 
-	$("input[name=hallazgo]").click(function(){
-		if($(this).val() == 1){
-			//todos los campos habilitados.
-			$("input:radio").removeAttr("readonly");
-			$("input:radio").removeAttr("disabled");
-		}
-		else{
-			//todos los campos bloqueados.
-			$("input:radio").attr("readonly","readonly");
-			$("input:radio").attr("disabled","disabled");			
-
-			$("input[name=hallazgo]").removeAttr("readonly");
-			$("input[name=hallazgo]").removeAttr("disabled");
-
-		}
-	});
-});
 </script>
 <div class="row">
 		<legend style='text-align:center;'>Historia Medica</legend>
@@ -49,18 +31,6 @@ $(function(){
 			</tbody>
 		</table>
 		<br />
-<?php
-	$data = array(
-        'name'        => 'hallazgo',                
-        'value'       => '1',            
-        'checked'     => set_radio('hallazgo', 1),
-        );
-    $data2 = array(
-        'name'        => 'hallazgo',                
-        'value'       => '0',
-        'checked'     => set_radio('hallazgo', 0),           
-        );
-?>
 
 	<?= form_open('subject/historial_medico_insert', array('class'=>'form-horizontal')); ?>
 	
@@ -69,129 +39,210 @@ $(function(){
 	<?= form_hidden('subject_id', $subject->id); ?>
 	<?= form_hidden('etapa', $etapa); ?>
 
-		<table class='table table-striped table-hover table-bordered table-condensed'>
+	<table class='table table-striped table-hover table-bordered table-condensed'>		
+		<thead>
 			<tr>
-				<td>Fecha: </td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
-				<td></td>
+				<td colspan='2' style='font-weight:bold;'>1.- ANTECEDENTES DEL SUJETO</td>			
+				<td style='font-weight:bold;'>FECHA DIAGNOSTICO</td>
 			</tr>
-			<tr style='background-color:#ddd;'>
-				<td></td>
-				<td></td>
-				<td style='font-weight:bold;'>Describa hallazgos</td>
-			</tr>
+		</thead>
+		<tbody>
 			<tr>
-				<td style='font-weight:bold;'>Tiene el paciente algun hallazgo en el examen fisico: </td>
-				<td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
-				<td></td>
-			</tr>			
-			<tr>
-				<td>Cardiovascular: </td>
+				<td>Hipertensión arterial:</td>
 				<td>
-					<?= form_radio(array('name'=>'cardiovascular','value'=>'1','checked'=>set_radio('cardiovascular', 1))); ?> Si
-					<?= form_radio(array('name'=>'cardiovascular','value'=>'0','checked'=>set_radio('cardiovascular', 0))); ?> No
+					<?= form_radio('hipertension',1,set_radio('hipertension'));?> SI
+					<?= form_radio('hipertension',0,set_radio('hipertension'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'cardiovascular_desc','id'=>'cardiovascular_desc', 'value'=>set_value('cardiovascular_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'hipertension_fecha_diagnostico', 'id'=>'hipertension_fecha_diagnostico', 'value'=>set_value('hipertension_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Vascular Periferico: </td>
+				<td>Úlcera gastrointestinal: </td>
 				<td>
-					<?= form_radio(array('name'=>'periferico','value'=>'1','checked'=>set_radio('periferico', 1))); ?> Si
-					<?= form_radio(array('name'=>'periferico','value'=>'0','checked'=>set_radio('periferico', 0))); ?> No
+					<?= form_radio('ulcera',1,set_radio('ulcera'));?> SI
+					<?= form_radio('ulcera',0,set_radio('ulcera'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'periferico_desc','id'=>'periferico_desc', 'value'=>set_value('periferico_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'ulcera_fecha_diagnostico', 'id'=>'ulcera_fecha_diagnostico', 'value'=>set_value('ulcera_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Oidos y Garganta: </td>
+				<td>Diabetes mellitus: </td>
 				<td>
-					<?= form_radio(array('name'=>'oidos','value'=>'1','checked'=>set_radio('oidos', 1))); ?> Si
-					<?= form_radio(array('name'=>'oidos','value'=>'0','checked'=>set_radio('oidos', 0))); ?> No
+					<?= form_radio('diabetes',1,set_radio('diabetes'));?> SI
+					<?= form_radio('diabetes',0,set_radio('diabetes'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'oidos_desc','id'=>'oidos_desc', 'value'=>set_value('oidos_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'diabetes_fecha_diagnostico', 'id'=>'diabetes_fecha_diagnostico', 'value'=>set_value('diabetes_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Neurologico: </td>
+				<td>Hipo/Hipertiroidismo: </td>
 				<td>
-					<?= form_radio(array('name'=>'neurologico','value'=>'1','checked'=>set_radio('neurologico', 1))); ?> Si
-					<?= form_radio(array('name'=>'neurologico','value'=>'0','checked'=>set_radio('neurologico', 0))); ?> No
+					<?= form_radio('hipo_hipertiroidismo',1,set_radio('hipo_hipertiroidismo'));?> SI
+					<?= form_radio('hipo_hipertiroidismo',0,set_radio('hipo_hipertiroidismo'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'neurologico_desc','id'=>'neurologico_desc', 'value'=>set_value('neurologico_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'hipo_hipertiroidismo_fecha_diagnostico', 'id'=>'hipo_hipertiroidismo_fecha_diagnostico', 'value'=>set_value('hipo_hipertiroidismo_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Pulmones/Respiratorio: </td>
+				<td>Hiperlipidemia:</td>
 				<td>
-					<?= form_radio(array('name'=>'pulmones','value'=>'1','checked'=>set_radio('pulmones', 1))); ?> Si
-					<?= form_radio(array('name'=>'pulmones','value'=>'0','checked'=>set_radio('pulmones', 0))); ?> No
+					<?= form_radio('hiperlipidemia',1,set_radio('hiperlipidemia'));?> SI
+					<?= form_radio('hiperlipidemia',0,set_radio('hiperlipidemia'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'pulmones_desc','id'=>'pulmones_desc', 'value'=>set_value('pulmones_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'hiperlipidemia_fecha_diagnostico', 'id'=>'hiperlipidemia_fecha_diagnostico', 'value'=>set_value('hiperlipidemia_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Renal/Urinario: </td>
+				<td>EPOC</td>
 				<td>
-					<?= form_radio(array('name'=>'renal','value'=>'1','checked'=>set_radio('renal', 1))); ?> Si
-					<?= form_radio(array('name'=>'renal','value'=>'0','checked'=>set_radio('renal', 0))); ?> No
+					<?= form_radio('epoc',1,set_radio('epoc'));?> SI
+					<?= form_radio('epoc',0,set_radio('epoc'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'renal_desc','id'=>'renal_desc', 'value'=>set_value('renal_desc'), 'rows'=>3)); ?></td>
-			</tr>			
-			<tr>
-				<td>Ginecologico: </td>
-				<td>
-					<?= form_radio(array('name'=>'ginecologico','value'=>'1','checked'=>set_radio('ginecologico', 1))); ?> Si
-					<?= form_radio(array('name'=>'ginecologico','value'=>'0','checked'=>set_radio('ginecologico', 0))); ?> No
-				</td>
-				<td><?= form_textarea(array('name'=>'ginecologico_desc','id'=>'ginecologico_desc', 'value'=>set_value('ginecologico_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'epoc_fecha_diagnostico', 'id'=>'epoc_fecha_diagnostico', 'value'=>set_value('epoc_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Endocrino/Metabolico: </td>
+				<td>Enfermedad coronaria:</td>
 				<td>
-					<?= form_radio(array('name'=>'endocrino','value'=>'1','checked'=>set_radio('endocrino', 1))); ?> Si
-					<?= form_radio(array('name'=>'endocrino','value'=>'0','checked'=>set_radio('endocrino', 0))); ?> No
+					<?= form_radio('coronaria',1,set_radio('coronaria'));?> SI
+					<?= form_radio('coronaria',0,set_radio('coronaria'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'endocrino_desc','id'=>'endocrino_desc', 'value'=>set_value('endocrino_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'coronaria_fecha_diagnostico', 'id'=>'coronaria_fecha_diagnostico', 'value'=>set_value('coronaria_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Hepatico: </td>
+				<td>Rinitis:</td>
 				<td>
-					<?= form_radio(array('name'=>'hepatico','value'=>'1','checked'=>set_radio('hepatico', 1))); ?> Si
-					<?= form_radio(array('name'=>'hepatico','value'=>'0','checked'=>set_radio('hepatico', 0))); ?> No
+					<?= form_radio('rinitis',1,set_radio('rinitis'));?> SI
+					<?= form_radio('rinitis',0,set_radio('rinitis'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'hepatico_desc','id'=>'hepatico_desc', 'value'=>set_value('hepatico_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'rinitis_fecha_diagnostico', 'id'=>'rinitis_fecha_diagnostico', 'value'=>set_value('rinitis_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Gastrointestinal: </td>
+				<td>Accidente vascular encefálico:</td>
 				<td>
-					<?= form_radio(array('name'=>'gastrointestinal','value'=>'1','checked'=>set_radio('gastrointestinal', 1))); ?> Si
-					<?= form_radio(array('name'=>'gastrointestinal','value'=>'0','checked'=>set_radio('gastrointestinal', 0))); ?> No
+					<?= form_radio('acc_vascular',1,set_radio('acc_vascular'));?> SI
+					<?= form_radio('acc_vascular',0,set_radio('acc_vascular'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'gastrointestinal_desc','id'=>'gastrointestinal_desc', 'value'=>set_value('gastrointestinal_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'acc_vascular_fecha_diagnostico', 'id'=>'acc_vascular_fecha_diagnostico', 'value'=>set_value('acc_vascular_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Muscular/Esqueletico: </td>
+				<td>Asma:</td>
 				<td>
-					<?= form_radio(array('name'=>'muscular','value'=>'1','checked'=>set_radio('muscular', 1))); ?> Si
-					<?= form_radio(array('name'=>'muscular','value'=>'0','checked'=>set_radio('muscular', 0))); ?> No
+					<?= form_radio('asma',1,set_radio('asma'));?> SI
+					<?= form_radio('asma',0,set_radio('asma'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'muscular_desc','id'=>'muscular_desc', 'value'=>set_value('muscular_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'asma_fecha_diagnostico', 'id'=>'asma_fecha_diagnostico', 'value'=>set_value('asma_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Cancer: </td>
+				<td>Gastritis/Reflujo GE:</td>
 				<td>
-					<?= form_radio(array('name'=>'cancer','value'=>'1','checked'=>set_radio('cancer', 1))); ?> Si
-					<?= form_radio(array('name'=>'cancer','value'=>'0','checked'=>set_radio('cancer', 0))); ?> No
+					<?= form_radio('gastritis',1,set_radio('gastritis'));?> SI
+					<?= form_radio('gastritis',0,set_radio('gastritis'));?> NO
 				</td>
-				<td><?= form_textarea(array('name'=>'cancer_desc','id'=>'cancer_desc', 'value'=>set_value('cancer_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'gastritis_fecha_diagnostico', 'id'=>'gastritis_fecha_diagnostico', 'value'=>set_value('gastritis_fecha_diagnostico'))); ?></td>
 			</tr>
 			<tr>
-				<td>Otros: </td>
-				<td></td>
-				<td></td>
-			</tr>			
+				<td>Cefaleas matinales:</td>
+				<td>
+					<?= form_radio('cefaleas',1,set_radio('cefaleas'));?> SI
+					<?= form_radio('cefaleas',0,set_radio('cefaleas'));?> NO
+				</td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'cefaleas_fecha_diagnostico', 'id'=>'cefaleas_fecha_diagnostico', 'value'=>set_value('cefaleas_fecha_diagnostico'))); ?></td>
+			</tr>
+		</tbody>
+		<thead>
+			<tr>
+				<td colspan='2'></td>
+				<td style='font-weight:bold;'>Describir</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Alergias:</td>
+				<td>
+					<?= form_radio('alergia',1,set_radio('alergia'));?> SI
+					<?= form_radio('alergia',0,set_radio('alergia'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'alergia_desc', 'id'=>'alergia_desc', 'value'=>set_value('alergia_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>Tabaquismo (cantidad):</td>
+				<td>
+					<?= form_radio('tabaquismo',1,set_radio('tabaquismo'));?> SI
+					<?= form_radio('tabaquismo',0,set_radio('tabaquismo'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'tabaquismo_desc', 'id'=>'tabaquismo_desc', 'value'=>set_value('tabaquismo_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>Ingesta de Alcohol:</td>
+				<td>
+					<?= form_radio('ingesta_alcohol',1,set_radio('ingesta_alcohol'));?> SI
+					<?= form_radio('ingesta_alcohol',0,set_radio('ingesta_alcohol'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'ingesta_alcohol_desc', 'id'=>'ingesta_alcohol_desc', 'value'=>set_value('ingesta_alcohol_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>Consumo de Drogas de abuso:</td>
+				<td>
+					<?= form_radio('drogas',1,set_radio('drogas'));?> SI
+					<?= form_radio('drogas',0,set_radio('drogas'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'drogas_desc', 'id'=>'drogas_desc', 'value'=>set_value('drogas_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>¿Ha tenido alguna intervención quirúrgica y/o cirugía?</td>
+				<td>
+					<?= form_radio('cirugia',1,set_radio('cirugia'));?> SI
+					<?= form_radio('cirugia',0,set_radio('cirugia'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'cirugia_desc', 'id'=>'cirugia_desc', 'value'=>set_value('cirugia_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>¿Ha donado sangre o ha participado en algún estudio clínico farmacológico en los últimos tres meses?</td>
+				<td>
+					<?= form_radio('donado_sangre',1,set_radio('donado_sangre'));?> SI
+					<?= form_radio('donado_sangre',0,set_radio('donado_sangre'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'donado_sangre_desc', 'id'=>'donado_sangre_desc', 'value'=>set_value('donado_sangre_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>¿Ha donado sangre o ha participado en algún estudio clínico farmacológico en los últimos tres meses?</td>
+				<td>
+					<?= form_radio('tratamiento_farma',1,set_radio('tratamiento_farma'));?> SI
+					<?= form_radio('tratamiento_farma',0,set_radio('tratamiento_farma'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'tratamiento_farma_desc', 'id'=>'tratamiento_farma_desc', 'value'=>set_value('tratamiento_farma_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>¿Está recibiendo o ha recibido en el último mes, algún suplemento dietético o vitamínico?</td>
+				<td>
+					<?= form_radio('suplemento_dietetico',1,set_radio('suplemento_dietetico'));?> SI
+					<?= form_radio('suplemento_dietetico',0,set_radio('suplemento_dietetico'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'suplemento_dietetico_desc', 'id'=>'suplemento_dietetico_desc', 'value'=>set_value('suplemento_dietetico_desc'), 'rows'=>'5')); ?></td>
+			</tr>		
+			<tr>
+				<td>2.- ANTECEDENTES FAMILIARES DE ALZHEIMER (padre, madre, hermanos): </td>
+				<td>
+					<?= form_radio('alzheimer',1,set_radio('alzheimer'));?> SI
+					<?= form_radio('alzheimer',0,set_radio('alzheimer'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'alzheimer_desc', 'id'=>'alzheimer_desc', 'value'=>set_value('alzheimer_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>3.- FECHA EN QUE PRESENTÓ PRIMEROS SÍNTOMAS ASOCIADOS A LA EA</td>				
+				<td>Año: </td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'fecha_ea', 'id'=>'fecha_ea', 'value'=>set_value('fecha_ea'), 'masxlenght'=>'4')); ?></td>
+			</tr>
+			<tr>
+				<td>4.- ANTECEDENTES MORBIDOS FAMILIARES (padre, madre, hermanos):</td>
+				<td>
+					<?= form_radio('morbido',1,set_radio('morbido'));?> SI
+					<?= form_radio('morbido',0,set_radio('morbido'));?> NO
+				</td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'morbido_desc', 'id'=>'morbido_desc', 'value'=>set_value('morbido_desc'), 'rows'=>'5')); ?></td>
+			</tr>
 			<tr>
 				<td colspan='3' style='text-align:center;'>
 					<input type='submit' class='btn btn-primary' value='Guardar'>
 					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
 				</td>				
 			</tr>			
-		</table>
+		</tbody>
+	</table>
+
 	<?= form_close(); ?>
-</div>
