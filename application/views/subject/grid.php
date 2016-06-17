@@ -1245,11 +1245,155 @@
 		<tr>
 			<td>ADAS-cog</td>
 			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
+			<?php
+				#print_r($subject);
+				if(empty($subject->adas_2_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/adas/'.$subject->id .'/2';
+				}
+				elseif ($subject->adas_2_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->adas_2_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->adas_2_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->adas_2_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->adas_2_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->adas_2_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/2';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<td style='text-align:center;'></td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
-			<td style='text-align:center;'>X</td>
+			<?php
+				#print_r($subject);
+				if(empty($subject->adas_4_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/adas/'.$subject->id .'/4';
+				}
+				elseif ($subject->adas_4_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->adas_4_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->adas_4_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->adas_4_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->adas_4_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/4';
+				}
+				elseif ($subject->adas_4_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/4';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php
+				#print_r($subject);
+				if(empty($subject->adas_5_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/adas/'.$subject->id .'/5';
+				}
+				elseif ($subject->adas_5_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->adas_5_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->adas_5_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->adas_5_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->adas_5_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->adas_5_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/5';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php
+				#print_r($subject);
+				if(empty($subject->adas_6_status)){					
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/adas/'.$subject->id .'/6';
+				}
+				elseif ($subject->adas_6_status == 'Record Complete') {					
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->adas_6_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->adas_6_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->adas_6_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->adas_6_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->adas_6_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/adas_show/'.$subject->id .'/6';
+				}
+				else{
+					$icon = '*';		
+					$link = '';
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 		</tr>
 		<tr>
 			<td>NPI</td>

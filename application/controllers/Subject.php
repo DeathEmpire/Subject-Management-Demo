@@ -4836,6 +4836,30 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('trastornos_apetito_status','','xss_clean');
 		$this->form_validation->set_rules('trastornos_apetito_puntaje','','xss_clean');			
 		$this->form_validation->set_rules('trastornos_apetito_angustia','','xss_clean');
+		$this->form_validation->set_rules('delirio_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('delirio_severidad','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_severidad','','xss_clean');
+		$this->form_validation->set_rules('agitacion_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('agitacion_severidad','','xss_clean');
+		$this->form_validation->set_rules('depresion_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('depresion_severidad','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_severidad','','xss_clean');
+		$this->form_validation->set_rules('elacion_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('elacion_severidad','','xss_clean');
+		$this->form_validation->set_rules('apatia_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('apatia_severidad','','xss_clean');
+		$this->form_validation->set_rules('deshinibicion_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('deshinibicion_severidad','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_severidad','','xss_clean');
+		$this->form_validation->set_rules('conducta_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('conducta_severidad','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_severidad','','xss_clean');
+		$this->form_validation->set_rules('trastornos_apetito_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('trastornos_apetito_severidad','','xss_clean');
 
 
 		if($this->form_validation->run() == FALSE) {
@@ -4850,6 +4874,14 @@ class Subject extends CI_Controller {
 				 OR $registro['depresion_status'] == '' OR $registro['ansiedad_status'] == '' OR $registro['elacion_status'] == '' 
 				 OR $registro['apatia_status'] == ''  OR $registro['deshinibicion_status'] == '' OR $registro['irritabilidad_status'] == '' 
 				 OR $registro['conducta_status'] == '' OR $registro['trastornos_sueno_status'] == '' OR $registro['trastornos_apetito_status'] == ''
+				 OR $registro['delirio_frecuencia'] == '' OR $registro['delirio_severidad'] == '' OR $registro['alucinaciones_frecuencia'] == ''
+				 OR $registro['alucinaciones_severidad'] == '' OR $registro['agitacion_frecuencia'] == '' OR $registro['agitacion_severidad'] == ''
+				 OR $registro['depresion_frecuencia'] == '' OR $registro['depresion_severidad'] == '' OR $registro['ansiedad_frecuencia'] == ''
+				 OR $registro['ansiedad_severidad'] == '' OR $registro['elacion_frecuencia'] == '' OR $registro['elacion_severidad'] == ''
+				 OR $registro['apatia_frecuencia'] == '' OR $registro['apatia_severidad'] == '' OR $registro['deshinibicion_frecuencia'] == ''
+				 OR $registro['deshinibicion_severidad'] == '' OR $registro['irritabilidad_frecuencia'] == '' OR $registro['irritabilidad_severidad'] == ''
+				 OR $registro['conducta_frecuencia'] == '' OR $registro['conducta_severidad'] == '' OR $registro['trastornos_sueno_frecuencia'] == ''
+				 OR $registro['trastornos_sueno_severidad'] == '' OR $registro['trastornos_apetito_frecuencia'] == '' OR $registro['trastornos_apetito_severidad'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -4951,7 +4983,30 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('trastornos_apetito_status','','xss_clean');
 		$this->form_validation->set_rules('trastornos_apetito_puntaje','','xss_clean');			
 		$this->form_validation->set_rules('trastornos_apetito_angustia','','xss_clean');
-
+		$this->form_validation->set_rules('delirio_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('delirio_severidad','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('alucinaciones_severidad','','xss_clean');
+		$this->form_validation->set_rules('agitacion_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('agitacion_severidad','','xss_clean');
+		$this->form_validation->set_rules('depresion_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('depresion_severidad','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('ansiedad_severidad','','xss_clean');
+		$this->form_validation->set_rules('elacion_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('elacion_severidad','','xss_clean');
+		$this->form_validation->set_rules('apatia_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('apatia_severidad','','xss_clean');
+		$this->form_validation->set_rules('deshinibicion_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('deshinibicion_severidad','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('irritabilidad_severidad','','xss_clean');
+		$this->form_validation->set_rules('conducta_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('conducta_severidad','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('trastornos_sueno_severidad','','xss_clean');
+		$this->form_validation->set_rules('trastornos_apetito_frecuencia','','xss_clean');
+		$this->form_validation->set_rules('trastornos_apetito_severidad','','xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar NPI", $registro['subject_id']);
@@ -4965,6 +5020,14 @@ class Subject extends CI_Controller {
 				 OR $registro['depresion_status'] == '' OR $registro['ansiedad_status'] == '' OR $registro['elacion_status'] == '' 
 				 OR $registro['apatia_status'] == ''  OR $registro['deshinibicion_status'] == '' OR $registro['irritabilidad_status'] == '' 
 				 OR $registro['conducta_status'] == '' OR $registro['trastornos_sueno_status'] == '' OR $registro['trastornos_apetito_status'] == ''
+				 OR $registro['delirio_frecuencia'] == '' OR $registro['delirio_severidad'] == '' OR $registro['alucinaciones_frecuencia'] == ''
+				 OR $registro['alucinaciones_severidad'] == '' OR $registro['agitacion_frecuencia'] == '' OR $registro['agitacion_severidad'] == ''
+				 OR $registro['depresion_frecuencia'] == '' OR $registro['depresion_severidad'] == '' OR $registro['ansiedad_frecuencia'] == ''
+				 OR $registro['ansiedad_severidad'] == '' OR $registro['elacion_frecuencia'] == '' OR $registro['elacion_severidad'] == ''
+				 OR $registro['apatia_frecuencia'] == '' OR $registro['apatia_severidad'] == '' OR $registro['deshinibicion_frecuencia'] == ''
+				 OR $registro['deshinibicion_severidad'] == '' OR $registro['irritabilidad_frecuencia'] == '' OR $registro['irritabilidad_severidad'] == ''
+				 OR $registro['conducta_frecuencia'] == '' OR $registro['conducta_severidad'] == '' OR $registro['trastornos_sueno_frecuencia'] == ''
+				 OR $registro['trastornos_sueno_severidad'] == '' OR $registro['trastornos_apetito_frecuencia'] == '' OR $registro['trastornos_apetito_severidad'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -5680,7 +5743,7 @@ class Subject extends CI_Controller {
 		$data['etapa'] = $etapa;
 		
 		$this->load->model('Model_Historial_medico');
-		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$subject_id));
+		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
 		/*querys*/
 		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Historia Medica"));
@@ -5808,19 +5871,294 @@ class Subject extends CI_Controller {
 		}
 	}
 
-	public function historial_medico_verify($subject_id, $etapa){
+	public function historial_medico_verify(){
 
 	}
 
-	public function historial_medico_signature($subject_id, $etapa){
+	public function historial_medico_signature(){
 
 	}
 
-	public function historial_medico_lock($subject_id, $etapa){
+	public function historial_medico_lock(){
 
 	}
 
-	/*----------------------------------------------------- ADAS ACOG ------------------------------------------------------------------------*/
+	/*----------------------------------------------------- ADAS COG ------------------------------------------------------------------------*/
+
+	public function adas($subject_id, $etapa){
+		//2-4-5-6
+		$data['contenido'] = 'subject/adas';
+		$data['titulo'] = 'ADAS COG';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		
+		$data['no_administro'] = array(""=>"",
+			"El paciente se nego"=>"El paciente se negó",
+			"El paciente no pudo hacerlo por motivos fisicos"=>"El paciente no pudo hacerlo por motivos físicos",
+			"EL paciente no pudo por motivos cognitivos" => "EL paciente no pudo por motivos cognitivos",
+			"No se realizo (por motivos que no son fisicos ni cognitivos)" =>"No se realizó (por motivos que no son físicos ni cognitivos)"
+		);
+
+		$data['puntaje'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5');
+
+		$this->load->view('template', $data);
+	}
+
+	public function adas_insert(){
+		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('palabras_recordadas_1', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_no_recordadas_1', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_recordadas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_no_recordadas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_recordadas_3', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_no_recordadas_3', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_1', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_2', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_2', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_3', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_3', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_3', '', 'xss_clean');
+		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_3', '', 'xss_clean');
+		$this->form_validation->set_rules('total_recordadas_4', '', 'xss_clean');
+		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_5', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_5', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_5', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_6', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_6', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_6', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_7', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_7', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_7', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_8', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_8', '', 'xss_clean');
+		$this->form_validation->set_rules('cantidad_recordadas_8', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_8', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_9', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_10', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_11', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_12', '', 'xss_clean');
+		$this->form_validation->set_rules('objetivos_13', '', 'xss_clean');
+		$this->form_validation->set_rules('errores_13', '', 'xss_clean');
+		$this->form_validation->set_rules('recordo_13', '', 'xss_clean');
+		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de agregar el formulario de ADAS COG", $registro['subject_id']);
+			$this->adas($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			
+			/*Estado segun campos*/
+			if(
+				isset($registro['realizado']) AND $registro['realizado'] == 1
+				AND
+				(
+					$registro['palabras_recordadas_1'] == '' OR $registro['palabras_no_recordadas_1'] == '' OR $registro['palabras_recordadas_2'] == '' 
+					OR $registro['palabras_no_recordadas_2'] == '' OR $registro['palabras_recordadas_3'] == '' OR $registro['palabras_no_recordadas_3'] == '' 
+					OR $registro['hora_finalizacion'] == '' OR $registro['total_correctas_2'] == '' OR $registro['total_incorrectas_2'] == '' 
+					OR $registro['puntuacion_2'] == '' OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == ''
+	  				OR $registro['puntuacion_3'] == '' OR $registro['total_recordadas_4'] == '' 
+	  				OR $registro['total_no_recordadas_4'] == '' OR $registro['total_correctas_5'] == '' OR $registro['total_incorrectas_5'] == ''
+	  				OR $registro['puntuacion_5'] == '' OR $registro['total_correctas_6'] == '' OR $registro['total_incorrectas_6'] == '' 
+	  				OR $registro['puntuacion_6'] == '' OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
+	  				OR $registro['total_correctas_8'] == '' OR $registro['total_incorrectas_8'] == '' OR $registro['cantidad_recordadas_8'] == '' 
+	  				OR $registro['puntuacion_9'] == '' OR $registro['puntuacion_10'] == '' OR $registro['puntuacion_11'] == ''
+	  				OR $registro['puntuacion_12'] == '' OR $registro['objetivos_13'] == '' OR $registro['errores_13'] == '' 
+	  				OR $registro['recordo_13'] == ''
+				)
+			){
+				$estado = 'Error';
+			}	
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['adas_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 4){
+				$subjet_['adas_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['adas_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['adas_6_status'] = $estado;
+			}
+			
+
+			$registro['status'] = $estado;
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Adas');
+			$this->Model_Adas->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("ADAS COG agregado", $registro['subject_id']);     		
+     		redirect('subject/adas_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+		}
+	}
+
+	public function adas_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/adas_show';
+		$data['titulo'] = 'ADAS COG';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+		
+		$data['no_administro'] = array(""=>"",
+			"El paciente se nego"=>"El paciente se negó",
+			"El paciente no pudo hacerlo por motivos fisicos"=>"El paciente no pudo hacerlo por motivos físicos",
+			"EL paciente no pudo por motivos cognitivos" => "EL paciente no pudo por motivos cognitivos",
+			"No se realizo (por motivos que no son fisicos ni cognitivos)" =>"No se realizó (por motivos que no son físicos ni cognitivos)"
+		);
+
+		$data['puntaje'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5');
+
+		$this->load->model('Model_Adas');
+		$data['list'] = $this->Model_Adas->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"ADAS COG"));
+
+		$this->load->view('template', $data);
+	}
+
+	public function adas_update(){
+		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('palabras_recordadas_1', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_no_recordadas_1', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_recordadas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_no_recordadas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_recordadas_3', '', 'xss_clean');
+		$this->form_validation->set_rules('palabras_no_recordadas_3', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_1', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_2', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_2', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_3', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_3', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_3', '', 'xss_clean');
+		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_3', '', 'xss_clean');
+		$this->form_validation->set_rules('total_recordadas_4', '', 'xss_clean');
+		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_5', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_5', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_5', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_6', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_6', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_6', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_7', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_7', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_7', '', 'xss_clean');
+		$this->form_validation->set_rules('total_correctas_8', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_8', '', 'xss_clean');
+		$this->form_validation->set_rules('cantidad_recordadas_8', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_8', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_9', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_10', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_11', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_12', '', 'xss_clean');
+		$this->form_validation->set_rules('objetivos_13', '', 'xss_clean');
+		$this->form_validation->set_rules('errores_13', '', 'xss_clean');
+		$this->form_validation->set_rules('recordo_13', '', 'xss_clean');
+		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de actualizar el formulario de ADAS COG", $registro['subject_id']);
+			$this->adas_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			
+			/*Estado segun campos*/
+			if(
+				isset($registro['realizado']) AND $registro['realizado'] == 1
+				AND
+				(
+					$registro['palabras_recordadas_1'] == '' OR $registro['palabras_no_recordadas_1'] == '' OR $registro['palabras_recordadas_2'] == '' 
+					OR $registro['palabras_no_recordadas_2'] == '' OR $registro['palabras_recordadas_3'] == '' OR $registro['palabras_no_recordadas_3'] == '' 
+					OR $registro['hora_finalizacion'] == '' OR $registro['total_correctas_2'] == '' OR $registro['total_incorrectas_2'] == '' 
+					OR $registro['puntuacion_2'] == '' OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == ''
+	  				OR $registro['puntuacion_3'] == '' OR $registro['total_recordadas_4'] == '' 
+	  				OR $registro['total_no_recordadas_4'] == '' OR $registro['total_correctas_5'] == '' OR $registro['total_incorrectas_5'] == ''
+	  				OR $registro['puntuacion_5'] == '' OR $registro['total_correctas_6'] == '' OR $registro['total_incorrectas_6'] == '' 
+	  				OR $registro['puntuacion_6'] == '' OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
+	  				OR $registro['total_correctas_8'] == '' OR $registro['total_incorrectas_8'] == '' OR $registro['cantidad_recordadas_8'] == '' 
+	  				OR $registro['puntuacion_9'] == '' OR $registro['puntuacion_10'] == '' OR $registro['puntuacion_11'] == ''
+	  				OR $registro['puntuacion_12'] == '' OR $registro['objetivos_13'] == '' OR $registro['errores_13'] == '' 
+	  				OR $registro['recordo_13'] == ''
+				)
+			){
+				$estado = 'Error';
+			}	
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['adas_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 4){
+				$subjet_['adas_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['adas_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['adas_6_status'] = $estado;
+			}
+			
+
+			$registro['status'] = $estado;			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Adas');
+			$this->Model_Adas->update($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("ADAS COG actualizado", $registro['subject_id']);     		
+     		redirect('subject/adas_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+		}
+	}
+
+	public function adas_verify(){
+		
+	}
+
+	public function adas_signature(){
+		
+	}
+
+	public function adas_lock(){
+		
+	}
 
 	/*----------------------------------------------------- Prueba de restas seriadas --------------------------------------------------------*/	
 	

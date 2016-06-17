@@ -40,7 +40,7 @@
 		<div class="container-fluid">
             <div class="row-fluid">            	
                 <!-- Menú del sistema -->
-                <div class="span2">
+                <div class="span1">
                     <?php
                         if(null !== $this->session->userdata('usuario')){
                             $detect = new Mobile_Detect();
@@ -67,7 +67,7 @@
                      } ?>    
                 </div>                
                 <!-- Contenido de la aplicación -->
-                <div class="span10">
+                <div class="span11">
                 	<?php $this->load->view($contenido) ?>
                 </div>
             </div>
