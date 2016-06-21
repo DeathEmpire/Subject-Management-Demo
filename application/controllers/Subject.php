@@ -6161,5 +6161,244 @@ class Subject extends CI_Controller {
 	}
 
 	/*----------------------------------------------------- Prueba de restas seriadas --------------------------------------------------------*/	
-	
-} 
+	public function restas($subject_id, $etapa){
+		$data['contenido'] = 'subject/restas';
+		$data['titulo'] = 'Restas Seriadas';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
+
+		$this->load->view('template', $data);
+	}
+
+	public function restas_insert(){
+		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_1', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_2', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_3', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_4', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_5', '', 'xss_clean');
+
+		$this->form_validation->set_rules('realizado_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_1_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_2_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_3_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_4_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_5_alt', '', 'xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de ingresar el formulario de Restas Seriadas", $registro['subject_id']);
+			$this->restas($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+
+			if(
+				(isset($registro['realizado']) AND $registro['realizado'] == 1 AND (!isset($registro['fecha']) OR empty($registro['fecha'])))
+				OR
+				(isset($registro['realizado_alt']) AND $registro['realizado_alt'] == 1 AND (!isset($registro['fecha_alt']) OR empty($registro['fecha_alt'])))				
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['restas_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 4){
+				$subjet_['restas_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['restas_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['restas_6_status'] = $estado;
+			}
+			
+
+			if(!isset($registro['resta_1'])){
+				$registro['resta_1'] = 0;
+			}
+			if(!isset($registro['resta_2'])){
+				$registro['resta_2'] = 0;
+			}
+			if(!isset($registro['resta_3'])){
+				$registro['resta_3'] = 0;
+			}
+			if(!isset($registro['resta_4'])){
+				$registro['resta_4'] = 0;
+			}
+			if(!isset($registro['resta_5'])){
+				$registro['resta_5'] = 0;
+			}
+			if(!isset($registro['resta_alt_1'])){
+				$registro['resta_alt_1'] = 0;
+			}
+			if(!isset($registro['resta_alt_2'])){
+				$registro['resta_alt_2'] = 0;
+			}
+			if(!isset($registro['resta_alt_3'])){
+				$registro['resta_alt_3'] = 0;
+			}
+			if(!isset($registro['resta_alt_4'])){
+				$registro['resta_alt_4'] = 0;
+			}
+			if(!isset($registro['resta_alt_5'])){
+				$registro['resta_alt_5'] = 0;
+			}
+
+			$registro['status'] = $estado;
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Restas');
+			$this->Model_Restas->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Restas seriadas agregadas", $registro['subject_id']);     		
+     		redirect('subject/restas_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+		}
+
+	}
+
+	public function restas_show($subject_id, $etapa){
+		$data['contenido'] = 'subject/restas_show';
+		$data['titulo'] = 'Restas Seriadas';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;	
+		
+
+		$this->load->model('Model_Restas');
+		$data['list'] = $this->Model_Restas->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		/*querys*/
+		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Restas Seriadas"));
+
+		$this->load->view('template', $data);
+	}
+
+	public function restas_update(){
+		$registro = $this->input->post();
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('id', '', 'required|xss_clean');
+
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_1', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_2', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_3', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_4', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_5', '', 'xss_clean');
+
+		$this->form_validation->set_rules('realizado_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_1_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_2_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_3_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_4_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('resta_5_alt', '', 'xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de actualizar el formulario de Restas Seriadas", $registro['subject_id']);
+			$this->restas_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+
+			if(
+				(isset($registro['realizado']) AND $registro['realizado'] == 1 AND (!isset($registro['fecha']) OR empty($registro['fecha'])))
+				OR
+				(isset($registro['realizado_alt']) AND $registro['realizado_alt'] == 1 AND (!isset($registro['fecha_alt']) OR empty($registro['fecha_alt'])))				
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			if($registro['etapa'] == 2){
+				$subjet_['restas_2_status'] = $estado;
+			}						
+			elseif($registro['etapa'] == 4){
+				$subjet_['restas_4_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['restas_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['restas_6_status'] = $estado;
+			}
+			
+			if(!isset($registro['resta_1'])){
+				$registro['resta_1'] = 0;
+			}
+			if(!isset($registro['resta_2'])){
+				$registro['resta_2'] = 0;
+			}
+			if(!isset($registro['resta_3'])){
+				$registro['resta_3'] = 0;
+			}
+			if(!isset($registro['resta_4'])){
+				$registro['resta_4'] = 0;
+			}
+			if(!isset($registro['resta_5'])){
+				$registro['resta_5'] = 0;
+			}
+			if(!isset($registro['resta_alt_1'])){
+				$registro['resta_alt_1'] = 0;
+			}
+			if(!isset($registro['resta_alt_2'])){
+				$registro['resta_alt_2'] = 0;
+			}
+			if(!isset($registro['resta_alt_3'])){
+				$registro['resta_alt_3'] = 0;
+			}
+			if(!isset($registro['resta_alt_4'])){
+				$registro['resta_alt_4'] = 0;
+			}
+			if(!isset($registro['resta_alt_5'])){
+				$registro['resta_alt_5'] = 0;
+			}
+
+			$registro['status'] = $estado;			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Restas');
+			$this->Model_Restas->update($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Restas seriadas actualizada", $registro['subject_id']);     		
+     		redirect('subject/restas_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+		}
+
+	}
+
+	public function restas_verify(){
+		
+	}
+
+	public function restas_signature(){
+		
+	}
+
+	public function restas_lock(){
+		
+	}
+} 	
