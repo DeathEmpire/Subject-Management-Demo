@@ -1176,9 +1176,11 @@ class Subject extends CI_Controller {
 			/*Salvamos la lista de no respetados*/
 			$numeros = $registro['numero'];
 			$comentarios = $registro['comentario'];
+			$tipos = $registro['tipo'];
 
 			unset($registro['numero']);
 			unset($registro['comentario']);
+			unset($registro['tipo']);
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->insert($registro);
@@ -1190,10 +1192,11 @@ class Subject extends CI_Controller {
 
 			for($i=0; $i<$cant; $i++){
 
-				if($numeros[$i] != '' AND $comentarios[$i] != ''){
+				if($numeros[$i] != '' AND $comentarios[$i] != '' AND $tipos[$i] != ''){
 					$save['inclusion_exclusion_id'] = $nueva_id;
 					$save['numero_criterio'] = $numeros[$i];
 					$save['comentario'] = $comentarios[$i];
+					$save['comentario'] = $tipos[$i];
 					$save['created_at'] = date("Y-m-d H:i:s");
 					$save['updated_at'] = date("Y-m-d H:i:s");
 					$save['usuario_creacion'] = $this->session->userdata('usuario');
@@ -1247,7 +1250,84 @@ class Subject extends CI_Controller {
 			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
+
 			/*Separar los datos de inclusion con los de no respetados*/
+
+			if($registro['etapa'] == 1){				
+				$subjet_['inclusion_exclusion_1_status'] = "Record Complete";
+			}
+			elseif($registro['etapa'] == 2){
+				$subjet_['inclusion_exclusion_2_status'] = "Record Complete";
+			}
+
+			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+
+			/*Salvamos la lista de no respetados*/
+			if(isset($registro['numero'])){
+				$numeros = $registro['numero'];
+				unset($registro['numero']);
+			}
+
+			if(isset($registro['comentario'])){
+				$comentarios = $registro['comentario'];
+				unset($registro['comentario']);
+			}						
+
+			if(isset($registro['inclusion_ids'])){
+				$inclusion_ids = $registro['inclusion_ids'];
+				unset($registro['inclusion_ids']);
+			}
+
+			if(isset($registro['tipo'])){
+				$tipos = $registro['tipo'];
+				unset($registro['tipo']);
+			}
+
+			$this->load->model('Model_Inclusion_exclusion');
+			$this->Model_Inclusion_exclusion->update($registro);
+
+			/*Ingresamos la lista de no respetados*/
+			$cant = count($numeros);
+
+			for($i=0; $i<$cant; $i++){
+
+				if($numeros[$i] != '' AND $comentarios[$i] != '' AND $tipos[$i] != '' AND isset($inclusion_ids[$i]) AND !empty($inclusion_ids[$i])){
+					
+					$save['id'] = $inclusion_ids[$i];					
+					$save['inclusion_exclusion_id'] = $registro['id'];
+					$save['numero_criterio'] = $numeros[$i];
+					$save['comentario'] = $comentarios[$i];					
+					$save['tipo'] = $tipo[$i];
+					
+					$save['updated_at'] = date("Y-m-d H:i:s");
+					
+
+					$this->load->model("Model_Inclusion_exclusion_no_respetados");
+					$this->Model_Inclusion_exclusion_no_respetados->update($save);
+				}
+				elseif ($numeros[$i] != '' AND $comentarios[$i] != '' AND $tipos[$i] != '') {
+					
+					$save['inclusion_exclusion_id'] = $registro['id'];
+					$save['numero_criterio'] = $numeros[$i];
+					$save['comentario'] = $comentarios[$i];					
+					$save['tipo'] = $tipos[$i];
+					$save['updated_at'] = date("Y-m-d H:i:s");
+					$save['created_at'] = date("Y-m-d H:i:s");
+					$save['usuario_creacion'] = $this->session->userdata('usuario');
+					
+
+					$this->load->model("Model_Inclusion_exclusion_no_respetados");
+					$this->Model_Inclusion_exclusion_no_respetados->insert($save);	
+				}
+			}
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Critero de inclusión exclusión actualizado", $registro['subject_id']);     		
+     		redirect('subject/inclusion_show/'. $registro['subject_id'] ."/". $registro['etapa']);
 		}
 	}
 

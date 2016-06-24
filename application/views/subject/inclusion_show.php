@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(function(){
-	$("input[name=cumple_criterios]").change(function(){
+		$("input[name=cumple_criterios]").change(function(){
 		if($(this).val() == 1){
 			$("#tr_autorizacion").hide();
 			$("input[name=autorizacion_patrocinador][value='No Aplica']").prop("checked",true);
@@ -40,6 +40,9 @@ $(function(){
 		$("#tr_no_ingresa").hide();
 	}
 
+	$("#agregar_entrada").click(function(){
+		$("#tabla").append("<tr><td><select name='tipo[]''><option value='' selected='selected'></option><option value='Inclusion'>Inclusión</option><option value='Exclusion'>Exclusión</option></select></td><td><input type='number' name='numero[]'  min='1'></td><td><textarea name='comentario[]' rows='3'></textarea></td></tr>");
+	});
 });
 </script>
 <legend style='text-align:center;'>Criterios de Inclusión/Exclusión</legend>
@@ -90,7 +93,7 @@ $(function(){
 
     <?= my_validation_errors(validation_errors()); ?>
 
-    <table class="table table-condensed table-bordered table-striped">
+    <table class="table table-condensed table-bordered table-striped" id='tabla'>
            
 	    <?php
 		    $data = array(
@@ -103,7 +106,7 @@ $(function(){
 			    'value'       => 0,
 			    #'checked'	  => set_radio('gender', 'female', TRUE),		    
 			    );
-		      
+		       $tipos = array(''=>'','Inclusion'=>'Inclusión','Exclusion'=>'Exclusión');  
 	    ?>
 	    <tr>
 	        <td>El paciente cumple con los criterios de inclusión/exclusión: </td>
@@ -114,23 +117,35 @@ $(function(){
 	    </tr>        
 
 		<tr>
-			<td colspan='2' style='font-weight:bold;'>Criterios de inclusión/ exclusión no respetados (Agregar entrada)</td>			
+			<td colspan='3' style='font-weight:bold;'>Criterios de inclusión/ exclusión no respetados</td>			
 		</tr>
 		<tr>
+			<td>Tipo de Criterio</td>
 			<td># Numero de Criterio</td>
 			<td>Comentarios</td>
 		</tr>
-		<tr>
-			<td><?=  form_input(array('type'=>'number','name'=>'numero[]', 'min'=>'1')); ?></td>
-			<td><?=  form_input(array('type'=>'text','name'=>'comentario[]')); ?></td>
-		</tr>
-		<tr>
-			<td><?=  form_input(array('type'=>'number','name'=>'numero[]', 'min'=>'1')); ?></td>
-			<td><?=  form_input(array('type'=>'text','name'=>'comentario[]')); ?></td>
-		</tr>
-		<tr>
-			<td><?=  form_input(array('type'=>'number','name'=>'numero[]', 'min'=>'1')); ?></td>
-			<td><?=  form_input(array('type'=>'text','name'=>'comentario[]')); ?></td>
+		<?php if(isset($no_respetados) AND !empty($no_respetados)){ 
+			foreach ($no_respetados as $v) { ?>
+				
+				<tr>
+					<td>
+						<?= form_hiden('inclusion_ids[]', $v->id); ?>
+						<?= form_dropdown("tipo[]",$tipos,set_value('tipo', $v->tipo)); ?>
+					</td>
+					<td><?= form_input(array('type'=>'number','name'=>'numero[]', 'min'=>'1', 'value'=>set_value('numero', $v->numero))); ?></td>
+					<td><?= form_textarea(array('name'=>'comentario[]','rows'=>'3', 'value'=>set_value('comentario', $v->comentario))); ?></td>
+				</tr>
+	<?php 	}
+			
+		
+
+		}
+		?>
+
+	</table>
+	<table class="table table-condensed table-bordered table-striped">
+		<tr id='tr_agregar_entrada'>
+			<td colspan='3' style='text-align:center;' class='btn' id='agregar_entrada'>Agregar entrada</td>
 		</tr>
 		<tr id='tr_autorizacion'>
 			<td>Cuenta con la autorización del patrocinador para inclusión</td>
