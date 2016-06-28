@@ -1250,18 +1250,7 @@ class Subject extends CI_Controller {
 			$this->inclusion_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
-
-			/*Separar los datos de inclusion con los de no respetados*/
-
-			if($registro['etapa'] == 1){				
-				$subjet_['inclusion_exclusion_1_status'] = "Record Complete";
-			}
-			elseif($registro['etapa'] == 2){
-				$subjet_['inclusion_exclusion_2_status'] = "Record Complete";
-			}
-
 			
-			$registro['updated_at'] = date("Y-m-d H:i:s");
 
 			/*Salvamos la lista de no respetados*/
 			if(isset($registro['numero'])){
@@ -1283,6 +1272,32 @@ class Subject extends CI_Controller {
 				$tipos = $registro['tipo'];
 				unset($registro['tipo']);
 			}
+
+			if(
+				isset($registro['realizado']) AND $registro['realizado'] == 1
+				AND
+				(empty($registro['fecha']) )
+			){
+				$estado = 'Error';
+			}
+			else{
+
+				$estado = "Record Complete";
+			}
+
+
+
+			/*Separar los datos de inclusion con los de no respetados*/
+
+			if($registro['etapa'] == 1){				
+				$subjet_['inclusion_exclusion_1_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 2){
+				$subjet_['inclusion_exclusion_2_status'] = $estado;
+			}
+
+			$registro['status'] = $estado;
+			$registro['updated_at'] = date("Y-m-d H:i:s");
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
