@@ -14,7 +14,7 @@ foreach($perfiles as $v){
 
 	<div class="control-group">
 
-		Role: <?= form_dropdown('buscar_id',$arreglo); ?>
+		Perfil: <?= form_dropdown('buscar_id',$arreglo); ?>
 		<?= form_button(array('type'=>'submit','content'=>'Filtrar','class'=>'btn'));?>
 
 		<!-- boton pre hechos en boostrap <i class="icon-search"></i>-->
@@ -146,6 +146,30 @@ foreach($perfiles as $v){
 								echo form_checkbox(array('name'=>'agregar_sujetos_form', 'value'=>'create,insert,my_validation,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
 								echo form_checkbox(array('name'=>'actualizar_sujetos_form', 'value'=>'edit,update,my_validation,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
 
+							echo "<div style='font-weight:bold;'>Formulario ADAS COG</div>";
+								echo form_checkbox(array('name'=>'ver_adas_form', 'value'=>'adas_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_adas_form', 'value'=>'adas,adas_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_adas_form', 'value'=>'adas_show,adas_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_adas', 'value'=>'adas_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_adas', 'value'=>'adas_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_adas', 'value'=>'adas_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";		
+
+							echo "<div style='font-weight:bold;'>Formulario Apatia</div>";
+								echo form_checkbox(array('name'=>'ver_apatia_form', 'value'=>'apatia_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_apatia_form', 'value'=>'apatia,apatia_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_apatia_form', 'value'=>'apatia_show,apatia_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_apatia', 'value'=>'apatia_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_apatia', 'value'=>'apatia_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_apatia', 'value'=>'apatia_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";		
+
+							echo "<div style='font-weight:bold;'>Formulario Cumplimiento</div>";
+								echo form_checkbox(array('name'=>'ver_cumplimiento_form', 'value'=>'cumplimiento_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_cumplimiento_form', 'value'=>'cumplimiento,cumplimiento_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_cumplimiento_form', 'value'=>'cumplimiento_show,cumplimiento_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_cumplimiento', 'value'=>'cumplimiento_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_cumplimiento', 'value'=>'cumplimiento_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_cumplimiento', 'value'=>'cumplimiento_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";			
+
 							echo "<div style='font-weight:bold;'>Formulario Demografia</div>";
 								echo form_checkbox(array('name'=>'ver_demografia_form', 'value'=>'demography,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
 								echo form_checkbox(array('name'=>'agregar_demografia_form', 'value'=>'demography_update,grid', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
@@ -154,13 +178,69 @@ foreach($perfiles as $v){
 								echo form_checkbox(array('name'=>'aprobar_demografia', 'value'=>'demography_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
 								echo form_checkbox(array('name'=>'firmar_demografia', 'value'=>'demography_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
 
-							echo "<div style='font-weight:bold;'>Formulario Inclusion Exclusion</div>";
-								echo form_checkbox(array('name'=>'ver_inclusion_form', 'value'=>'grid,inclusion_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-								echo form_checkbox(array('name'=>'agregar_inclusion_form', 'value'=>'inclusion_insert,inclusion', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								echo form_checkbox(array('name'=>'actualizar_inclusion_form', 'value'=>'inclusion_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
-								echo form_checkbox(array('name'=>'cerrar_inclusion', 'value'=>'inclusion_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
-								echo form_checkbox(array('name'=>'aprobar_inclusion', 'value'=>'inclusion_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
-								echo form_checkbox(array('name'=>'firmar_inclusion', 'value'=>'inclusion_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
+							echo "<div style='font-weight:bold;'>Formulario Digito Directo</div>";
+								echo form_checkbox(array('name'=>'ver_digito_directo_form', 'value'=>'digito_directo_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_digito_directo_form', 'value'=>'digito_directo,digito_directo_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_digito_directo_form', 'value'=>'digito_directo_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_digito_directo', 'value'=>'digito_directo_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_digito_directo', 'value'=>'digito_directo_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_digito_directo', 'value'=>'digito_directo_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
+
+							echo "<div style='font-weight:bold;'>Formulario ECG</div>";
+								echo form_checkbox(array('name'=>'ver_ecg_form', 'value'=>'ecg_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_ecg_form', 'value'=>'ecg,ecg_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_ecg_form', 'value'=>'ecg_show,ecg_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_ecg', 'value'=>'ecg_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_ecg', 'value'=>'ecg_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_ecg', 'value'=>'ecg_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";	
+
+							echo "<div style='font-weight:bold;'>Formulario EQ-5D-5L</div>";
+								echo form_checkbox(array('name'=>'ver_eq_5d_5l_form', 'value'=>'eq_5d_5l_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_eq_5d_5l_form', 'value'=>'eq_5d_5l,eq_5d_5l_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_eq_5d_5l_form', 'value'=>'eq_5d_5l_show,eq_5d_5l_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_eq_5d_5l', 'value'=>'eq_5d_5l_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_eq_5d_5l', 'value'=>'eq_5d_5l_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_eq_5d_5l', 'value'=>'eq_5d_5l_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";		
+
+							echo "<div style='font-weight:bold;'>Formulario Examen Fisico</div>";
+								echo form_checkbox(array('name'=>'ver_examen_fisico_form', 'value'=>'examen_fisico_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_examen_fisico_form', 'value'=>'examen_fisico,examen_fisico_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_examen_fisico_form', 'value'=>'examen_fisico_show,examen_fisico_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_examen_fisico', 'value'=>'examen_fisico_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_examen_fisico', 'value'=>'examen_fisico_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_examen_fisico', 'value'=>'examen_fisico_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";			
+
+							echo "<div style='font-weight:bold;'>Formulario Examen Laboratorio</div>";
+								echo form_checkbox(array('name'=>'ver_examen_laboratorio_form', 'value'=>'examen_laboratorio_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_examen_laboratorio_form', 'value'=>'examen_laboratorio,examen_laboratorio_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_examen_laboratorio_form', 'value'=>'examen_laboratorio_show,examen_laboratorio_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_examen_laboratorio', 'value'=>'examen_laboratorio_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_examen_laboratorio', 'value'=>'examen_laboratorio_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_examen_laboratorio', 'value'=>'examen_laboratorio_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";	
+
+							echo "<div style='font-weight:bold;'>Formulario Examen Neurologico</div>";
+								echo form_checkbox(array('name'=>'ver_examen_neurologico_form', 'value'=>'examen_neurologico_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_examen_neurologico_form', 'value'=>'examen_neurologico,examen_neurologico_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_examen_neurologico_form', 'value'=>'examen_neurologico_show,examen_neurologico_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_examen_neurologico', 'value'=>'examen_neurologico_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_examen_neurologico', 'value'=>'examen_neurologico_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_examen_neurologico', 'value'=>'examen_neurologico_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";	
+
+							echo "<div style='font-weight:bold;'>Formulario Fin Tratamiento</div>";
+								echo form_checkbox(array('name'=>'ver_fin_tratamiento_form', 'value'=>'fin_tratamiento_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_fin_tratamiento_form', 'value'=>'fin_tratamiento,fin_tratamiento_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_fin_tratamiento_form', 'value'=>'fin_tratamiento_show,fin_tratamiento_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_fin_tratamiento', 'value'=>'fin_tratamiento_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_fin_tratamiento', 'value'=>'fin_tratamiento_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_fin_tratamiento', 'value'=>'fin_tratamiento_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";		
+
+							echo "<div style='font-weight:bold;'>Formulario Fin Tratamiento Temprano</div>";
+								echo form_checkbox(array('name'=>'ver_fin_tratamiento_temprano_form', 'value'=>'fin_tratamiento_temprano_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_fin_tratamiento_temprano_form', 'value'=>'fin_tratamiento_temprano,fin_tratamiento_temprano_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_fin_tratamiento_temprano_form', 'value'=>'fin_tratamiento_temprano_show,fin_tratamiento_temprano_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_fin_tratamiento_temprano', 'value'=>'fin_tratamiento_temprano_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_fin_tratamiento_temprano', 'value'=>'fin_tratamiento_temprano_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_fin_tratamiento_temprano', 'value'=>'fin_tratamiento_temprano_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";										
 
 							echo "<div style='font-weight:bold;'>Formulario Hachinski</div>";
 								echo form_checkbox(array('name'=>'ver_hachinski_form', 'value'=>'grid,hachinski_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
@@ -178,18 +258,82 @@ foreach($perfiles as $v){
 								echo form_checkbox(array('name'=>'aprobar_historial_medico', 'value'=>'historial_medico_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
 								echo form_checkbox(array('name'=>'firmar_historial_medico', 'value'=>'historial_medico_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
 
+							echo "<div style='font-weight:bold;'>Formulario Inclusion Exclusion</div>";
+								echo form_checkbox(array('name'=>'ver_inclusion_form', 'value'=>'grid,inclusion_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_inclusion_form', 'value'=>'inclusion_insert,inclusion', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_inclusion_form', 'value'=>'inclusion_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_inclusion', 'value'=>'inclusion_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_inclusion', 'value'=>'inclusion_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_inclusion', 'value'=>'inclusion_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";	
+
+							echo "<div style='font-weight:bold;'>Formulario MMSE</div>";
+								echo form_checkbox(array('name'=>'ver_mmse_form', 'value'=>'mmse_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_mmse_form', 'value'=>'mmse,mmse_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_mmse_form', 'value'=>'mmse_show,mmse_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_mmse', 'value'=>'mmse_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_mmse', 'value'=>'mmse_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_mmse', 'value'=>'mmse_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";	
+
+							echo "<div style='font-weight:bold;'>Formulario Muestra de Sangre</div>";
+								echo form_checkbox(array('name'=>'ver_muestra_de_sangre_form', 'value'=>'muestra_de_sangre_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_muestra_de_sangre_form', 'value'=>'muestra_de_sangre,muestra_de_sangre_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_muestra_de_sangre_form', 'value'=>'muestra_de_sangre_show,muestra_de_sangre_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_muestra_de_sangre', 'value'=>'muestra_de_sangre_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_muestra_de_sangre', 'value'=>'muestra_de_sangre_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_muestra_de_sangre', 'value'=>'muestra_de_sangre_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";		
+
+							echo "<div style='font-weight:bold;'>Formulario NPI</div>";
+								echo form_checkbox(array('name'=>'ver_npi_form', 'value'=>'npi_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_npi_form', 'value'=>'npi,npi_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_npi_form', 'value'=>'npi_show,npi_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_npi', 'value'=>'npi_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_npi', 'value'=>'npi_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_npi', 'value'=>'npi_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";										
+
+							echo "<div style='font-weight:bold;'>Formulario Restas Seriadas</div>";
+								echo form_checkbox(array('name'=>'ver_restas_form', 'value'=>'restas_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_restas_form', 'value'=>'restas,restas_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_restas_form', 'value'=>'restas_show,restas_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_restas', 'value'=>'restas_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_restas', 'value'=>'restas_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_restas', 'value'=>'restas_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";	
+
+							echo "<div style='font-weight:bold;'>Formulario RNM</div>";
+								echo form_checkbox(array('name'=>'ver_rnm_form', 'value'=>'rnm_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_rnm_form', 'value'=>'rnm,rnm_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_rnm_form', 'value'=>'rnm_show,rnm_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_rnm', 'value'=>'rnm_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_rnm', 'value'=>'rnm_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_rnm', 'value'=>'rnm_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";		
+
+							echo "<div style='font-weight:bold;'>Formulario Signos Vitales</div>";
+								echo form_checkbox(array('name'=>'ver_signos_vitales_form', 'value'=>'signos_vitales_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_signos_vitales_form', 'value'=>'signos_vitales,signos_vitales_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_signos_vitales_form', 'value'=>'signos_vitales_show,signos_vitales_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_signos_vitales', 'value'=>'signos_vitales_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_signos_vitales', 'value'=>'signos_vitales_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_signos_vitales', 'value'=>'signos_vitales_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";	
+
+							echo "<div style='font-weight:bold;'>Formulario TMT A</div>";
+								echo form_checkbox(array('name'=>'ver_tmt_a_form', 'value'=>'tmt_a_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_tmt_a_form', 'value'=>'tmt_a,tmt_a_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_tmt_a_form', 'value'=>'tmt_a_show,tmt_a_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_tmt_a', 'value'=>'tmt_a_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_tmt_a', 'value'=>'tmt_a_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_tmt_a', 'value'=>'tmt_a_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";		
+
+							echo "<div style='font-weight:bold;'>Formulario TMT B</div>";
+								echo form_checkbox(array('name'=>'ver_tmt_b_form', 'value'=>'tmt_b_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
+								echo form_checkbox(array('name'=>'agregar_tmt_b_form', 'value'=>'tmt_b,tmt_b_insert', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
+								echo form_checkbox(array('name'=>'actualizar_tmt_b_form', 'value'=>'tmt_b_show,tmt_b_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
+								echo form_checkbox(array('name'=>'cerrar_tmt_b', 'value'=>'tmt_b_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
+								echo form_checkbox(array('name'=>'aprobar_tmt_b', 'value'=>'tmt_b_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
+								echo form_checkbox(array('name'=>'firmar_tmt_b', 'value'=>'tmt_b_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";			
+
 							echo "<div style='font-weight:bold;'>Randomizacion</div>";
 								echo form_checkbox(array('name'=>'ver_randomizacion_form', 'value'=>'randomization', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
 								echo form_checkbox(array('name'=>'agregar_randomizacion_form', 'value'=>'randomization_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								#echo form_checkbox(array('name'=>'responder_randomizacion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
-
-							echo "<div style='font-weight:bold;'>Formulario Digito Directo</div>";
-								echo form_checkbox(array('name'=>'ver_digito_directo_form', 'value'=>'digito_directo_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";
-								echo form_checkbox(array('name'=>'agregar_digito_directo_form', 'value'=>'digito_directo,digito_directo', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Agregar<br>";
-								echo form_checkbox(array('name'=>'actualizar_digito_directo_form', 'value'=>'digito_directo_update', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";
-								echo form_checkbox(array('name'=>'cerrar_digito_directo', 'value'=>'digito_directo_lock', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Cerrar<br>";
-								echo form_checkbox(array('name'=>'aprobar_digito_directo', 'value'=>'digito_directo_verify', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Aprobar<br>";
-								echo form_checkbox(array('name'=>'firmar_digito_directo', 'value'=>'digito_directo_signature', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Firmar<br>";
+								#echo form_checkbox(array('name'=>'responder_randomizacion_form', 'value'=>'', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Editar<br>";						
 									
 							echo "<div style='font-weight:bold;'>Formularios Adicionales</div>";
 								echo form_checkbox(array('name'=>'ver_adicionales_form', 'value'=>'adverse_event_show,concomitant_medication_show,protocol_deviation_show', 'perfil'=>$v->role, 'controller'=>$v->controller)) . " Ver<br>";

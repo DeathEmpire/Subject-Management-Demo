@@ -36,6 +36,19 @@ $(function(){
             <td><?= form_radio($data); ?> Yes <?= form_radio($data2); ?> No</td>
         </tr>        
 
+        <?php
+            $centro = $this->session->userdata('center_id');
+            if($centro == 'Todos'){
+            ?>
+                <tr><td>Centro: </td><td><?= form_dropdown('center', $centros, set_value('center')); ?></td></tr>
+
+            <?php
+            }
+            else{
+                echo form_hidden('center', $centro);
+            }
+        ?>
+
         <tr class='buttons_form' style='display:none'>
             <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Crear', 'class'=>'btn btn-primary')); ?>
             <?= anchor('subject/index', 'Cancelar', array('class'=>'btn')); ?></td>

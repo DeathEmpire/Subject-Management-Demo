@@ -11,7 +11,7 @@
 
 	<div id='footer' style="text-align:right;">
 	<br />
-	IWRS Estudio Dentoxol &reg;
+	Nombre Estudio &reg;
 	Asesorías en Investigación Clínica SpA
 	<br />
 	</div>

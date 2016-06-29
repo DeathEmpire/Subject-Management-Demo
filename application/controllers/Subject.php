@@ -39,12 +39,23 @@ class Subject extends CI_Controller {
 		$data['contenido'] = 'subject/create';
 		$data['titulo'] = 'New Subject';		
 		$this->auditlib->save_audit("Entro al formulario de ingreso de sujetos");
+
+		$this->load->model('Model_Center');		
+		$centros = $this->Model_Center->all();
+		$data['centros'] = array(""=>"");
+		foreach ($centros as $centro) {
+			$data['centros'][$centro->id] = $centro->name;
+		}
+
 		$this->load->view('template', $data);
 	}
 
 	public function insert() {		
 
+		$registro = $this->input->post();
+
 		$this->form_validation->set_rules('seguro', 'Esta seguro', 'required|xss_clean');
+		$this->form_validation->set_rules('center', 'Centro', 'required|xss_clean');
        
 
         if ($this->form_validation->run() == FALSE) {
@@ -53,7 +64,9 @@ class Subject extends CI_Controller {
         }
         else {				
         	#generating de code of subject
-        	$center = $this->session->userdata('center_id');
+
+        	// $center = $this->session->userdata('center_id');
+        	$center = $registro['center'];
 
         	#Buscar la cantidad de usuarios que hay en el centro y sumarle 1
         	$count = $this->Model_Subject->countSubjectsByCenter($center);
