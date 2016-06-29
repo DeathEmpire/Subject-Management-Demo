@@ -68,7 +68,7 @@ $(function(){
     if(isset($list) AND !empty($list)){
 ?>
 
-	<?= form_open('subject/historial_medico_update', array('class'=>'form-horizontal')); ?>
+	<?= form_open('subject/examen_fisico_update', array('class'=>'form-horizontal')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 
@@ -199,7 +199,11 @@ $(function(){
 			</tr>			
 			<tr>
 				<td colspan='3' style='text-align:center;'>
-					<input type='submit' class='btn btn-primary' value='Guardar'>
+					<?php
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'examen_fisico_update')){
+				?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+				<?php } ?>
 					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
 				</td>				
 			</tr>			

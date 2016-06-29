@@ -202,7 +202,11 @@
 			</tr>
 			<tr>
 				<td colspan='5' style='text-align:center;'>
+					<?php
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'npi_update')){
+				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+				<?php } ?>
 		        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
 				</td>
 			</tr>

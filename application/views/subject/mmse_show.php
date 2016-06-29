@@ -402,7 +402,11 @@ Dibujo: página con el diagrama).</td>
 		<tr>
 			<td colspan='3' style='text-align:center;'>
 				<?= form_hidden('puntaje_total'); ?>
-				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+				<?php
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'mmse_update')){
+				?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+				<?php } ?>
             	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
 			</td>
 		</tr>

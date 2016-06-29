@@ -238,7 +238,11 @@
 			</tr>
 			<tr>
 				<td colspan='3' style='text-align:center;'>
-					<input type='submit' class='btn btn-primary' value='Guardar'>
+					<?php
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'historial_medico_insert')){
+				?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+				<?php } ?>
 					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
 				</td>				
 			</tr>			

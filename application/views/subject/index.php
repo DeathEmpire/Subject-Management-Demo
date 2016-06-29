@@ -7,7 +7,12 @@
 	<span class="input-group-btn">
     	<button class="btn btn-default" type="submit">Buscar</button>
     </span>
-	<?= anchor('subject/create', '+ Nuevo', array('class'=>'btn btn-primary')); ?>
+    <?php
+	if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'create')){
+				?>
+		<?= anchor('subject/create', '+ Nuevo', array('class'=>'btn btn-primary')); ?>			
+	<?php } ?>
+	
 <?= form_close(); ?>
 <table class="table table-condensed table-bordered table-striped table-hover">
 	<thead>
