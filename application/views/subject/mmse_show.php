@@ -135,76 +135,82 @@ $(function(){
 	    );
 	?>
 
-	
-
-	Realizado: 
-	<?= form_radio($data, 1, set_radio($data['name'], 1, (($list[0]->realizado == 1) ? true : false))); ?> Si
-	<?= form_radio($data2, 2, set_radio($data2['name'], 0, (($list[0]->realizado == 0) ? true : false))); ?> NO
-	<br />
-	Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha',$list[0]->fecha))); ?><br/>
-
-	¿Tiene algún problema con su memoria? <?= form_checkbox($tiene_problemas_memoria, 1, set_checkbox('tiene_problemas_memoria',1,(($list[0]->tiene_problemas_memoria == 1) ? true : false)));?><br />
-
-	¿Le puedo hacer algunas preguntas acerca de su memoria? <?= form_checkbox($le_puedo_hacer_preguntas, 1, set_checkbox('le_puedo_hacer_preguntas',1,(($list[0]->le_puedo_hacer_preguntas == 1) ? true : false)));?><br />
-
-    <table class="table table-condensed table-bordered table-striped table-hover">          
-		<thead>
-			<tr>    
-				<td></td>
-				<td></td>
-				<td>PUNTAJE</td>
-			</tr>
-		</thead>
+	<table class="table table-condensed table-bordered table-striped table-hover">          
+		<tr>
+			<td>Realizado: 
+			<td>
+				<?= form_radio($data, 1, set_radio($data['name'], 1, (($list[0]->realizado == 1) ? true : false))); ?> Si
+				<?= form_radio($data2, 2, set_radio($data2['name'], 0, (($list[0]->realizado == 0) ? true : false))); ?> NO
+			</td>
+		</tr>
+		<tr>
+			<td>Fecha: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha',$list[0]->fecha))); ?></td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;'>PUNTAJE TOTAL: </td>
+			<td id='puntaje_total_td' style='font-weight:bold;'>0</td>
+		</tr>
+		<tr>
+			<td>¿Tiene algún problema con su memoria?</td>
+			<td><?= form_checkbox($tiene_problemas_memoria, 1, set_checkbox('tiene_problemas_memoria',1,(($list[0]->tiene_problemas_memoria == 1) ? true : false)));?></td>
+		</tr>
+		<tr>
+			<td>¿Le puedo hacer algunas preguntas acerca de su memoria?</td>
+			<td><?= form_checkbox($le_puedo_hacer_preguntas, 1, set_checkbox('le_puedo_hacer_preguntas',1,(($list[0]->le_puedo_hacer_preguntas == 1) ? true : false)));?></td>
+		</tr>   
+	</table>
+	<table class="table table-condensed table-bordered table-striped table-hover">
+		<tr>    
+			<td style='font-weight:bold;background-color:#ccc;'>Pregunta</td>
+			<td style='font-weight:bold;background-color:#ccc;'>Respuesta</td>
+			<td style='font-weight:bold;background-color:#ccc;'>Puntaje</td>
+		</tr>
 	    <tr>
 	    	<td style='font-weight:bold;' colspan='3'>ORIENTACION EN EL TIEMPO</td>	    	
 	    </tr>
 	    <tr>
-	    	<td colspan='2'>¿En qué año estamos?</td>
+	    	<td>¿En qué año estamos?</td>
+	    	<td><?= form_input(array('type'=>'text','name'=>'en_que_ano_estamos', 'id'=>'en_que_ano_estamos', 'value'=>set_value('en_que_ano_estamos', $list[0]->en_que_ano_estamos))); ?></td>
 	    	<td><?= form_dropdown('en_que_ano_estamos_puntaje',$puntaje,set_value('en_que_ano_estamos_puntaje', $list[0]->en_que_ano_estamos_puntaje)); ?></td>
 	    </tr>
 
 	    <tr>
-	    	<td colspan='2'>¿En qué Estación del año estamos?</td>
+	    	<td>¿En qué Estación del año estamos?</td>
+	    	<td><?= form_input(array('type'=>'text','name'=>'en_que_estacion_estamos', 'id'=>'en_que_estacion_estamos', 'value'=>set_value('en_que_estacion_estamos', $list[0]->en_que_estacion_estamos))); ?></td>
 	    	<td><?= form_dropdown('en_que_estacion_estamos_puntaje',$puntaje,set_value('en_que_estacion_estamos_puntaje', $list[0]->en_que_estacion_estamos_puntaje)); ?></td>
 	    </tr>
 
 	    <tr>
-	    	<td colspan='2'>¿En qué Mes estamos?</td>
+	    	<td>¿En qué Mes estamos?</td>
+	    	<td><?= form_input(array('type'=>'text','name'=>'en_que_mes_estamos', 'id'=>'en_que_mes_estamos', 'value'=>set_value('en_que_mes_estamos', $list[0]->en_que_mes_estamos))); ?></td>
 	    	<td><?= form_dropdown('en_que_mes_estamos_puntaje',$puntaje,set_value('en_que_mes_estamos_puntaje', $list[0]->en_que_mes_estamos_puntaje)); ?></td>
 	    </tr>
 
 	    <tr>
-	    	<td colspan='2'>¿En qué Día de la semana estamos?</td>
+	    	<td>¿En qué Día de la semana estamos?</td>
+	    	<td><?= form_input(array('type'=>'text','name'=>'en_que_dia_estamos', 'id'=>'en_que_dia_estamos', 'value'=>set_value('en_que_dia_estamos', $list[0]->en_que_dia_estamos))); ?></td>
 	    	<td><?= form_dropdown('en_que_dia_estamos_puntaje',$puntaje,set_value('en_que_dia_estamos_puntaje', $list[0]->en_que_dia_estamos_puntaje)); ?></td>
 	    </tr>
 
 	    <tr>
-	    	<td colspan='2'>¿En qué Fecha estamos?</td>
+	    	<td>¿En qué Fecha estamos?</td>
+	    	<td><?= form_input(array('type'=>'text','name'=>'en_que_fecha_estamos', 'id'=>'en_que_fecha_estamos', 'value'=>set_value('en_que_fecha_estamos', $list[0]->en_que_fecha_estamos))); ?></td>
 	    	<td><?= form_dropdown('en_que_fecha_estamos_puntaje',$puntaje,set_value('en_que_fecha_estamos_puntaje', $list[0]->en_que_fecha_estamos_puntaje)); ?></td>
 	    </tr>
 	    <tr>
 	    	<td style='font-weight:bold;' colspan='3'>ORIENTACION EN EL LUGAR</td>	    	
 	    </tr>
 	    <tr>
-	    	<td colspan='2'>¿En qué Región (provincia) estamos?</td>
-	    	<td><?= form_dropdown('en_que_region_estamos_puntaje',$puntaje,set_value('en_que_region_estamos_puntaje', $list[0]->en_que_region_estamos_puntaje)); ?></td>
-	    </tr>
-
-	</table>
-	<br />
-	<table class="table table-striped table-bordered table-striped table-hover">
-		<thead>
-			<tr>
-				<td style='font-weight:bold;'>Pregunta</td>
-				<td style='font-weight:bold;'>Respuesta</td>
-				<td style='font-weight:bold;'>Puntaje</td>
-			</tr>
-		</thead>
-		<tr>
 			<td>¿Dónde estás ahora?</td>
 			<td><?= form_input(array('type'=>'text','name'=>'donde_estas_ahora', 'id'=>'donde_estas_ahora', 'value'=>set_value('donde_estas_ahora', $list[0]->donde_estas_ahora))); ?></td>
 			<td><?= form_dropdown('donde_estas_ahora_puntaje',$puntaje,set_value('donde_estas_ahora_puntaje', $list[0]->donde_estas_ahora_puntaje)); ?></td>
-		</tr>	
+		</tr>
+	    <tr>
+	    	<td>¿En qué Región (provincia) estamos?</td>
+	    	<td><?= form_input(array('type'=>'text','name'=>'en_que_region_estamos', 'id'=>'en_que_region_estamos', 'value'=>set_value('en_que_region_estamos', $list[0]->en_que_region_estamos))); ?></td>
+	    	<td><?= form_dropdown('en_que_region_estamos_puntaje',$puntaje,set_value('en_que_region_estamos_puntaje', $list[0]->en_que_region_estamos_puntaje)); ?></td>
+	    </tr>			
 		<tr>
 			<td>¿Comuna (o ciudad/pueblo) estamos?</td>
 			<td><?= form_input(array('type'=>'text','name'=>'comuna_estamos', 'id'=>'comuna_estamos', 'value'=>set_value('comuna_estamos', $list[0]->comuna_estamos))); ?></td>
@@ -394,11 +400,7 @@ Dibujo: página con el diagrama).</td>
 		</tr>
 		<tr>
 			<td colspan='3'><?= form_dropdown('dibujo_puntaje',$puntaje,set_value('dibujo_puntaje', $list[0]->dibujo_puntaje)); ?></td>
-		</tr>	
-		<tr>
-			<td style='font-weight:bold;'>PUNTAJE TOTAL: </td>
-			<td colspan='2' id='puntaje_total_td' style='font-weight:bold;'>0</td>
-		</tr>
+		</tr>			
 		<tr>
 			<td colspan='3' style='text-align:center;'>
 				<?= form_hidden('puntaje_total'); ?>

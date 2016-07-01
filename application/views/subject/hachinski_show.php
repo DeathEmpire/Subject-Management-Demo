@@ -18,7 +18,7 @@ $(function(){
 });	
 </script>	
 	<div class="row">
-		<legend style='text-align:center;'>Escala de Hachinski modificada</legend>
+		<legend style='text-align:center;'>Escala de Hachinski</legend>
 		<b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -45,7 +45,7 @@ $(function(){
 		<br />
 	<?php if(isset($list) AND !empty($list)){  ?>	
 		<!-- legend -->
-		<h3>Puntaje de isquemia de Hachinski modificada ≤4.</h3>
+		
 			<!-- New Query-->
 			<?php
 				if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
@@ -124,6 +124,9 @@ $(function(){
 					<tr>
 						<td><b>Puntaje Total: </b></td>
 						<td style='text-align:rigth;font-weight:bold;' id='td_total'><?php echo $list[0]->total; ?></td>
+					</tr>
+					<tr>
+						<td colspan='2' style='text-align:right;font-weight:bold;font-style:italic;'>Puntaje de isquemia de Hachinski modificada ≤ 4, según criterios de inclusión.</td>
 					</tr>
 					<tr>
 						<td colspan='2' style='text-align:center;'>

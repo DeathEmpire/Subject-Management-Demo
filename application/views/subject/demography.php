@@ -21,7 +21,7 @@ $(function(){
 
 });
 </script>
-<legend style='text-align:center;'>Demograf&iacute;a</legend>
+<legend style='text-align:center;'>Demograf&iacute;a - Consentimiento Informado</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -133,19 +133,13 @@ $(function(){
 	    
 		<tr>
         	<td><?= form_label('Etnia/Raza: ', 'race'); ?></td>
-        	<td><?= form_input(array('type'=>'text', 'name'=>'race', 'id'=>'race', 'value'=>set_value('race',$subject->race))); ?></td>
+        	<td>
+        		<?= form_dropdown('race',$etnias,set_value('race', $subject->race)); ?>        		
+        		Especificar: <?= form_input(array('type'=>'text','name'=>'race_especificacion', 'value'=>set_value('race_especificacion', $subject->race_especificacion))); ?>
+        	</td>        	
     	</tr>
 
-		<?php
-			$escolaridad = array(''=>'',
-								'Incompleta'=>'Incompleta',
-								'Cuarto Medio completo'=>'Cuarto Medio completo',
-								'Tecnica Incompleta'=>'Técnica Incompleta',
-								'Tecnica Completa'=>'Tecnica Completa',
-								'Universitaria Incompleta'=>'Universitaria Incompleta',
-								'Universitaria Completa'=>'Universitaria Completa',
-								'Post grado'=>'Post grado');
-		?>
+		
     	<tr>    		
     		<td><?= form_label('Grado de Escolaridad: ', 'escolaridad'); ?></td>
     		<td><?= form_dropdown('escolaridad', $escolaridad, set_value('escolaridad',$subject->escolaridad)); ?></td>

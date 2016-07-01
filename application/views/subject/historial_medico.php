@@ -200,7 +200,7 @@
 				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'donado_sangre_desc', 'id'=>'donado_sangre_desc', 'value'=>set_value('donado_sangre_desc'), 'rows'=>'5')); ?></td>
 			</tr>
 			<tr>
-				<td>¿Ha donado sangre o ha participado en algún estudio clínico farmacológico en los últimos tres meses?</td>
+				<td>¿Está recibiendo o ha recibido en el último mes, algún tratamiento farmacológico?</td>
 				<td>
 					<?= form_radio('tratamiento_farma',1,set_radio('tratamiento_farma'));?> SI
 					<?= form_radio('tratamiento_farma',0,set_radio('tratamiento_farma'));?> NO
@@ -235,6 +235,10 @@
 					<?= form_radio('morbido',0,set_radio('morbido'));?> NO
 				</td>
 				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'morbido_desc', 'id'=>'morbido_desc', 'value'=>set_value('morbido_desc'), 'rows'=>'5')); ?></td>
+			</tr>
+			<tr>
+				<td>Observaciones (Opcional)</td>
+				<td colspan='2'><?= form_textarea(array('type'=>'textarea', 'name'=>'obervaciones', 'id'=>'obervaciones', 'value'=>set_value('obervaciones'), 'rows'=>'10', 'cols'=>'60', 'style'=>'width:98%;')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='3' style='text-align:center;'>

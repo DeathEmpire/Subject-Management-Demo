@@ -126,19 +126,20 @@ class Subject extends CI_Controller {
 	public function update() {
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('sign_consent', 'Firma Consentimiento', 'required|xss_clean');
+		$this->form_validation->set_rules('sign_consent', 'Firma Consentimiento', 'xss_clean');
 		if(isset($registro['sign_consent']) AND $registro['sign_consent'] == 1){
-			$this->form_validation->set_rules('sign_consent_date', 'Fecha Firma Consentimiento', 'required|xss_clean');
+			$this->form_validation->set_rules('sign_consent_date', 'Fecha Firma Consentimiento', 'xss_clean');
 		}
 		else{
 			$this->form_validation->set_rules('sign_consent_date', 'Fecha Firma Consentimiento', 'xss_clean');	
 		}
-		$this->form_validation->set_rules('initials', 'Iniciales', 'required|xss_clean');
-        $this->form_validation->set_rules('edad', 'Edad', 'required|xss_clean');
-        $this->form_validation->set_rules('gender', 'Sexo', 'required|xss_clean');
-        $this->form_validation->set_rules('birth_date', 'Fecha de Nacimiento', 'required|xss_clean');
-		$this->form_validation->set_rules('race', 'Etnia/Raza', 'required|xss_clean');
-		$this->form_validation->set_rules('escolaridad', 'Grado de escolaridad', 'required|xss_clean');        
+		$this->form_validation->set_rules('initials', 'Iniciales', 'xss_clean');
+        $this->form_validation->set_rules('edad', 'Edad', 'xss_clean');
+        $this->form_validation->set_rules('gender', 'Sexo', 'xss_clean');
+        $this->form_validation->set_rules('birth_date', 'Fecha de Nacimiento', 'xss_clean');
+		$this->form_validation->set_rules('race', 'Etnia/Raza', 'xss_clean');
+		$this->form_validation->set_rules('race_especificacion', 'Etnia/Raza Especificacion', 'xss_clean');  
+		$this->form_validation->set_rules('escolaridad', 'Grado de escolaridad', 'xss_clean');        
         $this->form_validation->set_rules('center', 'Centro', 'required|xss_clean');
         $this->form_validation->set_rules('id', 'Id', 'required|xss_clean');
         
@@ -171,7 +172,28 @@ class Subject extends CI_Controller {
 		
 		#querys about demography
 		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Demography"));
+
+		$data['etnias'] = array(''=>'',
+								'Caucasica - blanca'=>'Caucásica - blanca',
+								'Indigena - Mapuche'=>'Indígena - Mapuche',
+								'Asiatica - Mongoloide'=>'Asiatica - Mongoloíde',
+								'Africana - Negroide'=>'Africana - Negroide',
+								'Otro'=>'Otro'
+								);
 		
+		
+		$data['escolaridad'] = array(''=>'',
+							'Basica Incompleta'=>'Básica Incompleta',
+							'Basica Completa'=>'Básica Completa',
+							'Ed. Media Incompleta'=>'Ed. Media Incompleta',
+							'Cuarto Medio Completo'=>'Cuarto Medio Completo',
+							'Tecnica Incompleta'=>'Técnica Incompleta',
+							'Tecnica Completa'=>'Técnica Completa',
+							'Universitaria Incompleta'=>'Universitaria Incompleta',
+							'Universitaria Completa'=>'Universitaria Completa',
+							'Postgrado'=>'Postgrado');
+		
+
 		$this->auditlib->save_audit("Entro al formulario de demografia",$id);
 		
 		$this->load->view('template', $data);
@@ -181,31 +203,39 @@ class Subject extends CI_Controller {
 
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('sign_consent', 'Firmo el Concentimiento', 'required|xss_clean');
+		$this->form_validation->set_rules('sign_consent', 'Firmo el Concentimiento', 'xss_clean');
 
 		if(isset($registro['sign_consent']) AND $registro['sign_consent'] != ''){
-			$this->form_validation->set_rules('sign_consent_date', 'Fecha firma del concentimiento', 'required|xss_clean');					
+			$this->form_validation->set_rules('sign_consent_date', 'Fecha firma del concentimiento', 'xss_clean');					
 		}
 		else{
 			$this->form_validation->set_rules('sign_consent_date', 'Fecha firma del concentimiento', 'xss_clean');
 		}
 
-		$this->form_validation->set_rules('birth_date', 'Fecha de Nacimiento', 'required|xss_clean');
-        $this->form_validation->set_rules('initials', 'Iniciales', 'required|xss_clean');
-        $this->form_validation->set_rules('edad', 'Edad', 'required|xss_clean');
-        $this->form_validation->set_rules('gender', 'Sexo', 'required|xss_clean'); 
-        $this->form_validation->set_rules('race', 'Etnia/Raza', 'required|xss_clean');
-        $this->form_validation->set_rules('escolaridad', 'Grado de Escolaridad', 'required|xss_clean');	
-		
-        
-		
+		$this->form_validation->set_rules('birth_date', 'Fecha de Nacimiento', 'xss_clean');
+        $this->form_validation->set_rules('initials', 'Iniciales', 'xss_clean');
+        $this->form_validation->set_rules('edad', 'Edad', 'xss_clean');
+        $this->form_validation->set_rules('gender', 'Sexo', 'xss_clean'); 
+        $this->form_validation->set_rules('race', 'Etnia/Raza', 'xss_clean');
+        $this->form_validation->set_rules('race_especificacion', 'Etnia/Raza Especificacion', 'xss_clean');        
+        $this->form_validation->set_rules('escolaridad', 'Grado de Escolaridad', 'xss_clean');			
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Tiene errores de validacion al editar la demografia",$registro['id']);
 			$this->demography($registro['id']);
 		}
 		else {
-			$registro['demography_status'] = 'Record Complete';
+
+			if(empty($registro['birth_date']) OR empty($registro['initials']) OR empty($registro['edad'])
+				OR empty($registro['gender']) OR empty($registro['race']) OR empty($registro['race_especificacion'])
+				OR empty($registro['escolaridad'])
+			){
+				$estado = 'Error';
+			}else{
+				$estado = 'Record Complete';
+			}
+
+			$registro['demography_status'] = $estado;
 			$registro['updated'] = date('Y/m/d H:i');
 			$this->Model_Subject->update($registro);
 			$this->auditlib->save_audit("Actualizo la informacion demografica", $registro['id']);
@@ -2019,7 +2049,13 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
 		$this->form_validation->set_rules('tiene_problemas_memoria', '', 'xss_clean');
 		$this->form_validation->set_rules('le_puedo_hacer_preguntas', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');		
+		$this->form_validation->set_rules('en_que_ano_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_estacion_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_mes_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_dia_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_fecha_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_region_estamos', '', 'xss_clean');
 		$this->form_validation->set_rules('en_que_ano_estamos_puntaje', '', 'xss_clean');
 		$this->form_validation->set_rules('en_que_estacion_estamos_puntaje', '', 'xss_clean');
 		$this->form_validation->set_rules('en_que_mes_estamos_puntaje', '', 'xss_clean');
@@ -2086,6 +2122,8 @@ class Subject extends CI_Controller {
 					AND (
 						empty($registro['en_que_ano_estamos_puntaje']) OR empty($registro['en_que_estacion_estamos_puntaje']) OR empty($registro['en_que_mes_estamos_puntaje']) 
 						OR empty($registro['en_que_dia_estamos_puntaje']) OR empty($registro['en_que_fecha_estamos_puntaje']) OR empty($registro['en_que_region_estamos_puntaje']) 
+						OR empty($registro['en_que_ano_estamos']) OR empty($registro['en_que_estacion_estamos']) OR empty($registro['en_que_mes_estamos']) 
+						OR empty($registro['en_que_dia_estamos']) OR empty($registro['en_que_fecha_estamos']) OR empty($registro['en_que_region_estamos'])
 						OR empty($registro['donde_estas_ahora']) OR 
 						empty($registro['donde_estas_ahora_puntaje']) OR empty($registro['comuna_estamos']) OR empty($registro['comuna_estamos_puntaje']) OR empty($registro['barrio_estamos']) OR 
 						empty($registro['barrio_estamos_puntaje']) OR empty($registro['edificio_estamos']) OR empty($registro['edificio_estamos_puntaje']) OR empty($registro['manzana']) OR 
@@ -2178,6 +2216,12 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('tiene_problemas_memoria', '', 'xss_clean');
 		$this->form_validation->set_rules('le_puedo_hacer_preguntas', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_ano_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_estacion_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_mes_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_dia_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_fecha_estamos', '', 'xss_clean');
+		$this->form_validation->set_rules('en_que_region_estamos', '', 'xss_clean');
 		$this->form_validation->set_rules('en_que_ano_estamos_puntaje', '', 'xss_clean');
 		$this->form_validation->set_rules('en_que_estacion_estamos_puntaje', '', 'xss_clean');
 		$this->form_validation->set_rules('en_que_mes_estamos_puntaje', '', 'xss_clean');
@@ -2244,6 +2288,8 @@ class Subject extends CI_Controller {
 					AND (
 						empty($registro['en_que_ano_estamos_puntaje']) OR empty($registro['en_que_estacion_estamos_puntaje']) OR empty($registro['en_que_mes_estamos_puntaje']) OR
 						empty($registro['en_que_dia_estamos_puntaje']) OR empty($registro['en_que_fecha_estamos_puntaje']) OR empty($registro['en_que_region_estamos_puntaje']) 
+						OR empty($registro['en_que_ano_estamos']) OR empty($registro['en_que_estacion_estamos']) OR empty($registro['en_que_mes_estamos']) 
+						OR empty($registro['en_que_dia_estamos']) OR empty($registro['en_que_fecha_estamos']) OR empty($registro['en_que_region_estamos'])
 						OR empty($registro['donde_estas_ahora']) OR 
 						empty($registro['donde_estas_ahora_puntaje']) OR empty($registro['comuna_estamos']) OR empty($registro['comuna_estamos_puntaje']) OR empty($registro['barrio_estamos']) OR 
 						empty($registro['barrio_estamos_puntaje']) OR empty($registro['edificio_estamos']) OR empty($registro['edificio_estamos_puntaje']) OR empty($registro['manzana']) OR 
@@ -2446,45 +2492,25 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
-
-		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
-			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-			$this->form_validation->set_rules('ritmo_sinusal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('fc', '', 'required|xss_clean');
-			$this->form_validation->set_rules('fc_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('pr', '', 'required|xss_clean');
-			$this->form_validation->set_rules('pr_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qrs', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qrs_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qt', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qt_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qtc', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qtc_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qrs2', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('interpretacion_ecg', '', 'required|xss_clean');
-			$this->form_validation->set_rules('comentarios', '', 'required|xss_clean');
-		}
-		else{
-			$this->form_validation->set_rules('fecha', '', 'xss_clean');
-			$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
-			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('fc', '', 'xss_clean');
-			$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('pr', '', 'xss_clean');
-			$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('qrs', '', 'xss_clean');
-			$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('qt', '', 'xss_clean');
-			$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('qtc', '', 'xss_clean');
-			$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('qrs2', '', 'xss_clean');
-			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
-			$this->form_validation->set_rules('comentarios', '', 'xss_clean');	
-		}
+	
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
+		$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('fc', '', 'xss_clean');
+		$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('pr', '', 'xss_clean');
+		$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qt', '', 'xss_clean');
+		$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qtc', '', 'xss_clean');
+		$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs2', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
+		$this->form_validation->set_rules('comentarios', '', 'xss_clean');
+		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar estudio ECG", $registro['subject_id']);
@@ -2547,45 +2573,25 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
-
-		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
-			$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
-			$this->form_validation->set_rules('ritmo_sinusal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('fc', '', 'required|xss_clean');
-			$this->form_validation->set_rules('fc_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('pr', '', 'required|xss_clean');
-			$this->form_validation->set_rules('pr_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qrs', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qrs_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qt', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qt_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qtc', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qtc_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qrs2', '', 'required|xss_clean');
-			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'required|xss_clean');
-			$this->form_validation->set_rules('interpretacion_ecg', '', 'required|xss_clean');
-			$this->form_validation->set_rules('comentarios', '', 'required|xss_clean');
-		}
-		else{
-			$this->form_validation->set_rules('fecha', '', 'xss_clean');
-			$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
-			$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('fc', '', 'xss_clean');
-			$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('pr', '', 'xss_clean');
-			$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('qrs', '', 'xss_clean');
-			$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('qt', '', 'xss_clean');
-			$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('qtc', '', 'xss_clean');
-			$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('qrs2', '', 'xss_clean');
-			$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
-			$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
-			$this->form_validation->set_rules('comentarios', '', 'xss_clean');	
-		}
+	
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
+		$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('fc', '', 'xss_clean');
+		$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('pr', '', 'xss_clean');
+		$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qt', '', 'xss_clean');
+		$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qtc', '', 'xss_clean');
+		$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs2', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
+		$this->form_validation->set_rules('comentarios', '', 'xss_clean');	
+		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar estudio ECG", $registro['subject_id']);

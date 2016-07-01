@@ -26,7 +26,7 @@
 <b>Legend:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
-		<tr style='background-color: #C0C0C0;'><th colspan='4' style='text-align:center;'>Link Icon Legend</th></tr>
+		<tr style='background-color: #C0C0C0;'><th colspan='4' style='text-align:center;'>Significado de Iconos</th></tr>
 	</thead>
 	<tbody>
 		<tr>
@@ -63,7 +63,7 @@
 	</thead>
 	<tbody>		
 		<tr>
-			<td>Demografía</td>
+			<td>Demografía - Consentimiento Informado</td>
 			<?php
 				if(empty($subject->demography_status)){
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
@@ -367,43 +367,8 @@
 				}
 				
 			?>
-			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
-			<?php
-				if(empty($subject->mmse_6_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/mmse/'.$subject->id ."/6";
-				}
-				elseif ($subject->mmse_6_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/6";
-				}
-				elseif ($subject->mmse_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/6";
-				}
-				elseif ($subject->mmse_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/6";
-				}
-				elseif ($subject->mmse_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/6";
-				}
-				elseif ($subject->mmse_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/6";
-				}
-				elseif ($subject->mmse_6_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/6";
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>			
+			<td style='text-align:center;'></td>
 		</tr>
 		
 		<?php
@@ -442,7 +407,7 @@
 				
 			?>
 		<tr>
-			<td>Escala de Hachinski modificada</td>
+			<td>Escala de Hachinski</td>
 			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>

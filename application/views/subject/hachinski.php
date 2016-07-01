@@ -18,7 +18,7 @@ $(function(){
 });	
 </script>	
 	<div class="row">
-		<legend style='text-align:center;'>Escala de Hachinski modificada</legend>
+		<legend style='text-align:center;'>Escala de Hachinski</legend>
 		<b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -43,8 +43,7 @@ $(function(){
 	</tbody>
 </table>
 		<br />
-		<!-- legend -->
-		<h3>Puntaje de isquemia de Hachinski modificada ≤4.</h3>
+		<!-- legend -->		
 		<?= form_open('subject/hachinski_insert'); ?>		
 			<input type='hidden' name='total' id='total' value='0' />
 			<input type='hidden' name='subject_id' id='subject_id' value='<?php echo $subject->id; ?>' />
@@ -63,6 +62,9 @@ $(function(){
 				<tr><td>Síntomas neurológicos focales: </td><td><input type='checkbox' name='sintomas_neurologicos' id='sintomas_neurologicos' value='2' /></td></tr>
 				<tr><td>Signos neurológicos focales: </td><td><input type='checkbox' name='signos_neurologicos' id='signos_neurologicos' value='2' /></td></tr>
 				<tr><td><b>Puntaje Total: </b></td><td style='text-align:rigth;font-weight:bold;' id='td_total'></td></tr>
+				<tr>
+					<td colspan='2' style='text-align:right;font-weight:bold;font-style:italic;'>Puntaje de isquemia de Hachinski modificada ≤ 4, según criterios de inclusión.</td>
+				</tr>
 				<tr>
 					<td colspan='2' style='text-align:center;'>
 						<?php
