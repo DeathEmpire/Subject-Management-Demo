@@ -105,7 +105,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'hematocrito_nom_anom','value'=>'Normal','checked'=>set_radio('hematocrito_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'hematocrito_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('hematocrito_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'hematocrito_nom_anom','value'=>'Anormal_con','checked'=>set_radio('hematocrito_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
 					<td>Hemoglobina</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'hemoglobina', 'id'=>'hemoglobina', 'value'=>set_value('hemoglobina')));?></td>
@@ -113,15 +113,15 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'hemoglobina_nom_anom','value'=>'Normal','checked'=>set_radio('hemoglobina_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'hemoglobina_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('hemoglobina_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'hemoglobina_nom_anom','value'=>'Anormal_con','checked'=>set_radio('hemoglobina_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
-					<td>Recuento eritocritos (RBC)</td>
+					<td>Recuento eritrocitos (RBC)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'eritocritos', 'id'=>'eritocritos', 'value'=>set_value('eritocritos')));?></td>
 					<td>M/µl</td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'eritocritos_nom_anom','value'=>'Normal','checked'=>set_radio('eritocritos_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'eritocritos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('eritocritos_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'eritocritos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('eritocritos_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
 					<td>Recuento leucocitos (WBC)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'leucocitos', 'id'=>'leucocitos', 'value'=>set_value('leucocitos')));?></td>
@@ -129,7 +129,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'leucocitos_nom_anom','value'=>'Normal','checked'=>set_radio('leucocitos_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'leucocitos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('leucocitos_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'leucocitos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('leucocitos_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
 					<td>Neutrófilos</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'neutrofilos', 'id'=>'neutrofilos', 'value'=>set_value('neutrofilos')));?></td>
@@ -137,7 +137,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'neutrofilos_nom_anom','value'=>'Normal','checked'=>set_radio('neutrofilos_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'neutrofilos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('neutrofilos_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'neutrofilos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('neutrofilos_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
 					<td>Linfocitos</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'linfocitos', 'id'=>'linfocitos', 'value'=>set_value('linfocitos')));?></td>
@@ -145,7 +145,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'linfocitos_nom_anom','value'=>'Normal','checked'=>set_radio('linfocitos_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'linfocitos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('linfocitos_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'linfocitos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('linfocitos_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
 					<td>Monocitos</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'monocitos', 'id'=>'monocitos', 'value'=>set_value('monocitos')));?></td>
@@ -153,7 +153,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'monocitos_nom_anom','value'=>'Normal','checked'=>set_radio('monocitos_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'monocitos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('monocitos_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'monocitos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('monocitos_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
 					<td>Eosinófilos</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'eosinofilos', 'id'=>'eosinofilos', 'value'=>set_value('eosinofilos')));?></td>
@@ -161,7 +161,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'eosinofilos_nom_anom','value'=>'Normal','checked'=>set_radio('eosinofilos_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'eosinofilos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('eosinofilos_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'eosinofilos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('eosinofilos_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
 					<td>Basófilos</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'basofilos', 'id'=>'basofilos', 'value'=>set_value('basofilos')));?></td>
@@ -169,7 +169,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'basofilos_nom_anom','value'=>'Normal','checked'=>set_radio('basofilos_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'basofilos_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('basofilos_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'basofilos_nom_anom','value'=>'Anormal_con','checked'=>set_radio('basofilos_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>
 				<tr>
 					<td>Recuento plaquetas</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'recuento_plaquetas', 'id'=>'recuento_plaquetas', 'value'=>set_value('recuento_plaquetas')));?></td>
@@ -177,15 +177,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'recuento_plaquetas_nom_anom','value'=>'Normal','checked'=>set_radio('recuento_plaquetas_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'recuento_plaquetas_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('recuento_plaquetas_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'recuento_plaquetas_nom_anom','value'=>'Anormal_con','checked'=>set_radio('recuento_plaquetas_nom_anom', 'Anormal_con')));?></td>
-				</td>
-				<tr>
-					<td>VHS</td>
-					<td><?= form_input(array('type'=>'text', 'name'=>'vhs', 'id'=>'vhs', 'value'=>set_value('vhs')));?></td>
-					<td></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'vhs_nom_anom','value'=>'Normal','checked'=>set_radio('vhs_nom_anom', 'Normal')));?></td>					
-					<td style='text-align:center;'><?= form_radio(array('name'=>'vhs_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('vhs_nom_anom', 'Anormal_sin')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'vhs_nom_anom','value'=>'Anormal_con','checked'=>set_radio('vhs_nom_anom', 'Anormal_con')));?></td>
-				</td>
+				</tr>			
 			</tbody>
 		</table>
 		<br />&nbsp;<br />

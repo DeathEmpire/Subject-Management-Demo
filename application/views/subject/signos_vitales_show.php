@@ -33,6 +33,21 @@ $(function(){
 			$(this).removeAttr('disabled', 'disabled');
 		});
 	}
+
+	$("#peso, #estatura").change(function(){
+		if($("#peso").val() != '' && $("#estatura").val() != ''){
+			var estatura2 = Math.pow($("#estatura").val(),2);
+			var peso = $("#peso").val();
+			var imc = peso / estatura2;
+			$("#imc").val(imc);
+		}
+	});
+	if($("#peso").val() != '' && $("#estatura").val() != ''){
+		var estatura2 = Math.pow($("#estatura").val(),2);
+		var peso = $("#peso").val();
+		var imc = peso / estatura2;
+		$("#imc").val(imc);
+	}
 });
 </script>
 <legend style='text-align:center;'>Signos Vitales</legend>
@@ -144,6 +159,10 @@ $(function(){
 		<tr>
 			<td>Peso: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlenght'=>'3','value'=>set_value('peso', $list[0]->peso))); ?> kgs</td>
+		</tr>
+		<tr>
+			<td>IMC: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlenght'=>'3','value'=>set_value('imc'))); ?></td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

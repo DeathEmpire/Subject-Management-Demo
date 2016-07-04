@@ -4297,9 +4297,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('basofilos', '', 'xss_clean');
 		$this->form_validation->set_rules('basofilos_nom_anom', '', 'xss_clean');
 		$this->form_validation->set_rules('recuento_plaquetas', '', 'xss_clean');
-		$this->form_validation->set_rules('recuento_plaquetas_nom_anom', '', 'xss_clean');
-		$this->form_validation->set_rules('vhs', '', 'xss_clean');
-		$this->form_validation->set_rules('vhs_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('recuento_plaquetas_nom_anom', '', 'xss_clean');		
 		$this->form_validation->set_rules('glucosa_ayunas', '', 'xss_clean');
 		$this->form_validation->set_rules('glucosa_ayunas_nom_anom', '', 'xss_clean');
 		$this->form_validation->set_rules('bun', '', 'xss_clean');
@@ -4368,7 +4366,7 @@ class Subject extends CI_Controller {
 					empty($registro['linfocitos_nom_anom']) OR empty($registro['monocitos'])  OR empty($registro['monocitos_nom_anom']) OR
 					empty($registro['eosinofilos']) OR empty($registro['eosinofilos_nom_anom'])  OR empty($registro['basofilos']) OR
 					empty($registro['basofilos_nom_anom']) OR empty($registro['recuento_plaquetas'])  OR empty($registro['recuento_plaquetas_nom_anom']) OR
-					empty($registro['vhs']) OR empty($registro['vhs_nom_anom'])  OR empty($registro['glucosa_ayunas']) OR
+					empty($registro['glucosa_ayunas']) OR
 					empty($registro['glucosa_ayunas_nom_anom']) OR empty($registro['bun'])  OR empty($registro['bun_nom_anom']) OR
 					empty($registro['creatinina']) OR empty($registro['creatinina_nom_anom'])  OR empty($registro['bilirrubina_total']) OR
 					empty($registro['bilirrubina_total_nom_anom']) OR empty($registro['proteinas_totales'])  OR empty($registro['proteinas_totales_nom_anom']) OR
@@ -4454,9 +4452,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('basofilos', '', 'xss_clean');
 		$this->form_validation->set_rules('basofilos_nom_anom', '', 'xss_clean');
 		$this->form_validation->set_rules('recuento_plaquetas', '', 'xss_clean');
-		$this->form_validation->set_rules('recuento_plaquetas_nom_anom', '', 'xss_clean');
-		$this->form_validation->set_rules('vhs', '', 'xss_clean');
-		$this->form_validation->set_rules('vhs_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('recuento_plaquetas_nom_anom', '', 'xss_clean');		
 		$this->form_validation->set_rules('glucosa_ayunas', '', 'xss_clean');
 		$this->form_validation->set_rules('glucosa_ayunas_nom_anom', '', 'xss_clean');
 		$this->form_validation->set_rules('bun', '', 'xss_clean');
@@ -4525,7 +4521,7 @@ class Subject extends CI_Controller {
 					empty($registro['linfocitos_nom_anom']) OR empty($registro['monocitos'])  OR empty($registro['monocitos_nom_anom']) OR
 					empty($registro['eosinofilos']) OR empty($registro['eosinofilos_nom_anom'])  OR empty($registro['basofilos']) OR
 					empty($registro['basofilos_nom_anom']) OR empty($registro['recuento_plaquetas'])  OR empty($registro['recuento_plaquetas_nom_anom']) OR
-					empty($registro['vhs']) OR empty($registro['vhs_nom_anom'])  OR empty($registro['glucosa_ayunas']) OR
+					empty($registro['glucosa_ayunas']) OR
 					empty($registro['glucosa_ayunas_nom_anom']) OR empty($registro['bun'])  OR empty($registro['bun_nom_anom']) OR
 					empty($registro['creatinina']) OR empty($registro['creatinina_nom_anom'])  OR empty($registro['bilirrubina_total']) OR
 					empty($registro['bilirrubina_total_nom_anom']) OR empty($registro['proteinas_totales'])  OR empty($registro['proteinas_totales_nom_anom']) OR
@@ -5499,8 +5495,11 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'NPI';
 		$data['subject'] = $this->Model_Subject->find($subject_id);		
 		$data['etapa'] = $etapa;
+		$data['frecuencia'] = array(''=>'','1'=>'1','2'=>'2','3'=>'3','4'=>'4');
+		$data['severidad'] = array(''=>'','1'=>'1','2'=>'2','3'=>'3');
+		$data['angustia'] = array(''=>'','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5');
 
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function npi_insert(){
@@ -5640,6 +5639,9 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'NPI';
 		$data['subject'] = $this->Model_Subject->find($subject_id);		
 		$data['etapa'] = $etapa;
+		$data['frecuencia'] = array(''=>'','1'=>'1','2'=>'2','3'=>'3','4'=>'4');
+		$data['severidad'] = array(''=>'','1'=>'1','2'=>'2','3'=>'3');
+		$data['angustia'] = array(''=>'','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5');
 
 		$this->load->model('Model_Npi');
 		$data['list'] = $this->Model_Npi->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
@@ -5647,7 +5649,7 @@ class Subject extends CI_Controller {
 		/*querys*/
 		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"NPI", 'etapa'=>$etapa));
 
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function npi_update(){
@@ -7005,23 +7007,17 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('hora_finalizacion', '', 'xss_clean');
 		$this->form_validation->set_rules('no_administro_1', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_2', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_2', '', 'xss_clean');
-		$this->form_validation->set_rules('puntuacion_2', '', 'xss_clean');
-		$this->form_validation->set_rules('no_administro_2', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_2', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_3', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_3', '', 'xss_clean');
-		$this->form_validation->set_rules('puntuacion_3', '', 'xss_clean');
-		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');
-		$this->form_validation->set_rules('no_administro_3', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_3', '', 'xss_clean');		
+		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');		
 		$this->form_validation->set_rules('total_recordadas_4', '', 'xss_clean');
 		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_5', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');
-		$this->form_validation->set_rules('puntuacion_5', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');		
 		$this->form_validation->set_rules('no_administro_5', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_6', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');
-		$this->form_validation->set_rules('puntuacion_6', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');		
 		$this->form_validation->set_rules('no_administro_6', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_7', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_7', '', 'xss_clean');
@@ -7053,11 +7049,11 @@ class Subject extends CI_Controller {
 					$registro['palabras_recordadas_1'] == '' OR $registro['palabras_no_recordadas_1'] == '' OR $registro['palabras_recordadas_2'] == '' 
 					OR $registro['palabras_no_recordadas_2'] == '' OR $registro['palabras_recordadas_3'] == '' OR $registro['palabras_no_recordadas_3'] == '' 
 					OR $registro['hora_finalizacion'] == '' OR $registro['total_correctas_2'] == '' OR $registro['total_incorrectas_2'] == '' 
-					OR $registro['puntuacion_2'] == '' OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == ''
-	  				OR $registro['puntuacion_3'] == '' OR $registro['total_recordadas_4'] == '' 
+					OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == ''
+	  				OR $registro['total_recordadas_4'] == '' 
 	  				OR $registro['total_no_recordadas_4'] == '' OR $registro['total_correctas_5'] == '' OR $registro['total_incorrectas_5'] == ''
-	  				OR $registro['puntuacion_5'] == '' OR $registro['total_correctas_6'] == '' OR $registro['total_incorrectas_6'] == '' 
-	  				OR $registro['puntuacion_6'] == '' OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
+	  				OR $registro['total_correctas_6'] == '' OR $registro['total_incorrectas_6'] == '' 
+	  				OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
 	  				OR $registro['total_correctas_8'] == '' OR $registro['total_incorrectas_8'] == '' OR $registro['cantidad_recordadas_8'] == '' 
 	  				OR $registro['puntuacion_9'] == '' OR $registro['puntuacion_10'] == '' OR $registro['puntuacion_11'] == ''
 	  				OR $registro['puntuacion_12'] == '' OR $registro['objetivos_13'] == '' OR $registro['errores_13'] == '' 
@@ -7140,23 +7136,17 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('hora_finalizacion', '', 'xss_clean');
 		$this->form_validation->set_rules('no_administro_1', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_2', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_2', '', 'xss_clean');
-		$this->form_validation->set_rules('puntuacion_2', '', 'xss_clean');
-		$this->form_validation->set_rules('no_administro_2', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_2', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_3', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_3', '', 'xss_clean');
-		$this->form_validation->set_rules('puntuacion_3', '', 'xss_clean');
-		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');
-		$this->form_validation->set_rules('no_administro_3', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_3', '', 'xss_clean');		
+		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');		
 		$this->form_validation->set_rules('total_recordadas_4', '', 'xss_clean');
 		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_5', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');
-		$this->form_validation->set_rules('puntuacion_5', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');		
 		$this->form_validation->set_rules('no_administro_5', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_6', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');
-		$this->form_validation->set_rules('puntuacion_6', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');		
 		$this->form_validation->set_rules('no_administro_6', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_7', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_7', '', 'xss_clean');
@@ -7188,11 +7178,11 @@ class Subject extends CI_Controller {
 					$registro['palabras_recordadas_1'] == '' OR $registro['palabras_no_recordadas_1'] == '' OR $registro['palabras_recordadas_2'] == '' 
 					OR $registro['palabras_no_recordadas_2'] == '' OR $registro['palabras_recordadas_3'] == '' OR $registro['palabras_no_recordadas_3'] == '' 
 					OR $registro['hora_finalizacion'] == '' OR $registro['total_correctas_2'] == '' OR $registro['total_incorrectas_2'] == '' 
-					OR $registro['puntuacion_2'] == '' OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == ''
-	  				OR $registro['puntuacion_3'] == '' OR $registro['total_recordadas_4'] == '' 
+					OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == ''
+	  				OR $registro['total_recordadas_4'] == '' 
 	  				OR $registro['total_no_recordadas_4'] == '' OR $registro['total_correctas_5'] == '' OR $registro['total_incorrectas_5'] == ''
-	  				OR $registro['puntuacion_5'] == '' OR $registro['total_correctas_6'] == '' OR $registro['total_incorrectas_6'] == '' 
-	  				OR $registro['puntuacion_6'] == '' OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
+	  				OR $registro['total_correctas_6'] == '' OR $registro['total_incorrectas_6'] == '' 
+	  				OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
 	  				OR $registro['total_correctas_8'] == '' OR $registro['total_incorrectas_8'] == '' OR $registro['cantidad_recordadas_8'] == '' 
 	  				OR $registro['puntuacion_9'] == '' OR $registro['puntuacion_10'] == '' OR $registro['puntuacion_11'] == ''
 	  				OR $registro['puntuacion_12'] == '' OR $registro['objetivos_13'] == '' OR $registro['errores_13'] == '' 

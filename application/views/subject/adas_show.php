@@ -152,16 +152,7 @@ $(function(){
 			<tr>
 				<td>Total incorrectas</td>
 				<td><?= form_input(array('type'=>'number', 'name'=>'total_incorrectas_2', 'id'=>'total_incorrectas_2', 'value'=>set_value('total_incorrectas_2', $list[0]->total_incorrectas_2))); ?></td>
-			</tr>
-			<tr>
-				<td>Puntuación</td>
-				<td><?= form_dropdown('puntuacion_2', $puntaje, set_value('puntuacion_2', $list[0]->puntuacion_2)); ?></td>
-			</tr>
-			<tr>
-				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
-				<td><?= form_dropdown('no_administro_2', $no_administro, set_value('no_administro_2', $list[0]->no_administro_2)); ?></td>
-			</tr>
-
+			</tr>			
 			
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>3.- Praxis Constructiva</td>
@@ -173,21 +164,11 @@ $(function(){
 			<tr>
 				<td>Total incorrectas</td>
 				<td><?= form_input(array('type'=>'number', 'name'=>'total_incorrectas_3', 'id'=>'total_incorrectas_3', 'value'=>set_value('total_incorrectas_3', $list[0]->total_incorrectas_3))); ?></td>
-			</tr>
-			<tr>
-				<td>Puntuación</td>
-				<td><?= form_dropdown('puntuacion_3', $puntaje, set_value('puntuacion_3', $list[0]->puntuacion_3)); ?></td>
-			</tr>
+			</tr>			
 			<tr>
 				<td>Paciente no intentó dibujar ninguna forma: </td>
 				<td><?= form_checkbox('paciente_no_dibujo_3','1', (($list[0]->paciente_no_dibujo_3 == 1) ? true : false)); ?></td>
-			</tr>
-			<tr>
-				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
-				<td><?= form_dropdown('no_administro_3', $no_administro, set_value('no_administro_3', $list[0]->no_administro_3)); ?></td>
-			</tr>
-
-			
+			</tr>			
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>4.- Tarea de recordar palabras diferida </td>
 			</tr>
@@ -211,10 +192,6 @@ $(function(){
 			<tr>
 				<td>Total incorrectas</td>
 				<td><?= form_input(array('type'=>'number', 'name'=>'total_incorrectas_5', 'id'=>'total_incorrectas_5', 'value'=>set_value('total_incorrectas_5', $list[0]->total_incorrectas_5))); ?></td>
-			</tr>
-			<tr>
-				<td>Puntuación</td>
-				<td><?= form_dropdown('puntuacion_5', $puntaje, set_value('puntuacion_5', $list[0]->puntuacion_5)); ?></td>
 			</tr>			
 			<tr>
 				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
@@ -231,10 +208,6 @@ $(function(){
 			<tr>
 				<td>Total incorrectas</td>
 				<td><?= form_input(array('type'=>'number', 'name'=>'total_incorrectas_6', 'id'=>'total_incorrectas_6', 'value'=>set_value('total_incorrectas_6', $list[0]->total_incorrectas_6))); ?></td>
-			</tr>
-			<tr>
-				<td>Puntuación</td>
-				<td><?= form_dropdown('puntuacion_6', $puntaje, set_value('puntuacion_6', $list[0]->puntuacion_6)); ?></td>
 			</tr>			
 			<tr>
 				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>

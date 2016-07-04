@@ -144,14 +144,10 @@
 				</td>
 				<td><?= form_input(array('type'=>'text', 'name'=>'cefaleas_fecha_diagnostico', 'id'=>'cefaleas_fecha_diagnostico', 'value'=>set_value('cefaleas_fecha_diagnostico', $list[0]->cefaleas_fecha_diagnostico))); ?></td>
 			</tr>
-		</tbody>
-		<thead>
 			<tr>
-				<td colspan='2'></td>
-				<td style='font-weight:bold;'>Describir</td>
+				<td colspan='2' style='background-color:#ccc;'></td>
+				<td style='font-weight:bold;background-color:#ccc;'>Describir</td>
 			</tr>
-		</thead>
-		<tbody>
 			<tr>
 				<td>Alergias:</td>
 				<td>

@@ -504,7 +504,7 @@
 			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
-			<td>RNM o TC</td>
+			<td>Resonancia Magnética o Tomografía Computarizada</td>
 			<?php
 				if(empty($subject->rnm_status)){
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
@@ -1474,44 +1474,8 @@
 				}
 				
 			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				#print_r($subject);
-				if(empty($subject->npi_6_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/npi/'.$subject->id .'/6';
-				}
-				elseif ($subject->npi_6_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->npi_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->npi_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->npi_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->npi_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->npi_6_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>			
+			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
 			<td>TMT A</td>

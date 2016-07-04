@@ -53,7 +53,7 @@ $(function(){
 	
 });
 </script>
-<legend style='text-align:center;'>RNM o TC</legend>
+<legend style='text-align:center;'>Resonancia Magnética o Tomografía Computarizada</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
