@@ -6980,6 +6980,8 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'ADAS COG';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
+		$data['de0_a5'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5');
+		$data['de0_a4'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4');
 		
 		$data['no_administro'] = array(""=>"",
 			"El paciente se nego"=>"El paciente se negó",
@@ -7014,11 +7016,9 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('total_recordadas_4', '', 'xss_clean');
 		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_5', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');		
-		$this->form_validation->set_rules('no_administro_5', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_6', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');		
-		$this->form_validation->set_rules('no_administro_6', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_7', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_7', '', 'xss_clean');
 		$this->form_validation->set_rules('no_administro_7', '', 'xss_clean');
@@ -7103,6 +7103,9 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'ADAS COG';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
+
+		$data['de0_a5'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5');
+		$data['de0_a4'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4');
 		
 		$data['no_administro'] = array(""=>"",
 			"El paciente se nego"=>"El paciente se negó",
@@ -7143,11 +7146,9 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('total_recordadas_4', '', 'xss_clean');
 		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_5', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');		
-		$this->form_validation->set_rules('no_administro_5', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_6', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');		
-		$this->form_validation->set_rules('no_administro_6', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_7', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_7', '', 'xss_clean');
 		$this->form_validation->set_rules('no_administro_7', '', 'xss_clean');

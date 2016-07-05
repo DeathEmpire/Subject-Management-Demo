@@ -24,7 +24,7 @@ $(function(){
 });
 </script>
 <div class="row">
-		<legend style='text-align:center;'>Historia Medica</legend>
+		<legend style='text-align:center;'>Examen Fisico</legend>
 		<b>Sujeto Actual:</b>
 		<table class="table table-condensed table-bordered">
 			<thead>
