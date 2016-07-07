@@ -65,6 +65,7 @@ $(function(){
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	
+	<?= form_hidden('etapa', $etapa); ?>
 
 	<?php
        		$si = array(
@@ -348,7 +349,7 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_cetonas_nom_anom', 'Anormal_con')));?></td>
 				</tr>
 				<tr>
-					<td>Microscopía</td>
+					<td>Microscopía (Solamente si la tira reactiva es positiva para sangre o proteína.)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'orina_microscospia', 'id'=>'orina_microscospia', 'value'=>set_value('orina_microscospia')));?></td>
 					<td></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Normal','checked'=>set_radio('orina_microscospia_nom_anom', 'Normal')));?></td>					
@@ -358,9 +359,7 @@ $(function(){
 			</tbody>
 		</table>
 		<br />
-		&nbsp;
-		<br />
-		Solamente si la tira reactiva es positiva para sangre o proteína.
+		&nbsp;			
 		<br />
 		Otros:
 		<br />
@@ -397,13 +396,18 @@ $(function(){
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Perfil Tiroideo</td>
-					<td><?= form_input(array('type'=>'text', 'name'=>'otros_perfil_tiroideo', 'id'=>'otros_perfil_tiroideo', 'value'=>set_value('otros_perfil_tiroideo')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_perfil_tiroideo_nom_anom','value'=>'Normal','checked'=>set_radio('otros_perfil_tiroideo_nom_anom', 'Normal')));?></td>					
-					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_perfil_tiroideo_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_perfil_tiroideo_nom_anom', 'Anormal_sin')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_perfil_tiroideo_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_perfil_tiroideo_nom_anom', 'Anormal_con')));?></td>
-				</tr>
+				<?php if($etapa == 1){ ?>
+					<tr>
+						<td>Perfil Tiroideo</td>
+						<td><?= form_input(array('type'=>'text', 'name'=>'otros_perfil_tiroideo', 'id'=>'otros_perfil_tiroideo', 'value'=>set_value('otros_perfil_tiroideo')));?></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_perfil_tiroideo_nom_anom','value'=>'Normal','checked'=>set_radio('otros_perfil_tiroideo_nom_anom', 'Normal')));?></td>					
+						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_perfil_tiroideo_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_perfil_tiroideo_nom_anom', 'Anormal_sin')));?></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_perfil_tiroideo_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_perfil_tiroideo_nom_anom', 'Anormal_con')));?></td>
+					</tr>
+				<?php } else{ ?>
+					<?= form_hidden('otros_perfil_tiroideo','No Aplica');?>
+					<?= form_hidden('otros_perfil_tiroideo_nom_anom','No Aplica');?>					
+				<?php } ?>
 				<tr>
 					<td>Nivel plasmático de V B12</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'otros_nivel_b12', 'id'=>'otros_nivel_b12', 'value'=>set_value('otros_nivel_b12')));?></td>
@@ -418,20 +422,27 @@ $(function(){
 					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_acido_folico_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_acido_folico_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_acido_folico_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_acido_folico_nom_anom', 'Anormal_con')));?></td>
 				</tr>
-				<tr>
-					<td>HbA1C</td>
-					<td><?= form_input(array('type'=>'text', 'name'=>'otros_hba1c', 'id'=>'otros_hba1c', 'value'=>set_value('otros_hba1c')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Normal','checked'=>set_radio('otros_hba1c_nom_anom', 'Normal')));?></td>					
-					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_sin')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_con')));?></td>
-				</tr>
-				<tr>
-					<td>Sífilis (VDRL)</td>
-					<td><?= form_input(array('type'=>'text', 'name'=>'sifilis', 'id'=>'sifilis', 'value'=>set_value('sifilis')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Normal','checked'=>set_radio('sifilis_nom_anom', 'Normal')));?></td>					
-					<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('sifilis_nom_anom', 'Anormal_sin')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Anormal_con','checked'=>set_radio('sifilis_nom_anom', 'Anormal_con')));?></td>
-				</tr>
+				<?php if($etapa == 1){ ?>
+					<tr>
+						<td>HbA1C</td>
+						<td><?= form_input(array('type'=>'text', 'name'=>'otros_hba1c', 'id'=>'otros_hba1c', 'value'=>set_value('otros_hba1c')));?></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Normal','checked'=>set_radio('otros_hba1c_nom_anom', 'Normal')));?></td>					
+						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_sin')));?></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_con')));?></td>
+					</tr>
+					<tr>
+						<td>Sífilis (VDRL)</td>
+						<td><?= form_input(array('type'=>'text', 'name'=>'sifilis', 'id'=>'sifilis', 'value'=>set_value('sifilis')));?></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Normal','checked'=>set_radio('sifilis_nom_anom', 'Normal')));?></td>					
+						<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('sifilis_nom_anom', 'Anormal_sin')));?></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Anormal_con','checked'=>set_radio('sifilis_nom_anom', 'Anormal_con')));?></td>
+					</tr>
+				<?php } else{ ?>
+					<?= form_hidden('sifilis','No Aplica');?>
+					<?= form_hidden('sifilis_nom_anom','No Aplica');?>
+					<?= form_hidden('otros_hba1c','No Aplica');?>
+					<?= form_hidden('otros_hba1c_nom_anom','No Aplica');?>
+				<?php } ?>
 			</tbody>
 		</table>
 		<hr />

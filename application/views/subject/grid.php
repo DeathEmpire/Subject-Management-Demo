@@ -420,31 +420,31 @@
 			<?php
 				if(empty($subject->examen_laboratorio_status)){
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_laboratorio/'.$subject->id;
+					$link = 'subject/examen_laboratorio/'.$subject->id .'/1';
 				}
 				elseif ($subject->examen_laboratorio_status == 'Record Complete') {
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id;
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->examen_laboratorio_status == 'Document Approved and Signed by PI') {
 					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id;
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->examen_laboratorio_status == 'Form Approved and Locked') {
 					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id;
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->examen_laboratorio_status == 'Form Approved by Monitor') {
 					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id;
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->examen_laboratorio_status == 'Query') {
 					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id;
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->examen_laboratorio_status == 'Error') {					
 					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id;
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/1';
 				}
 				else{
 					$icon = '*';		
@@ -456,8 +456,78 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
-			<td style='text-align:center;'></td>
-			<td style='text-align:center;'></td>
+			<?php
+				if(empty($subject->examen_laboratorio_5_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/examen_laboratorio/'.$subject->id .'/5';
+				}
+				elseif ($subject->examen_laboratorio_5_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->examen_laboratorio_5_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->examen_laboratorio_5_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->examen_laboratorio_5_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->examen_laboratorio_5_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+				}
+				elseif ($subject->examen_laboratorio_5_status == 'Error') {					
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+				}
+				else{
+					$icon = '*';		
+					$link = "";
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<?php
+				if(empty($subject->examen_laboratorio_6_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/examen_laboratorio/'.$subject->id .'/6';
+				}
+				elseif ($subject->examen_laboratorio_6_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->examen_laboratorio_6_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->examen_laboratorio_6_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->examen_laboratorio_6_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->examen_laboratorio_6_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+				}
+				elseif ($subject->examen_laboratorio_6_status == 'Error') {					
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+				}
+				else{
+					$icon = '*';		
+					$link = "";
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 		</tr>
 		<tr>
 			<td>Electrocardiograma de reposo (ECG)</td>

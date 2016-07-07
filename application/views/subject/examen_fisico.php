@@ -23,8 +23,8 @@ $(function(){
 	});
 });
 </script>
-<div class="row">
-		<legend style='text-align:center;'>Examen Fisico</legend>
+
+		<legend style='text-align:center;'>Examen Físico <?= (($etapa > 1) ? 'Abreviado' : ''); ?></legend>
 		<b>Sujeto Actual:</b>
 		<table class="table table-condensed table-bordered">
 			<thead>
@@ -71,6 +71,23 @@ $(function(){
 
 		<table class='table table-striped table-hover table-bordered table-condensed'>
 			<tr>
+				<td>Examen f&iacute;sico realizado: </td>							
+				<td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
+				<td></td>
+			</tr>
+			<?php if($etapa == 1){ ?>			
+				<tr>
+					<td>La fecha del examen es la misma fecha de la visita?: </td>
+					<td>
+						<?= form_radio(array('name'=>'misma_fecha', 'value'=>1, 'checked'=>set_radio('misma_fecha', 1))); ?> Si
+						<?= form_radio(array('name'=>'misma_fecha', 'value'=>0, 'checked'=>set_radio('misma_fecha', 0))); ?> No
+					</td>
+					<td></td>
+				</tr>
+			<?php } else { ?>
+					<?= form_hidden('misma_fecha',0); ?>
+			<?php } ?>
+			<tr>
 				<td>Fecha: </td>
 				<td><?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 				<td></td>
@@ -80,112 +97,161 @@ $(function(){
 				<td></td>
 				<td style='font-weight:bold;'>Describa hallazgos</td>
 			</tr>
+						
 			<tr>
-				<td style='font-weight:bold;'>Tiene el paciente algun hallazgo en el examen fisico: </td>
-				<td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
-				<td></td>
-			</tr>			
-			<tr>
-				<td>Cardiovascular: </td>
+				<td>Aspecto general: </td>
 				<td>
-					<?= form_radio(array('name'=>'cardiovascular','value'=>'1','checked'=>set_radio('cardiovascular', 1))); ?> Si
-					<?= form_radio(array('name'=>'cardiovascular','value'=>'0','checked'=>set_radio('cardiovascular', 0))); ?> No
+					<?= form_radio(array('name'=>'aspecto_general','value'=>'1','checked'=>set_radio('aspecto_general', 1))); ?> Normal
+					<?= form_radio(array('name'=>'aspecto_general','value'=>'0','checked'=>set_radio('aspecto_general', 0))); ?> Anormal
 				</td>
-				<td><?= form_textarea(array('name'=>'cardiovascular_desc','id'=>'cardiovascular_desc', 'value'=>set_value('cardiovascular_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_textarea(array('name'=>'aspecto_general_desc','id'=>'aspecto_general_desc', 'value'=>set_value('aspecto_general_desc'), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
-				<td>Vascular Periferico: </td>
+				<td>Estado nutricional: </td>
 				<td>
-					<?= form_radio(array('name'=>'periferico','value'=>'1','checked'=>set_radio('periferico', 1))); ?> Si
-					<?= form_radio(array('name'=>'periferico','value'=>'0','checked'=>set_radio('periferico', 0))); ?> No
+					<?= form_radio(array('name'=>'estado_nutricional','value'=>'1','checked'=>set_radio('estado_nutricional', 1))); ?> Normal
+					<?= form_radio(array('name'=>'estado_nutricional','value'=>'0','checked'=>set_radio('estado_nutricional', 0))); ?> Anormal
 				</td>
-				<td><?= form_textarea(array('name'=>'periferico_desc','id'=>'periferico_desc', 'value'=>set_value('periferico_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_textarea(array('name'=>'estado_nutricional_desc','id'=>'estado_nutricional_desc', 'value'=>set_value('renal_desc'), 'rows'=>3)); ?></td>
 			</tr>
+			<?php if($etapa == 1){ ?>
+				<tr>
+					<td>Piel: </td>
+					<td>
+						<?= form_radio(array('name'=>'piel','value'=>'1','checked'=>set_radio('piel', 1))); ?> Normal
+						<?= form_radio(array('name'=>'piel','value'=>'0','checked'=>set_radio('piel', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'piel_desc','id'=>'piel_desc', 'value'=>set_value('piel_desc'), 'rows'=>3)); ?></td>
+				</tr>
+				<tr>
+					<td>Cabeza: </td>
+					<td>
+						<?= form_radio(array('name'=>'cabeza','value'=>'1','checked'=>set_radio('cabeza', 1))); ?> Normal
+						<?= form_radio(array('name'=>'cabeza','value'=>'0','checked'=>set_radio('cabeza', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'cabeza_desc','id'=>'cabeza_desc', 'value'=>set_value('cabeza_desc'), 'rows'=>3)); ?></td>
+				</tr>
+				<tr>
+					<td>Ojos: </td>
+					<td>
+						<?= form_radio(array('name'=>'ojos','value'=>'1','checked'=>set_radio('ojos', 1))); ?> Normal
+						<?= form_radio(array('name'=>'ojos','value'=>'0','checked'=>set_radio('ojos', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'ojos_desc','id'=>'ojos_desc', 'value'=>set_value('ojos_desc'), 'rows'=>3)); ?></td>
+				</tr>
+				<tr>
+					<td>Nariz: </td>
+					<td>
+						<?= form_radio(array('name'=>'nariz','value'=>'1','checked'=>set_radio('nariz', 1))); ?> Normal
+						<?= form_radio(array('name'=>'nariz','value'=>'0','checked'=>set_radio('nariz', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'nariz_desc','id'=>'nariz_desc', 'value'=>set_value('nariz_desc'), 'rows'=>3)); ?></td>
+				</tr>
+				<tr>
+					<td>Oidos: </td>
+					<td>
+						<?= form_radio(array('name'=>'oidos','value'=>'1','checked'=>set_radio('oidos', 1))); ?> Normal
+						<?= form_radio(array('name'=>'oidos','value'=>'0','checked'=>set_radio('oidos', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'oidos_desc','id'=>'oidos_desc', 'value'=>set_value('oidos_desc'), 'rows'=>3)); ?></td>
+				</tr>			
+				<tr>
+					<td>Boca - Garganta: </td>
+					<td>
+						<?= form_radio(array('name'=>'boca','value'=>'1','checked'=>set_radio('boca', 1))); ?> Normal
+						<?= form_radio(array('name'=>'boca','value'=>'0','checked'=>set_radio('boca', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'boca_desc','id'=>'boca_desc', 'value'=>set_value('boca_desc'), 'rows'=>3)); ?></td>
+				</tr>
+				<tr>
+					<td>Cuello - adenopat&iacute;as: </td>
+					<td>
+						<?= form_radio(array('name'=>'cuello','value'=>'1','checked'=>set_radio('cuello', 1))); ?> Normal
+						<?= form_radio(array('name'=>'cuello','value'=>'0','checked'=>set_radio('cuello', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'cuello_desc','id'=>'cuello_desc', 'value'=>set_value('cuello_desc'), 'rows'=>3)); ?></td>
+				</tr>
+			<?php } else { ?>
+				<?= form_hidden('piel',''); ?>
+				<?= form_hidden('piel_desc',''); ?>
+				<?= form_hidden('cabeza',''); ?>
+				<?= form_hidden('cabeza_desc',''); ?>
+				<?= form_hidden('ojos',''); ?>
+				<?= form_hidden('ojos_desc',''); ?>
+				<?= form_hidden('nariz',''); ?>
+				<?= form_hidden('nariz_desc',''); ?>
+				<?= form_hidden('oidos',''); ?>
+				<?= form_hidden('oidos_desc',''); ?>
+				<?= form_hidden('boca',''); ?>
+				<?= form_hidden('boca_desc',''); ?>
+				<?= form_hidden('cuello',''); ?>
+				<?= form_hidden('cuello_desc',''); ?>
+			<?php }?>						
 			<tr>
-				<td>Oidos y Garganta: </td>
+				<td>Pecho, pulmo&oacute;: </td>
 				<td>
-					<?= form_radio(array('name'=>'oidos','value'=>'1','checked'=>set_radio('oidos', 1))); ?> Si
-					<?= form_radio(array('name'=>'oidos','value'=>'0','checked'=>set_radio('oidos', 0))); ?> No
-				</td>
-				<td><?= form_textarea(array('name'=>'oidos_desc','id'=>'oidos_desc', 'value'=>set_value('oidos_desc'), 'rows'=>3)); ?></td>
-			</tr>
-			<tr>
-				<td>Neurologico: </td>
-				<td>
-					<?= form_radio(array('name'=>'neurologico','value'=>'1','checked'=>set_radio('neurologico', 1))); ?> Si
-					<?= form_radio(array('name'=>'neurologico','value'=>'0','checked'=>set_radio('neurologico', 0))); ?> No
-				</td>
-				<td><?= form_textarea(array('name'=>'neurologico_desc','id'=>'neurologico_desc', 'value'=>set_value('neurologico_desc'), 'rows'=>3)); ?></td>
-			</tr>
-			<tr>
-				<td>Pulmones/Respiratorio: </td>
-				<td>
-					<?= form_radio(array('name'=>'pulmones','value'=>'1','checked'=>set_radio('pulmones', 1))); ?> Si
-					<?= form_radio(array('name'=>'pulmones','value'=>'0','checked'=>set_radio('pulmones', 0))); ?> No
+					<?= form_radio(array('name'=>'pulmones','value'=>'1','checked'=>set_radio('pulmones', 1))); ?> Normal
+					<?= form_radio(array('name'=>'pulmones','value'=>'0','checked'=>set_radio('pulmones', 0))); ?> Anormal
 				</td>
 				<td><?= form_textarea(array('name'=>'pulmones_desc','id'=>'pulmones_desc', 'value'=>set_value('pulmones_desc'), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
-				<td>Renal/Urinario: </td>
+				<td>Card&iacute;aco: </td>
 				<td>
-					<?= form_radio(array('name'=>'renal','value'=>'1','checked'=>set_radio('renal', 1))); ?> Si
-					<?= form_radio(array('name'=>'renal','value'=>'0','checked'=>set_radio('renal', 0))); ?> No
+					<?= form_radio(array('name'=>'cardiovascular','value'=>'1','checked'=>set_radio('cardiovascular', 1))); ?> Normal
+					<?= form_radio(array('name'=>'cardiovascular','value'=>'0','checked'=>set_radio('cardiovascular', 0))); ?> Anormal
 				</td>
-				<td><?= form_textarea(array('name'=>'renal_desc','id'=>'renal_desc', 'value'=>set_value('renal_desc'), 'rows'=>3)); ?></td>
-			</tr>			
-			<tr>
-				<td>Ginecologico: </td>
-				<td>
-					<?= form_radio(array('name'=>'ginecologico','value'=>'1','checked'=>set_radio('ginecologico', 1))); ?> Si
-					<?= form_radio(array('name'=>'ginecologico','value'=>'0','checked'=>set_radio('ginecologico', 0))); ?> No
-				</td>
-				<td><?= form_textarea(array('name'=>'ginecologico_desc','id'=>'ginecologico_desc', 'value'=>set_value('ginecologico_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_textarea(array('name'=>'cardiovascular_desc', 'id'=>'cardiovascular_desc', 'value'=>set_value('cardiovascular_desc'), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
-				<td>Endocrino/Metabolico: </td>
+				<td>Abdomen: </td>
 				<td>
-					<?= form_radio(array('name'=>'endocrino','value'=>'1','checked'=>set_radio('endocrino', 1))); ?> Si
-					<?= form_radio(array('name'=>'endocrino','value'=>'0','checked'=>set_radio('endocrino', 0))); ?> No
+					<?= form_radio(array('name'=>'abdomen','value'=>'1','checked'=>set_radio('abdomen', 1))); ?> Normal
+					<?= form_radio(array('name'=>'abdomen','value'=>'0','checked'=>set_radio('abdomen', 0))); ?> Anormal
 				</td>
-				<td><?= form_textarea(array('name'=>'endocrino_desc','id'=>'endocrino_desc', 'value'=>set_value('endocrino_desc'), 'rows'=>3)); ?></td>
+				<td><?= form_textarea(array('name'=>'abdomen_desc','id'=>'abdomen_desc', 'value'=>set_value('abdomen_desc'), 'rows'=>3)); ?></td>
 			</tr>
 			<tr>
-				<td>Hepatico: </td>
+				<td>Muscular - Esquel&eacute;tico: </td>
 				<td>
-					<?= form_radio(array('name'=>'hepatico','value'=>'1','checked'=>set_radio('hepatico', 1))); ?> Si
-					<?= form_radio(array('name'=>'hepatico','value'=>'0','checked'=>set_radio('hepatico', 0))); ?> No
-				</td>
-				<td><?= form_textarea(array('name'=>'hepatico_desc','id'=>'hepatico_desc', 'value'=>set_value('hepatico_desc'), 'rows'=>3)); ?></td>
-			</tr>
-			<tr>
-				<td>Gastrointestinal: </td>
-				<td>
-					<?= form_radio(array('name'=>'gastrointestinal','value'=>'1','checked'=>set_radio('gastrointestinal', 1))); ?> Si
-					<?= form_radio(array('name'=>'gastrointestinal','value'=>'0','checked'=>set_radio('gastrointestinal', 0))); ?> No
-				</td>
-				<td><?= form_textarea(array('name'=>'gastrointestinal_desc','id'=>'gastrointestinal_desc', 'value'=>set_value('gastrointestinal_desc'), 'rows'=>3)); ?></td>
-			</tr>
-			<tr>
-				<td>Muscular/Esqueletico: </td>
-				<td>
-					<?= form_radio(array('name'=>'muscular','value'=>'1','checked'=>set_radio('muscular', 1))); ?> Si
-					<?= form_radio(array('name'=>'muscular','value'=>'0','checked'=>set_radio('muscular', 0))); ?> No
+					<?= form_radio(array('name'=>'muscular','value'=>'1','checked'=>set_radio('muscular', 1))); ?> Normal
+					<?= form_radio(array('name'=>'muscular','value'=>'0','checked'=>set_radio('muscular', 0))); ?> Anormal
 				</td>
 				<td><?= form_textarea(array('name'=>'muscular_desc','id'=>'muscular_desc', 'value'=>set_value('muscular_desc'), 'rows'=>3)); ?></td>
 			</tr>
-			<tr>
-				<td>Cancer: </td>
-				<td>
-					<?= form_radio(array('name'=>'cancer','value'=>'1','checked'=>set_radio('cancer', 1))); ?> Si
-					<?= form_radio(array('name'=>'cancer','value'=>'0','checked'=>set_radio('cancer', 0))); ?> No
-				</td>
-				<td><?= form_textarea(array('name'=>'cancer_desc','id'=>'cancer_desc', 'value'=>set_value('cancer_desc'), 'rows'=>3)); ?></td>
-			</tr>
-			<tr>
-				<td>Otros: </td>
-				<td></td>
-				<td></td>
-			</tr>			
+			<?php if($etapa == 1){ ?>
+				<tr>
+					<td>Extremidades superiores: </td>
+					<td>
+						<?= form_radio(array('name'=>'ext_superiores','value'=>'1','checked'=>set_radio('ext_superiores', 1))); ?> Normal
+						<?= form_radio(array('name'=>'ext_superiores','value'=>'0','checked'=>set_radio('ext_superiores', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'ext_superiores_desc','id'=>'ext_superiores_desc', 'value'=>set_value('ext_superiores_desc'), 'rows'=>3)); ?></td>
+				</tr>
+				<tr>
+					<td>Extremidades inferiores: </td>
+					<td>
+						<?= form_radio(array('name'=>'ext_inferiores','value'=>'1','checked'=>set_radio('ext_inferiores', 1))); ?> Normal
+						<?= form_radio(array('name'=>'ext_inferiores','value'=>'0','checked'=>set_radio('ext_inferiores', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'ext_inferiores_desc','id'=>'ext_inferiores_desc', 'value'=>set_value('ext_inferiores_desc'), 'rows'=>3)); ?></td>
+				</tr>
+				<tr>
+					<td>Pulsos perif&eacute;ricos: </td>
+					<td>
+						<?= form_radio(array('name'=>'periferico','value'=>'1','checked'=>set_radio('periferico', 1))); ?> Normal
+						<?= form_radio(array('name'=>'periferico','value'=>'0','checked'=>set_radio('periferico', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'periferico_desc','id'=>'periferico_desc', 'value'=>set_value('periferico_desc'), 'rows'=>3)); ?></td>
+				</tr>
+			<?php } else { ?>
+				<?= form_hidden('ext_superiores',''); ?>
+				<?= form_hidden('ext_superiores_desc',''); ?>
+				<?= form_hidden('ext_inferiores',''); ?>
+				<?= form_hidden('ext_inferiores_desc',''); ?>
+				<?= form_hidden('periferico',''); ?>
+				<?= form_hidden('periferico_desc',''); ?>
+			<?php }?>	
 			<tr>
 				<td colspan='3' style='text-align:center;'>
 					<?php
@@ -198,4 +264,3 @@ $(function(){
 			</tr>			
 		</table>
 	<?= form_close(); ?>
-</div>

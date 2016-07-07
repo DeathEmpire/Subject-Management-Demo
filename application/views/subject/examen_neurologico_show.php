@@ -35,7 +35,7 @@ $(function(){
 	}
 });
 </script>
-<legend style='text-align:center;'>Examen Neurologico</legend>
+<legend style='text-align:center;'>Examen Neurológico <?= (($etapa > 1) ? 'Abreviado' : ''); ?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -125,35 +125,85 @@ $(function(){
 				<th>Detallar si es “Anormal” y clínicamente significativo</th>
 			</tr>
 			<tr>
-				<td>Nervios craneanos</td>
+				<td>Nervios craneales</td>
 				<td><?= form_dropdown("nervios_craneanos_normal_anormal",$normal_anormal,set_value('nervios_craneanos_normal_anormal',$list[0]->nervios_craneanos_normal_anormal)); ?></td>
 				<td><?= form_input(array('type'=>'text','name'=>'nervios_craneanos', 'id'=>'nervios_craneanos', 'value'=>set_value('nervios_craneanos',$list[0]->nervios_craneanos)));?></td>
 			</tr>
+			<?php if($etapa == 1){ ?>
+				<tr>
+					<td>Fuerza muscular</td>
+					<td><?= form_dropdown("fuerza_muscular_normal_anormal",$normal_anormal,set_value('fuerza_muscular_normal_anormal',$list[0]->fuerza_muscular_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'fuerza_muscular', 'id'=>'fuerza_muscular', 'value'=>set_value('fuerza_muscular',$list[0]->fuerza_muscular)));?></td>
+				</tr>
+				<tr>
+					<td>Tono</td>
+					<td><?= form_dropdown("tono_normal_anormal",$normal_anormal,set_value('tono_normal_anormal',$list[0]->tono_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'tono', 'id'=>'tono', 'value'=>set_value('tono',$list[0]->tono)));?></td>
+				</tr>
+				<tr>
+					<td>Movimientos anormales</td>
+					<td><?= form_dropdown("mov_anormales_normal_anormal",$normal_anormal,set_value('mov_anormales_normal_anormal',$list[0]->mov_anormales_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'mov_anormales', 'id'=>'mov_anormales', 'value'=>set_value('mov_anormales',$list[0]->mov_anormales)));?></td>
+				</tr>
+			<?php } else { ?>
+					<?= form_hidden('fuerza_muscular_normal_anormal','0'); ?>
+					<?= form_hidden('fuerza_muscular',''); ?>
+					<?= form_hidden('tono_normal_anormal','0'); ?>
+					<?= form_hidden('tono',''); ?>
+					<?= form_hidden('mov_anormales_normal_anormal','0'); ?>
+					<?= form_hidden('mov_anormales',''); ?>
+			<?php } 
+			if($etapa > 1){ ?>
+				<tr>
+					<td>Función motora</td>
+					<td><?= form_dropdown("motora_normal_anormal",$normal_anormal,set_value('motora_normal_anormal',$list[0]->motora_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'motora', 'id'=>'motora', 'value'=>set_value('motora',$list[0]->motora)));?></td>
+				</tr>
+			<?php }else{ ?>
+				<?= form_hidden('motora_normal_anormal','0'); ?>
+				<?= form_hidden('motora',''); ?>
+			<?php } ?>
 			<tr>
-				<td>Examen motor</td>
-				<td><?= form_dropdown("examen_motor_normal_anormal",$normal_anormal,set_value('examen_motor_normal_anormal',$list[0]->examen_motor_normal_anormal)); ?></td>
-				<td><?= form_input(array('type'=>'text','name'=>'examen_motor', 'id'=>'examen_motor', 'value'=>set_value('examen_motor',$list[0]->examen_motor)));?></td>
-			</tr>
+				<td>Reflejos tendinosos profundos</td>
+				<td><?= form_dropdown("reflejos_normal_anormal",$normal_anormal,set_value('reflejos_normal_anormal',$list[0]->reflejos_normal_anormal)); ?></td>
+				<td><?= form_input(array('type'=>'text','name'=>'reflejos', 'id'=>'reflejos', 'value'=>set_value('reflejos',$list[0]->reflejos)));?></td>
+			</tr>			
 			<tr>
-				<td>Examen sensitivo</td>
+				<td>Examen sensorial</td>
 				<td><?= form_dropdown("examen_sensitivo_normal_anormal",$normal_anormal,set_value('examen_sensitivo_normal_anormal',$list[0]->examen_sensitivo_normal_anormal)); ?></td>
 				<td><?= form_input(array('type'=>'text','name'=>'examen_sensitivo', 'id'=>'examen_sensitivo', 'value'=>set_value('examen_sensitivo',$list[0]->examen_sensitivo)));?></td>
 			</tr>
-			<tr>
-				<td>Reflejos</td>
-				<td><?= form_dropdown("reflejos_normal_anormal",$normal_anormal,set_value('reflejos_normal_anormal',$list[0]->reflejos_normal_anormal)); ?></td>
-				<td><?= form_input(array('type'=>'text','name'=>'reflejos', 'id'=>'reflejos', 'value'=>set_value('reflejos',$list[0]->reflejos)));?></td>
-			</tr>
-			<tr>
-				<td>Función cerebelosa</td>
-				<td><?= form_dropdown("funcion_cerebelosa_normal_anormal",$normal_anormal,set_value('funcion_cerebelosa_normal_anormal',$list[0]->funcion_cerebelosa_normal_anormal)); ?></td>
-				<td><?= form_input(array('type'=>'text','name'=>'funcion_cerebelosa', 'id'=>'funcion_cerebelosa', 'value'=>set_value('funcion_cerebelosa',$list[0]->funcion_cerebelosa)));?></td>
-			</tr>
-			<tr>
-				<td>Marcha</td>
-				<td><?= form_dropdown("marcha_normal_anormal",$normal_anormal,set_value('marcha_normal_anormal',$list[0]->marcha_normal_anormal)); ?></td>
-				<td><?= form_input(array('type'=>'text','name'=>'marcha', 'id'=>'marcha', 'value'=>set_value('marcha',$list[0]->marcha)));?></td>
-			</tr>		
+			<?php if($etapa == 1){ ?>
+				<tr>
+					<td>Coordinación</td>
+					<td><?= form_dropdown("coordinacion_normal_anormal",$normal_anormal,set_value('coordinacion_normal_anormal',$list[0]->coordinacion_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'coordinacion', 'id'=>'coordinacion', 'value'=>set_value('coordinacion',$list[0]->coordinacion)));?></td>
+				</tr>
+				<tr>
+					<td>Marcha</td>
+					<td><?= form_dropdown("marcha_normal_anormal",$normal_anormal,set_value('marcha_normal_anormal',$list[0]->marcha_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'marcha', 'id'=>'marcha', 'value'=>set_value('marcha',$list[0]->marcha)));?></td>
+				</tr>
+				<tr>
+					<td>Postura</td>
+					<td><?= form_dropdown("postura_normal_anormal",$normal_anormal,set_value('postura_normal_anormal',$list[0]->postura_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'postura', 'id'=>'postura', 'value'=>set_value('postura',$list[0]->postura)));?></td>
+				</tr>
+				<tr>
+					<td>Función cortical superior</td>
+					<td><?= form_dropdown("funcion_cerebelosa_normal_anormal",$normal_anormal,set_value('funcion_cerebelosa_normal_anormal',$list[0]->funcion_cerebelosa_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'funcion_cerebelosa', 'id'=>'funcion_cerebelosa', 'value'=>set_value('funcion_cerebelosa',$list[0]->funcion_cerebelosa)));?></td>
+				</tr>
+			<?php } else { ?>
+					<?= form_hidden('coordinacion_normal_anormal','0'); ?>
+					<?= form_hidden('coordinacion',''); ?>
+					<?= form_hidden('marcha_normal_anormal','0'); ?>
+					<?= form_hidden('marcha',''); ?>
+					<?= form_hidden('postura_normal_anormal','0'); ?>
+					<?= form_hidden('postura',''); ?>
+					<?= form_hidden('funcion_cerebelosa_normal_anormal','0'); ?>
+					<?= form_hidden('funcion_cerebelosa',''); ?>
+			<?php } ?>	
 			<tr>
 				<td style='font-weight:bold;' colspan='3'>Anormalidades de significancia clínica en la visita de screening deben reportarse como historia médica si el consentimiento informado está firmado.</td>
 			</tr>

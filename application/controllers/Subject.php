@@ -899,36 +899,41 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
-		$this->form_validation->set_rules('hallazgo', 'Hallazgo', 'required|xss_clean');
-
+		$this->form_validation->set_rules('hallazgo', 'Realizado', 'required|xss_clean');
 		/*Si se tiene algun hallazgo todo es obligatorio*/
-		if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1){
-			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
-			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'xss_clean');
-			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'xss_clean');
-			$this->form_validation->set_rules('neurologico', 'Neurologico', 'xss_clean');
-			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'xss_clean');
-			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'xss_clean');
-			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'xss_clean');
-			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'xss_clean');
-			$this->form_validation->set_rules('hepatico', 'Hepatico', 'xss_clean');
-			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'xss_clean');
-			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'xss_clean');			
-			$this->form_validation->set_rules('cancer', 'Cancer', 'xss_clean');
-
-			$this->form_validation->set_rules('cardiovascular_desc', 'Cardiovascular', 'xss_clean');
-			$this->form_validation->set_rules('periferico_desc', 'Vascular Periferico', 'xss_clean');
-			$this->form_validation->set_rules('oidos_desc', 'Oidos y Garganta', 'xss_clean');
-			$this->form_validation->set_rules('neurologico_desc', 'Neurologico', 'xss_clean');
-			$this->form_validation->set_rules('pulmones_desc', 'Pulmones/Respiratorio', 'xss_clean');
-			$this->form_validation->set_rules('renal_desc', 'Renal/Urinario', 'xss_clean');
-			$this->form_validation->set_rules('ginecologico_desc', 'Ginecologico', 'xss_clean');
-			$this->form_validation->set_rules('endocrino_desc', 'Endocrino/Metabolico', 'xss_clean');
-			$this->form_validation->set_rules('hepatico_desc', 'Hepatico', 'xss_clean');
-			$this->form_validation->set_rules('gastrointestinal_desc', 'Gastrointestinal', 'xss_clean');
-			$this->form_validation->set_rules('muscular_desc', 'Muscular/Esqueletico', 'xss_clean');
-			$this->form_validation->set_rules('cancer_desc', 'Cancer', 'xss_clean');
-		}
+	
+		$this->form_validation->set_rules('aspecto_general', '', 'xss_clean');
+		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('estado_nutricional', '', 'xss_clean');
+		$this->form_validation->set_rules('estado_nutricional_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('piel', '', 'xss_clean');
+		$this->form_validation->set_rules('piel_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cabeza', '', 'xss_clean');
+		$this->form_validation->set_rules('cabeza_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ojos', '', 'xss_clean');
+		$this->form_validation->set_rules('ojos_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('nariz', '', 'xss_clean');			
+		$this->form_validation->set_rules('nariz_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('oidos', '', 'xss_clean');
+		$this->form_validation->set_rules('oidos_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('boca', '', 'xss_clean');
+		$this->form_validation->set_rules('boca_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cuello', '', 'xss_clean');
+		$this->form_validation->set_rules('cuello_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('pulmones', '', 'xss_clean');
+		$this->form_validation->set_rules('pulmones_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cardiovascular', '', 'xss_clean');
+		$this->form_validation->set_rules('cardiovascular_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('abdomen', '', 'xss_clean');
+		$this->form_validation->set_rules('abdomen_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('muscular', '', 'xss_clean');
+		$this->form_validation->set_rules('muscular_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ext_superiores', '', 'xss_clean');
+		$this->form_validation->set_rules('ext_superiores_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ext_inferiores', '', 'xss_clean');
+		$this->form_validation->set_rules('ext_inferiores_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('periferico', '', 'xss_clean');
+		$this->form_validation->set_rules('periferico_desc', '', 'xss_clean');		
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 
@@ -943,32 +948,42 @@ class Subject extends CI_Controller {
 			if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1
 				AND
 				(
-					(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '1' AND empty($registro['cardiovascular_desc']))
+					(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '1' AND empty($registro['aspecto_general_desc']))
 					OR
-					(isset($registro['periferico']) AND $registro['periferico'] == '1' AND empty($registro['periferico_desc']))
+					(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '1' AND empty($registro['estado_nutricional_desc']))
+					OR
+					(isset($registro['piel']) AND $registro['piel'] == '1' AND empty($registro['piel_desc']))
+					OR
+					(isset($registro['cabeza']) AND $registro['cabeza'] == '1' AND empty($registro['cabeza_desc']))
+					OR
+					(isset($registro['ojos']) AND $registro['ojos'] == '1' AND empty($registro['ojos_desc']))
+					OR
+					(isset($registro['nariz']) AND $registro['nariz'] == '1' AND empty($registro['nariz_desc']))
 					OR
 					(isset($registro['oidos']) AND $registro['oidos'] == '1' AND empty($registro['oidos_desc']))
 					OR
-					(isset($registro['neurologico']) AND $registro['neurologico'] == '1' AND empty($registro['neurologico_desc']))
+					(isset($registro['boca']) AND $registro['boca'] == '1' AND empty($registro['boca_desc']))
+					OR
+					(isset($registro['cuello']) AND $registro['cuello'] == '1' AND empty($registro['cuello_desc']))
 					OR
 					(isset($registro['pulmones']) AND $registro['pulmones'] == '1' AND empty($registro['pulmones_desc']))
 					OR
-					(isset($registro['renal']) AND $registro['renal'] == '1' AND empty($registro['renal_desc']))
+					(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '1' AND empty($registro['cardiovascular_desc']))
 					OR
-					(isset($registro['ginecologico']) AND $registro['ginecologico'] == '1' AND empty($registro['ginecologico_desc']))
-					OR
-					(isset($registro['endocrino']) AND $registro['endocrino'] == '1' AND empty($registro['endocrino_desc']))
-					OR
-					(isset($registro['hepatico']) AND $registro['hepatico'] == '1' AND empty($registro['hepatico_desc']))
-					OR
-					(isset($registro['gastrointestinal']) AND $registro['gastrointestinal'] == '1' AND empty($registro['gastrointestinal_desc']))
+					(isset($registro['abdomen']) AND $registro['abdomen'] == '1' AND empty($registro['abdomen_desc']))
 					OR
 					(isset($registro['muscular']) AND $registro['muscular'] == '1' AND empty($registro['muscular_desc']))
 					OR
-					(isset($registro['cancer']) AND $registro['cancer'] == '1' AND empty($registro['cancer_desc']))
-					OR !isset($registro['cardiovascular']) OR !isset($registro['periferico']) OR !isset($registro['oidos']) OR !isset($registro['neurologico'])
-					OR !isset($registro['pulmones']) OR !isset($registro['renal']) OR !isset($registro['ginecologico']) OR !isset($registro['endocrino'])
-					OR !isset($registro['hepatico']) OR !isset($registro['gastrointestinal']) OR !isset($registro['muscular']) OR !isset($registro['cancer'])
+					(isset($registro['ext_superiores']) AND $registro['ext_superiores'] == '1' AND empty($registro['ext_superiores_desc']))
+					OR
+					(isset($registro['ext_inferiores']) AND $registro['ext_inferiores'] == '1' AND empty($registro['ext_inferiores_desc']))
+					OR
+					(isset($registro['periferico']) AND $registro['periferico'] == '1' AND empty($registro['periferico_desc']))				
+
+					OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
+					OR !isset($registro['ojos']) OR !isset($registro['nariz']) OR !isset($registro['oidos']) OR !isset($registro['boca'])
+					OR !isset($registro['cuello']) OR !isset($registro['pulmones']) OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen'])
+					OR !isset($registro['muscular']) OR !isset($registro['ext_superiores']) OR !isset($registro['ext_inferiores']) OR !isset($registro['periferico'])
 					
 				)
 			){
@@ -1032,36 +1047,41 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
-		$this->form_validation->set_rules('hallazgo', 'Hallazgo', 'required|xss_clean');
+		$this->form_validation->set_rules('hallazgo', 'Realizado', 'required|xss_clean');
 
 		/*Si se tiene algun hallazgo todo es obligatorio*/
-		if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1){
-			$this->form_validation->set_rules('cardiovascular', 'Cardiovascular', 'xss_clean');
-			$this->form_validation->set_rules('periferico', 'Vascular Periferico', 'xss_clean');
-			$this->form_validation->set_rules('oidos', 'Oidos y Garganta', 'xss_clean');
-			$this->form_validation->set_rules('neurologico', 'Neurologico', 'xss_clean');
-			$this->form_validation->set_rules('pulmones', 'Pulmones/Respiratorio', 'xss_clean');
-			$this->form_validation->set_rules('renal', 'Renal/Urinario', 'xss_clean');
-			$this->form_validation->set_rules('ginecologico', 'Ginecologico', 'xss_clean');
-			$this->form_validation->set_rules('endocrino', 'Endocrino/Metabolico', 'xss_clean');
-			$this->form_validation->set_rules('hepatico', 'Hepatico', 'xss_clean');
-			$this->form_validation->set_rules('gastrointestinal', 'Gastrointestinal', 'xss_clean');
-			$this->form_validation->set_rules('muscular', 'Muscular/Esqueletico', 'xss_clean');
-			$this->form_validation->set_rules('cancer', 'Cancer', 'xss_clean');
-			
-			$this->form_validation->set_rules('cardiovascular_desc', 'Cardiovascular', 'xss_clean');
-			$this->form_validation->set_rules('periferico_desc', 'Vascular Periferico', 'xss_clean');
-			$this->form_validation->set_rules('oidos_desc', 'Oidos y Garganta', 'xss_clean');
-			$this->form_validation->set_rules('neurologico_desc', 'Neurologico', 'xss_clean');
-			$this->form_validation->set_rules('pulmones_desc', 'Pulmones/Respiratorio', 'xss_clean');
-			$this->form_validation->set_rules('renal_desc', 'Renal/Urinario', 'xss_clean');
-			$this->form_validation->set_rules('ginecologico_desc', 'Ginecologico', 'xss_clean');
-			$this->form_validation->set_rules('endocrino_desc', 'Endocrino/Metabolico', 'xss_clean');
-			$this->form_validation->set_rules('hepatico_desc', 'Hepatico', 'xss_clean');
-			$this->form_validation->set_rules('gastrointestinal_desc', 'Gastrointestinal', 'xss_clean');
-			$this->form_validation->set_rules('muscular_desc', 'Muscular/Esqueletico', 'xss_clean');
-			$this->form_validation->set_rules('cancer_desc', 'Cancer', 'xss_clean');
-		}
+		$this->form_validation->set_rules('aspecto_general', '', 'xss_clean');
+		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('estado_nutricional', '', 'xss_clean');
+		$this->form_validation->set_rules('estado_nutricional_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('piel', '', 'xss_clean');
+		$this->form_validation->set_rules('piel_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cabeza', '', 'xss_clean');
+		$this->form_validation->set_rules('cabeza_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ojos', '', 'xss_clean');
+		$this->form_validation->set_rules('ojos_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('nariz', '', 'xss_clean');			
+		$this->form_validation->set_rules('nariz_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('oidos', '', 'xss_clean');
+		$this->form_validation->set_rules('oidos_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('boca', '', 'xss_clean');
+		$this->form_validation->set_rules('boca_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cuello', '', 'xss_clean');
+		$this->form_validation->set_rules('cuello_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('pulmones', '', 'xss_clean');
+		$this->form_validation->set_rules('pulmones_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cardiovascular', '', 'xss_clean');
+		$this->form_validation->set_rules('cardiovascular_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('abdomen', '', 'xss_clean');
+		$this->form_validation->set_rules('abdomen_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('muscular', '', 'xss_clean');
+		$this->form_validation->set_rules('muscular_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ext_superiores', '', 'xss_clean');
+		$this->form_validation->set_rules('ext_superiores_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ext_inferiores', '', 'xss_clean');
+		$this->form_validation->set_rules('ext_inferiores_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('periferico', '', 'xss_clean');
+		$this->form_validation->set_rules('periferico_desc', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Tuvo errores al tratar de actualizar el examen fisico", $registro['subject_id']);
@@ -1072,32 +1092,42 @@ class Subject extends CI_Controller {
 			if(isset($registro['hallazgo']) AND $registro['hallazgo'] == 1
 				AND
 				(
-					(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '1' AND empty($registro['cardiovascular_desc']))
+					(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '1' AND empty($registro['aspecto_general_desc']))
 					OR
-					(isset($registro['periferico']) AND $registro['periferico'] == '1' AND empty($registro['periferico_desc']))
+					(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '1' AND empty($registro['estado_nutricional_desc']))
+					OR
+					(isset($registro['piel']) AND $registro['piel'] == '1' AND empty($registro['piel_desc']))
+					OR
+					(isset($registro['cabeza']) AND $registro['cabeza'] == '1' AND empty($registro['cabeza_desc']))
+					OR
+					(isset($registro['ojos']) AND $registro['ojos'] == '1' AND empty($registro['ojos_desc']))
+					OR
+					(isset($registro['nariz']) AND $registro['nariz'] == '1' AND empty($registro['nariz_desc']))
 					OR
 					(isset($registro['oidos']) AND $registro['oidos'] == '1' AND empty($registro['oidos_desc']))
 					OR
-					(isset($registro['neurologico']) AND $registro['neurologico'] == '1' AND empty($registro['neurologico_desc']))
+					(isset($registro['boca']) AND $registro['boca'] == '1' AND empty($registro['boca_desc']))
+					OR
+					(isset($registro['cuello']) AND $registro['cuello'] == '1' AND empty($registro['cuello_desc']))
 					OR
 					(isset($registro['pulmones']) AND $registro['pulmones'] == '1' AND empty($registro['pulmones_desc']))
 					OR
-					(isset($registro['renal']) AND $registro['renal'] == '1' AND empty($registro['renal_desc']))
+					(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '1' AND empty($registro['cardiovascular_desc']))
 					OR
-					(isset($registro['ginecologico']) AND $registro['ginecologico'] == '1' AND empty($registro['ginecologico_desc']))
-					OR
-					(isset($registro['endocrino']) AND $registro['endocrino'] == '1' AND empty($registro['endocrino_desc']))
-					OR
-					(isset($registro['hepatico']) AND $registro['hepatico'] == '1' AND empty($registro['hepatico_desc']))
-					OR
-					(isset($registro['gastrointestinal']) AND $registro['gastrointestinal'] == '1' AND empty($registro['gastrointestinal_desc']))
+					(isset($registro['abdomen']) AND $registro['abdomen'] == '1' AND empty($registro['abdomen_desc']))
 					OR
 					(isset($registro['muscular']) AND $registro['muscular'] == '1' AND empty($registro['muscular_desc']))
 					OR
-					(isset($registro['cancer']) AND $registro['cancer'] == '1' AND empty($registro['cancer_desc']))
-					OR !isset($registro['cardiovascular']) OR !isset($registro['periferico']) OR !isset($registro['oidos']) OR !isset($registro['neurologico'])
-					OR !isset($registro['pulmones']) OR !isset($registro['renal']) OR !isset($registro['ginecologico']) OR !isset($registro['endocrino'])
-					OR !isset($registro['hepatico']) OR !isset($registro['gastrointestinal']) OR !isset($registro['muscular']) OR !isset($registro['cancer'])
+					(isset($registro['ext_superiores']) AND $registro['ext_superiores'] == '1' AND empty($registro['ext_superiores_desc']))
+					OR
+					(isset($registro['ext_inferiores']) AND $registro['ext_inferiores'] == '1' AND empty($registro['ext_inferiores_desc']))
+					OR
+					(isset($registro['periferico']) AND $registro['periferico'] == '1' AND empty($registro['periferico_desc']))				
+
+					OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
+					OR !isset($registro['ojos']) OR !isset($registro['nariz']) OR !isset($registro['oidos']) OR !isset($registro['boca'])
+					OR !isset($registro['cuello']) OR !isset($registro['pulmones']) OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen'])
+					OR !isset($registro['muscular']) OR !isset($registro['ext_superiores']) OR !isset($registro['ext_inferiores']) OR !isset($registro['periferico'])
 					
 				)
 			){
@@ -3951,9 +3981,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('fecha_examen_misma_visita', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'xss_clean');
-		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');
-		$this->form_validation->set_rules('examen_motor_normal_anormal', '', 'xss_clean');
-		$this->form_validation->set_rules('examen_motor', '', 'xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');		
 		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('examen_sensitivo', '', 'xss_clean');
 		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'xss_clean');
@@ -3961,7 +3989,17 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('funcion_cerebelosa', '', 'xss_clean');
 		$this->form_validation->set_rules('marcha_normal_anormal', '', 'xss_clean');
-		$this->form_validation->set_rules('marcha', '', 'xss_clean');		
+		$this->form_validation->set_rules('marcha', '', 'xss_clean');
+		$this->form_validation->set_rules('fuerza_muscular_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('fuerza_muscular', '', 'xss_clean');
+		$this->form_validation->set_rules('tono_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('tono', '', 'xss_clean');
+		$this->form_validation->set_rules('mov_anormales_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('mov_anormales', '', 'xss_clean');
+		$this->form_validation->set_rules('coordinacion_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('coordinacion', '', 'xss_clean');
+		$this->form_validation->set_rules('postura_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('postura', '', 'xss_clean');		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar examen neurologico", $registro['subject_id']);
@@ -3971,13 +4009,17 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['nervios_craneanos_normal_anormal']) OR empty($registro['nervios_craneanos'])
-					OR empty($registro['examen_motor_normal_anormal']) OR 
-					empty($registro['examen_motor']) OR empty($registro['examen_sensitivo_normal_anormal']) OR 
-					empty($registro['examen_sensitivo']) OR empty($registro['reflejos_normal_anormal']) OR 
-					empty($registro['reflejos']) OR empty($registro['funcion_cerebelosa_normal_anormal']) OR 
-					empty($registro['funcion_cerebelosa']) OR empty($registro['marcha_normal_anormal']) OR 
-					empty($registro['marcha'])
+					empty($registro['fecha']) OR empty($registro['nervios_craneanos_normal_anormal']) 
+					OR empty($registro['nervios_craneanos']) OR empty($registro['examen_sensitivo_normal_anormal']) 
+					OR empty($registro['examen_sensitivo']) OR empty($registro['reflejos_normal_anormal']) 
+					OR empty($registro['reflejos']) OR empty($registro['funcion_cerebelosa_normal_anormal']) 
+					OR empty($registro['funcion_cerebelosa']) OR empty($registro['marcha_normal_anormal']) 
+					OR empty($registro['marcha'])
+					OR $registro['fuerza_muscular_normal_anormal'] == '' OR $registro['fuerza_muscular'] == ''
+					OR $registro['tono_normal_anormal'] == '' OR $registro['tono'] == ''
+					OR $registro['mov_anormales_normal_anormal'] == '' OR $registro['mov_anormales'] == ''
+					OR $registro['coordinacion_normal_anormal'] == '' OR $registro['coordinacion'] == ''
+					OR $registro['postura_normal_anormal'] == '' OR $registro['postura'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -4048,10 +4090,9 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha_examen_misma_visita', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+
 		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'xss_clean');
-		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');
-		$this->form_validation->set_rules('examen_motor_normal_anormal', '', 'xss_clean');
-		$this->form_validation->set_rules('examen_motor', '', 'xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');		
 		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('examen_sensitivo', '', 'xss_clean');
 		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'xss_clean');
@@ -4060,6 +4101,16 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('funcion_cerebelosa', '', 'xss_clean');
 		$this->form_validation->set_rules('marcha_normal_anormal', '', 'xss_clean');
 		$this->form_validation->set_rules('marcha', '', 'xss_clean');		
+		$this->form_validation->set_rules('fuerza_muscular_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('fuerza_muscular', '', 'xss_clean');
+		$this->form_validation->set_rules('tono_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('tono', '', 'xss_clean');
+		$this->form_validation->set_rules('mov_anormales_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('mov_anormales', '', 'xss_clean');
+		$this->form_validation->set_rules('coordinacion_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('coordinacion', '', 'xss_clean');
+		$this->form_validation->set_rules('postura_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('postura', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar el examen neurologico", $registro['subject_id']);
@@ -4068,13 +4119,17 @@ class Subject extends CI_Controller {
 		}else{
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['nervios_craneanos_normal_anormal']) OR empty($registro['nervios_craneanos'])
-					OR empty($registro['examen_motor_normal_anormal']) OR 
-					empty($registro['examen_motor']) OR empty($registro['examen_sensitivo_normal_anormal']) OR 
-					empty($registro['examen_sensitivo']) OR empty($registro['reflejos_normal_anormal']) OR 
-					empty($registro['reflejos']) OR empty($registro['funcion_cerebelosa_normal_anormal']) OR 
-					empty($registro['funcion_cerebelosa']) OR empty($registro['marcha_normal_anormal']) OR 
-					empty($registro['marcha'])
+					empty($registro['fecha']) 
+					OR empty($registro['nervios_craneanos_normal_anormal']) OR empty($registro['nervios_craneanos'])
+					OR empty($registro['examen_sensitivo_normal_anormal']) OR empty($registro['examen_sensitivo']) 
+					OR empty($registro['reflejos_normal_anormal']) OR empty($registro['reflejos']) 
+					OR empty($registro['funcion_cerebelosa_normal_anormal']) OR empty($registro['funcion_cerebelosa']) 
+					OR empty($registro['marcha_normal_anormal']) OR empty($registro['marcha'])
+					OR $registro['fuerza_muscular_normal_anormal'] == '' OR $registro['fuerza_muscular'] == ''
+					OR $registro['tono_normal_anormal'] == '' OR $registro['tono'] == ''
+					OR $registro['mov_anormales_normal_anormal'] == '' OR $registro['mov_anormales'] == ''
+					OR $registro['coordinacion_normal_anormal'] == '' OR $registro['coordinacion'] == ''
+					OR $registro['postura_normal_anormal'] == '' OR $registro['postura'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -4264,10 +4319,11 @@ class Subject extends CI_Controller {
 		}
 	}
 	/*----------------------------------------------Examen Laboratorio------------------------------------------------------------------------------*/
-	public function examen_laboratorio($subject_id){
+	public function examen_laboratorio($subject_id, $etapa){
 		$data['contenido'] = 'subject/examen_laboratorio';
 		$data['titulo'] = 'Examen Laboratorio';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
 
 		$this->load->view('template',$data);
 	}
@@ -4276,6 +4332,7 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
 		$this->form_validation->set_rules('hematocrito', '', 'xss_clean');
@@ -4401,9 +4458,18 @@ class Subject extends CI_Controller {
 			$this->load->model('Model_Examen_laboratorio');
 			$this->Model_Examen_laboratorio->insert($registro);
 
+			if($registro['etapa'] == 1){
+				$subjet_['examen_laboratorio_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['examen_laboratorio_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['examen_laboratorio_6_status'] = $estado;
+			}
+
 			/*Actualizamos el estado en el sujeto*/
-			$subjet_['id'] = $registro['subject_id'];
-			$subjet_['examen_laboratorio_status'] = $estado;
+			$subjet_['id'] = $registro['subject_id'];			
 			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("Examen de Laboratorio agregado", $registro['subject_id']);     		
@@ -4417,6 +4483,7 @@ class Subject extends CI_Controller {
 		$data['contenido'] = 'subject/examen_laboratorio_show';
 		$data['titulo'] = 'Examen Laboratorio';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		$data['etapa'] = $etapa;
 
 		$this->load->model('Model_Examen_laboratorio');
 		$data['list'] = $this->Model_Examen_laboratorio->allWhereArray(array('subject_id'=>$subject_id));
@@ -4430,7 +4497,8 @@ class Subject extends CI_Controller {
 	public function examen_laboratorio_update(){
 		$registro = $this->input->post();
 
-		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
+		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');				
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
 		$this->form_validation->set_rules('hematocrito', '', 'xss_clean');
@@ -4554,9 +4622,19 @@ class Subject extends CI_Controller {
 			$this->load->model('Model_Examen_laboratorio');
 			$this->Model_Examen_laboratorio->update($registro);
 
+			if($registro['etapa'] == 1){
+				$subjet_['examen_laboratorio_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 5){
+				$subjet_['examen_laboratorio_5_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 6){
+				$subjet_['examen_laboratorio_6_status'] = $estado;
+			}
+
 			/*Actualizamos el estado en el sujeto*/
 			$subjet_['id'] = $registro['subject_id'];
-			$subjet_['examen_laboratorio_status'] = $estado;
+			
 			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("Examen de Laboratorio actualizado", $registro['subject_id']);     		
