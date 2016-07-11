@@ -6463,6 +6463,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('tomografia', '', 'xss_clean');
 		$this->form_validation->set_rules('tomografia_fecha', '', 'xss_clean');
 		$this->form_validation->set_rules('tomografia_comentario', '', 'xss_clean');
+		$this->form_validation->set_rules('repetir_rnm', '', 'xss_clean');
+		$this->form_validation->set_rules('repetir_tc', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de agregar el formulario de RNM o TC", $registro['subject_id']);
@@ -6537,6 +6539,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('tomografia', '', 'xss_clean');
 		$this->form_validation->set_rules('tomografia_fecha', '', 'xss_clean');
 		$this->form_validation->set_rules('tomografia_comentario', '', 'xss_clean');
+		$this->form_validation->set_rules('repetir_rnm', '', 'xss_clean');
+		$this->form_validation->set_rules('repetir_tc', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de actualizar el formulario de RNM o TC", $registro['subject_id']);
@@ -7060,6 +7064,29 @@ class Subject extends CI_Controller {
 		$data['etapa'] = $etapa;
 		$data['de0_a5'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5');
 		$data['de0_a4'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4');
+		$data['de0_a8'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8');
+		$data['de0_a10'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10');
+		$data['de0_a17'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10',
+								'11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15','16'=>'16','17'=>'17');
+		$data['de0_a22'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10',
+								'11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15','16'=>'16','17'=>'17','18'=>'18','19'=>'19','20'=>'20',
+								'21'=>'21','22'=>'22');
+		$data['de0_a24'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10',
+								'11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15','16'=>'16','17'=>'17','18'=>'18','19'=>'19','20'=>'20',
+								'21'=>'21','22'=>'22','23'=>'23','24'=>'24');
+		$data['horas'] = array(''=>'');
+		$data['minutos'] = array(''=>'');
+		for ($i = 0; $i < 24; $i ++) {
+			$val = $i;
+			if (strlen($i) < 2) $val = '0' . $i;
+			$data['horas'][$val] = $val;
+		}
+
+		for ($i = 0; $i <= 59; $i ++) {
+			$val = $i;
+			if (strlen($i) < 2) $val = '0' . $i;
+			$data['minutos'][$val] = $val;
+		}
 		
 		$data['no_administro'] = array(""=>"",
 			"El paciente se nego"=>"El paciente se negó",
@@ -7078,32 +7105,48 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
+		$this->form_validation->set_rules('puntaje_total', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_recordadas_1', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_no_recordadas_1', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_recordadas_2', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_no_recordadas_2', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_recordadas_3', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_no_recordadas_3', '', 'xss_clean');
-		$this->form_validation->set_rules('hora_finalizacion', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion_hora', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion_minuto', '', 'xss_clean');
 		$this->form_validation->set_rules('no_administro_1', '', 'xss_clean');
-		$this->form_validation->set_rules('total_correctas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('puntaje_total_1', '', 'xss_clean');		
+		$this->form_validation->set_rules('total_correctas_2', '', 'xss_clean');		
 		$this->form_validation->set_rules('total_incorrectas_2', '', 'xss_clean');				
+		$this->form_validation->set_rules('no_administro_2', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_2', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_3', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_3', '', 'xss_clean');		
-		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');		
+		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');				
+		$this->form_validation->set_rules('puntuacion_3', '', 'xss_clean');
 		$this->form_validation->set_rules('total_recordadas_4', '', 'xss_clean');
-		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');
+		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');		
+		$this->form_validation->set_rules('puntuacion_4', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion_4_hora', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion_4_minuto', '', 'xss_clean');		
 		$this->form_validation->set_rules('total_correctas_5', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');				
+		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_5', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_5', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_6', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_6', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_6', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_7', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_7', '', 'xss_clean');
-		$this->form_validation->set_rules('no_administro_7', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_7', '', 'xss_clean');		
+		$this->form_validation->set_rules('puntuacion_7', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_8', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_8', '', 'xss_clean');
 		$this->form_validation->set_rules('cantidad_recordadas_8', '', 'xss_clean');
 		$this->form_validation->set_rules('no_administro_8', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_8', '', 'xss_clean');
 		$this->form_validation->set_rules('puntuacion_9', '', 'xss_clean');
 		$this->form_validation->set_rules('puntuacion_10', '', 'xss_clean');
 		$this->form_validation->set_rules('puntuacion_11', '', 'xss_clean');
@@ -7124,18 +7167,22 @@ class Subject extends CI_Controller {
 				isset($registro['realizado']) AND $registro['realizado'] == 1
 				AND
 				(
-					$registro['palabras_recordadas_1'] == '' OR $registro['palabras_no_recordadas_1'] == '' OR $registro['palabras_recordadas_2'] == '' 
-					OR $registro['palabras_no_recordadas_2'] == '' OR $registro['palabras_recordadas_3'] == '' OR $registro['palabras_no_recordadas_3'] == '' 
-					OR $registro['hora_finalizacion'] == '' OR $registro['total_correctas_2'] == '' OR $registro['total_incorrectas_2'] == '' 
-					OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == ''
-	  				OR $registro['total_recordadas_4'] == '' 
-	  				OR $registro['total_no_recordadas_4'] == '' OR $registro['total_correctas_5'] == '' OR $registro['total_incorrectas_5'] == ''
-	  				OR $registro['total_correctas_6'] == '' OR $registro['total_incorrectas_6'] == '' 
-	  				OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
-	  				OR $registro['total_correctas_8'] == '' OR $registro['total_incorrectas_8'] == '' OR $registro['cantidad_recordadas_8'] == '' 
-	  				OR $registro['puntuacion_9'] == '' OR $registro['puntuacion_10'] == '' OR $registro['puntuacion_11'] == ''
-	  				OR $registro['puntuacion_12'] == '' OR $registro['objetivos_13'] == '' OR $registro['errores_13'] == '' 
-	  				OR $registro['recordo_13'] == ''
+					$registro['puntaje_total'] == '' OR $registro['palabras_recordadas_1'] == '' OR $registro['palabras_no_recordadas_1'] == ''
+					OR $registro['palabras_recordadas_2'] == ''	OR $registro['palabras_no_recordadas_2'] == '' OR $registro['palabras_recordadas_3'] == ''
+					OR $registro['palabras_no_recordadas_3'] == '' OR $registro['hora_finalizacion_hora'] == '' OR $registro['hora_finalizacion_minuto'] == ''
+					OR $registro['no_administro_1'] == '' OR $registro['puntaje_total_1'] == '' OR $registro['total_correctas_2'] == ''		
+					OR $registro['total_incorrectas_2'] == '' OR $registro['no_administro_2'] == '' OR $registro['puntuacion_2'] == ''
+					OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == '' OR $registro['puntuacion_3'] == ''
+					OR $registro['total_recordadas_4'] == '' OR $registro['total_no_recordadas_4'] == '' OR $registro['puntuacion_4'] == ''
+					OR $registro['hora_finalizacion_4_hora'] == '' OR $registro['hora_finalizacion_4_minuto'] == '' OR $registro['total_correctas_5'] == ''
+					OR $registro['total_incorrectas_5'] == '' OR $registro['no_administro_5'] == '' OR $registro['puntuacion_5'] == ''				
+					OR $registro['total_correctas_6'] == ''	OR $registro['no_administro_6'] == '' OR $registro['puntuacion_6'] == ''
+					OR $registro['total_incorrectas_6'] == '' OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
+					OR $registro['no_administro_7'] == '' OR $registro['puntuacion_7'] == '' OR $registro['total_correctas_8'] == ''
+					OR $registro['total_incorrectas_8'] == '' OR $registro['cantidad_recordadas_8'] == '' OR $registro['no_administro_8'] == ''
+					OR $registro['puntuacion_8'] == '' OR $registro['puntuacion_9'] == '' OR $registro['puntuacion_10'] == ''
+					OR $registro['puntuacion_11'] == '' OR $registro['puntuacion_12'] == ''	OR $registro['objetivos_13'] == ''
+					OR $registro['errores_13'] == '' OR $registro['recordo_13'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -7184,7 +7231,31 @@ class Subject extends CI_Controller {
 
 		$data['de0_a5'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5');
 		$data['de0_a4'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4');
+		$data['de0_a8'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8');
+		$data['de0_a10'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10');
+		$data['de0_a17'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10',
+								'11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15','16'=>'16','17'=>'17');
+		$data['de0_a22'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10',
+								'11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15','16'=>'16','17'=>'17','18'=>'18','19'=>'19','20'=>'20',
+								'21'=>'21','22'=>'22');
+		$data['de0_a24'] = array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10',
+								'11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15','16'=>'16','17'=>'17','18'=>'18','19'=>'19','20'=>'20',
+								'21'=>'21','22'=>'22','23'=>'23','24'=>'24');
 		
+		$data['horas'] = array(''=>'');
+		$data['minutos'] = array(''=>'');
+		for ($i = 0; $i < 24; $i ++) {
+			$val = $i;
+			if (strlen($i) < 2) $val = '0' . $i;
+			$data['horas'][$val] = $val;
+		}
+
+		for ($i = 0; $i <= 59; $i ++) {
+			$val = $i;
+			if (strlen($i) < 2) $val = '0' . $i;
+			$data['minutos'][$val] = $val;
+		}
+
 		$data['no_administro'] = array(""=>"",
 			"El paciente se nego"=>"El paciente se negó",
 			"El paciente no pudo hacerlo por motivos fisicos"=>"El paciente no pudo hacerlo por motivos físicos",
@@ -7208,32 +7279,48 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
+		$this->form_validation->set_rules('puntaje_total', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_recordadas_1', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_no_recordadas_1', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_recordadas_2', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_no_recordadas_2', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_recordadas_3', '', 'xss_clean');
 		$this->form_validation->set_rules('palabras_no_recordadas_3', '', 'xss_clean');
-		$this->form_validation->set_rules('hora_finalizacion', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion_hora', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion_minuto', '', 'xss_clean');
 		$this->form_validation->set_rules('no_administro_1', '', 'xss_clean');
-		$this->form_validation->set_rules('total_correctas_2', '', 'xss_clean');
+		$this->form_validation->set_rules('puntaje_total_1', '', 'xss_clean');		
+		$this->form_validation->set_rules('total_correctas_2', '', 'xss_clean');		
 		$this->form_validation->set_rules('total_incorrectas_2', '', 'xss_clean');				
+		$this->form_validation->set_rules('no_administro_2', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_2', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_3', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_3', '', 'xss_clean');		
-		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');		
+		$this->form_validation->set_rules('paciente_no_dibujo_3	', '', 'xss_clean');				
+		$this->form_validation->set_rules('puntuacion_3', '', 'xss_clean');
 		$this->form_validation->set_rules('total_recordadas_4', '', 'xss_clean');
-		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');
+		$this->form_validation->set_rules('total_no_recordadas_4', '', 'xss_clean');		
+		$this->form_validation->set_rules('puntuacion_4', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion_4_hora', '', 'xss_clean');
+		$this->form_validation->set_rules('hora_finalizacion_4_minuto', '', 'xss_clean');		
 		$this->form_validation->set_rules('total_correctas_5', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');				
+		$this->form_validation->set_rules('total_incorrectas_5', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_5', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_5', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_6', '', 'xss_clean');
-		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');		
+		$this->form_validation->set_rules('no_administro_6', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_6', '', 'xss_clean');
+		$this->form_validation->set_rules('total_incorrectas_6', '', 'xss_clean');				
 		$this->form_validation->set_rules('total_correctas_7', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_7', '', 'xss_clean');
-		$this->form_validation->set_rules('no_administro_7', '', 'xss_clean');
+		$this->form_validation->set_rules('no_administro_7', '', 'xss_clean');		
+		$this->form_validation->set_rules('puntuacion_7', '', 'xss_clean');
 		$this->form_validation->set_rules('total_correctas_8', '', 'xss_clean');
 		$this->form_validation->set_rules('total_incorrectas_8', '', 'xss_clean');
 		$this->form_validation->set_rules('cantidad_recordadas_8', '', 'xss_clean');
 		$this->form_validation->set_rules('no_administro_8', '', 'xss_clean');
+		$this->form_validation->set_rules('puntuacion_8', '', 'xss_clean');
 		$this->form_validation->set_rules('puntuacion_9', '', 'xss_clean');
 		$this->form_validation->set_rules('puntuacion_10', '', 'xss_clean');
 		$this->form_validation->set_rules('puntuacion_11', '', 'xss_clean');
@@ -7254,18 +7341,22 @@ class Subject extends CI_Controller {
 				isset($registro['realizado']) AND $registro['realizado'] == 1
 				AND
 				(
-					$registro['palabras_recordadas_1'] == '' OR $registro['palabras_no_recordadas_1'] == '' OR $registro['palabras_recordadas_2'] == '' 
-					OR $registro['palabras_no_recordadas_2'] == '' OR $registro['palabras_recordadas_3'] == '' OR $registro['palabras_no_recordadas_3'] == '' 
-					OR $registro['hora_finalizacion'] == '' OR $registro['total_correctas_2'] == '' OR $registro['total_incorrectas_2'] == '' 
-					OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == ''
-	  				OR $registro['total_recordadas_4'] == '' 
-	  				OR $registro['total_no_recordadas_4'] == '' OR $registro['total_correctas_5'] == '' OR $registro['total_incorrectas_5'] == ''
-	  				OR $registro['total_correctas_6'] == '' OR $registro['total_incorrectas_6'] == '' 
-	  				OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
-	  				OR $registro['total_correctas_8'] == '' OR $registro['total_incorrectas_8'] == '' OR $registro['cantidad_recordadas_8'] == '' 
-	  				OR $registro['puntuacion_9'] == '' OR $registro['puntuacion_10'] == '' OR $registro['puntuacion_11'] == ''
-	  				OR $registro['puntuacion_12'] == '' OR $registro['objetivos_13'] == '' OR $registro['errores_13'] == '' 
-	  				OR $registro['recordo_13'] == ''
+					$registro['puntaje_total'] == '' OR $registro['palabras_recordadas_1'] == '' OR $registro['palabras_no_recordadas_1'] == ''
+					OR $registro['palabras_recordadas_2'] == ''	OR $registro['palabras_no_recordadas_2'] == '' OR $registro['palabras_recordadas_3'] == ''
+					OR $registro['palabras_no_recordadas_3'] == '' OR $registro['hora_finalizacion_hora'] == '' OR $registro['hora_finalizacion_minuto'] == ''
+					OR $registro['no_administro_1'] == '' OR $registro['puntaje_total_1'] == '' OR $registro['total_correctas_2'] == ''		
+					OR $registro['total_incorrectas_2'] == '' OR $registro['no_administro_2'] == '' OR $registro['puntuacion_2'] == ''
+					OR $registro['total_correctas_3'] == '' OR $registro['total_incorrectas_3'] == '' OR $registro['puntuacion_3'] == ''
+					OR $registro['total_recordadas_4'] == '' OR $registro['total_no_recordadas_4'] == '' OR $registro['puntuacion_4'] == ''
+					OR $registro['hora_finalizacion_4_hora'] == '' OR $registro['hora_finalizacion_4_minuto'] == '' OR $registro['total_correctas_5'] == ''
+					OR $registro['total_incorrectas_5'] == '' OR $registro['no_administro_5'] == '' OR $registro['puntuacion_5'] == ''				
+					OR $registro['total_correctas_6'] == ''	OR $registro['no_administro_6'] == '' OR $registro['puntuacion_6'] == ''
+					OR $registro['total_incorrectas_6'] == '' OR $registro['total_correctas_7'] == '' OR $registro['total_incorrectas_7'] == ''
+					OR $registro['no_administro_7'] == '' OR $registro['puntuacion_7'] == '' OR $registro['total_correctas_8'] == ''
+					OR $registro['total_incorrectas_8'] == '' OR $registro['cantidad_recordadas_8'] == '' OR $registro['no_administro_8'] == ''
+					OR $registro['puntuacion_8'] == '' OR $registro['puntuacion_9'] == '' OR $registro['puntuacion_10'] == ''
+					OR $registro['puntuacion_11'] == '' OR $registro['puntuacion_12'] == ''	OR $registro['objetivos_13'] == ''
+					OR $registro['errores_13'] == '' OR $registro['recordo_13'] == ''
 				)
 			){
 				$estado = 'Error';

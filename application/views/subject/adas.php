@@ -1,70 +1,8 @@
+<script src="<?= base_url('js/adas.js') ?>"></script>
 <style type="text/css">
 	#ui-datepicker-div { display: none; }
 </style>
-<script type="text/javascript">
-$(function(){
-	$("#fecha").datepicker();
 
-	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
-			$("#form_adas :input").attr('readonly','readonly');
-			
-			$("input[name=realizado]").removeAttr('readonly');
-			
-			$("#guardar").removeAttr('readonly');
-			
-
-		}else{
-			$("#form_adas :input").removeAttr('readonly');
-			$("#puntaje_total").attr('readonly','readonly');
-			
-		}
-	});
-	if($("input[name=realizado]:checked").val() == 0){
-		$("#form_adas :input").attr('readonly','readonly');
-		
-		$("input[name=realizado]").removeAttr('readonly');
-		
-		$("#guardar").removeAttr('readonly');
-		
-
-	}else{
-		$("#form_adas :input").removeAttr('readonly');
-		$("#puntaje_total").attr('readonly','readonly');
-	}
-
-	$("select[name^=total_correctas_], input[name^=palabras_recordadas_], input[name^=total_recordadas], select[name^=puntuacion_]").change(function(){
-		var total = 0;
-		/*4 each*/
-
-		$("select[name^=total_correctas_]").each(function(){
-			if($('option:selected',this).text() != ''){
-				total = total + parseInt($('option:selected',this).text());
-			}
-		});
-		$("select[name^=puntuacion_]").each(function(){
-			if($('option:selected',this).text() != ''){
-				total = total + parseInt($('option:selected',this).text());
-			}
-		});
-		$("input[name^=palabras_recordadas_]").each(function(){
-			if($(this).val() != ''){
-				total = total + parseInt($(this).val());
-			}
-		});
-		$("input[name^=total_recordadas]").each(function(){
-			if($(this).val() != ''){
-				total = total + parseInt($(this).val());
-			}
-		});
-
-		$("#puntaje_total").val(total);
-
-	});
-});	
-	
-</script>
-<div class="row">
 		<legend style='text-align:center;'>ADAS COG</legend>
 		<b>Sujeto Actual:</b>
 		<table class="table table-condensed table-bordered">
@@ -166,11 +104,19 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Hora de finalizacion: </td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'hora_finalizacion', 'id'=>'hora_finalizacion', 'value'=>set_value('hora_finalizacion'))); ?></td>
+				<td>
+					<?= form_dropdown('hora_finalizacion_hora', $horas ,set_value('hora_finalizacion_hora')); ?>
+					:
+					<?= form_dropdown('hora_finalizacion_minuto', $minutos, set_value('hora_finalizacion_minuto')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
 				<td><?= form_dropdown('no_administro_1', $no_administro, set_value('no_administro_1')); ?></td>
+			</tr>
+			<tr>
+				<td>Puntuaci&oacute;n Total: </td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'puntaje_total_1', 'id'=>'puntaje_total_1', 'readonly'=>'readonly', 'value'=>set_value('puntaje_total_1'))); ?></td>
 			</tr>
 
 			
@@ -179,18 +125,26 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Total correctas</td>
-				<td><?= form_dropdown('total_correctas_2', $de0_a5, set_value('total_correctas_2'),array('id'=>'total_correctas_2')); ?></td>
+				<td><?= form_dropdown('total_correctas_2', $de0_a5,  set_value('total_correctas_2'),array('id'=>'total_correctas_2')); ?></td>				
 			</tr>
 			<tr>
 				<td>Total incorrectas</td>
-				<td><?= form_dropdown('total_incorrectas_2', $de0_a5,  set_value('total_incorrectas_2'),array('id'=>'total_incorrectas_2')); ?></td>				
-			</tr>						
+				<td><?= form_dropdown('total_incorrectas_2', $de0_a5,  set_value('total_incorrectas_2'),array('id'=>'total_incorrectas_2')); ?></td>								
+			</tr>
+			<tr>
+				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
+				<td><?= form_dropdown('no_administro_2', $no_administro, set_value('no_administro_2')); ?></td>
+			</tr>
+			<tr>
+				<td>Puntuaci&oacute;n Total</td>
+				<td><?= form_dropdown('puntuacion_2', $puntaje, set_value('puntuacion_2'), array('id'=>'puntuacion_2')); ?></td>
+			</tr>							
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>3.- Praxis Constructiva</td>
 			</tr>
 			<tr>
 				<td>Total correctas</td>
-				<td><?= form_dropdown('total_correctas_3', $de0_a4,  set_value('total_correctas_3'),array('id'=>'total_correctas_3')); ?></td>								
+				<td><?= form_dropdown('total_correctas_3', $de0_a4,  set_value('total_correctas_3'),array('id'=>'total_correctas_3')); ?></td>												
 			</tr>
 			<tr>
 				<td>Total incorrectas</td>
@@ -198,80 +152,115 @@ $(function(){
 			</tr>			
 			<tr>
 				<td>Paciente no intentó dibujar ninguna forma: </td>
-				<td><?= form_checkbox('paciente_no_dibujo_3','1'); ?></td>
-			</tr>			
+				<td><?= form_checkbox('paciente_no_dibujo_3','1', set_value('paciente_no_dibujo_3')); ?></td>
+			</tr>
+			<tr>
+				<td>Puntuaci&oacute;n Total</td>
+				<td><?= form_dropdown('puntuacion_3', $puntaje, set_value('puntuacion_3')); ?></td>
+			</tr>				
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>4.- Tarea de recordar palabras diferidas </td>
 			</tr>
 			<tr>
-				<td>Total recordadas</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'total_recordadas_4', 'id'=>'total_recordadas_4', 'value'=>set_value('total_recordadas_4'))); ?></td>
+				<td>Total recordadas</td>				
+				<td><?= form_dropdown('total_recordadas_4', $de0_a10,  set_value('total_recordadas_4'),array('id'=>'total_recordadas_4')); ?></td>				
 			</tr>
 			<tr>
-				<td>Total no recordadas</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'total_no_recordadas_4', 'id'=>'total_no_recordadas_4', 'value'=>set_value('total_no_recordadas_4'))); ?></td>
+				<td>Total no recordadas</td>				
+				<td><?= form_dropdown('total_no_recordadas_4', $de0_a10,  set_value('total_no_recordadas_4'),array('id'=>'total_no_recordadas_4')); ?></td>				
 			</tr>
-
-			
+			<tr>
+				<td>Hora de inicio: </td>
+				<td>
+					<?= form_dropdown('hora_finalizacion_4_hora', $horas ,set_value('hora_finalizacion_4_hora')); ?>
+					:
+					<?= form_dropdown('hora_finalizacion_4_minuto', $minutos, set_value('hora_finalizacion_4_minuto')); ?>
+				</td>
+			</tr>
+			<tr>
+				<td>Puntuaci&oacute;n Total</td>
+				<td><?= form_dropdown('puntuacion_4', $puntaje, set_value('puntuacion_4')); ?></td>
+			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>5.- Tarea de nombrar</td>
 			</tr>
 			<tr>
 				<td>Total correctas</td>
-				<td><?= form_dropdown('total_correctas_5', $de0_a5,  set_value('total_correctas_5'),array('id'=>'total_correctas_5')); ?></td>								
+				<td><?= form_dropdown('total_correctas_5', $de0_a17,  set_value('total_correctas_5'),array('id'=>'total_correctas_5')); ?></td>					
 			</tr>
 			<tr>
-				<td>Total incorrectas</td>				
-				<td><?= form_dropdown('total_incorrectas_5', $de0_a5,  set_value('total_incorrectas_5'),array('id'=>'total_incorrectas_5')); ?></td>								
+				<td>Total incorrectas</td>
+				<td><?= form_dropdown('total_incorrectas_5', $de0_a17,  set_value('total_incorrectas_5'),array('id'=>'total_incorrectas_5')); ?></td>				
+			</tr>
+			<tr>
+				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
+				<td><?= form_dropdown('no_administro_5', $no_administro, set_value('no_administro_5')); ?></td>
+			</tr>			
+			<tr>
+				<td>Puntuaci&oacute;n Total</td>
+				<td><?= form_dropdown('puntuacion_5', $puntaje, set_value('puntuacion_5')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>6.- Praxis Ideacional</td>
 			</tr>
 			<tr>
-				<td>Total correctas</td>				
-				<td><?= form_dropdown('total_correctas_6', $de0_a5,  set_value('total_correctas_6'),array('id'=>'total_correctas_6')); ?></td>								
+				<td>Total correctas</td>
+				<td><?= form_dropdown('total_correctas_6', $de0_a5,  set_value('total_correctas_6'),array('id'=>'total_correctas_6')); ?></td>												
 			</tr>
 			<tr>
-				<td>Total incorrectas</td>				
-				<td><?= form_dropdown('total_incorrectas_6', $de0_a5,  set_value('total_incorrectas_6'),array('id'=>'total_incorrectas_6')); ?></td>								
+				<td>Total incorrectas</td>
+				<td><?= form_dropdown('total_incorrectas_6', $de0_a5,  set_value('total_incorrectas_6'),array('id'=>'total_incorrectas_6')); ?></td>												
+			</tr>			
+			<tr>
+				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
+				<td><?= form_dropdown('no_administro_6', $no_administro, set_value('no_administro_6')); ?></td>
+			</tr>
+			<tr>
+				<td>Puntuaci&oacute;n Total</td>
+				<td><?= form_dropdown('puntuacion_6', $puntaje, set_value('puntuacion_6')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>7.- Orientación</td>
 			</tr>
 			<tr>
 				<td>Total correctas</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'total_correctas_7', 'id'=>'total_correctas_7', 'value'=>set_value('total_correctas_7'))); ?></td>
+				<td><?= form_dropdown('total_correctas_7', $de0_a8,  set_value('total_correctas_7'),array('id'=>'total_correctas_7')); ?></td>
 			</tr>
 			<tr>
 				<td>Total incorrectas</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'total_incorrectas_7', 'id'=>'total_incorrectas_7', 'value'=>set_value('total_incorrectas_7'))); ?></td>
+				<td><?= form_dropdown('total_incorrectas_7', $de0_a8,  set_value('total_incorrectas_7'),array('id'=>'total_incorrectas_7')); ?></td>																
 			</tr>			
 			<tr>
 				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
 				<td><?= form_dropdown('no_administro_7', $no_administro, set_value('no_administro_7')); ?></td>
 			</tr>
-
+			<tr>
+				<td>Puntuaci&oacute;n Total</td>
+				<td><?= form_dropdown('puntuacion_7', $puntaje, set_value('puntuacion_7')); ?></td>
+			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>8.- Tarea de reconocer palabras</td>
 			</tr>
 			<tr>
 				<td>Total correctas</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'total_correctas_8', 'id'=>'total_correctas_8', 'value'=>set_value('total_correctas_8'))); ?></td>
+				<td><?= form_dropdown('total_correctas_8', $de0_a24,  set_value('total_correctas_8'),array('id'=>'total_correctas_8')); ?></td>				
 			</tr>
 			<tr>
 				<td>Total incorrectas</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'total_incorrectas_8', 'id'=>'total_incorrectas_8', 'value'=>set_value('total_incorrectas_8'))); ?></td>
+				<td><?= form_dropdown('total_incorrectas_8', $de0_a24,  set_value('total_incorrectas_8'),array('id'=>'total_incorrectas_8')); ?></td>				
 			</tr>
 			<tr>
 				<td>Cantidad de recordatorios</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'cantidad_recordadas_8', 'id'=>'cantidad_recordadas_8', 'value'=>set_value('cantidad_recordadas_8'))); ?></td>
+				<td><?= form_dropdown('cantidad_recordadas_8', $de0_a22,  set_value('cantidad_recordadas_8'),array('id'=>'cantidad_recordadas_8')); ?></td>				
 			</tr>			
 			<tr>
 				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
 				<td><?= form_dropdown('no_administro_8', $no_administro, set_value('no_administro_8')); ?></td>
 			</tr>
-
-			
+			<tr>
+				<td>Puntuaci&oacute;n Total</td>
+				<td><?= form_input(array('type'=>'text', 'name'=>'puntuacion_8', 'id'=>'puntuacion_8', 'value'=>set_value('puntuacion_8'), 'readonly'=>'readonly')); ?></td>
+			</tr>			
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>9.- Recordando las instrucciones de la prueba</td>
 			</tr>

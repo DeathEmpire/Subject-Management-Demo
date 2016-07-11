@@ -2,47 +2,21 @@
 	#ui-datepicker-div { display: none; }
 </style>
 <script type="text/javascript">
-function diferenciafechas(fa,fb){  //fa y fb dos fechas
-	
-	var totdias = fa-fb;
-	totdias /=3600000;  
-	totdias /=24;	
-	totdias= Math.floor(totdias);
-	totdias= Math.abs(totdias);
+restaFechas = function(f1,f2)
+ {
+ var aFecha1 = f1.split('-'); 
+ var aFecha2 = f2.split('-'); 
+ var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
+ var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]); 
+ var dif = fFecha2 - fFecha1;
+ var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+ return dias;
+ }
 
-	var ans, meses, dias, m2, m1, d3, d2, d1;
-	var f2=new Date();	var f1=new Date();
 
-	if (fa > fb){f2=fa;f1=fb;}else{var f2=fb; f1=fa;}  //Siempre f2 > f1
-	ans=f2.getFullYear()-f1.getFullYear(); // dif de años inicial
-	m2=f2.getMonth();
-	m1=f1.getMonth();
-	meses=m2-m1;	if (meses<0){meses +=12; --ans; }
 
-	d2=f2.getDate();
-	d1=f1.getDate();
-	dias=d2-d1;
-
-	var f3=new Date(f2.getFullYear(),m2,1);
-	f3.setDate(f3.getDate()-1);
-	d3=f3.getDate();
-
-	if (d1>d2) {
-		dias +=d3; --meses; if (meses<0){meses +=12; --ans; }
-		if (fa>fb){  //corrección por febrero y meses de 30 días
-			f3=new Date(f1.getFullYear(),m1+1,1);
-			f3.setDate(f3.getDate()-1);
-			d3=f3.getDate();
-			if (d3==30) dias -=1;
-			if (d3==29) dias -=2;
-			if (d3==28) dias -=3;
-		}
-	}
-
-	return {ans:ans,meses:meses,dias:dias,Tdias:totdias};
-}
 $(function(){
-	$("#tomografia_fecha, #resonancia_fecha").datepicker();	
+	$("#tomografia_fecha, #resonancia_fecha").datepicker({dateFormat: 'yy-mm-dd'});	
 
 	$("input[name=tomografia]").change(function(){
 		if($(this).val() == 0){
@@ -92,7 +66,15 @@ $(function(){
 	
 	$("#resonancia_fecha, #tomografia_fecha").change(function(){
 
+		var dias = restaFechas($(this).val(),'<?php echo date("Y-m-d");?>');
+		if(dias >= 365){
+			$('#tr_repetir').show();			
+			$('#tr_repetir_rnm').show();
+			$('#tr_repetir_tc').show();		
+		}
 	});
+
+	
 
 });
 </script>
@@ -144,6 +126,22 @@ $(function(){
 		    'name'        => 'tomografia',			    
 		    'value'       => 0,		    
 		    );
+	  	$data5 = array(
+			    'name'        => 'repetir_rnm',			    
+			    'value'       => 1,		    			    
+		    );
+	  	$data6 = array(
+		    'name'        => 'repetir_rnm',			    
+		    'value'       => 0,		    
+		    );
+	  	$data7 = array(
+			    'name'        => 'repetir_tc',			    
+			    'value'       => 1,		    			    
+		    );
+	  	$data8 = array(
+		    'name'        => 'repetir_tc',			    
+		    'value'       => 0,		    
+		    );
 	?>
 
 	<table class='table table-striped table-bordered table-hover'>
@@ -156,7 +154,7 @@ $(function(){
 		</thead>
 		<tbody>
 			<tr>
-				<td>¿Dispone el sujeto de una Resonancia Magnética? </td>
+				<td>¿Se realizó una Resonancia Magnética? </td>
 				<td>
 					<?= form_radio($data,$data['value'],set_radio($data['name'], 1, (($list[0]->resonancia == 1) ? true : false))); ?> Si
 					<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0, (($list[0]->resonancia == 0) ? true : false))); ?> NO
@@ -165,13 +163,34 @@ $(function(){
 				<td><?= form_textarea(array('name'=>'resonancia_comentario', 'id'=>'resonancia_comentario','value'=>set_value('resonancia_comentario', $list[0]->resonancia_comentario),'rows'=>'5')); ?></td>
 			</tr>
 			<tr>
-				<td>¿Dispone el sujeto de una Tomografía Computarizada?</td>
+				<td>¿Se realizó una Tomografía Computarizada?</td>
 				<td>
 					<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1, (($list[0]->tomografia == 1) ? true : false))); ?> Si
 					<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0, (($list[0]->tomografia == 0) ? true : false))); ?> NO
 				</td>
 				<td><?= form_input(array('type'=>'text','name'=>'tomografia_fecha','id'=>'tomografia_fecha', 'value'=>set_value('tomografia_fecha', $list[0]->tomografia_fecha))); ?></td>
 				<td><?= form_textarea(array('name'=>'tomografia_comentario', 'id'=>'tomografia_comentario','value'=>set_value('tomografia_comentario', $list[0]->tomografia_comentario),'rows'=>'5')); ?></td>
+			</tr>
+			<tr id='tr_repetir' style='display:none;'>
+				<td colspan='4'>La fecha es superior a un año atrás, por favor recuerde repetir el examen antes de la visita basal</td>
+			</tr>
+			<tr id='tr_repetir_rnm' style='display:none;'>
+				<td>¿Se solicita una RNM?</td>
+				<td>
+					<?= form_radio($data5,$data5['value'],set_radio($data5['name'], 1, (($list[0]->repetir_rnm == 1) ? true : false))); ?> Si
+					<?= form_radio($data6,$data6['value'],set_radio($data6['name'], 0, (($list[0]->repetir_rnm == 0) ? true : false))); ?> NO
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr id='tr_repetir_tc' style='display:none;'>
+				<td>¿Se solicita un TC?</td>
+				<td>
+					<?= form_radio($data7,$data7['value'],set_radio($data7['name'], 1, (($list[0]->repetir_tc == 1) ? true : false))); ?> Si
+					<?= form_radio($data8,$data8['value'],set_radio($data8['name'], 0, (($list[0]->repetir_tc == 0) ? true : false))); ?> NO
+				</td>
+				<td></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td colspan='4' style='text-align:center;'>
@@ -243,7 +262,7 @@ $(function(){
 	?>
 		<?= form_open('subject/rnm_verify', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
+		
 		<?= form_hidden('current_status', $list[0]->status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
@@ -273,7 +292,7 @@ $(function(){
 	?>
 		<?= form_open('subject/rnm_lock', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
+		
 		<?= form_hidden('current_status', $list[0]->status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
@@ -303,7 +322,7 @@ $(function(){
 	?>
 		<?= form_open('subject/rnm_signature', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
+		
 		<?= form_hidden('current_status', $list[0]->status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>

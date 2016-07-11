@@ -50,6 +50,16 @@ $(function(){
 		$("#resonancia_fecha").removeAttr('disabled');
 		$("#resonancia_comentario").removeAttr('readonly');
 	}
+
+	$("#resonancia_fecha, #tomografia_fecha").change(function(){
+
+		var dias = restaFechas($(this).val(),'<?php echo date("Y-m-d");?>');
+		if(dias >= 365){
+			$('#tr_repetir').show();			
+			$('#tr_repetir_rnm').show();
+			$('#tr_repetir_tc').show();		
+		}
+	});
 	
 });
 </script>
@@ -100,6 +110,22 @@ $(function(){
 		    'name'        => 'tomografia',			    
 		    'value'       => 0,		    
 		    );
+	  	$data5 = array(
+			    'name'        => 'repetir_rnm',			    
+			    'value'       => 1,		    			    
+		    );
+	  	$data6 = array(
+		    'name'        => 'repetir_rnm',			    
+		    'value'       => 0,		    
+		    );
+	  	$data7 = array(
+			    'name'        => 'repetir_tc',			    
+			    'value'       => 1,		    			    
+		    );
+	  	$data8 = array(
+		    'name'        => 'repetir_tc',			    
+		    'value'       => 0,		    
+		    );
 	?>
 
 	<table class='table table-striped table-bordered table-hover'>
@@ -112,7 +138,7 @@ $(function(){
 		</thead>
 		<tbody>
 			<tr>
-				<td>¿Dispone el sujeto de una Resonancia Magnética? </td>
+				<td>¿Se realizó una Resonancia Magnética? </td>
 				<td>
 					<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si
 					<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
@@ -121,13 +147,34 @@ $(function(){
 				<td><?= form_textarea(array('name'=>'resonancia_comentario', 'id'=>'resonancia_comentario','value'=>set_value('resonancia_comentario'),'rows'=>'5')); ?></td>
 			</tr>
 			<tr>
-				<td>¿Dispone el sujeto de una Tomografía Computarizada?</td>
+				<td>¿Se realizó una Tomografía Computarizada?</td>
 				<td>
 					<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1, true)); ?> Si
 					<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0)); ?> NO
 				</td>
 				<td><?= form_input(array('type'=>'text','name'=>'tomografia_fecha','id'=>'tomografia_fecha', 'value'=>set_value('tomografia_fecha'))); ?></td>
 				<td><?= form_textarea(array('name'=>'tomografia_comentario', 'id'=>'tomografia_comentario','value'=>set_value('tomografia_comentario'),'rows'=>'5')); ?></td>
+			</tr>
+			<tr id='tr_repetir' style='display:none;'>
+				<td colspan='4'>La fecha es superior a un año atrás, por favor recuerde repetir el examen antes de la visita basal</td>
+			</tr>
+			<tr id='tr_repetir_rnm' style='display:none;'>
+				<td>¿Se solicita una RNM?</td>
+				<td>
+					<?= form_radio($data5,$data5['value'],set_radio($data5['name'], 1)); ?> Si
+					<?= form_radio($data6,$data6['value'],set_radio($data6['name'], 0,true)); ?> NO
+				</td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr id='tr_repetir_tc' style='display:none;'>
+				<td>¿Se solicita un TC?</td>
+				<td>
+					<?= form_radio($data7,$data7['value'],set_radio($data7['name'], 1)); ?> Si
+					<?= form_radio($data8,$data8['value'],set_radio($data8['name'], 0,true)); ?> NO
+				</td>
+				<td></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td colspan='4' style='text-align:center;'>
