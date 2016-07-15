@@ -211,7 +211,7 @@ $(function(){
 			<td><?= form_dropdown('edificio_estamos_puntaje',$puntaje,set_value('edificio_estamos_puntaje')); ?></td>
 		</tr>
 		<tr>
-			<td style='font-style:italic;' colspan='3'>*Los nombres de los lugares se puden sustituir por nombres alternativos que sean apropiados y más precisos para el escenario. Se deben registrar.</td>
+			<td style='font-style:italic;' colspan='3'>*Los nombres de los lugares se pueden sustituir por nombres alternativos que sean apropiados y más precisos para el escenario. Se deben registrar.</td>
 		</tr>	
 		<tr>
 			<td style='font-weight:bold;' colspan='3'>REGISTRO</td>

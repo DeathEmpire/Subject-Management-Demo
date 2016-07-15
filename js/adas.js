@@ -109,22 +109,22 @@ $(function(){
 
 	$("#total_incorrectas_5").change(function(){
 
-		if($(this).val() >= 0 $(this).val() <= 2){
+		if($(this).val() >= 0 && $(this).val() <= 2){
 			$("#puntuacion_5").val(0);
 		}
-		else if($(this).val() >= 3 $(this).val() <= 5){
+		else if($(this).val() >= 3 && $(this).val() <= 5){
 			$("#puntuacion_5").val(1);
 		}
-		else if($(this).val() >= 6 $(this).val() <= 8){
+		else if($(this).val() >= 6 && $(this).val() <= 8){
 			$("#puntuacion_5").val(2);
 		}
-		else if($(this).val() >= 9 $(this).val() <= 11){
+		else if($(this).val() >= 9 && $(this).val() <= 11){
 			$("#puntuacion_5").val(3);
 		}
-		else if($(this).val() >= 12 $(this).val() <= 14){
+		else if($(this).val() >= 12 && $(this).val() <= 14){
 			$("#puntuacion_5").val(4);
 		}
-		else if($(this).val() >= 15 $(this).val() <= 17){
+		else if($(this).val() >= 15 && $(this).val() <= 17){
 			$("#puntuacion_5").val(5);
 		}	
 		

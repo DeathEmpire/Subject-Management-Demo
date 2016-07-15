@@ -29,6 +29,24 @@ $(function(){
 	}else{
 		$("#form_cumplimiento :input").removeAttr('readonly');
 	}
+
+	$("#comprimidos_entregados, #comprimidos_utilizados, #comprimidos_devueltos").change(function(){
+		// if($("#comprimidos_entregados").val() != '' && $("#comprimidos_utilizados").val() != '' && $("#comprimidos_devueltos").val() != ''){
+			var perdidos = 0;
+
+			perdidos = parseInt($("#comprimidos_entregados").val()) - parseInt($("#comprimidos_utilizados").val()) - parseInt($("#comprimidos_devueltos").val());
+
+			if(perdidos > 0){
+				$("input[name=se_perdio_algun_comprimido][value=1]").prop("checked",true);
+				$("#comprimidos_perdidos").val(perdidos);
+			}else{
+				$("input[name=se_perdio_algun_comprimido][value=0]").prop("checked",true);
+				$("#comprimidos_perdidos").val(0);
+			}
+		// }
+	});
+
+
 });
 </script>
 <legend style='text-align:center;'>Cumplimiento</legend>
@@ -57,7 +75,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/cumplimiento_insert', array('class'=>'form-horizontal', 'id'=>'form_cumplimiento')); ?>
+<?= form_open('subject/cumplimiento_insert', array('id'=>'form_cumplimiento')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	
@@ -87,16 +105,16 @@ $(function(){
 			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 		</tr>
 		<tr>
-			<td>Numero Comprimidos Entregados: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_entregados', 'id'=>'comprimidos_entregados', 'maxlenght'=>'3','value'=>set_value('comprimidos_entregados'))); ?></td>
+			<td>Numero cápsulas entregadas: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_entregados', 'id'=>'comprimidos_entregados', 'maxlength'=>'3','value'=>set_value('comprimidos_entregados'))); ?></td>
 		</tr>
 		<tr>
-			<td>Numero Comprimidos Utilizados: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_utilizados', 'id'=>'comprimidos_utilizados', 'maxlenght'=>'3','value'=>set_value('comprimidos_utilizados'))); ?></td>
+			<td>Numero cápsulas utilizadas: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_utilizados', 'id'=>'comprimidos_utilizados', 'maxlength'=>'3','value'=>set_value('comprimidos_utilizados'))); ?></td>
 		</tr>
 		<tr>
-			<td>Numero Comprimidos Devueltos: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_devueltos', 'id'=>'comprimidos_devueltos', 'maxlenght'=>'3','value'=>set_value('comprimidos_devueltos'))); ?></td>
+			<td>Numero cápsulas devueltas: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_devueltos', 'id'=>'comprimidos_devueltos', 'maxlength'=>'3','value'=>set_value('comprimidos_devueltos'))); ?></td>
 		</tr>
 		<tr>
 
@@ -112,20 +130,20 @@ $(function(){
 			    'checked'     => set_radio('se_perdio_algun_comprimido', 0, true)
 			    );
        	?>
-			<td>Se Perdio Algun Comprimido: </td>
+			<td>Se perdio alguna cápsula: </td>
 			<td><?= form_radio($si); ?> Si <?= form_radio($no); ?> No
 		</tr>
 		<tr>		
-			<td>Numero de Comprimido Perdidos: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_perdidos', 'id'=>'comprimidos_perdidos', 'maxlenght'=>'3','value'=>set_value('comprimidos_perdidos'))); ?></td>
+			<td>Numero de cápsulas perdidas: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_perdidos', 'id'=>'comprimidos_perdidos', 'maxlength'=>'3','value'=>set_value('comprimidos_perdidos'))); ?></td>
 		</tr>
 		<tr>
 			<td>Días (desde entrega anterior hasta Día de visita): </td>
-			<td><?= form_input(array('type'=>'text','name'=>'dias', 'id'=>'dias', 'maxlenght'=>'3','value'=>set_value('dias'))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'dias', 'id'=>'dias', 'maxlength'=>'3','value'=>set_value('dias'))); ?></td>
 		</tr>
 		<tr>
 			<td>% cumplimiento: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlenght'=>'3','value'=>set_value('porcentaje_cumplimiento'))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlength'=>'3','value'=>set_value('porcentaje_cumplimiento'))); ?></td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

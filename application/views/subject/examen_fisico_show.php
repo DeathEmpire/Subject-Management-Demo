@@ -24,7 +24,7 @@ $(function(){
 });
 </script>
 
-		<legend style='text-align:center;'>Examen Físico <?= (($etapa > 1) ? 'Abreviado' : ''); ?></legend>
+		<legend style='text-align:center;'>Examen Físico <?= (($etapa != 1 AND $etapa != 5 AND $etapa != 6) ? 'Abreviado' : ''); ?></legend>
 		<b>Sujeto Actual:</b>
 		<table class="table table-condensed table-bordered">
 			<thead>
@@ -86,7 +86,7 @@ $(function(){
 				</td>
 				<td></td>
 			</tr>
-			<?php if($etapa == 1){ ?>
+			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
 				<tr>
 					<td>La fecha del examen es la misma fecha de la visita?: </td>
 					<td>
@@ -128,7 +128,7 @@ $(function(){
 				</td>
 				<td><?= form_textarea(array('name'=>'estado_nutricional_desc','id'=>'estado_nutricional_desc', 'value'=>set_value('renal_desc', $list[0]->estado_nutricional_desc), 'rows'=>3)); ?></td>
 			</tr>
-			<?php if($etapa == 1){ ?>
+			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
 				<tr>
 					<td>Piel: </td>
 					<td>
@@ -233,7 +233,7 @@ $(function(){
 				</td>
 				<td><?= form_textarea(array('name'=>'muscular_desc','id'=>'muscular_desc', 'value'=>set_value('muscular_desc', $list[0]->muscular_desc), 'rows'=>3)); ?></td>
 			</tr>
-			<?php if($etapa == 1){ ?>
+			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
 				<tr>
 					<td>Extremidades superiores: </td>
 					<td>

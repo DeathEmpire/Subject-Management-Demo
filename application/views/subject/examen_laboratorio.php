@@ -292,7 +292,7 @@ $(function(){
 				<tr>
 					<td>Ácido úrico</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'acido_urico', 'id'=>'acido_urico', 'value'=>set_value('acido_urico')));?></td>
-					<td></td>
+					<td>mg/dl</td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'acido_urico_nom_anom','value'=>'Normal','checked'=>set_radio('acido_urico_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'acido_urico_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('acido_urico_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'acido_urico_nom_anom','value'=>'Anormal_con','checked'=>set_radio('acido_urico_nom_anom', 'Anormal_con')));?></td>
@@ -343,7 +343,7 @@ $(function(){
 				<tr>
 					<td>Cetonas</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'orina_cetonas', 'id'=>'orina_cetonas', 'value'=>set_value('orina_cetonas')));?></td>
-					<td></td>
+					<td>mmol/l</td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Normal','checked'=>set_radio('orina_cetonas_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_cetonas_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_cetonas_nom_anom', 'Anormal_con')));?></td>

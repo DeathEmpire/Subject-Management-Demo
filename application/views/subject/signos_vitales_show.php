@@ -38,15 +38,15 @@ $(function(){
 		if($("#peso").val() != '' && $("#estatura").val() != ''){
 			var estatura2 = Math.pow($("#estatura").val(),2);
 			var peso = $("#peso").val();
-			var imc = peso / estatura2;
-			$("#imc").val(imc);
+			var imc = (peso / estatura2) * 10000;
+			$("#imc").val(imc.toFixed(2));
 		}
 	});
 	if($("#peso").val() != '' && $("#estatura").val() != ''){
 		var estatura2 = Math.pow($("#estatura").val(),2);
 		var peso = $("#peso").val();
-		var imc = peso / estatura2;
-		$("#imc").val(imc);
+		var imc = (peso / estatura2) * 10000;
+		$("#imc").val(imc.toFixed(2));
 	}
 });
 </script>
@@ -84,7 +84,7 @@ $(function(){
 		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('form', "Signos Vitales"); ?>
+		<?= form_hidden('form', "Signos Vitales"); ?>		
 		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
 		<?= form_close(); ?>
 	</div>
@@ -160,10 +160,18 @@ $(function(){
 			<td>Peso: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlenght'=>'3','value'=>set_value('peso', $list[0]->peso))); ?> kgs</td>
 		</tr>
-		<tr>
-			<td>IMC: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlenght'=>'3','value'=>set_value('imc'))); ?></td>
-		</tr>
+		<?php
+			if(isset($etapa) AND $etapa == 1){
+		?>
+			<tr>
+				<td>IMC: </td>
+				<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlenght'=>'3','value'=>set_value('imc'))); ?></td>
+			</tr>
+		<?php }else{ ?>
+			
+				<?= form_hidden('imc', ''); ?>
+
+		<?php }?>
 		<tr>
 			<td colspan='2' style='text-align:center;'>
 				<?php
@@ -235,6 +243,7 @@ $(function(){
 		<?= form_open('subject/signos_vitales_verify', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
@@ -266,6 +275,7 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -296,13 +306,14 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiene de Firma";
+		echo "Pendiente de Firma";
 		}
 	}
 ?>

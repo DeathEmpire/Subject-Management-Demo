@@ -155,7 +155,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>QTc</td>
-					<td><td><?= form_input(array('type'=>'text', 'name'=>'qtc', 'id'=>'qtc', 'value'=>set_value('qtc'))); ?></td></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'qtc', 'id'=>'qtc', 'value'=>set_value('qtc'))); ?></td>
 					<td>ms</td>
 					<td>
 						<?= form_radio('qtc_normal_anormal', 1, set_radio('qtc_normal_anormal', 1)); ?>
@@ -164,7 +164,7 @@ $(function(){
 					</td>
 				</tr>
 				<tr>
-					<td>QRS</td>
+					<td>Eje QRS</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'qrs2', 'id'=>'qrs2', 'value'=>set_value('qrs2'))); ?></td>
 					<td>°</td>
 					<td>

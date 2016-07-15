@@ -205,13 +205,8 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('sign_consent', 'Firmo el Concentimiento', 'xss_clean');
 
-		if(isset($registro['sign_consent']) AND $registro['sign_consent'] != ''){
-			$this->form_validation->set_rules('sign_consent_date', 'Fecha firma del concentimiento', 'xss_clean');					
-		}
-		else{
-			$this->form_validation->set_rules('sign_consent_date', 'Fecha firma del concentimiento', 'xss_clean');
-		}
-
+		
+		$this->form_validation->set_rules('sign_consent_date', 'Fecha firma del concentimiento', 'xss_clean');
 		$this->form_validation->set_rules('birth_date', 'Fecha de Nacimiento', 'xss_clean');
         $this->form_validation->set_rules('initials', 'Iniciales', 'xss_clean');
         $this->form_validation->set_rules('edad', 'Edad', 'xss_clean');
@@ -219,6 +214,8 @@ class Subject extends CI_Controller {
         $this->form_validation->set_rules('race', 'Etnia/Raza', 'xss_clean');
         $this->form_validation->set_rules('race_especificacion', 'Etnia/Raza Especificacion', 'xss_clean');        
         $this->form_validation->set_rules('escolaridad', 'Grado de Escolaridad', 'xss_clean');			
+        $this->form_validation->set_rules('escolaridad', 'Grado de Escolaridad', 'xss_clean');
+        
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Tiene errores de validacion al editar la demografia",$registro['id']);
@@ -226,13 +223,25 @@ class Subject extends CI_Controller {
 		}
 		else {
 
-			if(empty($registro['birth_date']) OR empty($registro['initials']) OR empty($registro['edad'])
-				OR empty($registro['gender']) OR empty($registro['race']) OR empty($registro['race_especificacion'])
-				OR empty($registro['escolaridad'])
+			if(
+				$registro['sign_consent'] == 1
+				AND (
+					empty($registro['birth_date']) OR empty($registro['initials']) OR empty($registro['edad'])
+					OR empty($registro['gender']) OR empty($registro['race']) 
+					OR empty($registro['escolaridad']) OR empty($registro['sign_consent_date'])
+					OR (empty($registro['race_especificacion']) AND $registro['race'] == 'Otro')
+				)
 			){
 				$estado = 'Error';
 			}else{
 				$estado = 'Record Complete';
+			}
+			if(!empty($registro['sign_consent_date'])){
+				$registro['sign_consent_date'] = date("Y-m-d", strtotime($registro['sign_consent_date']));
+			}
+
+			if(!empty($registro['birth_date'])){
+				$registro['birth_date'] = date("Y-m-d", strtotime($registro['birth_date']));
 			}
 
 			$registro['demography_status'] = $estado;
@@ -1646,43 +1655,7 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', 'Fecha', 'required|xss_clean');
-
-		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
-			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_1b', 'Puntaje Intento 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_2a', 'Puntaje Intento 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_2b', 'Puntaje Intento 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_3a', 'Puntaje Intento 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_3b', 'Puntaje Intento 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_4a', 'Puntaje Intento 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_4b', 'Puntaje Intento 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_5a', 'Puntaje Intento 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_5b', 'Puntaje Intento 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_6a', 'Puntaje Intento 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_6b', 'Puntaje Intento 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_7a', 'Puntaje Intento 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_7b', 'Puntaje Intento 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_8a', 'Puntaje Intento 8', '|xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_8b', 'Puntaje Intento 8', 'xss_clean');
-
-			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_1b', 'Puntaje Item 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_2b', 'Puntaje Item 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_3b', 'Puntaje Item 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_4b', 'Puntaje Item 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_5b', 'Puntaje Item 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_6b', 'Puntaje Item 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_7b', 'Puntaje Item 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_8b', 'Puntaje Item 8', 'xss_clean');
-		}
-		else{
+		
 			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_intento_1b', 'Puntaje Intento 1', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_intento_2a', 'Puntaje Intento 2', 'xss_clean');
@@ -1700,23 +1673,15 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('puntaje_intento_8a', 'Puntaje Intento 8', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_intento_8b', 'Puntaje Intento 8', 'xss_clean');
 
-			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_1b', 'Puntaje Item 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_2b', 'Puntaje Item 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_3b', 'Puntaje Item 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_4b', 'Puntaje Item 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_5b', 'Puntaje Item 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_6b', 'Puntaje Item 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_7b', 'Puntaje Item 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_8b', 'Puntaje Item 8', 'xss_clean');	
-		}
+			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'xss_clean');			
+			$this->form_validation->set_rules('msdd', '', 'xss_clean');
 
 
 		if($this->form_validation->run() == FALSE) {
@@ -1733,10 +1698,10 @@ class Subject extends CI_Controller {
 					OR empty($registro['puntaje_intento_3a']) OR empty($registro['puntaje_intento_3b']) OR empty($registro['puntaje_intento_4a']) OR empty($registro['puntaje_intento_4b'])
 					OR empty($registro['puntaje_intento_5a']) OR empty($registro['puntaje_intento_5b']) OR empty($registro['puntaje_intento_6a']) OR empty($registro['puntaje_intento_6b'])
 					OR empty($registro['puntaje_intento_7a']) OR empty($registro['puntaje_intento_7b']) OR empty($registro['puntaje_intento_8a']) OR empty($registro['puntaje_intento_8b'])
-					OR empty($registro['puntaje_item_1a']) OR empty($registro['puntaje_item_1b']) OR empty($registro['puntaje_item_2a']) OR empty($registro['puntaje_item_2b'])
-					OR empty($registro['puntaje_item_3a']) OR empty($registro['puntaje_item_3b']) OR empty($registro['puntaje_item_4a']) OR empty($registro['puntaje_item_4b'])
-					OR empty($registro['puntaje_item_5a']) OR empty($registro['puntaje_item_5b']) OR empty($registro['puntaje_item_6a']) OR empty($registro['puntaje_item_6b'])
-					OR empty($registro['puntaje_item_7a']) OR empty($registro['puntaje_item_7b']) OR empty($registro['puntaje_item_8a']) OR empty($registro['puntaje_item_8b'])					
+					OR empty($registro['puntaje_item_1a']) OR empty($registro['puntaje_item_2a'])
+					OR empty($registro['puntaje_item_3a']) OR empty($registro['puntaje_item_4a'])
+					OR empty($registro['puntaje_item_5a']) OR empty($registro['puntaje_item_6a'])
+					OR empty($registro['puntaje_item_7a']) OR empty($registro['puntaje_item_8a']) OR empty($registro['msdd'])
 				)
 			){
 				$estado = 'Error';
@@ -1806,8 +1771,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('realizado', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', 'Fecha', 'required|xss_clean');
 
-		if(isset($registro['realizado']) AND !empty($registro['realizado'])){
-			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
+		$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_intento_1b', 'Puntaje Intento 1', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_intento_2a', 'Puntaje Intento 2', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_intento_2b', 'Puntaje Intento 2', 'xss_clean');
@@ -1824,58 +1788,15 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('puntaje_intento_8a', 'Puntaje Intento 8', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_intento_8b', 'Puntaje Intento 8', 'xss_clean');
 
-			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_1b', 'Puntaje Item 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_2b', 'Puntaje Item 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_3b', 'Puntaje Item 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_4b', 'Puntaje Item 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_5b', 'Puntaje Item 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_6b', 'Puntaje Item 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_7b', 'Puntaje Item 7', 'xss_clean');
+			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'xss_clean');			
+			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'xss_clean');			
 			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_8b', 'Puntaje Item 8', 'xss_clean');
-		}
-		else{
-			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_1b', 'Puntaje Intento 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_2a', 'Puntaje Intento 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_2b', 'Puntaje Intento 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_3a', 'Puntaje Intento 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_3b', 'Puntaje Intento 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_4a', 'Puntaje Intento 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_4b', 'Puntaje Intento 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_5a', 'Puntaje Intento 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_5b', 'Puntaje Intento 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_6a', 'Puntaje Intento 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_6b', 'Puntaje Intento 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_7a', 'Puntaje Intento 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_7b', 'Puntaje Intento 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_8a', 'Puntaje Intento 8', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_intento_8b', 'Puntaje Intento 8', 'xss_clean');
-
-			$this->form_validation->set_rules('puntaje_item_1a', 'Puntaje Item 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_1b', 'Puntaje Item 1', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_2a', 'Puntaje Item 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_2b', 'Puntaje Item 2', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_3a', 'Puntaje Item 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_3b', 'Puntaje Item 3', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_4a', 'Puntaje Item 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_4b', 'Puntaje Item 4', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_5a', 'Puntaje Item 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_5b', 'Puntaje Item 5', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_6a', 'Puntaje Item 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_6b', 'Puntaje Item 6', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_7a', 'Puntaje Item 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_7b', 'Puntaje Item 7', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_8a', 'Puntaje Item 8', 'xss_clean');
-			$this->form_validation->set_rules('puntaje_item_8b', 'Puntaje Item 8', 'xss_clean');	
-		}
+			$this->form_validation->set_rules('msdd', '', 'xss_clean');
 
 
 		if($this->form_validation->run() == FALSE) {
@@ -1891,10 +1812,10 @@ class Subject extends CI_Controller {
 					OR empty($registro['puntaje_intento_3a']) OR empty($registro['puntaje_intento_3b']) OR empty($registro['puntaje_intento_4a']) OR empty($registro['puntaje_intento_4b'])
 					OR empty($registro['puntaje_intento_5a']) OR empty($registro['puntaje_intento_5b']) OR empty($registro['puntaje_intento_6a']) OR empty($registro['puntaje_intento_6b'])
 					OR empty($registro['puntaje_intento_7a']) OR empty($registro['puntaje_intento_7b']) OR empty($registro['puntaje_intento_8a']) OR empty($registro['puntaje_intento_8b'])
-					OR empty($registro['puntaje_item_1a']) OR empty($registro['puntaje_item_1b']) OR empty($registro['puntaje_item_2a']) OR empty($registro['puntaje_item_2b'])
-					OR empty($registro['puntaje_item_3a']) OR empty($registro['puntaje_item_3b']) OR empty($registro['puntaje_item_4a']) OR empty($registro['puntaje_item_4b'])
-					OR empty($registro['puntaje_item_5a']) OR empty($registro['puntaje_item_5b']) OR empty($registro['puntaje_item_6a']) OR empty($registro['puntaje_item_6b'])
-					OR empty($registro['puntaje_item_7a']) OR empty($registro['puntaje_item_7b']) OR empty($registro['puntaje_item_8a']) OR empty($registro['puntaje_item_8b'])					
+					OR empty($registro['puntaje_item_1a']) OR empty($registro['puntaje_item_2a'])
+					OR empty($registro['puntaje_item_3a']) OR empty($registro['puntaje_item_4a'])
+					OR empty($registro['puntaje_item_5a']) OR empty($registro['puntaje_item_6a'])
+					OR empty($registro['puntaje_item_7a']) OR empty($registro['puntaje_item_8a']) OR empty($registro['msdd'])
 				)
 			){
 				$estado = 'Error';
@@ -2788,7 +2709,7 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['estatura']) OR empty($registro['presion_sistolica']) 
+					empty($registro['fecha']) OR (empty($registro['estatura']) AND $registro['etapa'] == 1) OR empty($registro['presion_sistolica']) 
 					OR empty($registro['presion_diastolica']) OR empty($registro['frecuencia_cardiaca']) OR empty($registro['frecuencia_respiratoria']) 
 					OR empty($registro['temperatura']) OR empty($registro['peso'])
 				)
@@ -2813,6 +2734,10 @@ class Subject extends CI_Controller {
 			}
 			elseif($registro['etapa'] == 6){
 				$subjet_['signos_vitales_6_status'] = $estado;
+			}
+
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
 			}
 
 			$registro['status'] = $estado;
@@ -2872,7 +2797,7 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['estatura']) OR empty($registro['presion_sistolica']) 
+					empty($registro['fecha']) OR (empty($registro['estatura']) AND $registro['etapa'] == 1) OR empty($registro['presion_sistolica']) 
 					OR empty($registro['presion_diastolica']) OR empty($registro['frecuencia_cardiaca']) OR empty($registro['frecuencia_respiratoria']) 
 					OR empty($registro['temperatura']) OR empty($registro['peso'])
 				)
@@ -2885,6 +2810,10 @@ class Subject extends CI_Controller {
 
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['status'] = $estado;
+
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+			}
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Signos_vitales');
@@ -4047,6 +3976,10 @@ class Subject extends CI_Controller {
 				$subjet_['examen_neurologico_6_status'] = $estado;
 			}
 
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+			}
+
 			$registro['status'] = $estado;
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
@@ -4156,6 +4089,10 @@ class Subject extends CI_Controller {
 			}
 			elseif($registro['etapa'] == 6){
 				$subjet_['examen_neurologico_6_status'] = $estado;
+			}
+
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
 			}
 
 			$registro['status'] = $estado;
@@ -4473,13 +4410,13 @@ class Subject extends CI_Controller {
 			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("Examen de Laboratorio agregado", $registro['subject_id']);     		
-     		redirect('subject/examen_laboratorio_show/'. $registro['subject_id']);
+     		redirect('subject/examen_laboratorio_show/'. $registro['subject_id'] ."/". $registro['etapa']);
 
 		}
 
 	}
 
-	public function examen_laboratorio_show($subject_id){
+	public function examen_laboratorio_show($subject_id, $etapa){
 		$data['contenido'] = 'subject/examen_laboratorio_show';
 		$data['titulo'] = 'Examen Laboratorio';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
@@ -4638,7 +4575,7 @@ class Subject extends CI_Controller {
 			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("Examen de Laboratorio actualizado", $registro['subject_id']);     		
-     		redirect('subject/examen_laboratorio_show/'. $registro['subject_id']);
+     		redirect('subject/examen_laboratorio_show/'. $registro['subject_id'] ."/". $etapa);
 
 		}
 	}
@@ -6476,14 +6413,16 @@ class Subject extends CI_Controller {
 				(
 					isset($registro['resonancia']) AND $registro['resonancia'] == 1 AND 
 					(
-						empty($registro['resonancia_fecha']) OR empty($registro['resonancia_comentario'])
+						empty($registro['resonancia_fecha']) 
+						// OR empty($registro['resonancia_comentario'])
 					)
 				)
 				OR
 				(
 					isset($registro['tomografia']) AND $registro['tomografia'] == 1 AND 
 					(
-						empty($registro['tomografia_fecha']) OR empty($registro['tomografia_comentario'])
+						empty($registro['tomografia_fecha']) 
+						// OR empty($registro['tomografia_comentario'])
 					)
 				)
 			){
@@ -7560,9 +7499,27 @@ class Subject extends CI_Controller {
 		else {
 
 			if(
-				(isset($registro['realizado']) AND $registro['realizado'] == 1 AND (!isset($registro['fecha']) OR empty($registro['fecha'])))
+				(
+					isset($registro['realizado']) AND $registro['realizado'] == 1 
+					AND (
+							!isset($registro['fecha']) OR empty($registro['fecha']) OR empty($registro['resta_1'])
+							 OR empty($registro['resta_2'])  OR empty($registro['resta_3'])  OR empty($registro['resta_4'])
+							  OR empty($registro['resta_5'])
+						)
+				)
 				OR
-				(isset($registro['realizado_alt']) AND $registro['realizado_alt'] == 1 AND (!isset($registro['fecha_alt']) OR empty($registro['fecha_alt'])))				
+				(
+					isset($registro['realizado_alt']) AND $registro['realizado_alt'] == 1 
+					AND (
+							!isset($registro['fecha_alt']) OR empty($registro['fecha_alt']) OR empty($registro['resta_1_alt'])
+							OR empty($registro['resta_2_alt'])  OR empty($registro['resta_3_alt'])  OR empty($registro['resta_4_alt'])
+							OR empty($registro['resta_5_alt'])
+						)
+				)
+				OR
+				(
+					$registro['realizado'] == 0 AND  $registro['realizado_alt'] == 0 
+				)				
 			){
 				$estado = 'Error';
 			}
@@ -7680,9 +7637,27 @@ class Subject extends CI_Controller {
 		else {
 
 			if(
-				(isset($registro['realizado']) AND $registro['realizado'] == 1 AND (!isset($registro['fecha']) OR empty($registro['fecha'])))
+				(
+					isset($registro['realizado']) AND $registro['realizado'] == 1 
+					AND (
+							!isset($registro['fecha']) OR empty($registro['fecha']) OR empty($registro['resta_1'])
+							 OR empty($registro['resta_2'])  OR empty($registro['resta_3'])  OR empty($registro['resta_4'])
+							  OR empty($registro['resta_5'])
+						)
+				)
 				OR
-				(isset($registro['realizado_alt']) AND $registro['realizado_alt'] == 1 AND (!isset($registro['fecha_alt']) OR empty($registro['fecha_alt'])))				
+				(
+					isset($registro['realizado_alt']) AND $registro['realizado_alt'] == 1 
+					AND (
+							!isset($registro['fecha_alt']) OR empty($registro['fecha_alt']) OR empty($registro['resta_1_alt'])
+							OR empty($registro['resta_2_alt'])  OR empty($registro['resta_3_alt'])  OR empty($registro['resta_4_alt'])
+							OR empty($registro['resta_5_alt'])
+						)
+				)
+				OR
+				(
+					$registro['realizado'] == 0 AND  $registro['realizado_alt'] == 0 
+				)
 			){
 				$estado = 'Error';
 			}

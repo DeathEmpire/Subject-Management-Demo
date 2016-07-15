@@ -271,6 +271,7 @@
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
 
@@ -301,6 +302,7 @@
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -331,13 +333,14 @@
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiene de Firma";
+		echo "Pendiente de Firma";
 		}
 	}
 ?>

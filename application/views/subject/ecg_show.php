@@ -180,7 +180,7 @@ $(function(){
 					</td>
 				</tr>
 				<tr>
-					<td>QRS</td>
+					<td>Eje QRS</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'qrs2', 'id'=>'qrs2', 'value'=>set_value('qrs2', $list[0]->qrs2))); ?></td>
 					<td>°</td>
 					<td>
@@ -277,7 +277,7 @@ $(function(){
 		<?= form_open('subject/ecg_verify', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>		
 		<?= form_hidden('current_status', $list[0]->status); ?>
-			
+		<?= form_hidden('id', $list[0]->id); ?>	
 		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
@@ -306,7 +306,7 @@ $(function(){
 		<?= form_open('subject/ecg_lock', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>		
 		<?= form_hidden('current_status', $list[0]->status); ?>
-			
+		<?= form_hidden('id', $list[0]->id); ?>	
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
@@ -335,13 +335,13 @@ $(function(){
 		<?= form_open('subject/ecg_signature', array('class'=>'form-horizontal')); ?>    	
 		<?= form_hidden('subject_id', $subject->id); ?>		
 		<?= form_hidden('current_status', $list[0]->status); ?>
-			
+		<?= form_hidden('id', $list[0]->id); ?>
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiene de Firma";
+		echo "Pendiente de Firma";
 		}
 	}
 ?>

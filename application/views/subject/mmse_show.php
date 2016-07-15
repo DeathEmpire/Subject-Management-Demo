@@ -227,7 +227,7 @@ $(function(){
 			<td><?= form_dropdown('edificio_estamos_puntaje',$puntaje,set_value('edificio_estamos_puntaje', $list[0]->edificio_estamos_puntaje)); ?></td>
 		</tr>
 		<tr>
-			<td style='font-style:italic;' colspan='3'>*Los nombres de los lugares se puden sustituir por nombres alternativos que sean apropiados y más precisos para el escenario. Se deben registrar.</td>
+			<td style='font-style:italic;' colspan='3'>*Los nombres de los lugares se pueden sustituir por nombres alternativos que sean apropiados y más precisos para el escenario. Se deben registrar.</td>
 		</tr>	
 		<tr>
 			<td style='font-weight:bold;' colspan='3'>REGISTRO</td>
@@ -475,6 +475,7 @@ Dibujo: página con el diagrama).</td>
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
 
@@ -505,7 +506,8 @@ Dibujo: página con el diagrama).</td>
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
-			
+		<?= form_hidden('id', $list[0]->id); ?>	
+
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
@@ -535,13 +537,14 @@ Dibujo: página con el diagrama).</td>
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiene de Firma";
+		echo "Pendiente de Firma";
 		}
 	}
 ?>

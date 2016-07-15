@@ -35,7 +35,7 @@ $(function(){
 	}
 });
 </script>
-<legend style='text-align:center;'>Examen Neurológico <?= (($etapa > 1) ? 'Abreviado' : ''); ?></legend>
+<legend style='text-align:center;'>Examen Neurológico <?= (($etapa != 1 AND $etapa != 5 AND $etapa != 6) ? 'Abreviado' : ''); ?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -111,7 +111,7 @@ $(function(){
 				<td><?= form_dropdown("nervios_craneanos_normal_anormal",$normal_anormal,set_value('nervios_craneanos_normal_anormal')); ?></td>
 				<td><?= form_input(array('type'=>'text','name'=>'nervios_craneanos', 'id'=>'nervios_craneanos', 'value'=>set_value('nervios_craneanos')));?></td>
 			</tr>
-			<?php if($etapa == 1){ ?>
+			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
 				<tr>
 					<td>Fuerza muscular</td>
 					<td><?= form_dropdown("fuerza_muscular_normal_anormal",$normal_anormal,set_value('fuerza_muscular_normal_anormal')); ?></td>
@@ -135,7 +135,7 @@ $(function(){
 					<?= form_hidden('mov_anormales_normal_anormal','0'); ?>
 					<?= form_hidden('mov_anormales',''); ?>
 			<?php } 
-			if($etapa > 1){ ?>
+			if($etapa > 1 OR $etapa == 5 OR $etapa == 6){ ?>
 				<tr>
 					<td>Función motora</td>
 					<td><?= form_dropdown("motora_normal_anormal",$normal_anormal,set_value('motora_normal_anormal')); ?></td>
@@ -155,7 +155,7 @@ $(function(){
 				<td><?= form_dropdown("examen_sensitivo_normal_anormal",$normal_anormal,set_value('examen_sensitivo_normal_anormal')); ?></td>
 				<td><?= form_input(array('type'=>'text','name'=>'examen_sensitivo', 'id'=>'examen_sensitivo', 'value'=>set_value('examen_sensitivo')));?></td>
 			</tr>
-			<?php if($etapa == 1){ ?>
+			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
 				<tr>
 					<td>Coordinación</td>
 					<td><?= form_dropdown("coordinacion_normal_anormal",$normal_anormal,set_value('coordinacion_normal_anormal')); ?></td>

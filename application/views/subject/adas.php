@@ -156,7 +156,7 @@
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_3', $puntaje, set_value('puntuacion_3')); ?></td>
+				<td><?= form_dropdown('puntuacion_3', $puntaje, set_value('puntuacion_3'), array('id'=>'puntuacion_3')); ?></td>
 			</tr>				
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>4.- Tarea de recordar palabras diferidas </td>
@@ -179,7 +179,7 @@
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_4', $puntaje, set_value('puntuacion_4')); ?></td>
+				<td><?= form_dropdown('puntuacion_4', $puntaje, set_value('puntuacion_4'), array('id'=>'puntuacion_4')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>5.- Tarea de nombrar</td>
@@ -198,7 +198,7 @@
 			</tr>			
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_5', $puntaje, set_value('puntuacion_5')); ?></td>
+				<td><?= form_dropdown('puntuacion_5', $puntaje, set_value('puntuacion_5'), array('id'=>'puntuacion_5')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>6.- Praxis Ideacional</td>
@@ -217,7 +217,7 @@
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_6', $puntaje, set_value('puntuacion_6')); ?></td>
+				<td><?= form_dropdown('puntuacion_6', $puntaje, set_value('puntuacion_6'), array('id'=>'puntuacion_6')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>7.- Orientación</td>
@@ -236,7 +236,7 @@
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_7', $puntaje, set_value('puntuacion_7')); ?></td>
+				<td><?= form_dropdown('puntuacion_7', $puntaje, set_value('puntuacion_7'), array('id'=>'puntuacion_7')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>8.- Tarea de reconocer palabras</td>
@@ -266,7 +266,7 @@
 			</tr>
 			<tr>
 				<td>Puntuación</td>
-				<td><?= form_dropdown('puntuacion_9', $puntaje, set_value('puntuacion_9')); ?></td>
+				<td><?= form_dropdown('puntuacion_9', $puntaje, set_value('puntuacion_9'), array('id'=>'puntuacion_9')); ?></td>
 			</tr>
 
 			<tr>
@@ -274,7 +274,7 @@
 			</tr>
 			<tr>
 				<td>Puntuación</td>
-				<td><?= form_dropdown('puntuacion_10', $puntaje, set_value('puntuacion_10')); ?></td>
+				<td><?= form_dropdown('puntuacion_10', $puntaje, set_value('puntuacion_10'), array('id'=>'puntuacion_10')); ?></td>
 			</tr>
 
 			<tr>
@@ -282,7 +282,7 @@
 			</tr>
 			<tr>
 				<td>Puntuación</td>
-				<td><?= form_dropdown('puntuacion_11', $puntaje, set_value('puntuacion_11')); ?></td>
+				<td><?= form_dropdown('puntuacion_11', $puntaje, set_value('puntuacion_11'), array('id'=>'puntuacion_11')); ?></td>
 			</tr>
 
 			<tr>
@@ -290,7 +290,7 @@
 			</tr>
 			<tr>
 				<td>Puntuación</td>
-				<td><?= form_dropdown('puntuacion_12', $puntaje, set_value('puntuacion_12')); ?></td>
+				<td><?= form_dropdown('puntuacion_12', $puntaje, set_value('puntuacion_12'), array('id'=>'puntuacion_12')); ?></td>
 			</tr>
 
 			<tr>

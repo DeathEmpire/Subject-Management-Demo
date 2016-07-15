@@ -39,16 +39,16 @@ $(function(){
 		if($("#peso").val() != '' && $("#estatura").val() != ''){
 			var estatura2 = Math.pow($("#estatura").val(),2);
 			var peso = $("#peso").val();
-			var imc = peso / estatura2;
-			$("#imc").val(imc);
+			var imc = (peso / estatura2) * 10000;
+			$("#imc").val(imc.toFixed(2));
 		}
 	});
 
 	if($("#peso").val() != '' && $("#estatura").val() != ''){
 		var estatura2 = Math.pow($("#estatura").val(),2);
 		var peso = $("#peso").val();
-		var imc = peso / estatura2;
-		$("#imc").val(imc);
+		var imc = (peso / estatura2) * 10000;
+		$("#imc").val(imc.toFixed(2));
 	}
 });
 </script>
@@ -144,10 +144,18 @@ $(function(){
 			<td>Peso: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlenght'=>'3','value'=>set_value('peso'))); ?> kgs</td>
 		</tr>
-		<tr>
-			<td>IMC: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlenght'=>'3','value'=>set_value('imc'))); ?></td>
-		</tr>
+		<?php
+			if(isset($etapa) AND $etapa == 1){
+		?>
+			<tr>
+				<td>IMC: </td>
+				<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlenght'=>'3','value'=>set_value('imc'))); ?></td>
+			</tr>
+		<?php }else{ ?>
+			
+				<?= form_hidden('imc', ''); ?>
+
+		<?php }?>
 		<tr>
 			<td colspan='2' style='text-align:center;'>
 				<?php

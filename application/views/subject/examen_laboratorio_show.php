@@ -310,7 +310,7 @@ $(function(){
 				<tr>
 					<td>Ácido úrico</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'acido_urico', 'id'=>'acido_urico', 'value'=>set_value('acido_urico', $list[0]->acido_urico)));?></td>
-					<td></td>
+					<td>mg/dl</td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'acido_urico_nom_anom','value'=>'Normal','checked'=>set_radio('acido_urico_nom_anom', 'Normal', (($list[0]->acido_urico_nom_anom == 'Normal') ? true : false))));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'acido_urico_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('acido_urico_nom_anom', 'Anormal_sin', (($list[0]->acido_urico_nom_anom == 'Anormal_sin') ? true : false))));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'acido_urico_nom_anom','value'=>'Anormal_con','checked'=>set_radio('acido_urico_nom_anom', 'Anormal_con', (($list[0]->acido_urico_nom_anom == 'Anormal_con') ? true : false))));?></td>
@@ -361,7 +361,7 @@ $(function(){
 				<tr>
 					<td>Cetonas</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'orina_cetonas', 'id'=>'orina_cetonas', 'value'=>set_value('orina_cetonas', $list[0]->orina_cetonas)));?></td>
-					<td></td>
+					<td>mmol/l</td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Normal','checked'=>set_radio('orina_cetonas_nom_anom', 'Normal', (($list[0]->orina_cetonas_nom_anom == 'Normal') ? true : false))));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_cetonas_nom_anom', 'Anormal_sin', (($list[0]->orina_cetonas_nom_anom == 'Anormal_sin') ? true : false))));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_cetonas_nom_anom', 'Anormal_con', (($list[0]->orina_cetonas_nom_anom == 'Anormal_con') ? true : false))));?></td>
@@ -533,6 +533,7 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
 
@@ -563,6 +564,7 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -593,13 +595,14 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiene de Firma";
+		echo "Pendiente de Firma";
 		}
 	}
 ?>
