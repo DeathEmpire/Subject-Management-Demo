@@ -3,8 +3,8 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#birth_date").datepicker({changeMonth: true, changeYear: true, yearRange: '-100:+0',});
-	$("#sign_consent_date").datepicker();
+	$("#birth_date").datepicker({changeMonth: true, changeYear: true, yearRange: '-100:+0',dateFormat: 'dd/mm/yy'});
+	$("#sign_consent_date").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name=sign_consent]").change(function(){
 		if($(this).val() == 1){
@@ -279,7 +279,7 @@ $(function(){
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiene de Firma";
+		echo "Pendiente de Firma";
 		}
 	}
 ?>

@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
@@ -107,7 +107,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha Toma Muestra: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', $list[0]->fecha))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

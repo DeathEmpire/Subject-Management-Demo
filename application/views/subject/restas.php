@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha, #fecha_alt").datepicker();
+	$("#fecha, #fecha_alt").datepicker({ dateFormat: 'dd/mm/yy' });
 	
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){

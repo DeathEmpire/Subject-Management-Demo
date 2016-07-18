@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name=hallazgo]").click(function(){
 		if($(this).val() == 1){
@@ -101,7 +101,7 @@ $(function(){
 			
 			<tr>
 				<td>Fecha: </td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha',$list[0]->fecha))); ?></td>
+				<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
 				<td></td>
 			</tr>
 			<tr style='background-color:#ddd;'>
@@ -202,7 +202,7 @@ $(function(){
 				<?= form_hidden('cuello_desc',''); ?>
 			<?php }?>			
 			<tr>
-				<td>Pecho, pulmo&oacute;: </td>
+				<td>Pecho, pulm&oacute;n: </td>
 				<td>
 					<?= form_radio(array('name'=>'pulmones','value'=>'1','checked'=>set_radio('pulmones', 1,(($list[0]->pulmones  == 1 ) ? true : false)))); ?> Normal
 					<?= form_radio(array('name'=>'pulmones','value'=>'0','checked'=>set_radio('pulmones', 0,(($list[0]->pulmones  == 0 ) ? true : false)))); ?> Anormal

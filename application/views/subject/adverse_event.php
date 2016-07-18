@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(function(){
 
-	$("input[name^=date_of]").datepicker();
+	$("input[name^=date_of]").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name^=continuing]").change(function(){
 		if($(this).val() == 1){

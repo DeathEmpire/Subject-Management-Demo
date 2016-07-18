@@ -1,5 +1,5 @@
 $(function(){
-	$("#fecha").datepicker();	
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
@@ -51,9 +51,10 @@ $(function(){
 					total2 = parseInt(total2) + parseInt($('option:selected',this).text());							
 				}
 			});
-			$('#puntaje_total_para_angustia').val(total2);
-
-			
+			$('#puntaje_total_para_angustia').val(total2);			
+		}
+		else{
+			$("input[name=delirio_puntaje]").val('');
 		}
 	});
 	$("select[name*=alucinaciones]").change(function(){
@@ -78,6 +79,8 @@ $(function(){
 			$('#puntaje_total_para_angustia').val(total2);
 
 			
+		}else{
+			$("input[name=alucinaciones_puntaje]").val('');
 		}
 	});
 	$("select[name*=agitacion]").change(function(){
@@ -103,6 +106,8 @@ $(function(){
 			$('#puntaje_total_para_angustia').val(total2);
 
 			
+		}else{
+			$("input[name=agitacion_puntaje]").val('');
 		}
 	});
 	
@@ -128,6 +133,8 @@ $(function(){
 			$('#puntaje_total_para_angustia').val(total2);
 
 			
+		}else{
+			$("input[name=depresion_puntaje]").val('');
 		}
 	});
 	
@@ -153,6 +160,8 @@ $(function(){
 			$('#puntaje_total_para_angustia').val(total2);
 
 			
+		}else{
+			$("input[name=ansiedad_puntaje]").val('');
 		}
 	});
 	
@@ -178,6 +187,8 @@ $(function(){
 			$('#puntaje_total_para_angustia').val(total2);
 
 			
+		}else{
+			$("input[name=elacion_puntaje]").val('');
 		}
 	});
 	
@@ -204,6 +215,9 @@ $(function(){
 
 			
 		}
+		else{
+			$("input[name=apatia_puntaje]").val('');	
+		}
 	});
 	
 	$("select[name*=deshinibicion]").change(function(){
@@ -228,6 +242,8 @@ $(function(){
 			$('#puntaje_total_para_angustia').val(total2);
 
 			
+		}else{
+			$("input[name=deshinibicion_puntaje]").val('');
 		}
 	});
 	
@@ -253,6 +269,8 @@ $(function(){
 			$('#puntaje_total_para_angustia').val(total2);
 
 			
+		}else{
+			$("input[name=irritabilidad_puntaje]").val('');
 		}
 	});
 	
@@ -277,6 +295,8 @@ $(function(){
 			});
 			$('#puntaje_total_para_angustia').val(total2);
 			
+		}else{
+			$("input[name=conducta_puntaje]").val('');
 		}
 	});
 	
@@ -302,6 +322,8 @@ $(function(){
 			$('#puntaje_total_para_angustia').val(total2);
 
 			
+		}else{
+			$("input[name=trastornos_sueno_puntaje]").val('');
 		}
 	});
 	
@@ -326,13 +348,15 @@ $(function(){
 			});
 			$('#puntaje_total_para_angustia').val(total2);
 
+		}else{
+			$("input[name=trastornos_apetito_puntaje]").val('');
 		}
 	});
 	
 	/*Puntaje Total*/
 	$("input[name*=_puntaje]").change(function(){
 		var total = 0;
-		$("input[name^=puntaje]").each(function(){						
+		$("input[name*=_puntaje]").each(function(){						
 			if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
 				total = parseInt(total) + parseInt($(this).val());								
 			}
@@ -343,7 +367,7 @@ $(function(){
 	$("input[name*=_angustia]").change(function(){
 		var total2 = 0;
 		$("select[name*=angustia]").each(function(){	
-			if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != ''){					
+			if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
 				total2 = parseInt(total2) + parseInt($(this).val());							
 			}
 		});
@@ -356,6 +380,27 @@ $(function(){
 			$("#delirio_frecuencia").attr('readonly','readonly');			
 			$("#delirio_severidad").attr('readonly','readonly');
 			$("#delirio_angustia").attr('readonly','readonly');
+
+			$("#delirio_frecuencia").val('');
+			$("#delirio_severidad").val('');
+			$("#delirio_angustia").val('');			
+			$("#delirio_puntaje").val('');
+			
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){					
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){						
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
 
 			$('#delirio_frecuencia option:not(), #delirio_severidad option:not(), #delirio_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
@@ -374,6 +419,26 @@ $(function(){
 		$("#delirio_frecuencia").attr('readonly','readonly');
 		$("#delirio_severidad").attr('readonly','readonly');
 		$("#delirio_angustia").attr('readonly','readonly');
+
+		$("#delirio_frecuencia").val('');
+		$("#delirio_severidad").val('');
+		$("#delirio_angustia").val('');		
+		$("#delirio_puntaje").val('');
+		var total = 0;
+		$("input[name*=_puntaje]").each(function(){						
+			if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+				total = parseInt(total) + parseInt($(this).val());								
+			}
+		});
+		$('#puntaje_total_npi').val(total);
+		var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#delirio_frecuencia option:not(), #delirio_severidad option:not(), #delirio_angustia option:not()').each(function(){
 			$(this).attr('disabled', 'disabled');
 		});
@@ -392,6 +457,26 @@ $(function(){
 			$("#alucinaciones_frecuencia").attr('readonly','readonly');
 			$("#alucinaciones_severidad").attr('readonly','readonly');
 			$("#alucinaciones_angustia").attr('readonly','readonly');
+			
+			$("#alucinaciones_frecuencia").val('');
+			$("#alucinaciones_severidad").val('');
+			$("#alucinaciones_angustia").val('');			
+			$("#alucinaciones_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#alucinaciones_frecuencia option:not(), #alucinaciones_severidad option:not(), #alucinaciones_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -409,6 +494,26 @@ $(function(){
 		$("#alucinaciones_frecuencia").attr('readonly','readonly');
 		$("#alucinaciones_severidad").attr('readonly','readonly');
 		$("#alucinaciones_angustia").attr('readonly','readonly');
+		
+			$("#alucinaciones_frecuencia").val('');
+			$("#alucinaciones_severidad").val('');
+			$("#alucinaciones_angustia").val('');			
+			$("#alucinaciones_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#alucinaciones_frecuencia option:not(), #alucinaciones_severidad option:not(), #alucinaciones_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -427,6 +532,26 @@ $(function(){
 			$("#agitacion_frecuencia").attr('readonly','readonly');
 			$("#agitacion_severidad").attr('readonly','readonly');
 			$("#agitacion_angustia").attr('readonly','readonly');
+
+			$("#agitacion_frecuencia").val('');
+			$("#agitacion_severidad").val('');
+			$("#agitacion_angustia").val('');			
+			$("#agitacion_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#agitacion_frecuencia option:not(), #agitacion_frecuencia option:not(), #agitacion_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -444,6 +569,26 @@ $(function(){
 		$("#agitacion_frecuencia").attr('readonly','readonly');
 		$("#agitacion_severidad").attr('readonly','readonly');
 		$("#agitacion_angustia").attr('readonly','readonly');
+
+			$("#agitacion_frecuencia").val('');
+			$("#agitacion_severidad").val('');
+			$("#agitacion_angustia").val('');			
+			$("#agitacion_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#agitacion_frecuencia option:not(), #agitacion_frecuencia option:not(), #agitacion_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -462,6 +607,26 @@ $(function(){
 			$("#depresion_frecuencia").attr('readonly','readonly');
 			$("#depresion_severidad").attr('readonly','readonly');
 			$("#depresion_angustia").attr('readonly','readonly');
+
+			$("#depresion_frecuencia").val('');
+			$("#depresion_severidad").val('');
+			$("#depresion_angustia").val('');			
+			$("#depresion_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#depresion_frecuencia option:not(), #depresion_severidad option:not(), #depresion_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -479,6 +644,26 @@ $(function(){
 		$("#depresion_frecuencia").attr('readonly','readonly');
 		$("#depresion_severidad").attr('readonly','readonly');
 		$("#depresion_angustia").attr('readonly','readonly');
+
+			$("#depresion_frecuencia").val('');
+			$("#depresion_severidad").val('');
+			$("#depresion_angustia").val('');			
+			$("#depresion_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#depresion_frecuencia option:not(), #depresion_severidad option:not(), #depresion_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -496,6 +681,26 @@ $(function(){
 			$("#ansiedad_frecuencia").attr('readonly','readonly');
 			$("#ansiedad_severidad").attr('readonly','readonly');
 			$("#ansiedad_angustia").attr('readonly','readonly');
+
+			$("#ansiedad_frecuencia").val('');
+			$("#ansiedad_severidad").val('');
+			$("#ansiedad_angustia").val('');			
+			$("#ansiedad_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#ansiedad_frecuencia option:not(), #ansiedad_severidad option:not(), #ansiedad_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -513,6 +718,26 @@ $(function(){
 		$("#ansiedad_frecuencia").attr('readonly','readonly');
 		$("#ansiedad_severidad").attr('readonly','readonly');
 		$("#ansiedad_angustia").attr('readonly','readonly');
+
+			$("#ansiedad_frecuencia").val('');
+			$("#ansiedad_severidad").val('');
+			$("#ansiedad_angustia").val('');			
+			$("#ansiedad_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#ansiedad_frecuencia option:not(), #ansiedad_severidad option:not(), #ansiedad_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -531,6 +756,26 @@ $(function(){
 			$("#elacion_frecuencia").attr('readonly','readonly');
 			$("#elacion_severidad").attr('readonly','readonly');
 			$("#elacion_angustia").attr('readonly','readonly');
+
+			$("#elacion_frecuencia").val('');
+			$("#elacion_severidad").val('');
+			$("#elacion_angustia").val('');			
+			$("#elacion_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#elacion_frecuencia option:not(), #elacion_severidad option:not(), #elacion_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -548,6 +793,26 @@ $(function(){
 		$("#elacion_frecuencia").attr('readonly','readonly');
 		$("#elacion_severidad").attr('readonly','readonly');
 		$("#elacion_angustia").attr('readonly','readonly');
+
+			$("#elacion_frecuencia").val('');
+			$("#elacion_severidad").val('');
+			$("#elacion_angustia").val('');			
+			$("#elacion_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#elacion_frecuencia option:not(), #elacion_severidad option:not(), #elacion_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -566,6 +831,26 @@ $(function(){
 			$("#apatia_frecuencia").attr('readonly','readonly');
 			$("#apatia_severidad").attr('readonly','readonly');
 			$("#apatia_angustia").attr('readonly','readonly');
+
+			$("#apatia_frecuencia").val('');
+			$("#apatia_severidad").val('');
+			$("#apatia_angustia").val('');			
+			$("#apatia_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#apatia_frecuencia option:not(), #apatia_severidad option:not(), #apatia_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -583,6 +868,26 @@ $(function(){
 		$("#apatia_frecuencia").attr('readonly','readonly');
 		$("#apatia_severidad").attr('readonly','readonly');
 		$("#apatia_angustia").attr('readonly','readonly');
+
+			$("#apatia_frecuencia").val('');
+			$("#apatia_severidad").val('');
+			$("#apatia_angustia").val('');			
+			$("#apatia_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#apatia_frecuencia option:not(), #apatia_severidad option:not(), #apatia_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -601,6 +906,26 @@ $(function(){
 			$("#deshinibicion_frecuencia").attr('readonly','readonly');
 			$("#deshinibicion_severidad").attr('readonly','readonly');
 			$("#deshinibicion_angustia").attr('readonly','readonly');
+
+			$("#deshinibicion_frecuencia").val('');
+			$("#deshinibicion_severidad").val('');
+			$("#deshinibicion_angustia").val('');			
+			$("#deshinibicion_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#deshinibicion_frecuencia option:not(), #deshinibicion_severidad option:not(), #deshinibicion_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -618,6 +943,26 @@ $(function(){
 		$("#deshinibicion_frecuencia").attr('readonly','readonly');
 		$("#deshinibicion_severidad").attr('readonly','readonly');
 		$("#deshinibicion_angustia").attr('readonly','readonly');
+
+			$("#deshinibicion_frecuencia").val('');
+			$("#deshinibicion_severidad").val('');
+			$("#deshinibicion_angustia").val('');			
+			$("#deshinibicion_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#deshinibicion_frecuencia option:not(), #deshinibicion_severidad option:not(), #deshinibicion_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -636,6 +981,26 @@ $(function(){
 			$("#irritabilidad_frecuencia").attr('readonly','readonly');
 			$("#irritabilidad_severidad").attr('readonly','readonly');
 			$("#irritabilidad_angustia").attr('readonly','readonly');
+
+			$("#irritabilidad_frecuencia").val('');
+			$("#irritabilidad_severidad").val('');
+			$("#irritabilidad_angustia").val('');			
+			$("#irritabilidad_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#irritabilidad_frecuencia option:not(), #irritabilidad_severidad option:not(), #irritabilidad_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -653,6 +1018,26 @@ $(function(){
 		$("#irritabilidad_frecuencia").attr('readonly','readonly');
 		$("#irritabilidad_severidad").attr('readonly','readonly');
 		$("#irritabilidad_angustia").attr('readonly','readonly');
+
+			$("#irritabilidad_frecuencia").val('');
+			$("#irritabilidad_severidad").val('');
+			$("#irritabilidad_angustia").val('');			
+			$("#irritabilidad_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#irritabilidad_frecuencia option:not(), #irritabilidad_severidad option:not(), #irritabilidad_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -671,6 +1056,26 @@ $(function(){
 			$("#conducta_frecuencia").attr('readonly','readonly');
 			$("#conducta_severidad").attr('readonly','readonly');
 			$("#conducta_angustia").attr('readonly','readonly');
+
+			$("#conducta_frecuencia").val('');
+			$("#conducta_severidad").val('');
+			$("#conducta_angustia").val('');			
+			$("#conducta_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#conducta_frecuencia option:not(), #conducta_severidad option:not(), #conducta_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -688,6 +1093,26 @@ $(function(){
 		$("#conducta_frecuencia").attr('readonly','readonly');
 		$("#conducta_severidad").attr('readonly','readonly');
 		$("#conducta_angustia").attr('readonly','readonly');
+
+			$("#conducta_frecuencia").val('');
+			$("#conducta_severidad").val('');
+			$("#conducta_angustia").val('');			
+			$("#conducta_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#conducta_frecuencia option:not(), #conducta_severidad option:not(), #conducta_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -706,6 +1131,26 @@ $(function(){
 			$("#trastornos_sueno_frecuencia").attr('readonly','readonly');
 			$("#trastornos_sueno_severidad").attr('readonly','readonly');
 			$("#trastornos_sueno_angustia").attr('readonly','readonly');
+
+			$("#trastornos_sueno_frecuencia").val('');
+			$("#trastornos_sueno_severidad").val('');
+			$("#trastornos_sueno_angustia").val('');			
+			$("#trastornos_sueno_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#trastornos_sueno_status option:not(), #trastornos_sueno_severidad option:not(), #trastornos_sueno_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -723,6 +1168,26 @@ $(function(){
 		$("#trastornos_sueno_frecuencia").attr('readonly','readonly');
 		$("#trastornos_sueno_severidad").attr('readonly','readonly');
 		$("#trastornos_sueno_angustia").attr('readonly','readonly');
+
+			$("#trastornos_sueno_frecuencia").val('');
+			$("#trastornos_sueno_severidad").val('');
+			$("#trastornos_sueno_angustia").val('');			
+			$("#trastornos_sueno_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#trastornos_sueno_status option:not(), #trastornos_sueno_severidad option:not(), #trastornos_sueno_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -741,6 +1206,26 @@ $(function(){
 			$("#trastornos_apetito_frecuencia").attr('readonly','readonly');
 			$("#trastornos_apetito_severidad").attr('readonly','readonly');
 			$("#trastornos_apetito_angustia").attr('readonly','readonly');
+
+			$("#trastornos_apetito_frecuencia").val('');
+			$("#trastornos_apetito_severidad").val('');
+			$("#trastornos_apetito_angustia").val('');			
+			$("#trastornos_apetito_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 			$('#trastornos_apetito_frecuencia option:not(), #trastornos_apetito_severidad option:not(), #trastornos_apetito_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -758,6 +1243,26 @@ $(function(){
 		$("#trastornos_apetito_frecuencia").attr('readonly','readonly');
 		$("#trastornos_apetito_severidad").attr('readonly','readonly');
 		$("#trastornos_apetito_angustia").attr('readonly','readonly');
+
+			$("#trastornos_apetito_frecuencia").val('');
+			$("#trastornos_apetito_severidad").val('');
+			$("#trastornos_apetito_angustia").val('');			
+			$("#trastornos_apetito_puntaje").val('');
+			var total = 0;
+			$("input[name*=_puntaje]").each(function(){						
+				if($(this).attr('id') != 'puntaje_total_npi' && $(this).val() != ''){
+					total = parseInt(total) + parseInt($(this).val());								
+				}
+			});
+			$('#puntaje_total_npi').val(total);
+			var total2 = 0;
+			$("select[name*=angustia]").each(function(){	
+				if($(this).attr('id') != 'puntaje_total_para_angustia' && $(this).val() != '' && $(this).val() != null){					
+					total2 = parseInt(total2) + parseInt($(this).val());							
+				}
+			});
+			$('#puntaje_total_para_angustia').val(total2);
+
 		$('#trastornos_apetito_frecuencia option:not(), #trastornos_apetito_severidad option:not(), #trastornos_apetito_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});

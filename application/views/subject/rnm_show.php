@@ -16,7 +16,7 @@ restaFechas = function(f1,f2)
 
 
 $(function(){
-	$("#tomografia_fecha, #resonancia_fecha").datepicker({dateFormat: 'yy-mm-dd'});	
+	$("#tomografia_fecha, #resonancia_fecha").datepicker({dateFormat: 'dd/mm/dd'});	
 
 	$("input[name=tomografia]").change(function(){
 		if($(this).val() == 0){
@@ -74,7 +74,34 @@ $(function(){
 		}
 	});
 
-	
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_rnm :input").attr('readonly','readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_rnm :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled', 'disabled');
+			});
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_rnm :input").attr('readonly','readonly');
+		$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_rnm :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled', 'disabled');
+		});
+	}
 
 });
 </script>
@@ -109,6 +136,7 @@ $(function(){
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>	
 	<?= form_hidden('id', $list[0]->id); ?>
+	<?= form_hidden('etapa', $etapa); ?>
 	<?php
 		$data = array(
 			    'name'        => 'resonancia',			    
@@ -142,9 +170,26 @@ $(function(){
 		    'name'        => 'repetir_tc',			    
 		    'value'       => 0,		    
 		    );
+	  	$data9 = array(
+			    'name'        => 'realizado',			    
+			    'value'       => 1,		    
+			    #'checked'	  => set_radio('gender', 'male', TRUE),
+		    );
+	  	$data10 = array(
+		    'name'        => 'realizado',			    
+		    'value'       => 0,
+		    #'checked'	  => set_radio('gender', 'female', TRUE),		    
+		    );
 	?>
 
 	<table class='table table-striped table-bordered table-hover'>
+		<tr>
+			<td>Realizado</td>
+			<td>
+				<?= form_radio($data9,$data9['value'],set_radio($data9['name'], 1, (($list[0]->realizado == 1) ? true : false))); ?> Si
+				<?= form_radio($data10,$data10['value'],set_radio($data10['name'], 0, (($list[0]->realizado == 0) ? true : false))); ?> NO
+			</td>
+		</tr>
 		<thead>
 			<tr>
 				<th colspan='2'>Imágenes disponibles</th>
@@ -159,7 +204,7 @@ $(function(){
 					<?= form_radio($data,$data['value'],set_radio($data['name'], 1, (($list[0]->resonancia == 1) ? true : false))); ?> Si
 					<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0, (($list[0]->resonancia == 0) ? true : false))); ?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text','name'=>'resonancia_fecha','id'=>'resonancia_fecha', 'value'=>set_value('resonancia_fecha', $list[0]->resonancia_fecha))); ?></td>
+				<td><?= form_input(array('type'=>'text','name'=>'resonancia_fecha','id'=>'resonancia_fecha', 'value'=>set_value('resonancia_fecha', ((!empty($list[0]->resonancia_fecha) AND $list[0]->resonancia_fecha != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->resonancia_fecha)) : "")))); ?></td>
 				<td><?= form_textarea(array('name'=>'resonancia_comentario', 'id'=>'resonancia_comentario','value'=>set_value('resonancia_comentario', $list[0]->resonancia_comentario),'rows'=>'5')); ?></td>
 			</tr>
 			<tr>
@@ -168,7 +213,7 @@ $(function(){
 					<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1, (($list[0]->tomografia == 1) ? true : false))); ?> Si
 					<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0, (($list[0]->tomografia == 0) ? true : false))); ?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text','name'=>'tomografia_fecha','id'=>'tomografia_fecha', 'value'=>set_value('tomografia_fecha', $list[0]->tomografia_fecha))); ?></td>
+				<td><?= form_input(array('type'=>'text','name'=>'tomografia_fecha','id'=>'tomografia_fecha', 'value'=>set_value('tomografia_fecha', ((!empty($list[0]->tomografia_fecha) AND $list[0]->tomografia_fecha != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->tomografia_fecha)) : "")))); ?></td>
 				<td><?= form_textarea(array('name'=>'tomografia_comentario', 'id'=>'tomografia_comentario','value'=>set_value('tomografia_comentario', $list[0]->tomografia_comentario),'rows'=>'5')); ?></td>
 			</tr>
 			<tr id='tr_repetir' style='display:none;'>
@@ -264,6 +309,7 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('etapa', $etapa); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
 
@@ -294,6 +340,7 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('id', $list[0]->id); ?>	
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('etapa', $etapa); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -324,6 +371,7 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('etapa', $etapa); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 

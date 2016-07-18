@@ -53,12 +53,12 @@
 			<th colspan='6' style='text-align:center;'>Intervalo de Visitas</th>
 		</tr>
 		<tr style='background-color: #C0C0C0;'>
-			<th>Selección (Día 28 a Basal)</th>
-			<th>Basal Día 1</th>
-			<th>Semana 4</th>
-			<th>Semana 12</th>
-			<th>Semana 24/ Término del Estudio/ (+/- 4 días)</th>		
-			<th>Terminación Temprana</th>
+			<th class='span2'>Selección (Día 28 a Basal)</th>
+			<th class='span2'>Basal Día 1</th>
+			<th class='span2'>Semana 4</th>
+			<th class='span2'>Semana 12</th>
+			<th class='span2'>Semana 24/ Término del Estudio/ (+/- 4 días)</th>		
+			<th class='span2'>Terminación Temprana</th>
 		</tr>
 	</thead>
 	<tbody>		
@@ -578,31 +578,31 @@
 			<?php
 				if(empty($subject->rnm_status)){
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/rnm/'.$subject->id;
+					$link = 'subject/rnm/'.$subject->id .'/1';
 				}
 				elseif ($subject->rnm_status == 'Record Complete') {
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/rnm_show/'.$subject->id;
+					$link = 'subject/rnm_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->rnm_status == 'Document Approved and Signed by PI') {
 					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/rnm_show/'.$subject->id;
+					$link = 'subject/rnm_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->rnm_status == 'Form Approved and Locked') {
 					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/rnm_show/'.$subject->id;
+					$link = 'subject/rnm_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->rnm_status == 'Form Approved by Monitor') {
 					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/rnm_show/'.$subject->id;
+					$link = 'subject/rnm_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->rnm_status == 'Query') {
 					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/rnm_show/'.$subject->id;
+					$link = 'subject/rnm_show/'.$subject->id .'/1';
 				}
 				elseif ($subject->rnm_status == 'Error') {					
 					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/rnm_show/'.$subject->id;
+					$link = 'subject/rnm_show/'.$subject->id .'/1';
 				}
 				else{
 					$icon = '*';		
@@ -611,7 +611,42 @@
 				
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<td style='text-align:center;'></td>
+			<?php
+				if(empty($subject->rnm_2_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/rnm/'.$subject->id .'/2';
+				}
+				elseif ($subject->rnm_2_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/rnm_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->rnm_2_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/rnm_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->rnm_2_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/rnm_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->rnm_2_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/rnm_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->rnm_2_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/rnm_show/'.$subject->id .'/2';
+				}
+				elseif ($subject->rnm_2_status == 'Error') {					
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/rnm_show/'.$subject->id .'/2';
+				}
+				else{
+					$icon = '*';		
+					$link = "";
+				}
+				
+			?>
+			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>

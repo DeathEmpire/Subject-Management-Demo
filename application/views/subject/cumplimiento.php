@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$('#comprimidos_utilizados, #dias').change(function(){
 		if($('#comprimidos_utilizados').val() != '' && $('#dias').val() != '')

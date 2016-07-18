@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$('#comprimidos_utilizados, #dias').change(function(){
 		if($('#comprimidos_utilizados').val() != '' && $('#dias').val() != '')
@@ -117,7 +117,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', $list[0]->fecha))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
 		</tr>
 		<tr>
 			<td>Numero cápsulas entregadas: </td>
@@ -232,6 +232,7 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
 
@@ -262,6 +263,7 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
 
@@ -292,13 +294,14 @@ $(function(){
 		<?= form_hidden('subject_id', $subject->id); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 		<?= form_hidden('current_status', $list[0]->status); ?>
+		<?= form_hidden('id', $list[0]->id); ?>
 			
 		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiene de Firma";
+		echo "Pendiente de Firma";
 		}
 	}
 ?>

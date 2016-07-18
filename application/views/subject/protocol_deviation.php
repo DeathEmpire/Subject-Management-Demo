@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(function(){
 
-	$("#date_of_deviation").datepicker();
+	$("#date_of_deviation").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name^=pre_approved]").change(function(){
 		if($(this).val() == 1){

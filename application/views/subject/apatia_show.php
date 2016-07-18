@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#autoevaluacion_fecha, #version_clinica_fecha, #apatia_fecha").datepicker();	
+	$("#autoevaluacion_fecha, #version_clinica_fecha, #apatia_fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$("input[name=autoevaluacion_realizado]").change(function(){
 		if($(this).val() == 1){
@@ -210,8 +210,8 @@ $(function(){
 				</td>
 			</tr>
 			<tr>
-				<td>Fecha: </td>
-				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'autoevaluacion_fecha', 'id'=>'autoevaluacion_fecha', 'value'=>set_value('autoevaluacion_fecha', $list[0]->autoevaluacion_fecha))); ?></td>
+				<td>Fecha: </td>				
+				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'autoevaluacion_fecha', 'id'=>'autoevaluacion_fecha', 'value'=>set_value('autoevaluacion_fecha', ((empty($list[0]->autoevaluacion_fecha) AND $list[0]->autoevaluacion_fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->autoevaluacion_fecha)) : "") ))); ?></td>
 			</tr>
 			<tr>
 				<td style='font-weight:bold;background-color:#ccc'></td>
@@ -368,8 +368,8 @@ $(function(){
 				</td>
 			</tr>
 			<tr>
-				<td>Fecha: </td>
-				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'version_clinica_fecha', 'id'=>'version_clinica_fecha', 'value'=>set_value('version_clinica_fecha', $list[0]->version_clinica_fecha))); ?></td>
+				<td>Fecha: </td>				
+				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'version_clinica_fecha', 'id'=>'version_clinica_fecha', 'value'=>set_value('version_clinica_fecha', ((empty($list[0]->version_clinica_fecha) AND $list[0]->version_clinica_fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->version_clinica_fecha)) : "") ))); ?></td>
 			</tr>
 			<tr>
 				<td style='font-weight:bold;background-color:#ccc'></td>
@@ -527,7 +527,7 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Fecha: </td>
-				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'apatia_fecha', 'id'=>'apatia_fecha', 'value'=>set_value('apatia_fecha', $list[0]->apatia_fecha))); ?></td>
+				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'apatia_fecha', 'id'=>'apatia_fecha', 'value'=>set_value('apatia_fecha', ((empty($list[0]->apatia_fecha) AND $list[0]->apatia_fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->apatia_fecha)) : "") ))); ?></td>
 			</tr>
 			<tr>
 				<td style='font-weight:bold;background-color:#ccc'></td>
@@ -771,7 +771,7 @@ $(function(){
 		<?= form_close(); ?>
 
 <?php }else{
-		echo "Pendiene de Firma";
+		echo "Pendiente de Firma";
 		}
 	}
 ?>

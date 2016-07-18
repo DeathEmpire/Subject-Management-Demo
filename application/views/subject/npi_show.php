@@ -61,7 +61,7 @@
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', $list[0]->fecha))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
 		</tr>
 
 		<tr>
@@ -96,7 +96,7 @@
 				<td><?= form_dropdown('delirio_status', $status, set_value('delirio_status', $list[0]->delirio_status)); ?></td>
 				<td><?= form_dropdown('delirio_frecuencia', $frecuencia, set_value('delirio_frecuencia', $list[0]->delirio_frecuencia), array('id'=>'delirio_frecuencia')); ?></td>
 				<td><?= form_dropdown('delirio_severidad',  $severidad, set_value('delirio_severidad', $list[0]->delirio_severidad), array('id'=>'delirio_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'delirio_puntaje', 'value'=>set_value('delirio_puntaje', $list[0]->delirio_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'delirio_puntaje', 'id'=>'delirio_puntaje','value'=>set_value('delirio_puntaje', $list[0]->delirio_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('delirio_angustia', $angustia, set_value('delirio_angustia', $list[0]->delirio_angustia), array('id'=>'delirio_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -105,7 +105,7 @@
 				<td><?= form_dropdown('alucinaciones_status', $status, set_value('alucinaciones_status', $list[0]->alucinaciones_status)); ?></td>
 				<td><?= form_dropdown('alucinaciones_frecuencia', $frecuencia, set_value('alucinaciones_frecuencia', $list[0]->alucinaciones_frecuencia), array('id'=>'alucinaciones_frecuencia')); ?></td>
 				<td><?= form_dropdown('alucinaciones_severidad', $severidad, set_value('alucinaciones_severidad', $list[0]->alucinaciones_severidad), array('id'=>'alucinaciones_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'alucinaciones_puntaje', 'value'=>set_value('alucinaciones_puntaje', $list[0]->alucinaciones_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'alucinaciones_puntaje', 'id'=>'alucinaciones_puntaje','value'=>set_value('alucinaciones_puntaje', $list[0]->alucinaciones_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('alucinaciones_angustia', $angustia, set_value('alucinaciones_angustia', $list[0]->alucinaciones_angustia), array('id'=>'alucinaciones_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -114,7 +114,7 @@
 				<td><?= form_dropdown('agitacion_status', $status, set_value('agitacion_status', $list[0]->agitacion_status)); ?></td>
 				<td><?= form_dropdown('agitacion_frecuencia', $frecuencia, set_value('agitacion_frecuencia', $list[0]->agitacion_frecuencia), array('id'=>'agitacion_frecuencia')); ?></td>
 				<td><?= form_dropdown('agitacion_severidad', $severidad, set_value('agitacion_severidad', $list[0]->agitacion_severidad), array('id'=>'agitacion_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'agitacion_puntaje', 'value'=>set_value('agitacion_puntaje', $list[0]->agitacion_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'agitacion_puntaje', 'id'=>'agitacion_puntaje','value'=>set_value('agitacion_puntaje', $list[0]->agitacion_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('agitacion_angustia', $angustia, set_value('agitacion_angustia', $list[0]->agitacion_angustia), array('id'=>'agitacion_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -123,7 +123,7 @@
 				<td><?= form_dropdown('depresion_status', $status, set_value('depresion_status', $list[0]->depresion_status)); ?></td>
 				<td><?= form_dropdown('depresion_frecuencia', $frecuencia, set_value('depresion_frecuencia', $list[0]->depresion_frecuencia), array('id'=>'depresion_frecuencia')); ?></td>
 				<td><?= form_dropdown('depresion_severidad', $severidad, set_value('depresion_severidad', $list[0]->depresion_severidad), array('id'=>'depresion_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'depresion_puntaje', 'value'=>set_value('depresion_puntaje', $list[0]->depresion_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'depresion_puntaje', 'id'=>'depresion_puntaje','value'=>set_value('depresion_puntaje', $list[0]->depresion_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('depresion_angustia', $angustia, set_value('depresion_angustia', $list[0]->depresion_angustia), array('id'=>'depresion_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -132,7 +132,7 @@
 				<td><?= form_dropdown('ansiedad_status', $status, set_value('ansiedad_status', $list[0]->ansiedad_status)); ?></td>
 				<td><?= form_dropdown('ansiedad_frecuencia',$frecuencia, set_value('ansiedad_frecuencia', $list[0]->ansiedad_frecuencia), array('id'=>'ansiedad_frecuencia')); ?></td>
 				<td><?= form_dropdown('ansiedad_severidad', $severidad, set_value('ansiedad_severidad', $list[0]->ansiedad_severidad), array('id'=>'ansiedad_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'ansiedad_puntaje', 'value'=>set_value('ansiedad_puntaje', $list[0]->ansiedad_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'ansiedad_puntaje', 'id'=>'ansiedad_puntaje','value'=>set_value('ansiedad_puntaje', $list[0]->ansiedad_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('ansiedad_angustia', $angustia, set_value('ansiedad_angustia', $list[0]->ansiedad_angustia), array('id'=>'ansiedad_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -141,7 +141,7 @@
 				<td><?= form_dropdown('elacion_status', $status, set_value('elacion_status', $list[0]->elacion_status)); ?></td>
 				<td><?= form_dropdown('elacion_frecuencia',$frecuencia, set_value('elacion_frecuencia', $list[0]->elacion_frecuencia), array('id'=>'elacion_frecuencia')); ?></td>
 				<td><?= form_dropdown('elacion_severidad', $severidad, set_value('elacion_severidad', $list[0]->elacion_severidad), array('id'=>'elacion_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'elacion_puntaje', 'value'=>set_value('elacion_puntaje', $list[0]->elacion_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'elacion_puntaje', 'id'=>'elacion_puntaje','value'=>set_value('elacion_puntaje', $list[0]->elacion_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('elacion_angustia', $angustia, set_value('elacion_angustia', $list[0]->elacion_angustia), array('id'=>'elacion_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -150,7 +150,7 @@
 				<td><?= form_dropdown('apatia_status', $status, set_value('apatia_status', $list[0]->apatia_status)); ?></td>
 				<td><?= form_dropdown('apatia_frecuencia',$frecuencia, set_value('apatia_frecuencia', $list[0]->apatia_frecuencia), array('id'=>'apatia_frecuencia')); ?></td>
 				<td><?= form_dropdown('apatia_severidad', $severidad, set_value('apatia_severidad', $list[0]->apatia_severidad), array('id'=>'apatia_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'apatia_puntaje', 'value'=>set_value('apatia_puntaje', $list[0]->apatia_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'apatia_puntaje', 'id'=>'apatia_puntaje','value'=>set_value('apatia_puntaje', $list[0]->apatia_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('apatia_angustia', $angustia, set_value('apatia_angustia', $list[0]->apatia_angustia), array('id'=>'apatia_angustia')); ?></td>				
 			</tr>
 
@@ -160,7 +160,7 @@
 				<td><?= form_dropdown('deshinibicion_status', $status, set_value('deshinibicion_status', $list[0]->deshinibicion_status)); ?></td>
 				<td><?= form_dropdown('deshinibicion_frecuencia',$frecuencia, set_value('deshinibicion_frecuencia', $list[0]->deshinibicion_frecuencia), array('id'=>'deshinibicion_frecuencia')); ?></td>
 				<td><?= form_dropdown('deshinibicion_severidad', $severidad, set_value('deshinibicion_severidad', $list[0]->deshinibicion_severidad), array('id'=>'deshinibicion_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'deshinibicion_puntaje', 'value'=>set_value('deshinibicion_puntaje', $list[0]->deshinibicion_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'deshinibicion_puntaje', 'id'=>'deshinibicion_puntaje','value'=>set_value('deshinibicion_puntaje', $list[0]->deshinibicion_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('deshinibicion_angustia', $angustia, set_value('deshinibicion_angustia', $list[0]->deshinibicion_angustia), array('id'=>'deshinibicion_angustia')); ?></td>				
 			</tr>
 			
@@ -170,7 +170,7 @@
 				<td><?= form_dropdown('irritabilidad_status', $status, set_value('irritabilidad_status', $list[0]->irritabilidad_status)); ?></td>
 				<td><?= form_dropdown('irritabilidad_frecuencia', $frecuencia, set_value('irritabilidad_frecuencia', $list[0]->irritabilidad_frecuencia), array('id'=>'irritabilidad_frecuencia')); ?></td>
 				<td><?= form_dropdown('irritabilidad_severidad',  $severidad, set_value('irritabilidad_severidad', $list[0]->irritabilidad_severidad), array('id'=>'irritabilidad_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'irritabilidad_puntaje', 'value'=>set_value('irritabilidad_puntaje', $list[0]->irritabilidad_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'irritabilidad_puntaje', 'id'=>'irritabilidad_puntaje','value'=>set_value('irritabilidad_puntaje', $list[0]->irritabilidad_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('irritabilidad_angustia', $angustia, set_value('irritabilidad_angustia', $list[0]->irritabilidad_angustia), array('id'=>'irritabilidad_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -179,7 +179,7 @@
 				<td><?= form_dropdown('conducta_status', $status, set_value('conducta_status', $list[0]->conducta_status)); ?></td>
 				<td><?= form_dropdown('conducta_frecuencia',$frecuencia, set_value('conducta_frecuencia', $list[0]->conducta_frecuencia), array('id'=>'conducta_frecuencia')); ?></td>
 				<td><?= form_dropdown('conducta_severidad', $severidad, set_value('conducta_severidad', $list[0]->conducta_severidad), array('id'=>'conducta_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'conducta_puntaje', 'value'=>set_value('conducta_puntaje', $list[0]->conducta_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'conducta_puntaje', 'id'=>'conducta_puntaje','value'=>set_value('conducta_puntaje', $list[0]->conducta_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('conducta_angustia', $angustia, set_value('conducta_angustia', $list[0]->conducta_angustia), array('id'=>'conducta_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -188,7 +188,7 @@
 				<td><?= form_dropdown('trastornos_sueno_status', $status, set_value('trastornos_sueno_status', $list[0]->trastornos_sueno_status)); ?></td>
 				<td><?= form_dropdown('trastornos_sueno_frecuencia',$frecuencia, set_value('trastornos_sueno_frecuencia', $list[0]->trastornos_sueno_frecuencia), array('id'=>'trastornos_sueno_frecuencia')); ?></td>
 				<td><?= form_dropdown('trastornos_sueno_severidad', $severidad, set_value('trastornos_sueno_severidad', $list[0]->trastornos_sueno_severidad), array('id'=>'trastornos_sueno_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'trastornos_sueno_puntaje', 'value'=>set_value('trastornos_sueno_puntaje', $list[0]->trastornos_sueno_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'trastornos_sueno_puntaje', 'id'=>'trastornos_sueno_puntaje','value'=>set_value('trastornos_sueno_puntaje', $list[0]->trastornos_sueno_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('trastornos_sueno_angustia', $angustia, set_value('trastornos_sueno_angustia', $list[0]->trastornos_sueno_angustia), array('id'=>'trastornos_sueno_angustia')); ?></td>				
 			</tr>
 			<tr>
@@ -197,7 +197,7 @@
 				<td><?= form_dropdown('trastornos_apetito_status', $status, set_value('trastornos_apetito_status', $list[0]->trastornos_apetito_status)); ?></td>
 				<td><?= form_dropdown('trastornos_apetito_frecuencia', $frecuencia, set_value('trastornos_apetito_frecuencia', $list[0]->trastornos_apetito_frecuencia), array('id'=>'trastornos_apetito_frecuencia')); ?></td>
 				<td><?= form_dropdown('trastornos_apetito_severidad', $severidad, set_value('trastornos_apetito_severidad', $list[0]->trastornos_apetito_severidad), array('id'=>'trastornos_apetito_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'trastornos_apetito_puntaje', 'value'=>set_value('trastornos_apetito_puntaje', $list[0]->trastornos_apetito_puntaje), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'trastornos_apetito_puntaje', 'id'=>'trastornos_apetito_puntaje','value'=>set_value('trastornos_apetito_puntaje', $list[0]->trastornos_apetito_puntaje), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('trastornos_apetito_angustia', $angustia, set_value('trastornos_apetito_angustia', $list[0]->trastornos_apetito_angustia), array('id'=>'trastornos_apetito_angustia')); ?></td>				
 			</tr>
 			<tr>

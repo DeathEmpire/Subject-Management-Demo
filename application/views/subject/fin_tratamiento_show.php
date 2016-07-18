@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha_visita, #fecha_ultima_dosis").datepicker();
+	$("#fecha_visita, #fecha_ultima_dosis").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name=termino_el_estudio]").click(function(){
 		if($(this).val() == 0){
@@ -75,11 +75,13 @@ $(function(){
 		<tr>			
 			<td>No aplica, terminación temprana: </td><td><?= form_checkbox($no_aplica);?></td>
 		</tr>
-		<tr>
-			<td>Fecha Visita:</td><td> <?= form_input(array('type'=>'text','name'=>'fecha_visita', 'id'=>'fecha_visita', 'value'=>set_value('fecha_visita', $list[0]->fecha_visita))); ?></td>
+		<tr>			
+			<td>Fecha Visita:</td>
+			<td> <?= form_input(array('type'=>'text','name'=>'fecha_visita', 'id'=>'fecha_visita', 'value'=>set_value('fecha_visita', ((!empty($list[0]->fecha_visita) AND $list[0]->fecha_visita != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->fecha_visita)) : "")))); ?></td>
 		</tr>
 		<tr>
-			<td>Fecha ultima dosis: </td><td><?= form_input(array('type'=>'text','name'=>'fecha_ultima_dosis', 'id'=>'fecha_ultima_dosis', 'value'=>set_value('fecha_ultima_dosis', $list[0]->fecha_ultima_dosis))); ?></td>
+			<td>Fecha ultima dosis: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha_ultima_dosis', 'id'=>'fecha_ultima_dosis', 'value'=>set_value('fecha_ultima_dosis', ((!empty($list[0]->fecha_ultima_dosis) AND $list[0]->fecha_ultima_dosis != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->fecha_ultima_dosis)) : "")))); ?></td>
 		</tr>
 		<tr>
 		<?php

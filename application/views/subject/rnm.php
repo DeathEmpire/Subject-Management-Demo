@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#tomografia_fecha, #resonancia_fecha").datepicker();	
+	$("#tomografia_fecha, #resonancia_fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$("input[name=tomografia]").change(function(){
 		if($(this).val() == 0){
@@ -61,6 +61,34 @@ $(function(){
 		}
 	});
 	
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_rnm :input").attr('readonly','readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_rnm :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled', 'disabled');
+			});
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_rnm :input").attr('readonly','readonly');
+		$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_rnm :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled', 'disabled');
+		});
+	}
 });
 </script>
 <legend style='text-align:center;'>Resonancia Magnética o Tomografía Computarizada</legend>
@@ -93,6 +121,7 @@ $(function(){
 	
 	<?= my_validation_errors(validation_errors()); ?>
 	<?= form_hidden('subject_id', $subject->id); ?>			
+	<?= form_hidden('etapa', $etapa); ?>
 	<?php
 		$data = array(
 			    'name'        => 'resonancia',			    
@@ -126,9 +155,27 @@ $(function(){
 		    'name'        => 'repetir_tc',			    
 		    'value'       => 0,		    
 		    );
+
+		$data9 = array(
+			    'name'        => 'realizado',			    
+			    'value'       => 1,		    
+			    #'checked'	  => set_radio('gender', 'male', TRUE),
+		    );
+	  	$data10 = array(
+		    'name'        => 'realizado',			    
+		    'value'       => 0,
+		    #'checked'	  => set_radio('gender', 'female', TRUE),		    
+		    );
 	?>
 
 	<table class='table table-striped table-bordered table-hover'>
+		<tr>
+			<td>Realizado</td>
+			<td>
+				<?= form_radio($data9,$data9['value'],set_radio($data9['name'], 1, true)); ?> Si
+				<?= form_radio($data10,$data10['value'],set_radio($data10['name'], 0)); ?> NO
+			</td>
+		</tr>
 		<thead>
 			<tr>
 				<th colspan='2'>Imágenes disponibles</th>

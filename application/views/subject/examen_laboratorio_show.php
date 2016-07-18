@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
@@ -102,7 +102,7 @@ $(function(){
        	?>	
 
 		Realizado <?= form_radio($si); ?> Si <?= form_radio($no); ?> No<br />
-		Fecha: <?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', $list[0]->fecha))); ?>		
+		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
 		<br />&nbsp;<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<thead>
@@ -278,7 +278,7 @@ $(function(){
 				<tr>
 					<td>Calcio (Ca)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'calcio', 'id'=>'calcio', 'value'=>set_value('calcio', $list[0]->calcio)));?></td>
-					<td></td>
+					<td><?= form_dropdown('calcio_unidad_medida',$medidas1,set_value('calcio_unidad_medida', $list[0]->calcio_unidad_medida)); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'calcio_nom_anom','value'=>'Normal','checked'=>set_radio('calcio_nom_anom', 'Normal', (($list[0]->calcio_nom_anom == 'Normal') ? true : false))));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'calcio_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('calcio_nom_anom', 'Anormal_sin', (($list[0]->calcio_nom_anom == 'Anormal_sin') ? true : false))));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'calcio_nom_anom','value'=>'Anormal_con','checked'=>set_radio('calcio_nom_anom', 'Anormal_con', (($list[0]->calcio_nom_anom == 'Anormal_con') ? true : false))));?></td>
@@ -286,7 +286,7 @@ $(function(){
 				<tr>
 					<td>Sodio (Na)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'sodio', 'id'=>'sodio', 'value'=>set_value('sodio', $list[0]->sodio)));?></td>
-					<td></td>
+					<td><?= form_dropdown('sodio_unidad_medida',$medidas1,set_value('sodio_unidad_medida', $list[0]->sodio_unidad_medida)); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'sodio_nom_anom','value'=>'Normal','checked'=>set_radio('sodio_nom_anom', 'Normal', (($list[0]->sodio_nom_anom == 'Normal') ? true : false))));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'sodio_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('sodio_nom_anom', 'Anormal_sin', (($list[0]->sodio_nom_anom == 'Anormal_sin') ? true : false))));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'sodio_nom_anom','value'=>'Anormal_con','checked'=>set_radio('sodio_nom_anom', 'Anormal_con', (($list[0]->sodio_nom_anom == 'Anormal_con') ? true : false))));?></td>
@@ -294,7 +294,7 @@ $(function(){
 				<tr>
 					<td>Potasio (K)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'potasio', 'id'=>'potasio', 'value'=>set_value('potasio', $list[0]->potasio)));?></td>
-					<td></td>
+					<td><?= form_dropdown('potasio_unidad_medida',$medidas1,set_value('potasio_unidad_medida', $list[0]->potasio_unidad_medida)); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'potasio_nom_anom','value'=>'Normal','checked'=>set_radio('potasio_nom_anom', 'Normal', (($list[0]->potasio_nom_anom == 'Normal') ? true : false))));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'potasio_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('potasio_nom_anom', 'Anormal_sin', (($list[0]->potasio_nom_anom == 'Anormal_sin') ? true : false))));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'potasio_nom_anom','value'=>'Anormal_con','checked'=>set_radio('potasio_nom_anom', 'Anormal_con', (($list[0]->potasio_nom_anom == 'Anormal_con') ? true : false))));?></td>
@@ -302,7 +302,7 @@ $(function(){
 				<tr>
 					<td>Cloro (Cl)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'cloro', 'id'=>'cloro', 'value'=>set_value('cloro', $list[0]->cloro)));?></td>
-					<td></td>
+					<td><?= form_dropdown('cloro_unidad_medida',$medidas1,set_value('cloro_unidad_medida', $list[0]->cloro_unidad_medida)); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'cloro_nom_anom','value'=>'Normal','checked'=>set_radio('cloro_nom_anom', 'Normal', (($list[0]->cloro_nom_anom == 'Normal') ? true : false))));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'cloro_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('cloro_nom_anom', 'Anormal_sin', (($list[0]->cloro_nom_anom == 'Anormal_sin') ? true : false))));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'cloro_nom_anom','value'=>'Anormal_con','checked'=>set_radio('cloro_nom_anom', 'Anormal_con', (($list[0]->cloro_nom_anom == 'Anormal_con') ? true : false))));?></td>
@@ -337,7 +337,7 @@ $(function(){
 				<tr>
 					<td>Glucosa (qual)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'orina_glucosa', 'id'=>'orina_glucosa', 'value'=>set_value('orina_glucosa', $list[0]->orina_glucosa)));?></td>
-					<td></td>
+					<td><?= form_dropdown('glucosa_unidad_medida',$medidas2,set_value('glucosa_unidad_medida', $list[0]->glucosa_unidad_medida)); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_glucosa_nom_anom','value'=>'Normal','checked'=>set_radio('orina_glucosa_nom_anom', 'Normal', (($list[0]->orina_glucosa_nom_anom == 'Normal') ? true : false))));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_glucosa_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_glucosa_nom_anom', 'Anormal_sin', (($list[0]->orina_glucosa_nom_anom == 'Anormal_sin') ? true : false))));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_glucosa_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_glucosa_nom_anom', 'Anormal_con', (($list[0]->orina_glucosa_nom_anom == 'Anormal_con') ? true : false))));?></td>

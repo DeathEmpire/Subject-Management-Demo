@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha_visita, #fecha_ultima_dosis").datepicker();
+	$("#fecha_visita, #fecha_ultima_dosis").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("select[name=motivo]").change(function(){
 		if($(this).val() == 'Otro'){

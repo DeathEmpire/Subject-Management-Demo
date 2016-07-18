@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
@@ -260,7 +260,7 @@ $(function(){
 				<tr>
 					<td>Calcio (Ca)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'calcio', 'id'=>'calcio', 'value'=>set_value('calcio')));?></td>
-					<td></td>
+					<td><?= form_dropdown('calcio_unidad_medida',$medidas1,set_value('calcio_unidad_medida')); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'calcio_nom_anom','value'=>'Normal','checked'=>set_radio('calcio_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'calcio_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('calcio_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'calcio_nom_anom','value'=>'Anormal_con','checked'=>set_radio('calcio_nom_anom', 'Anormal_con')));?></td>
@@ -268,7 +268,7 @@ $(function(){
 				<tr>
 					<td>Sodio (Na)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'sodio', 'id'=>'sodio', 'value'=>set_value('sodio')));?></td>
-					<td></td>
+					<td><?= form_dropdown('sodio_unidad_medida',$medidas1,set_value('sodio_unidad_medida')); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'sodio_nom_anom','value'=>'Normal','checked'=>set_radio('sodio_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'sodio_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('sodio_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'sodio_nom_anom','value'=>'Anormal_con','checked'=>set_radio('sodio_nom_anom', 'Anormal_con')));?></td>
@@ -276,7 +276,7 @@ $(function(){
 				<tr>
 					<td>Potasio (K)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'potasio', 'id'=>'potasio', 'value'=>set_value('potasio')));?></td>
-					<td></td>
+					<td><?= form_dropdown('potasio_unidad_medida',$medidas1,set_value('potasio_unidad_medida')); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'potasio_nom_anom','value'=>'Normal','checked'=>set_radio('potasio_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'potasio_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('potasio_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'potasio_nom_anom','value'=>'Anormal_con','checked'=>set_radio('potasio_nom_anom', 'Anormal_con')));?></td>
@@ -284,7 +284,7 @@ $(function(){
 				<tr>
 					<td>Cloro (Cl)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'cloro', 'id'=>'cloro', 'value'=>set_value('cloro')));?></td>
-					<td></td>
+					<td><?= form_dropdown('cloro_unidad_medida',$medidas1,set_value('cloro_unidad_medida')); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'cloro_nom_anom','value'=>'Normal','checked'=>set_radio('cloro_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'cloro_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('cloro_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'cloro_nom_anom','value'=>'Anormal_con','checked'=>set_radio('cloro_nom_anom', 'Anormal_con')));?></td>
@@ -319,7 +319,7 @@ $(function(){
 				<tr>
 					<td>Glucosa (qual)</td>
 					<td><?= form_input(array('type'=>'text', 'name'=>'orina_glucosa', 'id'=>'orina_glucosa', 'value'=>set_value('orina_glucosa')));?></td>
-					<td></td>
+					<td><?= form_dropdown('glucosa_unidad_medida',$medidas2,set_value('glucosa_unidad_medida')); ?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_glucosa_nom_anom','value'=>'Normal','checked'=>set_radio('orina_glucosa_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_glucosa_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_glucosa_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_glucosa_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_glucosa_nom_anom', 'Anormal_con')));?></td>

@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha_visita, #fecha_ultima_dosis").datepicker();
+	$("#fecha_visita, #fecha_ultima_dosis").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name=termino_el_estudio]").click(function(){
 		if($(this).val() == 0){

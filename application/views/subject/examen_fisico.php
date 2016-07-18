@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name=hallazgo]").click(function(){
 		if($(this).val() == 1){
@@ -188,7 +188,7 @@ $(function(){
 				<?= form_hidden('cuello_desc',''); ?>
 			<?php }?>						
 			<tr>
-				<td>Pecho, pulmo&oacute;: </td>
+				<td>Pecho, pulm&oacute;n: </td>
 				<td>
 					<?= form_radio(array('name'=>'pulmones','value'=>'1','checked'=>set_radio('pulmones', 1))); ?> Normal
 					<?= form_radio(array('name'=>'pulmones','value'=>'0','checked'=>set_radio('pulmones', 0))); ?> Anormal

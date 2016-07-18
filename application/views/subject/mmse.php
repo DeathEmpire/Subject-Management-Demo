@@ -3,7 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker();	
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$("select[name*=puntaje]").change(function(){
 		var total = 0;

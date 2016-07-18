@@ -4,8 +4,8 @@
 <script type="text/javascript">
 $(function(){
 
-	$("#start_date").datepicker();
-	$("#end_date").datepicker();
+	$("#start_date").datepicker({ dateFormat: 'dd/mm/yy' });
+	$("#end_date").datepicker({ dateFormat: 'dd/mm/yy' });
 
 	$("input[name^=on_going]").change(function(){
 		if($(this).val() == 0){

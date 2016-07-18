@@ -1,5 +1,5 @@
 $(function(){
-	$("input[name*=fecha_diagnostico]").datepicker();
+	$("input[name*=fecha_diagnostico]").datepicker({ dateFormat: 'dd/mm/yy' });
 
 
 	$("input[name=hipertension]").change(function(){
