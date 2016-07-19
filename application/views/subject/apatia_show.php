@@ -6,7 +6,7 @@ $(function(){
 	$("#autoevaluacion_fecha, #version_clinica_fecha, #apatia_fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$("input[name=autoevaluacion_realizado]").change(function(){
-		if($(this).val() == 1){
+		if($(this).val() == 0){
 			$("input[name^=autoevaluacion_]").attr('readonly','readonly');
 			$("input[name^=autoevaluacion_]").attr('disabled','disabled');
 			$("input[name=autoevaluacion_realizado]").removeAttr('readonly');
@@ -16,7 +16,7 @@ $(function(){
 			$("input[name^=autoevaluacion_]").removeAttr('disabled');
 		}
 	});
-	if($("input[name=autoevaluacion_realizado]:checked").val() == 1){
+	if($("input[name=autoevaluacion_realizado]:checked").val() == 0){
 		$("input[name^=autoevaluacion_]").attr('readonly','readonly');
 		$("input[name^=autoevaluacion_]").attr('disabled','disabled');
 		$("input[name=autoevaluacion_realizado]").removeAttr('readonly');
@@ -28,7 +28,7 @@ $(function(){
 	}
 
 	$("input[name=version_clinica_realizado]").change(function(){
-		if($(this).val() == 1){
+		if($(this).val() == 0){
 			$("input[name^=version_clinica_]").attr('readonly','readonly');
 			$("input[name^=version_clinica_]").attr('disabled','disabled');
 			$("input[name=version_clinica_realizado]").removeAttr('readonly');
@@ -38,7 +38,7 @@ $(function(){
 			$("input[name^=version_clinica_]").removeAttr('disabled');
 		}
 	});
-	if($("input[name=version_clinica_realizado]:checked").val() == 1){
+	if($("input[name=version_clinica_realizado]:checked").val() == 0){
 		$("input[name^=version_clinica_]").attr('readonly','readonly');
 		$("input[name^=version_clinica_]").attr('disabled','disabled');
 		$("input[name=version_clinica_realizado]").removeAttr('readonly');
@@ -50,17 +50,17 @@ $(function(){
 	}
 
 	$("input[name=apatia_realizado]").change(function(){
-		if($(this).val() == 1){
+		if($(this).val() == 0){
 			$("input[name^=apatia_]").attr('readonly','readonly');
 			$("input[name^=apatia_]").attr('disabled','disabled');
 			$("input[name=apatia_realizado]").removeAttr('readonly');
-			$("input[name=vapatia_realizado]").removeAttr('disabled');
+			$("input[name=apatia_realizado]").removeAttr('disabled');
 		}else{
 			$("input[name^=apatia_]").removeAttr('readonly');
 			$("input[name^=apatia_]").removeAttr('disabled');
 		}
 	});
-	if($("input[name=apatia_realizado]:checked").val() == 1){
+	if($("input[name=apatia_realizado]:checked").val() == 0){
 		$("input[name^=apatia_]").attr('readonly','readonly');
 		$("input[name^=apatia_]").attr('disabled','disabled');
 		$("input[name=apatia_realizado]").removeAttr('readonly');
@@ -211,7 +211,7 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Fecha: </td>				
-				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'autoevaluacion_fecha', 'id'=>'autoevaluacion_fecha', 'value'=>set_value('autoevaluacion_fecha', ((empty($list[0]->autoevaluacion_fecha) AND $list[0]->autoevaluacion_fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->autoevaluacion_fecha)) : "") ))); ?></td>
+				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'autoevaluacion_fecha', 'id'=>'autoevaluacion_fecha', 'value'=>set_value('autoevaluacion_fecha', ((!empty($list[0]->autoevaluacion_fecha) AND $list[0]->autoevaluacion_fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->autoevaluacion_fecha)) : "") ))); ?></td>
 			</tr>
 			<tr>
 				<td style='font-weight:bold;background-color:#ccc'></td>

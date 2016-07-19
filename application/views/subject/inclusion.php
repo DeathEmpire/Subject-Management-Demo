@@ -96,7 +96,7 @@ $(function(){
 	    <tr>
 	        <td>El paciente cumple con los criterios de inclusión/exclusión: </td>
 	        <td>
-	        	<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si <br>
+	        	<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si <br>
 	        	<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO - Por favor reporte detalles más abajo
 	        </td>
 	    </tr>        

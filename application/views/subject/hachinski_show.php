@@ -1,5 +1,10 @@
+<style type="text/css">
+	#ui-datepicker-div { display: none; }
+</style>
 <script type="text/javascript">
 $(function(){
+	
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$('input[type=checkbox]').click(function(){
 
@@ -14,10 +19,25 @@ $(function(){
 		$("#td_total").text(total);
 		$("#total").val(total);
 	});
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_hach :input").attr('readonly','readonly');			
+			$("input[name=realizado]").removeAttr('readonly');
 
+		}else{
+			$("#form_hach :input").removeAttr('readonly');			
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_hach :input").attr('readonly','readonly');		
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_hach :input").removeAttr('readonly');		
+	}
 });	
 </script>	
-	<div class="row">
+	
 		<legend style='text-align:center;'>Escala de Hachinski</legend>
 		<b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
@@ -61,13 +81,36 @@ $(function(){
 			<!-- End Query-->
 
 		
-			<?= form_open('subject/hachinski_update'); ?>	
+			<?= form_open('subject/hachinski_update', array('id'=>'form_hach')); ?>	
 			
 				<input type='hidden' name='total' id='total' value='<?php echo $list[0]->total; ?>' />
 				<input type='hidden' name='subject_id' id='subject_id' value='<?php echo $subject->id; ?>' />
 				<input type='hidden' name='id' value='<?php echo $list[0]->id; ?>' />
 				<input type='hidden' name='last_status' id='last_status' value='<?php echo $subject->hachinski_status; ?>' />
 				<table class="table table-condensed table-bordered table-striped table-hover">
+					<?php
+						$data = array(
+						    'name'        => 'realizado',			    
+						    'value'       => 1,		    
+						    #'checked'	  => set_radio('gender', 'male', TRUE),
+					    );
+				  	$data2 = array(
+					    'name'        => 'realizado',			    
+					    'value'       => 0,
+					    #'checked'	  => set_radio('gender', 'female', TRUE),		    
+					    );
+					?>				
+					<tr>
+						<td>Realizado:</td>
+						<td>
+							<?= form_radio($data,$data['value'],set_radio($data['name'], 1, (($list[0]->realizado == 1) ? true : false))); ?> Si
+							<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0, (($list[0]->realizado == 0) ? true : false))); ?> NO
+						</td>
+					</tr>
+					<tr>
+						<td>Fecha: </td>
+						<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+					</tr>
 					<tr>
 						<td>Comienzo Brusco: </td>
 						<td><?= form_checkbox(array('name'=>'comienzo_brusco','id'=>'comienzo_brusco', 'checked'=>set_checkbox('comienzo_brusco','2',($list[0]->comienzo_brusco == 2) ? true : false ), 'value'=>'2')); ?></td>
@@ -272,5 +315,5 @@ $(function(){
 			?>
 			<br />
 		<?php } ?>
-	</div>
+	
 

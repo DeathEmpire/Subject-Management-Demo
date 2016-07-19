@@ -88,7 +88,12 @@ class Subject extends CI_Controller {
 
 
 			$save['code'] = $center ."-". $num;
-			$save['center'] = $this->session->userdata('center_id');
+			if($this->session->userdata('center_id') != 'Todos'){
+				$save['center'] = $this->session->userdata('center_id');
+			}
+			else{
+				$save['center'] = $registro['center'];
+			}
 			$save['screening_date'] = date('Y-m-d');
 			$save['created'] = date('Y/m/d H:i:s');
 			$save['updated'] = date('Y/m/d H:i:s');
@@ -213,8 +218,7 @@ class Subject extends CI_Controller {
         $this->form_validation->set_rules('gender', 'Sexo', 'xss_clean'); 
         $this->form_validation->set_rules('race', 'Etnia/Raza', 'xss_clean');
         $this->form_validation->set_rules('race_especificacion', 'Etnia/Raza Especificacion', 'xss_clean');        
-        $this->form_validation->set_rules('escolaridad', 'Grado de Escolaridad', 'xss_clean');			
-        $this->form_validation->set_rules('escolaridad', 'Grado de Escolaridad', 'xss_clean');
+        $this->form_validation->set_rules('escolaridad', 'Grado de Escolaridad', 'xss_clean');			        
         
 
 		if($this->form_validation->run() == FALSE) {
@@ -237,11 +241,11 @@ class Subject extends CI_Controller {
 				$estado = 'Record Complete';
 			}
 			if(!empty($registro['sign_consent_date'])){
-				$registro['sign_consent_date'] = date("Y-m-d", strtotime($registro['sign_consent_date']));
+				$registro['sign_consent_date'] = $this->convertirFecha($registro['sign_consent_date']);
 			}
 
 			if(!empty($registro['birth_date'])){
-				$registro['birth_date'] = date("Y-m-d", strtotime($registro['birth_date']));
+				$registro['birth_date'] = $this->convertirFecha($registro['birth_date']);
 			}
 
 			$registro['demography_status'] = $estado;
@@ -356,7 +360,7 @@ class Subject extends CI_Controller {
 			
         	
         	if(!empty($registro['randomization_date'])){
-				$registro['randomization_date'] = date("Y-m-d", strtotime($registro['randomization_date']));
+				$registro['randomization_date'] = $this->convertirFecha($registro['randomization_date']);
 			}
 
 			$registro['updated'] = date('Y/m/d H:i:s');								
@@ -500,10 +504,10 @@ class Subject extends CI_Controller {
         else {						
 			
         	if(!empty($registro['date_of_resolution'])){
-				$registro['date_of_resolution'] = date("Y-m-d", strtotime($registro['date_of_resolution']));
+				$registro['date_of_resolution'] = $this->convertirFecha($registro['date_of_resolution']);
 			}
 			if(!empty($registro['date_of_onset'])){
-				$registro['date_of_onset'] = date("Y-m-d", strtotime($registro['date_of_onset']));
+				$registro['date_of_onset'] = $this->convertirFecha($registro['date_of_onset']);
 			}
 
 			$registro['created'] = date('Y/m/d H:i:s');			
@@ -566,7 +570,7 @@ class Subject extends CI_Controller {
         }
         else {						
 			if(!empty($registro['date_of_deviation'])){
-				$registro['date_of_deviation'] = date("Y-m-d", strtotime($registro['date_of_deviation']));
+				$registro['date_of_deviation'] = $this->convertirFecha($registro['date_of_deviation']);
 			}
 			$registro['created'] = date('Y/m/d H:i:s');			
 			
@@ -713,6 +717,10 @@ class Subject extends CI_Controller {
      		$this->load->model('Model_Hachinski_Form');
      		$this->Model_Hachinski_Form->insert($save);
      		$this->auditlib->save_audit("Escala de Hachinski ingresada",$id);
+     		
+     		if(!empty($save['fecha'])){
+				$save['fecha'] = $this->convertirFecha($save['fecha']);
+			}
 
      		/*Actualizar estado de hachinski en el sujeto*/
      		$actualizar['hachinski_status'] = 'Record Complete';
@@ -792,6 +800,10 @@ class Subject extends CI_Controller {
 			}
 			if(!isset($save['signos_neurologicos']) OR empty($save['signos_neurologicos'])){
 				$save['signos_neurologicos'] = 0;
+			}
+
+			if(!empty($save['fecha'])){
+				$save['fecha'] = $this->convertirFecha($save['fecha']);
 			}
 
 			$this->load->model('Model_Hachinski_Form');
@@ -1030,6 +1042,7 @@ class Subject extends CI_Controller {
 						OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['pulmones']) 
 						OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen']) OR !isset($registro['muscular'])
 					)
+					OR empty($registro['fecha'])
 					
 				)
 			){
@@ -1040,7 +1053,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 
 			$registro['created_at'] = date("Y-m-d H:i:s");
@@ -1200,7 +1213,7 @@ class Subject extends CI_Controller {
 						OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['pulmones']) 
 						OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen']) OR !isset($registro['muscular'])
 					)
-					
+					OR empty($registro['fecha'])
 				)
 			){
 				$estado = 'Error';
@@ -1210,7 +1223,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 
 			$registro['updated_at'] = date("Y-m-d H:i:s");						
@@ -1777,7 +1790,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			if($registro['etapa'] == 2){				
@@ -1906,7 +1919,7 @@ class Subject extends CI_Controller {
 				$subjet_['digito_6__status'] = $estado;
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -2170,7 +2183,7 @@ class Subject extends CI_Controller {
 				$estado = 'Record Complete';
 			}						
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 
@@ -2363,7 +2376,7 @@ class Subject extends CI_Controller {
 				$subjet_['mmse_6_status'] = $estado;
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			/*Actualizamos el Form*/
@@ -2563,7 +2576,7 @@ class Subject extends CI_Controller {
 				$estado = 'Record Complete';
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -2650,7 +2663,7 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['status'] = $estado;
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			/*Actualizamos el Form*/
@@ -2804,7 +2817,7 @@ class Subject extends CI_Controller {
 				$estado = 'Record Complete';
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			if($registro['etapa'] == 1){				
@@ -2893,7 +2906,7 @@ class Subject extends CI_Controller {
 				$estado = 'Record Complete';
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
@@ -3113,7 +3126,7 @@ class Subject extends CI_Controller {
 				$estado = 'Record Complete';
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			if($registro['etapa'] == 2){				
@@ -3202,7 +3215,7 @@ class Subject extends CI_Controller {
 				$estado = 'Record Complete';
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
@@ -3401,10 +3414,10 @@ class Subject extends CI_Controller {
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			if(!empty($registro['fecha_visita'])){
-				$registro['fecha_visita'] = date("Y-m-d", strtotime($registro['fecha_visita']));
+				$registro['fecha_visita'] = $this->convertirFecha($registro['fecha_visita']);
 			}
 			if(!empty($registro['fecha_ultima_dosis'])){
-				$registro['fecha_ultima_dosis'] = date("Y-m-d", strtotime($registro['fecha_ultima_dosis']));
+				$registro['fecha_ultima_dosis'] = $this->convertirFecha($registro['fecha_ultima_dosis']);
 			}
 			
 			
@@ -3452,10 +3465,10 @@ class Subject extends CI_Controller {
 
 		}else{
 			if(!empty($registro['fecha_visita'])){
-				$registro['fecha_visita'] = date("Y-m-d", strtotime($registro['fecha_visita']));
+				$registro['fecha_visita'] = $this->convertirFecha($registro['fecha_visita']);
 			}
 			if(!empty($registro['fecha_ultima_dosis'])){
-				$registro['fecha_ultima_dosis'] = date("Y-m-d", strtotime($registro['fecha_ultima_dosis']));
+				$registro['fecha_ultima_dosis'] = $this->convertirFecha($registro['fecha_ultima_dosis']);
 			}
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
@@ -3591,10 +3604,10 @@ class Subject extends CI_Controller {
 
 		}else{
 			if(!empty($registro['fecha_visita'])){
-				$registro['fecha_visita'] = date("Y-m-d", strtotime($registro['fecha_visita']));
+				$registro['fecha_visita'] = $this->convertirFecha($registro['fecha_visita']);
 			}
 			if(!empty($registro['fecha_ultima_dosis'])){
-				$registro['fecha_ultima_dosis'] = date("Y-m-d", strtotime($registro['fecha_ultima_dosis']));
+				$registro['fecha_ultima_dosis'] = $this->convertirFecha($registro['fecha_ultima_dosis']);
 			}
 			$registro['status'] = "Record Complete";
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
@@ -3651,10 +3664,10 @@ class Subject extends CI_Controller {
 
 		}else{
 			if(!empty($registro['fecha_visita'])){
-				$registro['fecha_visita'] = date("Y-m-d", strtotime($registro['fecha_visita']));
+				$registro['fecha_visita'] = $this->convertirFecha($registro['fecha_visita']);
 			}
 			if(!empty($registro['fecha_ultima_dosis'])){
-				$registro['fecha_ultima_dosis'] = date("Y-m-d", strtotime($registro['fecha_ultima_dosis']));
+				$registro['fecha_ultima_dosis'] = $this->convertirFecha($registro['fecha_ultima_dosis']);
 			}
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
@@ -3805,7 +3818,7 @@ class Subject extends CI_Controller {
 			}
 			
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -3877,7 +3890,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;			
@@ -4114,7 +4127,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 
 			$registro['status'] = $estado;
@@ -4244,7 +4257,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 
 			$registro['status'] = $estado;
@@ -4425,7 +4438,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');		
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		$this->form_validation->set_rules('hematocrito', '', 'xss_clean');
 		$this->form_validation->set_rules('hematocrito_nom_anom', '', 'xss_clean');
 		$this->form_validation->set_rules('hemoglobina', '', 'xss_clean');
@@ -4506,7 +4519,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar examen de laboratorio", $registro['subject_id']);
-			$this->examen_laboratorio($registro['subject_id']);
+			$this->examen_laboratorio($registro['subject_id'], $registro['etapa']);
 
 		}else{
 
@@ -4553,7 +4566,7 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			/*Actualizamos el Form*/
@@ -4604,7 +4617,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');				
 		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');		
-		$this->form_validation->set_rules('fecha', '', 'required|xss_clean');
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		$this->form_validation->set_rules('hematocrito', '', 'xss_clean');
 		$this->form_validation->set_rules('hematocrito_nom_anom', '', 'xss_clean');
 		$this->form_validation->set_rules('hemoglobina', '', 'xss_clean');
@@ -4685,7 +4698,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar examen de laboratorio", $registro['subject_id']);
-			$this->examen_laboratorio_show($registro['subject_id']);
+			$this->examen_laboratorio_show($registro['subject_id'], $registro['etapa']);
 
 		}else{
 
@@ -4730,7 +4743,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			/*Actualizamos el Form*/
@@ -4902,7 +4915,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -4985,7 +4998,7 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			/*Actualizamos el Form*/
@@ -5180,7 +5193,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -5259,7 +5272,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -5469,7 +5482,7 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			/*Actualizamos el Form*/
@@ -5553,7 +5566,7 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			/*Actualizamos el Form*/
@@ -5846,7 +5859,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -5999,7 +6012,7 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -6289,13 +6302,13 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['autoevaluacion_fecha'])){
-				$registro['autoevaluacion_fecha'] = date("Y-m-d", strtotime($registro['autoevaluacion_fecha']));
+				$registro['autoevaluacion_fecha'] = $this->convertirFecha($registro['autoevaluacion_fecha']);
 			}
 			if(!empty($registro['version_clinica_fecha'])){
-				$registro['version_clinica_fecha'] = date("Y-m-d", strtotime($registro['version_clinica_fecha']));
+				$registro['version_clinica_fecha'] = $this->convertirFecha($registro['version_clinica_fecha']);
 			}
 			if(!empty($registro['apatia_fecha'])){
-				$registro['apatia_fecha'] = date("Y-m-d", strtotime($registro['apatia_fecha']));
+				$registro['apatia_fecha'] = $this->convertirFecha($registro['apatia_fecha']);
 			}
 			
 			$registro['status'] = $estado;
@@ -6467,13 +6480,13 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			
 			if(!empty($registro['autoevaluacion_fecha'])){
-				$registro['autoevaluacion_fecha'] = date("Y-m-d", strtotime($registro['autoevaluacion_fecha']));
+				$registro['autoevaluacion_fecha'] = $this->convertirFecha($registro['autoevaluacion_fecha']);
 			}
 			if(!empty($registro['version_clinica_fecha'])){
-				$registro['version_clinica_fecha'] = date("Y-m-d", strtotime($registro['version_clinica_fecha']));
+				$registro['version_clinica_fecha'] = $this->convertirFecha($registro['version_clinica_fecha']);
 			}
 			if(!empty($registro['apatia_fecha'])){
-				$registro['apatia_fecha'] = date("Y-m-d", strtotime($registro['apatia_fecha']));
+				$registro['apatia_fecha'] = $this->convertirFecha($registro['apatia_fecha']);
 			}
 			
 			/*Actualizamos el Form*/
@@ -6639,7 +6652,7 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');  
-		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');  
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');  
 
 		$this->form_validation->set_rules('resonancia', '', 'xss_clean');
 		$this->form_validation->set_rules('resonancia_fecha', '', 'xss_clean');
@@ -6678,7 +6691,7 @@ class Subject extends CI_Controller {
 				OR
 				$registro['etapa'] == 2
 				AND(
-					$registro['realizado'] == 1 AND 
+					!isset($registro['realizado']) AND 
 					(
 						(
 							isset($registro['resonancia']) AND $registro['resonancia'] == 1 AND 
@@ -6713,10 +6726,10 @@ class Subject extends CI_Controller {
 
 
 			if(!empty($registro['resonancia_fecha'])){
-				$registro['resonancia_fecha'] = date("Y-m-d", strtotime($registro['resonancia_fecha']));
+				$registro['resonancia_fecha'] = $this->convertirFecha($registro['resonancia_fecha']);
 			}
 			if(!empty($registro['version_clinica_fecha'])){
-				$registro['tomografia_fecha'] = date("Y-m-d", strtotime($registro['tomografia_fecha']));
+				$registro['tomografia_fecha'] = $this->convertirFecha($registro['tomografia_fecha']);
 			}
 			
 			
@@ -6759,7 +6772,7 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');  
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');  
-		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');  
+		$this->form_validation->set_rules('realizado', '', 'xss_clean');  
 
 		$this->form_validation->set_rules('id', 'ID', 'required|xss_clean'); 
 		$this->form_validation->set_rules('resonancia', '', 'xss_clean');
@@ -6799,7 +6812,7 @@ class Subject extends CI_Controller {
 				OR
 				$registro['etapa'] == 2
 				AND(
-					$registro['realizado'] == 1 AND 
+					!isset($registro['realizado'])  AND 
 					(
 						(
 							isset($registro['resonancia']) AND $registro['resonancia'] == 1 AND 
@@ -6833,10 +6846,10 @@ class Subject extends CI_Controller {
 			}
 
 			if(!empty($registro['resonancia_fecha'])){
-				$registro['resonancia_fecha'] = date("Y-m-d", strtotime($registro['resonancia_fecha']));
+				$registro['resonancia_fecha'] = $this->convertirFecha($registro['resonancia_fecha']);
 			}
 			if(!empty($registro['version_clinica_fecha'])){
-				$registro['tomografia_fecha'] = date("Y-m-d", strtotime($registro['tomografia_fecha']));
+				$registro['tomografia_fecha'] = $this->convertirFecha($registro['tomografia_fecha']);
 			}
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
@@ -6950,6 +6963,19 @@ class Subject extends CI_Controller {
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
 		
+		$data['dias_ea'] = array("UNK"=>"UNK");
+		for($i = 1; $i < 32; $i++){
+			$data['dias_ea'][$i] = $i;
+		}
+		$data['meses_ea'] = array("UNK"=>"UNK");
+		for($i = 1; $i < 13; $i++){
+			$data['meses_ea'][$i] = $i;
+		}
+		$data['anio_ea'] = array("UNK"=>"UNK");
+		for($i = date('Y'); $i >= 1920 ; $i--){
+			$data['anio_ea'][$i] = $i;
+		}
+
 		$this->load->view('template', $data);
 	}
 
@@ -7000,7 +7026,9 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('suplemento_dietetico_desc', '', 'xss_clean');
 		$this->form_validation->set_rules('alzheimer', '', 'xss_clean');
 		$this->form_validation->set_rules('alzheimer_desc', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha_ea', '', 'xss_clean');
+		$this->form_validation->set_rules('anio_ea', '', 'xss_clean');
+		$this->form_validation->set_rules('mes_ea', '', 'xss_clean');
+		$this->form_validation->set_rules('dia_ea', '', 'xss_clean');
 		$this->form_validation->set_rules('morbido', '', 'xss_clean');
 		$this->form_validation->set_rules('morbido_desc', '', 'xss_clean');
 
@@ -7033,7 +7061,7 @@ class Subject extends CI_Controller {
 				OR	(!empty($registro['tratamiento_farma']) AND empty($registro['tratamiento_farma_desc']))
 				OR	(!empty($registro['suplemento_dietetico']) AND empty($registro['suplemento_dietetico_desc']))
 				OR	(!empty($registro['alzheimer']) AND empty($registro['alzheimer_desc']))
-				OR	empty($registro['fecha_ea'])
+				OR	empty($registro['dia_ea']) OR empty($registro['mes_ea']) OR	empty($registro['anio_ea'])
 				OR	(!empty($registro['morbido']) AND empty($registro['morbido_desc']))
 				OR $registro['hipertension'] == '' OR $registro['ulcera'] == '' OR $registro['diabetes'] == '' OR $registro['hipo_hipertiroidismo'] == ''
 				OR $registro['hiperlipidemia'] == '' OR $registro['epoc'] == '' OR $registro['coronaria'] == '' OR $registro['rinitis'] == ''
@@ -7056,44 +7084,41 @@ class Subject extends CI_Controller {
 				$subjet_['historial_medico_1_status'] = $estado;
 			}
 			if(!empty($registro['hipertension_fecha_diagnostico'])){
-				$registro['hipertension_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['hipertension_fecha_diagnostico']));
+				$registro['hipertension_fecha_diagnostico'] = $this->convertirFecha($registro['hipertension_fecha_diagnostico']);
 			}
 			if(!empty($registro['ulcera_fecha_diagnostico'])){
-				$registro['ulcera_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['ulcera_fecha_diagnostico']));
+				$registro['ulcera_fecha_diagnostico'] = $this->convertirFecha($registro['ulcera_fecha_diagnostico']);
 			}
 			if(!empty($registro['diabetes_fecha_diagnostico'])){
-				$registro['diabetes_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['diabetes_fecha_diagnostico']));
+				$registro['diabetes_fecha_diagnostico'] = $this->convertirFecha($registro['diabetes_fecha_diagnostico']);
 			}
 			if(!empty($registro['hipo_hipertiroidismo_fecha_diagnostico'])){
-				$registro['hipo_hipertiroidismo_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['hipo_hipertiroidismo_fecha_diagnostico']));
+				$registro['hipo_hipertiroidismo_fecha_diagnostico'] = $this->convertirFecha($registro['hipo_hipertiroidismo_fecha_diagnostico']);
 			}
 			if(!empty($registro['hiperlipidemia_fecha_diagnostico'])){
-				$registro['hiperlipidemia_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['hiperlipidemia_fecha_diagnostico']));
+				$registro['hiperlipidemia_fecha_diagnostico'] = $this->convertirFecha($registro['hiperlipidemia_fecha_diagnostico']);
 			}
 			if(!empty($registro['epoc_fecha_diagnostico'])){
-				$registro['epoc_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['epoc_fecha_diagnostico']));
+				$registro['epoc_fecha_diagnostico'] = $this->convertirFecha($registro['epoc_fecha_diagnostico']);
 			}
 			if(!empty($registro['coronaria_fecha_diagnostico'])){
-				$registro['coronaria_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['coronaria_fecha_diagnostico']));
+				$registro['coronaria_fecha_diagnostico'] = $this->convertirFecha($registro['coronaria_fecha_diagnostico']);
 			}
 			if(!empty($registro['rinitis_fecha_diagnostico'])){
-				$registro['rinitis_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['rinitis_fecha_diagnostico']));
+				$registro['rinitis_fecha_diagnostico'] = $this->convertirFecha($registro['rinitis_fecha_diagnostico']);
 			}
 			if(!empty($registro['acc_vascular_fecha_diagnostico'])){
-				$registro['acc_vascular_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['acc_vascular_fecha_diagnostico']));
+				$registro['acc_vascular_fecha_diagnostico'] = $this->convertirFecha($registro['acc_vascular_fecha_diagnostico']);
 			}
 			if(!empty($registro['asma_fecha_diagnostico'])){
-				$registro['asma_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['asma_fecha_diagnostico']));
+				$registro['asma_fecha_diagnostico'] = $this->convertirFecha($registro['asma_fecha_diagnostico']);
 			}
 			if(!empty($registro['gastritis_fecha_diagnostico'])){
-				$registro['gastritis_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['gastritis_fecha_diagnostico']));
+				$registro['gastritis_fecha_diagnostico'] = $this->convertirFecha($registro['gastritis_fecha_diagnostico']);
 			}
 			if(!empty($registro['cefaleas_fecha_diagnostico'])){
-				$registro['cefaleas_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['cefaleas_fecha_diagnostico']));
-			}
-			if(!empty($registro['fecha_ea'])){
-				$registro['fecha_ea'] = date("Y-m-d", strtotime($registro['fecha_ea']));
-			}
+				$registro['cefaleas_fecha_diagnostico'] = $this->convertirFecha($registro['cefaleas_fecha_diagnostico']);
+			}			
 
 			$registro['status'] = $estado;
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
@@ -7118,6 +7143,19 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'Historia Medica';
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
+		
+		$data['dias_ea'] = array("UNK"=>"UNK");
+		for($i = 1; $i < 32; $i++){
+			$data['dias_ea'][$i] = $i;
+		}
+		$data['meses_ea'] = array("UNK"=>"UNK");
+		for($i = 1; $i < 13; $i++){
+			$data['meses_ea'][$i] = $i;
+		}
+		$data['anio_ea'] = array("UNK"=>"UNK");
+		for($i = date('Y'); $i >= 1920 ; $i--){
+			$data['anio_ea'][$i] = $i;
+		}
 		
 		$this->load->model('Model_Historial_medico');
 		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
@@ -7175,7 +7213,9 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('suplemento_dietetico_desc', '', 'xss_clean');
 		$this->form_validation->set_rules('alzheimer', '', 'xss_clean');
 		$this->form_validation->set_rules('alzheimer_desc', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha_ea', '', 'xss_clean');
+		$this->form_validation->set_rules('anio_ea', '', 'xss_clean');
+		$this->form_validation->set_rules('mes_ea', '', 'xss_clean');
+		$this->form_validation->set_rules('dia_ea', '', 'xss_clean');
 		$this->form_validation->set_rules('morbido', '', 'xss_clean');
 		$this->form_validation->set_rules('morbido_desc', '', 'xss_clean');
 
@@ -7208,7 +7248,7 @@ class Subject extends CI_Controller {
 				OR	(!empty($registro['tratamiento_farma']) AND empty($registro['tratamiento_farma_desc']))
 				OR	(!empty($registro['suplemento_dietetico']) AND empty($registro['suplemento_dietetico_desc']))
 				OR	(!empty($registro['alzheimer']) AND empty($registro['alzheimer_desc']))
-				OR	empty($registro['fecha_ea'])
+				OR	empty($registro['dia_ea']) OR empty($registro['mes_ea']) OR	empty($registro['anio_ea'])
 				OR	(!empty($registro['morbido']) AND empty($registro['morbido_desc']))
 				OR $registro['hipertension'] == '' OR $registro['ulcera'] == '' OR $registro['diabetes'] == '' OR $registro['hipo_hipertiroidismo'] == ''
 				OR $registro['hiperlipidemia'] == '' OR $registro['epoc'] == '' OR $registro['coronaria'] == '' OR $registro['rinitis'] == ''
@@ -7232,44 +7272,41 @@ class Subject extends CI_Controller {
 			}
 			
 			if(!empty($registro['hipertension_fecha_diagnostico'])){
-				$registro['hipertension_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['hipertension_fecha_diagnostico']));
+				$registro['hipertension_fecha_diagnostico'] = $this->convertirFecha($registro['hipertension_fecha_diagnostico']);
 			}
 			if(!empty($registro['ulcera_fecha_diagnostico'])){
-				$registro['ulcera_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['ulcera_fecha_diagnostico']));
+				$registro['ulcera_fecha_diagnostico'] = $this->convertirFecha($registro['ulcera_fecha_diagnostico']);
 			}
 			if(!empty($registro['diabetes_fecha_diagnostico'])){
-				$registro['diabetes_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['diabetes_fecha_diagnostico']));
+				$registro['diabetes_fecha_diagnostico'] = $this->convertirFecha($registro['diabetes_fecha_diagnostico']);
 			}
 			if(!empty($registro['hipo_hipertiroidismo_fecha_diagnostico'])){
-				$registro['hipo_hipertiroidismo_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['hipo_hipertiroidismo_fecha_diagnostico']));
+				$registro['hipo_hipertiroidismo_fecha_diagnostico'] = $this->convertirFecha($registro['hipo_hipertiroidismo_fecha_diagnostico']);
 			}
 			if(!empty($registro['hiperlipidemia_fecha_diagnostico'])){
-				$registro['hiperlipidemia_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['hiperlipidemia_fecha_diagnostico']));
+				$registro['hiperlipidemia_fecha_diagnostico'] = $this->convertirFecha($registro['hiperlipidemia_fecha_diagnostico']);
 			}
 			if(!empty($registro['epoc_fecha_diagnostico'])){
-				$registro['epoc_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['epoc_fecha_diagnostico']));
+				$registro['epoc_fecha_diagnostico'] = $this->convertirFecha($registro['epoc_fecha_diagnostico']);
 			}
 			if(!empty($registro['coronaria_fecha_diagnostico'])){
-				$registro['coronaria_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['coronaria_fecha_diagnostico']));
+				$registro['coronaria_fecha_diagnostico'] = $this->convertirFecha($registro['coronaria_fecha_diagnostico']);
 			}
 			if(!empty($registro['rinitis_fecha_diagnostico'])){
-				$registro['rinitis_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['rinitis_fecha_diagnostico']));
+				$registro['rinitis_fecha_diagnostico'] = $this->convertirFecha($registro['rinitis_fecha_diagnostico']);
 			}
 			if(!empty($registro['acc_vascular_fecha_diagnostico'])){
-				$registro['acc_vascular_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['acc_vascular_fecha_diagnostico']));
+				$registro['acc_vascular_fecha_diagnostico'] = $this->convertirFecha($registro['acc_vascular_fecha_diagnostico']);
 			}
 			if(!empty($registro['asma_fecha_diagnostico'])){
-				$registro['asma_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['asma_fecha_diagnostico']));
+				$registro['asma_fecha_diagnostico'] = $this->convertirFecha($registro['asma_fecha_diagnostico']);
 			}
 			if(!empty($registro['gastritis_fecha_diagnostico'])){
-				$registro['gastritis_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['gastritis_fecha_diagnostico']));
+				$registro['gastritis_fecha_diagnostico'] = $this->convertirFecha($registro['gastritis_fecha_diagnostico']);
 			}
 			if(!empty($registro['cefaleas_fecha_diagnostico'])){
-				$registro['cefaleas_fecha_diagnostico'] = date("Y-m-d", strtotime($registro['cefaleas_fecha_diagnostico']));
-			}
-			if(!empty($registro['fecha_ea'])){
-				$registro['fecha_ea'] = date("Y-m-d", strtotime($registro['fecha_ea']));
-			}
+				$registro['cefaleas_fecha_diagnostico'] = $this->convertirFecha($registro['cefaleas_fecha_diagnostico']);
+			}			
 			
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
@@ -7550,7 +7587,7 @@ class Subject extends CI_Controller {
 			}
 			
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 
 			$registro['status'] = $estado;
@@ -7727,7 +7764,7 @@ class Subject extends CI_Controller {
 				$subjet_['adas_6_status'] = $estado;
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 
 			$registro['status'] = $estado;			
@@ -7984,7 +8021,7 @@ class Subject extends CI_Controller {
 				$registro['resta_alt_5'] = 0;
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			$registro['status'] = $estado;
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
@@ -8123,7 +8160,7 @@ class Subject extends CI_Controller {
 				$registro['resta_alt_5'] = 0;
 			}
 			if(!empty($registro['fecha'])){
-				$registro['fecha'] = date("Y-m-d", strtotime($registro['fecha']));
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
@@ -8266,5 +8303,13 @@ class Subject extends CI_Controller {
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
+	}
+
+	public function convertirFecha($fecha){
+		$fecha_1 = trim($fecha);
+		$fecha = str_replace("/", "-", $fecha_1);
+		$fecha_1 = date("Y-m-d", strtotime($fecha));
+
+		return $fecha_1;
 	}
 } 	

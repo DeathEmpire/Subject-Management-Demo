@@ -5,7 +5,7 @@
 <script type="text/javascript">
 
 </script>
-<div class="row">
+
 		<legend style='text-align:center;'>Historia Medica</legend>
 		<b>Sujeto Actual:</b>
 		<table class="table table-condensed table-bordered">
@@ -42,7 +42,8 @@
 	<table class='table table-striped table-hover table-bordered table-condensed'>		
 		<thead>
 			<tr>
-				<td colspan='2' style='font-weight:bold;'>1.- ANTECEDENTES DEL SUJETO</td>			
+				<td style='font-weight:bold;'>1.- ANTECEDENTES DEL SUJETO</td>	
+				<td class='span2'></td>		
 				<td style='font-weight:bold;'>FECHA DIAGNOSTICO</td>
 			</tr>
 		</thead>
@@ -145,7 +146,8 @@
 			</tr>
 		
 			<tr>
-				<td colspan='2' style='background-color:#ccc;'></td>
+				<td style='background-color:#ccc;'></td>
+				<td style='background-color:#ccc;'></td>
 				<td style='font-weight:bold;background-color:#ccc;'>Describir</td>
 			</tr>
 		
@@ -223,8 +225,12 @@
 			</tr>
 			<tr>
 				<td>3.- FECHA EN QUE PRESENTÓ PRIMEROS SÍNTOMAS ASOCIADOS A LA EA</td>				
-				<td>Año: </td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'fecha_ea', 'id'=>'fecha_ea', 'value'=>set_value('fecha_ea'), 'masxlenght'=>'4')); ?></td>
+				<td>Fecha: </td>
+				<td>
+					<?= form_dropdown('dia_ea', $dias_ea, set_value('dia_ea'), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('mes_ea', $meses_ea, set_value('mes_ea'), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('anio_ea', $anio_ea, set_value('anio_ea'), array('class'=>'input-small')); ?>					
+				</td>
 			</tr>
 			<tr>
 				<td>4.- ANTECEDENTES MORBIDOS FAMILIARES (padre, madre, hermanos):</td>
@@ -236,7 +242,7 @@
 			</tr>
 			<tr>
 				<td>Observaciones (Opcional)</td>
-				<td colspan='2'><?= form_textarea(array('type'=>'textarea', 'name'=>'obervaciones', 'id'=>'obervaciones', 'value'=>set_value('obervaciones'), 'rows'=>'10', 'cols'=>'60', 'style'=>'width:98%;')); ?></td>
+				<td colspan='2'><?= form_textarea(array('type'=>'textarea', 'name'=>'observaciones', 'id'=>'observaciones', 'value'=>set_value('observaciones'), 'rows'=>'10', 'cols'=>'60', 'style'=>'width:98%;')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='3' style='text-align:center;'>

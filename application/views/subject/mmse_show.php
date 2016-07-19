@@ -145,18 +145,18 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
 		</tr>
 		<tr>
 			<td style='font-weight:bold;'>PUNTAJE TOTAL: </td>
 			<td id='puntaje_total_td' style='font-weight:bold;'>0</td>
 		</tr>
 		<tr>
-			<td>¿Tiene algún problema con su memoria?</td>
+			<td>Se consulta a sujeto...¿Tiene algún problema con su memoria?</td>
 			<td><?= form_checkbox($tiene_problemas_memoria, 1, set_checkbox('tiene_problemas_memoria',1,(($list[0]->tiene_problemas_memoria == 1) ? true : false)));?></td>
 		</tr>
 		<tr>
-			<td>¿Le puedo hacer algunas preguntas acerca de su memoria?</td>
+			<td>Se consulta a sujeto...¿Le puedo hacer algunas preguntas acerca de su memoria?</td>
 			<td><?= form_checkbox($le_puedo_hacer_preguntas, 1, set_checkbox('le_puedo_hacer_preguntas',1,(($list[0]->le_puedo_hacer_preguntas == 1) ? true : false)));?></td>
 		</tr>   
 	</table>

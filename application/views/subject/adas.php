@@ -152,7 +152,7 @@
 			</tr>			
 			<tr>
 				<td>Paciente no intentó dibujar ninguna forma: </td>
-				<td><?= form_checkbox('paciente_no_dibujo_3','1', set_value('paciente_no_dibujo_3')); ?></td>
+				<td><?= form_checkbox('paciente_no_dibujo_3','1', set_value('paciente_no_dibujo_3'), array('id'=>'paciente_no_dibujo_3')); ?></td>
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
@@ -310,7 +310,11 @@
 			</tr>
 			<tr>
 				<td colspan='2' style='text-align:center;'>
-					<input type='submit' class='btn btn-primary' value='Guardar' id='guardar'>
+					<?php
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'adas_insert')){
+					?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+				<?php } ?>
 					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
 				</td>				
 			</tr>			

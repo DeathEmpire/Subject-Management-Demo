@@ -134,11 +134,11 @@ $(function(){
 			<td id='puntaje_total_td' style='font-weight:bold;'>0</td>
 		</tr>
 		<tr>
-			<td>¿Tiene algún problema con su memoria? </td>
+			<td>Se consulta a sujeto...¿Tiene algún problema con su memoria? </td>
 			<td><?= form_checkbox($tiene_problemas_memoria);?></td>
 		</tr>
 		<tr>
-			<td>¿Le puedo hacer algunas preguntas acerca de su memoria?</td>
+			<td>Se consulta a sujeto...¿Le puedo hacer algunas preguntas acerca de su memoria?</td>
 			<td><?= form_checkbox($le_puedo_hacer_preguntas);?></td>
 		</tr>              
 	</table>

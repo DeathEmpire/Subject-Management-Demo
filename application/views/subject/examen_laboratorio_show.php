@@ -102,7 +102,7 @@ $(function(){
        	?>	
 
 		Realizado <?= form_radio($si); ?> Si <?= form_radio($no); ?> No<br />
-		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
+		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
 		<br />&nbsp;<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<thead>

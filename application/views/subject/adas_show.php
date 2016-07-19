@@ -63,7 +63,7 @@
 			</tr>
 			<tr>
 				<td>Fecha: </td>
-				<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+				<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
 			</tr>
 			<tr>
 				<td>Puntaje Total ADAS-Cog: </td>
@@ -155,7 +155,7 @@
 			</tr>			
 			<tr>
 				<td>Paciente no intentó dibujar ninguna forma: </td>
-				<td><?= form_checkbox('paciente_no_dibujo_3','1', (($list[0]->paciente_no_dibujo_3 == 1) ? true : false)); ?></td>
+				<td><?= form_checkbox('paciente_no_dibujo_3','1', (($list[0]->paciente_no_dibujo_3 == 1) ? true : false), array('id'=>'paciente_no_dibujo_3')); ?></td>
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
@@ -313,7 +313,11 @@
 			</tr>
 			<tr>
 				<td colspan='2' style='text-align:center;'>
-					<input type='submit' class='btn btn-primary' value='Guardar' id='guardar'>
+					<?php
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'adas_update')){
+					?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+				<?php } ?>
 					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
 				</td>				
 			</tr>			

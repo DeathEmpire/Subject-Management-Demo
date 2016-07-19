@@ -62,7 +62,7 @@ $(function(){
 	});
 	
 	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
+		if($(this).val() == 1){
 			$("#form_rnm :input").attr('readonly','readonly');
 			$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
@@ -76,7 +76,7 @@ $(function(){
 			});
 		}
 	});
-	if($("input[name=realizado]:checked").val() == 0){
+	if($("input[name=realizado]:checked").val() == 1){
 		$("#form_rnm :input").attr('readonly','readonly');
 		$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
@@ -156,26 +156,24 @@ $(function(){
 		    'value'       => 0,		    
 		    );
 
-		$data9 = array(
-			    'name'        => 'realizado',			    
-			    'value'       => 1,		    
-			    #'checked'	  => set_radio('gender', 'male', TRUE),
-		    );
-	  	$data10 = array(
-		    'name'        => 'realizado',			    
-		    'value'       => 0,
-		    #'checked'	  => set_radio('gender', 'female', TRUE),		    
+		$no_aplica = array(
+			    'name'        => 'realizado',
+			    'id'          => 'realizado',
+			    'value'       => '1',
+			    'checked'     => set_checkbox('realizado','1')			    
 		    );
 	?>
 
 	<table class='table table-striped table-bordered table-hover'>
-		<tr>
-			<td>Realizado</td>
-			<td>
-				<?= form_radio($data9,$data9['value'],set_radio($data9['name'], 1, true)); ?> Si
-				<?= form_radio($data10,$data10['value'],set_radio($data10['name'], 0)); ?> NO
-			</td>
-		</tr>
+		
+		<?php 
+			if($etapa != 1){
+		?>
+			<tr>
+				<td>No aplica:</td>
+				<td><?= form_checkbox($no_aplica);?></td>
+			</tr>
+		<?php }?>
 		<thead>
 			<tr>
 				<th colspan='2'>Imágenes disponibles</th>
@@ -187,7 +185,7 @@ $(function(){
 			<tr>
 				<td>¿Se realizó una Resonancia Magnética? </td>
 				<td>
-					<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si
+					<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si
 					<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
 				</td>
 				<td><?= form_input(array('type'=>'text','name'=>'resonancia_fecha','id'=>'resonancia_fecha', 'value'=>set_value('resonancia_fecha'))); ?></td>
@@ -196,7 +194,7 @@ $(function(){
 			<tr>
 				<td>¿Se realizó una Tomografía Computarizada?</td>
 				<td>
-					<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1, true)); ?> Si
+					<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1)); ?> Si
 					<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0)); ?> NO
 				</td>
 				<td><?= form_input(array('type'=>'text','name'=>'tomografia_fecha','id'=>'tomografia_fecha', 'value'=>set_value('tomografia_fecha'))); ?></td>

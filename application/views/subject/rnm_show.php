@@ -170,26 +170,25 @@ $(function(){
 		    'name'        => 'repetir_tc',			    
 		    'value'       => 0,		    
 		    );
-	  	$data9 = array(
-			    'name'        => 'realizado',			    
-			    'value'       => 1,		    
-			    #'checked'	  => set_radio('gender', 'male', TRUE),
-		    );
-	  	$data10 = array(
-		    'name'        => 'realizado',			    
-		    'value'       => 0,
-		    #'checked'	  => set_radio('gender', 'female', TRUE),		    
+	  	$no_aplica = array(
+			    'name'        => 'realizado',
+			    'id'          => 'realizado',
+			    'value'       => '1',
+			    'checked'     => set_checkbox('realizado','1', (($list[0]->realizado == 1) ? true : false))
 		    );
 	?>
 
 	<table class='table table-striped table-bordered table-hover'>
-		<tr>
-			<td>Realizado</td>
-			<td>
-				<?= form_radio($data9,$data9['value'],set_radio($data9['name'], 1, (($list[0]->realizado == 1) ? true : false))); ?> Si
-				<?= form_radio($data10,$data10['value'],set_radio($data10['name'], 0, (($list[0]->realizado == 0) ? true : false))); ?> NO
-			</td>
-		</tr>
+		<?php 
+			if($etapa != 1){
+		?>
+			<tr>
+				<td>No aplica: </td>
+				<td>
+					<td><?= form_checkbox($no_aplica);?></td>
+				</td>
+			</tr>
+		<?php }?>
 		<thead>
 			<tr>
 				<th colspan='2'>Imágenes disponibles</th>

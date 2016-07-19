@@ -9,16 +9,36 @@ $(function(){
 	$("input[name=sign_consent]").change(function(){
 		if($(this).val() == 1){
 			$("#sign_consent_date").removeAttr('disabled');
+			$("#mensaje").hide();
+			$("#guardar").show();
 		}
 		else if($(this).val() == 0){
 			$("#sign_consent_date").attr('disabled','disabled');
+			$("#mensaje").show();
+			$("#guardar").hide();
 		}
 	});
 
 	if($("input[name=sign_consent]:checked").val() == 0){
 		$("#sign_consent_date").attr('disabled','disabled');
+		$("#mensaje").show();
+		$("#guardar").hide();
 	}
 
+	$("#race").change(function(){
+		if($(this).val() == 'Otro'){
+			$("#race_especificacion").removeAttr('readonly');
+		}
+		else{
+			$("#race_especificacion").attr('readonly','readonly');
+		}
+	});
+	if($("#race").val() == 'Otro'){
+		$("#race_especificacion").removeAttr('readonly');
+	}
+	else{
+		$("#race_especificacion").attr('readonly','readonly');
+	}
 });
 </script>
 <legend style='text-align:center;'>Demograf&iacute;a - Consentimiento Informado</legend>
@@ -80,12 +100,16 @@ $(function(){
        	<tr>
        		<td style='font-weight:bold;' colspan='2'>1.- Consentimiento Informado</td>
        	</tr>
+       	
        	<tr>	
        		<td>Firmado: </td>
        		<td>
        			<?= form_radio($sign_consent_1,$sign_consent_1['value'],set_radio($sign_consent_1['name'],$sign_consent_1['value'],($sign_consent_1['value'] == $subject->sign_consent) ? true : false)); ?> Si
 	        	<?= form_radio($sign_consent_0,$sign_consent_0['value'],set_radio($sign_consent_0['name'],$sign_consent_0['value'],($sign_consent_0['value'] == $subject->sign_consent) ? true : false)); ?> No
 	        </td>
+       	</tr>
+       	<tr id='mensaje' style='display:none;'>
+       		<td colspan='2' style='font-weight:bold;'>Si el sujeto no ha firmado el Consentimiento Informado no puede participar en el estudio</td>
        	</tr>
        	<tr>       		
        		<td>Fecha: </td>
@@ -134,8 +158,8 @@ $(function(){
 		<tr>
         	<td><?= form_label('Etnia/Raza: ', 'race'); ?></td>
         	<td>
-        		<?= form_dropdown('race',$etnias,set_value('race', $subject->race)); ?>        		
-        		Especificar: <?= form_input(array('type'=>'text','name'=>'race_especificacion', 'value'=>set_value('race_especificacion', $subject->race_especificacion))); ?>
+        		<?= form_dropdown('race',$etnias,set_value('race', $subject->race), array('id'=>'race')); ?>        		
+        		Especificar: <?= form_input(array('type'=>'text','name'=>'race_especificacion','id'=>'race_especificacion', 'value'=>set_value('race_especificacion', $subject->race_especificacion))); ?>
         	</td>        	
     	</tr>
 
@@ -150,7 +174,7 @@ $(function(){
 			?>
 	    <tr><td colspan='2' style='text-align:center;'>
 			<?php if(empty($subject->demography_signature_user) AND empty($subject->demography_lock_user) AND empty($subject->demography_verify_user)){ ?>
-				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>			
+				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary', 'id'=>'guardar')); ?>			
 			<?php }?>
 	        
 	        <?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>

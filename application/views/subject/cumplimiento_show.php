@@ -73,18 +73,7 @@ $(function(){
 <br />
 <!-- legend -->
 <!-- New Query-->
-<?php
-	if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
-?>
-	<div id='new_query' style='text-align:right;'>
-		<?= form_open('query/additional_form_query_new', array('id'=>'form_cumplimiento')); ?>
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('form', "Cumplimiento"); ?>
-		<?= form_button(array('type'=>'submit', 'content'=>'Nueva Consulta', 'class'=>'btn btn-primary')); ?>
-		<?= form_close(); ?>
-	</div>
-<?php }?>
+
 <!-- End Query-->
 <?php
 	if(isset($list) AND !empty($list)){
@@ -117,7 +106,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
 		</tr>
 		<tr>
 			<td>Numero cápsulas entregadas: </td>

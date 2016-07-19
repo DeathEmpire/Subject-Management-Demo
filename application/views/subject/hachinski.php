@@ -1,5 +1,10 @@
+<style type="text/css">
+	#ui-datepicker-div { display: none; }
+</style>
 <script type="text/javascript">
 $(function(){
+
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$('input[type=checkbox]').click(function(){
 
@@ -15,9 +20,25 @@ $(function(){
 		$("#total").val(total);
 	});
 
+	$("input[name=realizado]").change(function(){
+		if($(this).val() == 0){
+			$("#form_hach :input").attr('readonly','readonly');			
+			$("input[name=realizado]").removeAttr('readonly');
+
+		}else{
+			$("#form_hach :input").removeAttr('readonly');			
+		}
+	});
+	if($("input[name=realizado]:checked").val() == 0){
+		$("#form_hach :input").attr('readonly','readonly');		
+		$("input[name=realizado]").removeAttr('readonly');
+
+	}else{
+		$("#form_hach :input").removeAttr('readonly');		
+	}
 });	
 </script>	
-	<div class="row">
+	
 		<legend style='text-align:center;'>Escala de Hachinski</legend>
 		<b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
@@ -44,10 +65,34 @@ $(function(){
 </table>
 		<br />
 		<!-- legend -->		
-		<?= form_open('subject/hachinski_insert'); ?>		
+		<?= form_open('subject/hachinski_insert', array('id'=>'form_hach')); ?>		
 			<input type='hidden' name='total' id='total' value='0' />
 			<input type='hidden' name='subject_id' id='subject_id' value='<?php echo $subject->id; ?>' />
 			<table class="table table-condensed table-bordered table-striped table-hover">
+				<?php
+					$data = array(
+					    'name'        => 'realizado',			    
+					    'value'       => 1,		    
+					    #'checked'	  => set_radio('gender', 'male', TRUE),
+				    );
+			  		$data2 = array(
+					    'name'        => 'realizado',			    
+					    'value'       => 0,
+					    #'checked'	  => set_radio('gender', 'female', TRUE),		    
+				    );
+				?>
+			
+				<tr>
+					<td>Realizado:</td>
+					<td>
+						<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si
+						<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
+					</td>
+				</tr>
+				<tr>
+					<td>Fecha: </td>
+					<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
+				</tr>
 				<tr><td>Comienzo Brusco: </td><td><input type='checkbox' name='comienzo_brusco' id='comienzo_brusco' value='2' /></td></tr>
 				<tr><td>Deterioro escalonado: </td><td><input type='checkbox' name='deterioro_escalonado' id='deterioro_escalonado' value='1' /></td></tr>
 				<tr><td>Curso fluctuante: </td><td><input type='checkbox' name='curso_fluctante' id='curso_fluctante' value='2' /></td></tr>
@@ -77,5 +122,5 @@ $(function(){
 				</tr>
 			</table>
 		<?= form_close(); ?>
-	</div>
+	
 
