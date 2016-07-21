@@ -4,12 +4,12 @@
 
 <?= form_open('menu/search', array('class'=>'form-search')); ?>
 	<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Buscar por nombre...', 'class'=>'input-medium search-query')); ?>
-	<span class="input-group-btn">
+	
     	<button class="btn btn-default" type="submit">Buscar</button>
-    </span>
+    
 	<?= anchor('menu/create', 'Nuevo', array('class'=>'btn btn-primary')); ?>
 <?= form_close(); ?>
-
+<br />
 <table class="table table-condensed table-bordered table-striped table-hover">
 	<thead>
 		<tr>

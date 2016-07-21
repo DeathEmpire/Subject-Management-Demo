@@ -1,18 +1,18 @@
 <div class="page-header">
-	<h1>Perfiles <small>Mantenedor</small></h1>	
+	<h1>Perfiles</h1>	
 </div>
 
 <?= form_open('perfil/search',array('class'=>'form-search'));?>
 	<div class="control-group">
 		<?= form_input(array("type"=>"text","name"=>"buscar_nombre","id"=>"buscar_nombre","placeholder"=>"Buscar por nombre ...","value"=>set_value('buscar_nombre'),"class"=>"input-medium"));?>
-		<span class="input-group-btn">
-    		<button class="btn btn-default" type="submit">Buscar</button>
-   		</span>
+		
+    	<button class="btn btn-default" type="submit">Buscar</button>
+   		
 		<?= anchor("perfil/ingresar","Nuevo",array("class"=>"btn btn-primary"));?>
 		<!-- boton pre hechos en boostrap <i class="icon-search"></i>-->
 	</div>
 <?= form_close();?>
-
+<br />
 
 <table class='table table-condensed table-bordered'>
 	<thead>

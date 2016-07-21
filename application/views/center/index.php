@@ -1,15 +1,14 @@
-<div class="row">
+
 	<legend style='text-align:center;'> Centros </legend>
 
 
 	<?= form_open('center/search', array('class'=>'form-search')); ?>
 		<?= form_input(array('type'=>'text', 'name'=>'buscar', 'id'=>'buscar', 'placeholder'=>'Buscar por id...', 'class'=>'input-medium search-query')); ?>	
-		<span class="input-group-btn">
-	    	<button class="btn btn-default" type="submit">Buscar</button>
-	    </span>
+		  	<button class="btn btn-default" type="submit">Buscar</button>
+	    
 		<?= anchor('center/create', 'Nuevo', array('class'=>'btn btn-primary')); ?>
 	<?= form_close(); ?>
-
+<br/>
 	<table class="table table-condensed table-bordered">
 		<thead>
 			<tr>
@@ -30,4 +29,3 @@
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-</div>

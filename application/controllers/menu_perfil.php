@@ -16,7 +16,7 @@ class Menu_Perfil extends CI_Controller {
 		$data['contenido'] = 'menu_perfil/index';
 		$data['titulo'] = 'Menu Roles';
 		$data['query'] = $this->Model_Menu_Perfil->all();
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function search() {
@@ -24,7 +24,7 @@ class Menu_Perfil extends CI_Controller {
 		$data['titulo'] = 'Menu Roles';
 		$value = $this->input->post('buscar');
 		$data['query'] = $this->Model_Menu_Perfil->allFiltered('perfil.name', $value);
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function my_validation() {
@@ -36,7 +36,7 @@ class Menu_Perfil extends CI_Controller {
 		$data['titulo'] = 'New Menu Role';
 		$data['menus'] = $this->Model_Menu_Perfil->get_menus(); /* Lista de los Menu */
 		$data['perfiles'] = $this->Model_Menu_Perfil->get_perfiles(); /* Lista de los Perfiles */
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function insert() {
@@ -62,7 +62,7 @@ class Menu_Perfil extends CI_Controller {
 		$data['registro'] = $this->Model_Menu_Perfil->find($id);
 		$data['menus'] = $this->Model_Menu_Perfil->get_menus(); /* Lista de los Menu */
 		$data['perfiles'] = $this->Model_Menu_Perfil->get_perfiles(); /* Lista de los Perfiles */
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function update() {

@@ -33,9 +33,49 @@ $(function(){
 			$(this).removeAttr('disabled', 'disabled');
 		});
 	}
+
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": "<?php echo $etapa;?>",
+				"subject_id": $("input[name=subject_id]").val(),
+				"form": "muestra_de_sangre",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
+
+
+
 });
 </script>
-<legend style='text-align:center;'>Muestra de Sangre</legend>
+<?php
+	switch($etapa){
+		case 1 : $protocolo = "(Selección)"; break;
+		case 2 : $protocolo = "(Basal Día 1)"; break;
+		case 3 : $protocolo = "(Semana 4)"; break;
+		case 4 : $protocolo = "(Semana 12)"; break;
+		case 5 : $protocolo = "(Término del Estudio)"; break;
+		case 6 : $protocolo = "(Terminación Temprana)"; break;
+		default : $protocolo = ""; break;
+	}
+?>
+<div id='query_para_campos' style='display:none;'></div>
+<legend style='text-align:center;'>Muestra de Sangre <?= $protocolo;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -61,20 +101,6 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<!-- New Query-->
-<?php
-	if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
-?>
-	<div id='new_query' style='text-align:right;'>
-		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('form', "Muestra de Sangre"); ?>
-		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
-		<?= form_close(); ?>
-	</div>
-<?php }?>
-<!-- End Query-->
 <?php
 	if(isset($list) AND !empty($list)){
 ?>	
@@ -107,7 +133,27 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha Toma Muestra: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+			<td>
+				<?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
+				<?php
+					if(isset($_SESSION['role_options']['subject']) 
+						AND 
+						strpos($_SESSION['role_options']['subject'], 'muestra_de_sangre_verify')
+						AND
+						$list[0]->status == 'Record Complete')
+					{
+						
+						if(!in_array("fecha", $campos_query)) 
+						{
+							echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";
+						}else{
+							echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+						}						
+						
+					}
+				?>
+				
+			</td>			
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

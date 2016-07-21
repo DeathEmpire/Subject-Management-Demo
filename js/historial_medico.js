@@ -3,424 +3,435 @@ $(function(){
 
 
 	$("input[name=hipertension]").change(function(){
-		if($(this).val() == 0){
-			$("#hipertension_fecha_diagnostico").attr('readonly','readonly');
-			$("#hipertension_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=hipertension] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#hipertension_fecha_diagnostico").removeAttr('readonly');
-			$("#hipertension_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=hipertension] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=ulcera]").change(function(){
-		if($(this).val() == 0){
-			$("#ulcera_fecha_diagnostico").attr('readonly','readonly');
-			$("#ulcera_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=ulcera] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#ulcera_fecha_diagnostico").removeAttr('readonly');
-			$("#ulcera_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=ulcera] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=diabetes]").change(function(){
-		if($(this).val() == 0){
-			$("#diabetes_fecha_diagnostico").attr('readonly','readonly');
-			$("#diabetes_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=diabetes] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#diabetes_fecha_diagnostico").removeAttr('readonly');
-			$("#diabetes_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=diabetes] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=hipo_hipertiroidismo]").change(function(){
-		if($(this).val() == 0){
-			$("#hipo_hipertiroidismo_fecha_diagnostico").attr('readonly','readonly');
-			$("#hipo_hipertiroidismo_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=hipo_hipertiroidismo] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#hipo_hipertiroidismo_fecha_diagnostico").removeAttr('readonly');
-			$("#hipo_hipertiroidismo_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=hipo_hipertiroidismo] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=hiperlipidemia]").change(function(){
-		if($(this).val() == 0){
-			$("#hiperlipidemia_fecha_diagnostico").attr('readonly','readonly');
-			$("#hiperlipidemia_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=hiperlipidemia] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#hiperlipidemia_fecha_diagnostico").removeAttr('readonly');
-			$("#hiperlipidemia_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=hiperlipidemia] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=epoc]").change(function(){
-		if($(this).val() == 0){
-			$("#epoc_fecha_diagnostico").attr('readonly','readonly');
-			$("#epoc_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=epoc] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#epoc_fecha_diagnostico").removeAttr('readonly');
-			$("#epoc_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=epoc] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=coronaria]").change(function(){
-		if($(this).val() == 0){
-			$("#coronaria_fecha_diagnostico").attr('readonly','readonly');
-			$("#coronaria_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=coronaria] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#coronaria_fecha_diagnostico").removeAttr('readonly');
-			$("#coronaria_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=coronaria] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=rinitis]").change(function(){
-		if($(this).val() == 0){
-			$("#rinitis_fecha_diagnostico").attr('readonly','readonly');
-			$("#rinitis_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=rinitis] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#rinitis_fecha_diagnostico").removeAttr('readonly');
-			$("#rinitis_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=rinitis] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=acc_vascular]").change(function(){
-		if($(this).val() == 0){
-			$("#acc_vascular_fecha_diagnostico").attr('readonly','readonly');
-			$("#acc_vascular_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=acc_vascular] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#acc_vascular_fecha_diagnostico").removeAttr('readonly');
-			$("#acc_vascular_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=acc_vascular] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=asma]").change(function(){
-		if($(this).val() == 0){
-			$("#asma_fecha_diagnostico").attr('readonly','readonly');
-			$("#asma_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=asma] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#asma_fecha_diagnostico").removeAttr('readonly');
-			$("#asma_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=asma] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=gastritis]").change(function(){
-		if($(this).val() == 0){
-			$("#gastritis_fecha_diagnostico").attr('readonly','readonly');
-			$("#gastritis_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=gastritis] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#gastritis_fecha_diagnostico").removeAttr('readonly');
-			$("#gastritis_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=gastritis] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=cefaleas]").change(function(){
-		if($(this).val() == 0){
-			$("#cefaleas_fecha_diagnostico").attr('readonly','readonly');
-			$("#cefaleas_fecha_diagnostico").attr('disabled','disabled');
+		if($(this).val() == 0){			
+			$('select[name*=cefaleas] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
 		}
 		else{
-			$("#cefaleas_fecha_diagnostico").removeAttr('readonly');
-			$("#cefaleas_fecha_diagnostico").removeAttr('disabled');
+			$('select[name*=cefaleas] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 	});
 	$("input[name=alergia]").change(function(){
 		if($(this).val() == 0){
-			$("#alergia_desc").attr('readonly','readonly');
-			$("#alergia_desc").attr('disabled','disabled');
+			$("#alergia_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#alergia_desc").removeAttr('readonly');
-			$("#alergia_desc").removeAttr('disabled');
+			$("#alergia_desc").removeAttr('readonly');			
 		}
 	});
+
 	$("input[name=tabaquismo]").change(function(){
 		if($(this).val() == 0){
-			$("#tabaquismo_desc").attr('readonly','readonly');
-			$("#tabaquismo_desc").attr('disabled','disabled');
+			$("#tabaquismo_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#tabaquismo_desc").removeAttr('readonly');
-			$("#tabaquismo_desc").removeAttr('disabled');
+			$("#tabaquismo_desc").removeAttr('readonly');			
 		}
 	});
 	$("input[name=ingesta_alcohol]").change(function(){
 		if($(this).val() == 0){
-			$("#ingesta_alcohol_desc").attr('readonly','readonly');
-			$("#ingesta_alcohol_desc").attr('disabled','disabled');
+			$("#ingesta_alcohol_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#ingesta_alcohol_desc").removeAttr('readonly');
-			$("#ingesta_alcohol_desc").removeAttr('disabled');
+			$("#ingesta_alcohol_desc").removeAttr('readonly');			
 		}
 	});
 	$("input[name=drogas]").change(function(){
 		if($(this).val() == 0){
-			$("#drogas_desc").attr('readonly','readonly');
-			$("#drogas_desc").attr('disabled','disabled');
+			$("#drogas_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#drogas_desc").removeAttr('readonly');
-			$("#drogas_desc").removeAttr('disabled');
+			$("#drogas_desc").removeAttr('readonly');			
 		}
 	});
 	$("input[name=cirugia]").change(function(){
 		if($(this).val() == 0){
-			$("#cirugia_desc").attr('readonly','readonly');
-			$("#cirugia_desc").attr('disabled','disabled');
+			$("#cirugia_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#cirugia_desc").removeAttr('readonly');
-			$("#cirugia_desc").removeAttr('disabled');
+			$("#cirugia_desc").removeAttr('readonly');			
 		}
 	});
 	$("input[name=donado_sangre]").change(function(){
 		if($(this).val() == 0){
-			$("#donado_sangre_desc").attr('readonly','readonly');
-			$("#donado_sangre_desc").attr('disabled','disabled');
+			$("#donado_sangre_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#donado_sangre_desc").removeAttr('readonly');
-			$("#donado_sangre_desc").removeAttr('disabled');
+			$("#donado_sangre_desc").removeAttr('readonly');			
 		}
 	});
 	$("input[name=tratamiento_farma]").change(function(){
 		if($(this).val() == 0){
-			$("#tratamiento_farma_desc").attr('readonly','readonly');
-			$("#tratamiento_farma_desc").attr('disabled','disabled');
+			$("#tratamiento_farma_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#tratamiento_farma_desc").removeAttr('readonly');
-			$("#tratamiento_farma_desc").removeAttr('disabled');
+			$("#tratamiento_farma_desc").removeAttr('readonly');			
 		}
 	});
 	$("input[name=suplemento_dietetico]").change(function(){
 		if($(this).val() == 0){
-			$("#suplemento_dietetico_desc").attr('readonly','readonly');
-			$("#suplemento_dietetico_desc").attr('disabled','disabled');
+			$("#suplemento_dietetico_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#suplemento_dietetico_desc").removeAttr('readonly');
-			$("#suplemento_dietetico_desc").removeAttr('disabled');
+			$("#suplemento_dietetico_desc").removeAttr('readonly');			
 		}
 	});
 	$("input[name=alzheimer]").change(function(){
 		if($(this).val() == 0){
-			$("#alzheimer_desc").attr('readonly','readonly');
-			$("#alzheimer_desc").attr('disabled','disabled');
+			$("#alzheimer_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#alzheimer_desc").removeAttr('readonly');
-			$("#alzheimer_desc").removeAttr('disabled');
+			$("#alzheimer_desc").removeAttr('readonly');			
 		}
 	});
 	$("input[name=morbido]").change(function(){
 		if($(this).val() == 0){
-			$("#morbido_desc").attr('readonly','readonly');
-			$("#morbido_desc").attr('disabled','disabled');
+			$("#morbido_desc").attr('readonly','readonly');			
 		}
 		else{
-			$("#morbido_desc").removeAttr('readonly');
-			$("#morbido_desc").removeAttr('disabled');
+			$("#morbido_desc").removeAttr('readonly');			
 		}
 	});
 	
 	/*--------------------------------------------------*/
 	
 	if($("input[name=hipertension]:checked").val() == 0){
-		$("#hipertension_fecha_diagnostico").attr('readonly','readonly');
-		$("#hipertension_fecha_diagnostico").attr('disabled','disabled');
+		$('select[name*=hipertension] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#hipertension_fecha_diagnostico").removeAttr('readonly');
-		$("#hipertension_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=hipertension] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 	
 	if($("input[name=ulcera]:checked").val() == 0){
-		$("#ulcera_fecha_diagnostico").attr('readonly','readonly');
-		$("#ulcera_fecha_diagnostico").attr('disabled','disabled');
+		$('select[name*=ulcera] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#ulcera_fecha_diagnostico").removeAttr('readonly');
-		$("#ulcera_fecha_diagnostico").removeAttr('disabled');
-	}	
-
-	if($("input[name=diabetes]").val() == 0){
-		$("#diabetes_fecha_diagnostico").attr('readonly','readonly');
-		$("#diabetes_fecha_diagnostico").attr('disabled','disabled');
-	}
-	else{
-		$("#diabetes_fecha_diagnostico").removeAttr('readonly');
-		$("#diabetes_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=ulcera] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=hipo_hipertiroidismo]").val() == 0){
-		$("#hipo_hipertiroidismo_fecha_diagnostico").attr('readonly','readonly');
-		$("#hipo_hipertiroidismo_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=diabetes]:checked").val() == 0){
+		$('select[name*=diabetes] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#hipo_hipertiroidismo_fecha_diagnostico").removeAttr('readonly');
-		$("#hipo_hipertiroidismo_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=diabetes] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=hiperlipidemia]").val() == 0){
-		$("#hiperlipidemia_fecha_diagnostico").attr('readonly','readonly');
-		$("#hiperlipidemia_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=hipo_hipertiroidismo]:checked").val() == 0){
+		$('select[name*=hipo_hipertiroidismo] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#hiperlipidemia_fecha_diagnostico").removeAttr('readonly');
-		$("#hiperlipidemia_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=hipo_hipertiroidismo] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=epoc]").val() == 0){
-		$("#epoc_fecha_diagnostico").attr('readonly','readonly');
-		$("#epoc_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=hiperlipidemia]:checked").val() == 0){
+		$('select[name*=hiperlipidemia] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#epoc_fecha_diagnostico").removeAttr('readonly');
-		$("#epoc_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=hiperlipidemia] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=coronaria]").val() == 0){
-		$("#coronaria_fecha_diagnostico").attr('readonly','readonly');
-		$("#coronaria_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=epoc]:checked").val() == 0){
+		$('select[name*=epoc] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#coronaria_fecha_diagnostico").removeAttr('readonly');
-		$("#coronaria_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=epoc] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=rinitis]").val() == 0){
-		$("#rinitis_fecha_diagnostico").attr('readonly','readonly');
-		$("#rinitis_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=coronaria]:checked").val() == 0){
+		$('select[name*=coronaria] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#rinitis_fecha_diagnostico").removeAttr('readonly');
-		$("#rinitis_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=coronaria] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=acc_vascular]").val() == 0){
-		$("#acc_vascular_fecha_diagnostico").attr('readonly','readonly');
-		$("#acc_vascular_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=rinitis]:checked").val() == 0){
+		$('select[name*=rinitis] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#acc_vascular_fecha_diagnostico").removeAttr('readonly');
-		$("#acc_vascular_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=rinitis] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=asma]").val() == 0){
-		$("#asma_fecha_diagnostico").attr('readonly','readonly');
-		$("#asma_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=acc_vascular]:checked").val() == 0){
+		$('select[name*=acc_vascular] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#asma_fecha_diagnostico").removeAttr('readonly');
-		$("#asma_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=acc_vascular] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=gastritis]").val() == 0){
-		$("#gastritis_fecha_diagnostico").attr('readonly','readonly');
-		$("#gastritis_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=asma]:checked").val() == 0){
+		$('select[name*=asma] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#gastritis_fecha_diagnostico").removeAttr('readonly');
-		$("#gastritis_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=asma] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 
-	if($("input[name=cefaleas]").val() == 0){
-		$("#cefaleas_fecha_diagnostico").attr('readonly','readonly');
-		$("#cefaleas_fecha_diagnostico").attr('disabled','disabled');
+	if($("input[name=gastritis]:checked").val() == 0){
+		$('select[name*=gastritis] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
 	}
 	else{
-		$("#cefaleas_fecha_diagnostico").removeAttr('readonly');
-		$("#cefaleas_fecha_diagnostico").removeAttr('disabled');
+		$('select[name*=gastritis] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
+
+	if($("input[name=cefaleas]:checked").val() == 0){
+		$('select[name*=cefaleas] option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
+	}
+	else{
+		$('select[name*=cefaleas] option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
+	}
+
+	/*-----*/
 
 	if($("input[name=alergia]").val() == 0){
-		$("#alergia_desc").attr('readonly','readonly');
-		$("#alergia_desc").attr('disabled','disabled');
+		$("#alergia_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#alergia_desc").removeAttr('readonly');
-		$("#alergia_desc").removeAttr('disabled');
+		$("#alergia_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=tabaquismo]").val() == 0){
-		$("#tabaquismo_desc").attr('readonly','readonly');
-		$("#tabaquismo_desc").attr('disabled','disabled');
+		$("#tabaquismo_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#tabaquismo_desc").removeAttr('readonly');
-		$("#tabaquismo_desc").removeAttr('disabled');
+		$("#tabaquismo_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=ingesta_alcohol]").val() == 0){
-		$("#ingesta_alcohol_desc").attr('readonly','readonly');
-		$("#ingesta_alcohol_desc").attr('disabled','disabled');
+		$("#ingesta_alcohol_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#ingesta_alcohol_desc").removeAttr('readonly');
-		$("#ingesta_alcohol_desc").removeAttr('disabled');
+		$("#ingesta_alcohol_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=drogas]").val() == 0){
-		$("#drogas_desc").attr('readonly','readonly');
-		$("#drogas_desc").attr('disabled','disabled');
+		$("#drogas_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#drogas_desc").removeAttr('readonly');
-		$("#drogas_desc").removeAttr('disabled');
+		$("#drogas_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=cirugia]").val() == 0){
-		$("#cirugia_desc").attr('readonly','readonly');
-		$("#cirugia_desc").attr('disabled','disabled');
+		$("#cirugia_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#cirugia_desc").removeAttr('readonly');
-		$("#cirugia_desc").removeAttr('disabled');
+		$("#cirugia_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=donado_sangre]").val() == 0){
-		$("#donado_sangre_desc").attr('readonly','readonly');
-		$("#donado_sangre_desc").attr('disabled','disabled');
+		$("#donado_sangre_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#donado_sangre_desc").removeAttr('readonly');
-		$("#donado_sangre_desc").removeAttr('disabled');
+		$("#donado_sangre_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=tratamiento_farma]").val() == 0){
-		$("#tratamiento_farma_desc").attr('readonly','readonly');
-		$("#tratamiento_farma_desc").attr('disabled','disabled');
+		$("#tratamiento_farma_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#tratamiento_farma_desc").removeAttr('readonly');
-		$("#tratamiento_farma_desc").removeAttr('disabled');
+		$("#tratamiento_farma_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=suplemento_dietetico]").val() == 0){
-		$("#suplemento_dietetico_desc").attr('readonly','readonly');
-		$("#suplemento_dietetico_desc").attr('disabled','disabled');
+		$("#suplemento_dietetico_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#suplemento_dietetico_desc").removeAttr('readonly');
-		$("#suplemento_dietetico_desc").removeAttr('disabled');
+		$("#suplemento_dietetico_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=alzheimer]").val() == 0){
-		$("#alzheimer_desc").attr('readonly','readonly');
-		$("#alzheimer_desc").attr('disabled','disabled');
+		$("#alzheimer_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#alzheimer_desc").removeAttr('readonly');
-		$("#alzheimer_desc").removeAttr('disabled');
+		$("#alzheimer_desc").removeAttr('readonly');		
 	}
 
 	if($("input[name=morbido]").val() == 0){
-		$("#morbido_desc").attr('readonly','readonly');
-		$("#morbido_desc").attr('disabled','disabled');
+		$("#morbido_desc").attr('readonly','readonly');		
 	}
 	else{
-		$("#morbido_desc").removeAttr('readonly');
-		$("#morbido_desc").removeAttr('disabled');
+		$("#morbido_desc").removeAttr('readonly');		
 	}
 	
 

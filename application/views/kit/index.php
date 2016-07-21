@@ -55,7 +55,7 @@
 	$disponibles['Disponible'] = array(""=>"", "1"=>"SI", "NO"=>"NO");
 ?>
 <?= form_open('kit/search', array('class'=>'form-search')); ?>
-	<?= form_label('Search: ', 'id', array('class'=>'control-label')); ?>   	
+	<?= form_label('Buscar: ', 'id', array('class'=>'control-label')); ?>   	
 	<?= form_input(array('type'=>'text', 'name'=>'id', 'id'=>'id', 'placeholder'=>'Buscar por id', 'class'=>'input-medium search-query', 'value'=>$id)); ?>
 	<?= form_dropdown('tipo',$tipos,$t_selected); ?>
 	<?= form_dropdown('ubicacion_actual',$centros,$c_selected); ?>
@@ -78,7 +78,7 @@
 	</thead>
 
 	<tbody>
-		<?= form_open("kit/CambiarBodega"); ?>
+		<?= form_open("kit/CambiarBodega", array('id'=>'form_kits')); ?>
 		<?php foreach ($query as $registro): ?>
 		<tr>
 			<?php if($registro->center_id == 0){
@@ -100,8 +100,8 @@
 <hr />
 <div style="text-align:center;">
 	
-	Send Center: <?= form_dropdown('center',$cent); ?><br />
-	<?= form_button(array('type'=>'submit', 'class'=>'btn', 'name'=>'enviar', "id"=>"enviar", "onclick"=>"return enviar();",'content'=>'Enviar')); ?>
+	Enviar al Centro: <?= form_dropdown('center',$cent, set_value('center'), array('id'=>'centro')); ?><br />
+	<?= form_button(array('type'=>'button', 'class'=>'btn', 'name'=>'enviar', "id"=>"enviar", 'content'=>'Enviar')); ?>
 	<?= form_close(); ?>
 </div>
 <script>
@@ -112,26 +112,28 @@ $(function(){
 			  return elem.value || "";
 		}).join( "," );
 	};
-	
-	function enviar(){
-		var seleccionado = $("input:checked").valList(); 
-		if(seleccionado == ""){
-			alert("Debe seleccionar al menos 1 kit para enviar");
-			return false;
-		}
-		else if($("select[name^=centros]").val() == ""){
-			alert("Debe seleccionar el centro al cual enviar los kits");
-			return false;
-		}
-		else{
-			if(confirm("Seguro de enviar los kits "+ seleccionado + " al centro "+ $("select[name^=centros]").val())){
-				return true;
+
+	$("#enviar").click(function(){
+		
+		var seleccionado = $("input[name*=cambiar]:checked").valList();
+		if($('input[name*=cambiar]:checked').length > 0)
+		{
+			if(confirm("Seguro de enviar los kits "+ seleccionado + " al centro "+ $("#centro option:selected").text() )) 
+			{
+				$("#form_kits").submit();
 			}
 			else{
 				return false;
 			}
 		}
-	}
+		else{
+			alert("Debe seleccionar algun kit para enviar");
+			return false;
+		}		
+	});
+
+		
+	
 
 /*
 	$("#enviar").click(function(){
@@ -171,5 +173,5 @@ $(function(){
 		}
 	});*/
 	
-})
+});
 </script>

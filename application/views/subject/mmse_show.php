@@ -58,7 +58,18 @@ $(function(){
 
 });
 </script>
-<legend style='text-align:center;'>MINI MENTAL STATE EXAMINATION (MMSE)</legend>
+<?php
+	switch($etapa){
+		case 1 : $protocolo = "(Selección)"; break;
+		case 2 : $protocolo = "(Basal Día 1)"; break;
+		case 3 : $protocolo = "(Semana 4)"; break;
+		case 4 : $protocolo = "(Semana 12)"; break;
+		case 5 : $protocolo = "(Término del Estudio)"; break;
+		case 6 : $protocolo = "(Terminación Temprana)"; break;
+		default : $protocolo = ""; break;
+	}
+?>
+<legend style='text-align:center;'>MINI MENTAL STATE EXAMINATION (MMSE) <?= $protocolo;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>

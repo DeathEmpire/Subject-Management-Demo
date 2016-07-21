@@ -3847,11 +3847,18 @@ class Subject extends CI_Controller {
 		$data['etapa'] = $etapa;
 
 		$this->load->model('Model_Muestra_de_sangre');
-		$data['list'] = $this->Model_Muestra_de_sangre->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+		$data['list'] = $this->Model_Muestra_de_sangre->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));		
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Muestra de Sangre"));
-
+		/*querys abiertos para el formulario*/
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"muestra_de_sangre", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
+		
 		$this->load->view('template',$data);
 	}
 
@@ -6963,15 +6970,15 @@ class Subject extends CI_Controller {
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
 		
-		$data['dias_ea'] = array("UNK"=>"UNK");
+		$data['dias_ea'] = array(""=>"", "UNK"=>"UNK");
 		for($i = 1; $i < 32; $i++){
 			$data['dias_ea'][$i] = $i;
 		}
-		$data['meses_ea'] = array("UNK"=>"UNK");
+		$data['meses_ea'] = array(""=>"", "UNK"=>"UNK");
 		for($i = 1; $i < 13; $i++){
 			$data['meses_ea'][$i] = $i;
 		}
-		$data['anio_ea'] = array("UNK"=>"UNK");
+		$data['anio_ea'] = array(""=>"", "UNK"=>"UNK");
 		for($i = date('Y'); $i >= 1920 ; $i--){
 			$data['anio_ea'][$i] = $i;
 		}
@@ -6984,30 +6991,18 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('hipertension', '', 'xss_clean');
-		$this->form_validation->set_rules('hipertension_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('ulcera', '', 'xss_clean');
-		$this->form_validation->set_rules('ulcera_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('diabetes', '', 'xss_clean');
-		$this->form_validation->set_rules('diabetes_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('hipo_hipertiroidismo', '', 'xss_clean');
-		$this->form_validation->set_rules('hipo_hipertiroidismo_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('hiperlipidemia', '', 'xss_clean');
-		$this->form_validation->set_rules('hiperlipidemia_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('epoc', '', 'xss_clean');
-		$this->form_validation->set_rules('epoc_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('coronaria', '', 'xss_clean');
-		$this->form_validation->set_rules('coronaria_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('rinitis', '', 'xss_clean');
-		$this->form_validation->set_rules('rinitis_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('acc_vascular', '', 'xss_clean');
-		$this->form_validation->set_rules('acc_vascular_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('asma', '', 'xss_clean');
-		$this->form_validation->set_rules('asma_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('gastritis', '', 'xss_clean');
-		$this->form_validation->set_rules('gastritis_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('cefaleas', '', 'xss_clean');
-		$this->form_validation->set_rules('cefaleas_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension', '', 'xss_clean');		
+		$this->form_validation->set_rules('ulcera', '', 'xss_clean');		
+		$this->form_validation->set_rules('diabetes', '', 'xss_clean');		
+		$this->form_validation->set_rules('hipo_hipertiroidismo', '', 'xss_clean');		
+		$this->form_validation->set_rules('hiperlipidemia', '', 'xss_clean');		
+		$this->form_validation->set_rules('epoc', '', 'xss_clean');		
+		$this->form_validation->set_rules('coronaria', '', 'xss_clean');		
+		$this->form_validation->set_rules('rinitis', '', 'xss_clean');		
+		$this->form_validation->set_rules('acc_vascular', '', 'xss_clean');		
+		$this->form_validation->set_rules('asma', '', 'xss_clean');		
+		$this->form_validation->set_rules('gastritis', '', 'xss_clean');		
+		$this->form_validation->set_rules('cefaleas', '', 'xss_clean');		
 		$this->form_validation->set_rules('alergia', '', 'xss_clean');
 		$this->form_validation->set_rules('alergia_desc', '', 'xss_clean');
 		$this->form_validation->set_rules('tabaquismo', '', 'xss_clean');
@@ -7031,6 +7026,44 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('dia_ea', '', 'xss_clean');
 		$this->form_validation->set_rules('morbido', '', 'xss_clean');
 		$this->form_validation->set_rules('morbido_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('asma_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('asma_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('asma_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas_anio', '', 'xss_clean');
+
+		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de agregar el formulario de Historia Medica", $registro['subject_id']);
@@ -7040,18 +7073,19 @@ class Subject extends CI_Controller {
 			
 			/*estado del form segun lo que se envia*/
 			if(
-					(!empty($registro['hipertension']) AND empty($registro['hipertension_fecha_diagnostico']))
-				OR	(!empty($registro['ulcera']) AND empty($registro['ulcera_fecha_diagnostico']))
-				OR	(!empty($registro['diabetes']) AND empty($registro['diabetes_fecha_diagnostico']))
-				OR	(!empty($registro['hipo_hipertiroidismo']) AND empty($registro['hipo_hipertiroidismo_fecha_diagnostico']))
-				OR	(!empty($registro['hiperlipidemia']) AND empty($registro['hiperlipidemia_fecha_diagnostico']))
-				OR	(!empty($registro['epoc']) AND empty($registro['epoc_fecha_diagnostico']))
-				OR	(!empty($registro['coronaria']) AND empty($registro['coronaria_fecha_diagnostico']))
-				OR	(!empty($registro['rinitis']) AND empty($registro['rinitis_fecha_diagnostico']))
-				OR	(!empty($registro['acc_vascular']) AND empty($registro['acc_vascular_fecha_diagnostico']))
-				OR	(!empty($registro['asma']) AND empty($registro['asma_fecha_diagnostico']))
-				OR	(!empty($registro['gastritis']) AND empty($registro['gastritis_fecha_diagnostico']))
-				OR	(!empty($registro['cefaleas']) AND empty($registro['cefaleas_fecha_diagnostico']))
+					(!empty($registro['hipertension']) AND (empty($registro['hipertension_dia']) OR empty($registro['hipertension_mes']) OR empty($registro['hipertension_anio'])) )
+				OR	(!empty($registro['ulcera']) AND (empty($registro['ulcera_dia']) OR empty($registro['ulcera_mes']) OR empty($registro['ulcera_anio'])) )
+				OR	(!empty($registro['diabetes']) AND (empty($registro['diabetes_dia']) OR empty($registro['diabetes_mes']) OR empty($registro['diabetes_anio'])) )
+				OR	(!empty($registro['hipo_hipertiroidismo']) AND (empty($registro['hipo_hipertiroidismo_dia']) OR empty($registro['hipo_hipertiroidismo_mes']) OR empty($registro['hipo_hipertiroidismo_anio'])) )
+				OR	(!empty($registro['hiperlipidemia']) AND (empty($registro['hiperlipidemia_dia']) OR empty($registro['hiperlipidemia_mes']) OR empty($registro['hiperlipidemia_anio'])) )
+				OR	(!empty($registro['epoc']) AND (empty($registro['epoc_dia']) OR empty($registro['epoc_mes']) OR empty($registro['epoc_anio'])) )
+				OR	(!empty($registro['coronaria']) AND (empty($registro['coronaria_dia']) OR empty($registro['coronaria_mes']) OR empty($registro['coronaria_anio'])) )
+				OR	(!empty($registro['rinitis']) AND (empty($registro['rinitis_dia']) OR empty($registro['rinitis_mes']) OR empty($registro['rinitis_anio'])) )
+				OR	(!empty($registro['acc_vascular']) AND (empty($registro['acc_vascular_dia']) OR empty($registro['acc_vascular_mes']) OR empty($registro['acc_vascular_anio'])) )
+				OR	(!empty($registro['asma']) AND (empty($registro['asma_dia']) OR empty($registro['asma_mes']) OR empty($registro['asma_anio'])) )
+				OR	(!empty($registro['gastritis']) AND (empty($registro['gastritis_dia']) OR empty($registro['gastritis_mes']) OR empty($registro['gastritis_anio'])) )
+				OR	(!empty($registro['cefaleas']) AND (empty($registro['cefaleas_dia']) OR empty($registro['cefaleas_mes']) OR empty($registro['cefaleas_anio'])) )
+				
 				OR	(!empty($registro['alergia']) AND empty($registro['alergia_desc']))
 				OR	(!empty($registro['tabaquismo']) AND empty($registro['tabaquismo_desc']))
 				OR	(!empty($registro['ingesta_alcohol']) AND empty($registro['ingesta_alcohol_desc']))
@@ -7083,42 +7117,7 @@ class Subject extends CI_Controller {
 			elseif($registro['etapa'] == 1){
 				$subjet_['historial_medico_1_status'] = $estado;
 			}
-			if(!empty($registro['hipertension_fecha_diagnostico'])){
-				$registro['hipertension_fecha_diagnostico'] = $this->convertirFecha($registro['hipertension_fecha_diagnostico']);
-			}
-			if(!empty($registro['ulcera_fecha_diagnostico'])){
-				$registro['ulcera_fecha_diagnostico'] = $this->convertirFecha($registro['ulcera_fecha_diagnostico']);
-			}
-			if(!empty($registro['diabetes_fecha_diagnostico'])){
-				$registro['diabetes_fecha_diagnostico'] = $this->convertirFecha($registro['diabetes_fecha_diagnostico']);
-			}
-			if(!empty($registro['hipo_hipertiroidismo_fecha_diagnostico'])){
-				$registro['hipo_hipertiroidismo_fecha_diagnostico'] = $this->convertirFecha($registro['hipo_hipertiroidismo_fecha_diagnostico']);
-			}
-			if(!empty($registro['hiperlipidemia_fecha_diagnostico'])){
-				$registro['hiperlipidemia_fecha_diagnostico'] = $this->convertirFecha($registro['hiperlipidemia_fecha_diagnostico']);
-			}
-			if(!empty($registro['epoc_fecha_diagnostico'])){
-				$registro['epoc_fecha_diagnostico'] = $this->convertirFecha($registro['epoc_fecha_diagnostico']);
-			}
-			if(!empty($registro['coronaria_fecha_diagnostico'])){
-				$registro['coronaria_fecha_diagnostico'] = $this->convertirFecha($registro['coronaria_fecha_diagnostico']);
-			}
-			if(!empty($registro['rinitis_fecha_diagnostico'])){
-				$registro['rinitis_fecha_diagnostico'] = $this->convertirFecha($registro['rinitis_fecha_diagnostico']);
-			}
-			if(!empty($registro['acc_vascular_fecha_diagnostico'])){
-				$registro['acc_vascular_fecha_diagnostico'] = $this->convertirFecha($registro['acc_vascular_fecha_diagnostico']);
-			}
-			if(!empty($registro['asma_fecha_diagnostico'])){
-				$registro['asma_fecha_diagnostico'] = $this->convertirFecha($registro['asma_fecha_diagnostico']);
-			}
-			if(!empty($registro['gastritis_fecha_diagnostico'])){
-				$registro['gastritis_fecha_diagnostico'] = $this->convertirFecha($registro['gastritis_fecha_diagnostico']);
-			}
-			if(!empty($registro['cefaleas_fecha_diagnostico'])){
-				$registro['cefaleas_fecha_diagnostico'] = $this->convertirFecha($registro['cefaleas_fecha_diagnostico']);
-			}			
+					
 
 			$registro['status'] = $estado;
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
@@ -7144,15 +7143,15 @@ class Subject extends CI_Controller {
 		$data['subject'] = $this->Model_Subject->find($subject_id);				
 		$data['etapa'] = $etapa;
 		
-		$data['dias_ea'] = array("UNK"=>"UNK");
+		$data['dias_ea'] = array(""=>"", "UNK"=>"UNK");
 		for($i = 1; $i < 32; $i++){
 			$data['dias_ea'][$i] = $i;
 		}
-		$data['meses_ea'] = array("UNK"=>"UNK");
+		$data['meses_ea'] = array(""=>"", "UNK"=>"UNK");
 		for($i = 1; $i < 13; $i++){
 			$data['meses_ea'][$i] = $i;
 		}
-		$data['anio_ea'] = array("UNK"=>"UNK");
+		$data['anio_ea'] = array(""=>"", "UNK"=>"UNK");
 		for($i = date('Y'); $i >= 1920 ; $i--){
 			$data['anio_ea'][$i] = $i;
 		}
@@ -7171,30 +7170,18 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('hipertension', '', 'xss_clean');
-		$this->form_validation->set_rules('hipertension_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('ulcera', '', 'xss_clean');
-		$this->form_validation->set_rules('ulcera_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('diabetes', '', 'xss_clean');
-		$this->form_validation->set_rules('diabetes_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('hipo_hipertiroidismo', '', 'xss_clean');
-		$this->form_validation->set_rules('hipo_hipertiroidismo_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('hiperlipidemia', '', 'xss_clean');
-		$this->form_validation->set_rules('hiperlipidemia_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('epoc', '', 'xss_clean');
-		$this->form_validation->set_rules('epoc_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('coronaria', '', 'xss_clean');
-		$this->form_validation->set_rules('coronaria_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('rinitis', '', 'xss_clean');
-		$this->form_validation->set_rules('rinitis_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('acc_vascular', '', 'xss_clean');
-		$this->form_validation->set_rules('acc_vascular_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('asma', '', 'xss_clean');
-		$this->form_validation->set_rules('asma_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('gastritis', '', 'xss_clean');
-		$this->form_validation->set_rules('gastritis_fecha_diagnostico', '', 'xss_clean');
-		$this->form_validation->set_rules('cefaleas', '', 'xss_clean');
-		$this->form_validation->set_rules('cefaleas_fecha_diagnostico', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension', '', 'xss_clean');		
+		$this->form_validation->set_rules('ulcera', '', 'xss_clean');		
+		$this->form_validation->set_rules('diabetes', '', 'xss_clean');		
+		$this->form_validation->set_rules('hipo_hipertiroidismo', '', 'xss_clean');		
+		$this->form_validation->set_rules('hiperlipidemia', '', 'xss_clean');		
+		$this->form_validation->set_rules('epoc', '', 'xss_clean');		
+		$this->form_validation->set_rules('coronaria', '', 'xss_clean');		
+		$this->form_validation->set_rules('rinitis', '', 'xss_clean');		
+		$this->form_validation->set_rules('acc_vascular', '', 'xss_clean');		
+		$this->form_validation->set_rules('asma', '', 'xss_clean');		
+		$this->form_validation->set_rules('gastritis', '', 'xss_clean');		
+		$this->form_validation->set_rules('cefaleas', '', 'xss_clean');		
 		$this->form_validation->set_rules('alergia', '', 'xss_clean');
 		$this->form_validation->set_rules('alergia_desc', '', 'xss_clean');
 		$this->form_validation->set_rules('tabaquismo', '', 'xss_clean');
@@ -7218,6 +7205,42 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('dia_ea', '', 'xss_clean');
 		$this->form_validation->set_rules('morbido', '', 'xss_clean');
 		$this->form_validation->set_rules('morbido_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('hipertension_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('ulcera_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('diabetes_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('hipo_hipertiroidismo_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('hiperlipidemia_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('epoc_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('coronaria_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('rinitis_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('acc_vascular_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('asma_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('asma_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('asma_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('gastritis_anio', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas_dia', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas_mes', '', 'xss_clean');
+		$this->form_validation->set_rules('cefaleas_anio', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de actualizar el formulario de Historia Medica", $registro['subject_id']);
@@ -7227,18 +7250,19 @@ class Subject extends CI_Controller {
 			
 			/*estado del form segun lo que se envia*/
 			if(
-					(!empty($registro['hipertension']) AND empty($registro['hipertension_fecha_diagnostico']))
-				OR	(!empty($registro['ulcera']) AND empty($registro['ulcera_fecha_diagnostico']))
-				OR	(!empty($registro['diabetes']) AND empty($registro['diabetes_fecha_diagnostico']))
-				OR	(!empty($registro['hipo_hipertiroidismo']) AND empty($registro['hipo_hipertiroidismo_fecha_diagnostico']))
-				OR	(!empty($registro['hiperlipidemia']) AND empty($registro['hiperlipidemia_fecha_diagnostico']))
-				OR	(!empty($registro['epoc']) AND empty($registro['epoc_fecha_diagnostico']))
-				OR	(!empty($registro['coronaria']) AND empty($registro['coronaria_fecha_diagnostico']))
-				OR	(!empty($registro['rinitis']) AND empty($registro['rinitis_fecha_diagnostico']))
-				OR	(!empty($registro['acc_vascular']) AND empty($registro['acc_vascular_fecha_diagnostico']))
-				OR	(!empty($registro['asma']) AND empty($registro['asma_fecha_diagnostico']))
-				OR	(!empty($registro['gastritis']) AND empty($registro['gastritis_fecha_diagnostico']))
-				OR	(!empty($registro['cefaleas']) AND empty($registro['cefaleas_fecha_diagnostico']))
+					(!empty($registro['hipertension']) AND (empty($registro['hipertension_dia']) OR empty($registro['hipertension_mes']) OR empty($registro['hipertension_anio'])) )
+				OR	(!empty($registro['ulcera']) AND (empty($registro['ulcera_dia']) OR empty($registro['ulcera_mes']) OR empty($registro['ulcera_anio'])) )
+				OR	(!empty($registro['diabetes']) AND (empty($registro['diabetes_dia']) OR empty($registro['diabetes_mes']) OR empty($registro['diabetes_anio'])) )
+				OR	(!empty($registro['hipo_hipertiroidismo']) AND (empty($registro['hipo_hipertiroidismo_dia']) OR empty($registro['hipo_hipertiroidismo_mes']) OR empty($registro['hipo_hipertiroidismo_anio'])) )
+				OR	(!empty($registro['hiperlipidemia']) AND (empty($registro['hiperlipidemia_dia']) OR empty($registro['hiperlipidemia_mes']) OR empty($registro['hiperlipidemia_anio'])) )
+				OR	(!empty($registro['epoc']) AND (empty($registro['epoc_dia']) OR empty($registro['epoc_mes']) OR empty($registro['epoc_anio'])) )
+				OR	(!empty($registro['coronaria']) AND (empty($registro['coronaria_dia']) OR empty($registro['coronaria_mes']) OR empty($registro['coronaria_anio'])) )
+				OR	(!empty($registro['rinitis']) AND (empty($registro['rinitis_dia']) OR empty($registro['rinitis_mes']) OR empty($registro['rinitis_anio'])) )
+				OR	(!empty($registro['acc_vascular']) AND (empty($registro['acc_vascular_dia']) OR empty($registro['acc_vascular_mes']) OR empty($registro['acc_vascular_anio'])) )
+				OR	(!empty($registro['asma']) AND (empty($registro['asma_dia']) OR empty($registro['asma_mes']) OR empty($registro['asma_anio'])) )
+				OR	(!empty($registro['gastritis']) AND (empty($registro['gastritis_dia']) OR empty($registro['gastritis_mes']) OR empty($registro['gastritis_anio'])) )
+				OR	(!empty($registro['cefaleas']) AND (empty($registro['cefaleas_dia']) OR empty($registro['cefaleas_mes']) OR empty($registro['cefaleas_anio'])) )
+
 				OR	(!empty($registro['alergia']) AND empty($registro['alergia_desc']))
 				OR	(!empty($registro['tabaquismo']) AND empty($registro['tabaquismo_desc']))
 				OR	(!empty($registro['ingesta_alcohol']) AND empty($registro['ingesta_alcohol_desc']))
@@ -7271,42 +7295,7 @@ class Subject extends CI_Controller {
 				$subjet_['historial_medico_1_status'] = $estado;
 			}
 			
-			if(!empty($registro['hipertension_fecha_diagnostico'])){
-				$registro['hipertension_fecha_diagnostico'] = $this->convertirFecha($registro['hipertension_fecha_diagnostico']);
-			}
-			if(!empty($registro['ulcera_fecha_diagnostico'])){
-				$registro['ulcera_fecha_diagnostico'] = $this->convertirFecha($registro['ulcera_fecha_diagnostico']);
-			}
-			if(!empty($registro['diabetes_fecha_diagnostico'])){
-				$registro['diabetes_fecha_diagnostico'] = $this->convertirFecha($registro['diabetes_fecha_diagnostico']);
-			}
-			if(!empty($registro['hipo_hipertiroidismo_fecha_diagnostico'])){
-				$registro['hipo_hipertiroidismo_fecha_diagnostico'] = $this->convertirFecha($registro['hipo_hipertiroidismo_fecha_diagnostico']);
-			}
-			if(!empty($registro['hiperlipidemia_fecha_diagnostico'])){
-				$registro['hiperlipidemia_fecha_diagnostico'] = $this->convertirFecha($registro['hiperlipidemia_fecha_diagnostico']);
-			}
-			if(!empty($registro['epoc_fecha_diagnostico'])){
-				$registro['epoc_fecha_diagnostico'] = $this->convertirFecha($registro['epoc_fecha_diagnostico']);
-			}
-			if(!empty($registro['coronaria_fecha_diagnostico'])){
-				$registro['coronaria_fecha_diagnostico'] = $this->convertirFecha($registro['coronaria_fecha_diagnostico']);
-			}
-			if(!empty($registro['rinitis_fecha_diagnostico'])){
-				$registro['rinitis_fecha_diagnostico'] = $this->convertirFecha($registro['rinitis_fecha_diagnostico']);
-			}
-			if(!empty($registro['acc_vascular_fecha_diagnostico'])){
-				$registro['acc_vascular_fecha_diagnostico'] = $this->convertirFecha($registro['acc_vascular_fecha_diagnostico']);
-			}
-			if(!empty($registro['asma_fecha_diagnostico'])){
-				$registro['asma_fecha_diagnostico'] = $this->convertirFecha($registro['asma_fecha_diagnostico']);
-			}
-			if(!empty($registro['gastritis_fecha_diagnostico'])){
-				$registro['gastritis_fecha_diagnostico'] = $this->convertirFecha($registro['gastritis_fecha_diagnostico']);
-			}
-			if(!empty($registro['cefaleas_fecha_diagnostico'])){
-				$registro['cefaleas_fecha_diagnostico'] = $this->convertirFecha($registro['cefaleas_fecha_diagnostico']);
-			}			
+			
 			
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");

@@ -19,7 +19,7 @@ class Menu extends CI_Controller {
 		$data['titulo'] = 'Menu';
 		$data['query'] = $this->Model_Menu->all();
 		$this->auditlib->save_audit("View Menu Index");
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 
 	}
 
@@ -29,7 +29,7 @@ class Menu extends CI_Controller {
 		$value = $this->input->post('buscar');
 		$data['query'] = $this->Model_Menu->allFiltered('name', $value);
 		$this->auditlib->save_audit("Search a Menu");
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function my_validation() {
@@ -40,7 +40,7 @@ class Menu extends CI_Controller {
 		$data['contenido'] = 'menu/create';
 		$data['titulo'] = 'New Menu Option';
 		$this->auditlib->save_audit("View New Menu Form");
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function insert() {
@@ -66,7 +66,7 @@ class Menu extends CI_Controller {
 		$data['titulo'] = 'Update Menu';
 		$data['registro'] = $this->Model_Menu->find($id);
 		$this->auditlib->save_audit("View edit menu form");
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function update() {
@@ -102,7 +102,7 @@ class Menu extends CI_Controller {
 		$data['query_izq'] = $perfiles[0];
 		$data['query_der'] = $perfiles[1];
 		
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 	
 	public function mp_noasig(){

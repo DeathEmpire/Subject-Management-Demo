@@ -17,7 +17,7 @@ class Perfil extends CI_Controller {
 		$data['contenido'] = 'perfil/index';
 		$data['titulo'] = 'Opciones de Roles';
 		$data['query'] = $this->Model_Perfil->all();
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function search() {
@@ -34,13 +34,13 @@ class Perfil extends CI_Controller {
 			$this->load->model("Model_Opciones_Perfil");
 			$data['opciones'] = $this->Model_Opciones_Perfil->allFiltered("role",$id_buscar);
 			
-			$this->load->view('template', $data);
+			$this->load->view('template2', $data);
 		}else{	
 			$data['contenido'] = 'perfil/index';
 			$data['titulo'] = 'Roles';
 			$value = $this->input->post('buscar');
 			$data['query'] = $this->Model_Perfil->allFiltered('name', $value);
-			$this->load->view('template', $data);
+			$this->load->view('template2', $data);
 		}
 	}
 
@@ -51,13 +51,13 @@ class Perfil extends CI_Controller {
 	public function create() {
 		$data['contenido'] = 'perfil/create';
 		$data['titulo'] = 'New Role';
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function ingresar(){
 		$data['contenido'] = 'perfil/ingresar';
 		$data['titulo'] = 'New Role';
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 	
 	public function insert() {
@@ -81,7 +81,7 @@ class Perfil extends CI_Controller {
 		$data['contenido'] = 'perfil/edit';
 		$data['titulo'] = 'Update Role';
 		$data['registro'] = $this->Model_Perfil->find($id);
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function update() {
@@ -114,7 +114,7 @@ class Perfil extends CI_Controller {
 		$this->load->model("Model_Perfil");
 		$data['perfiles'] = $this->Model_Perfil->all();
 		
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 	
 }

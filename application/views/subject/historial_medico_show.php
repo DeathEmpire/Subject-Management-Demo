@@ -5,8 +5,19 @@
 <script type="text/javascript">
 
 </script>
-
-		<legend style='text-align:center;'>Historia Medica</legend>
+<?php
+	switch($etapa){
+		case 1 : $protocolo = "(Selección)"; break;
+		case 2 : $protocolo = "(Basal Día 1)"; break;
+		case 3 : $protocolo = "(Semana 4)"; break;
+		case 4 : $protocolo = "(Semana 12)"; break;
+		case 5 : $protocolo = "(Término del Estudio)"; break;
+		case 6 : $protocolo = "(Terminación Temprana)"; break;
+		default : $protocolo = ""; break;
+	}
+?>
+		<legend style='text-align:center;'>Historia Medica <?= $protocolo;?></legend>
+		
 		<b>Sujeto Actual:</b>
 		<table class="table table-condensed table-bordered">
 			<thead>
@@ -55,7 +66,11 @@
 					<?= form_radio('hipertension',1,set_radio('hipertension', 1,(($list[0]->hipertension == 1) ? true : false) ));?> SI
 					<?= form_radio('hipertension',0,set_radio('hipertension', 0,(($list[0]->hipertension == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'hipertension_fecha_diagnostico', 'id'=>'hipertension_fecha_diagnostico', 'value'=>set_value('hipertension_fecha_diagnostico', ((!empty($list[0]->hipertension_fecha_diagnostico) AND $list[0]->hipertension_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->hipertension_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('hipertension_dia', $dias_ea, set_value('hipertension_dia', $list[0]->hipertension_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('hipertension_mes', $meses_ea, set_value('hipertension_mes', $list[0]->hipertension_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('hipertension_anio', $anio_ea, set_value('hipertension_anio', $list[0]->hipertension_anio), array('class'=>'input-small')); ?>	
+				</td>
 			</tr>
 			<tr>
 				<td>Úlcera gastrointestinal: </td>
@@ -63,7 +78,11 @@
 					<?= form_radio('ulcera',1,set_radio('ulcera', 1,(($list[0]->ulcera == 1) ? true : false)));?> SI
 					<?= form_radio('ulcera',0,set_radio('ulcera', 0,(($list[0]->ulcera == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'ulcera_fecha_diagnostico', 'id'=>'ulcera_fecha_diagnostico', 'value'=>set_value('ulcera_fecha_diagnostico', ((!empty($list[0]->ulcera_fecha_diagnostico) AND $list[0]->ulcera_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->ulcera_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('ulcera_dia', $dias_ea, set_value('ulcera_dia', $list[0]->ulcera_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('ulcera_mes', $meses_ea, set_value('ulcera_mes', $list[0]->ulcera_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('ulcera_anio', $anio_ea, set_value('ulcera_anio', $list[0]->ulcera_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Diabetes mellitus: </td>
@@ -71,7 +90,11 @@
 					<?= form_radio('diabetes',1,set_radio('diabetes', 1,(($list[0]->diabetes == 1) ? true : false)));?> SI
 					<?= form_radio('diabetes',0,set_radio('diabetes', 0,(($list[0]->diabetes == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'diabetes_fecha_diagnostico', 'id'=>'diabetes_fecha_diagnostico', 'value'=>set_value('diabetes_fecha_diagnostico', ((!empty($list[0]->diabetes_fecha_diagnostico) AND $list[0]->diabetes_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->diabetes_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('diabetes_dia', $dias_ea, set_value('diabetes_dia', $list[0]->diabetes_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('diabetes_mes', $meses_ea, set_value('diabetes_mes', $list[0]->diabetes_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('diabetes_anio', $anio_ea, set_value('diabetes_anio', $list[0]->diabetes_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Hipo/Hipertiroidismo: </td>
@@ -79,7 +102,11 @@
 					<?= form_radio('hipo_hipertiroidismo',1,set_radio('hipo_hipertiroidismo', 1,(($list[0]->hipo_hipertiroidismo == 1) ? true : false)));?> SI
 					<?= form_radio('hipo_hipertiroidismo',0,set_radio('hipo_hipertiroidismo', 0,(($list[0]->hipo_hipertiroidismo == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'hipo_hipertiroidismo_fecha_diagnostico', 'id'=>'hipo_hipertiroidismo_fecha_diagnostico', 'value'=>set_value('hipo_hipertiroidismo_fecha_diagnostico', ((!empty($list[0]->hipo_hipertiroidismo_fecha_diagnostico) AND $list[0]->hipo_hipertiroidismo_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->hipo_hipertiroidismo_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('hipo_hipertiroidismo_dia', $dias_ea, set_value('hipo_hipertiroidismo_dia', $list[0]->hipo_hipertiroidismo_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('hipo_hipertiroidismo_mes', $meses_ea, set_value('hipo_hipertiroidismo_mes', $list[0]->hipo_hipertiroidismo_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('hipo_hipertiroidismo_anio', $anio_ea, set_value('hipo_hipertiroidismo_anio', $list[0]->hipo_hipertiroidismo_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Hiperlipidemia:</td>
@@ -87,7 +114,11 @@
 					<?= form_radio('hiperlipidemia',1,set_radio('hiperlipidemia', 1,(($list[0]->hiperlipidemia == 1) ? true : false)));?> SI
 					<?= form_radio('hiperlipidemia',0,set_radio('hiperlipidemia', 0,(($list[0]->hiperlipidemia == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'hiperlipidemia_fecha_diagnostico', 'id'=>'hiperlipidemia_fecha_diagnostico', 'value'=>set_value('hiperlipidemia_fecha_diagnostico', ((!empty($list[0]->hiperlipidemia_fecha_diagnostico) AND $list[0]->hiperlipidemia_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->hiperlipidemia_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('hiperlipidemia_dia', $dias_ea, set_value('hiperlipidemia_dia', $list[0]->hiperlipidemia_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('hiperlipidemia_mes', $meses_ea, set_value('hiperlipidemia_mes', $list[0]->hiperlipidemia_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('hiperlipidemia_anio', $anio_ea, set_value('hiperlipidemia_anio', $list[0]->hiperlipidemia_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>EPOC</td>
@@ -95,7 +126,11 @@
 					<?= form_radio('epoc',1,set_radio('epoc', 1,(($list[0]->epoc == 1) ? true : false)));?> SI
 					<?= form_radio('epoc',0,set_radio('epoc', 0,(($list[0]->epoc == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'epoc_fecha_diagnostico', 'id'=>'epoc_fecha_diagnostico', 'value'=>set_value('epoc_fecha_diagnostico', ((!empty($list[0]->epoc_fecha_diagnostico) AND $list[0]->epoc_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->epoc_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('epoc_dia', $dias_ea, set_value('epoc_dia', $list[0]->epoc_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('epoc_mes', $meses_ea, set_value('epoc_mes', $list[0]->epoc_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('epoc_anio', $anio_ea, set_value('epoc_anio', $list[0]->epoc_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Enfermedad coronaria:</td>
@@ -103,7 +138,11 @@
 					<?= form_radio('coronaria',1,set_radio('coronaria', 1,(($list[0]->coronaria == 1) ? true : false)));?> SI
 					<?= form_radio('coronaria',0,set_radio('coronaria', 0,(($list[0]->coronaria == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'coronaria_fecha_diagnostico', 'id'=>'coronaria_fecha_diagnostico', 'value'=>set_value('coronaria_fecha_diagnostico', ((!empty($list[0]->coronaria_fecha_diagnostico) AND $list[0]->coronaria_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->coronaria_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('coronaria_dia', $dias_ea, set_value('coronaria_dia', $list[0]->coronaria_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('coronaria_mes', $meses_ea, set_value('coronaria_mes', $list[0]->coronaria_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('coronaria_anio', $anio_ea, set_value('coronaria_anio', $list[0]->coronaria_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Rinitis:</td>
@@ -111,7 +150,11 @@
 					<?= form_radio('rinitis',1,set_radio('rinitis', 1,(($list[0]->rinitis == 1) ? true : false)));?> SI
 					<?= form_radio('rinitis',0,set_radio('rinitis', 0,(($list[0]->rinitis == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'rinitis_fecha_diagnostico', 'id'=>'rinitis_fecha_diagnostico', 'value'=>set_value('rinitis_fecha_diagnostico', ((!empty($list[0]->rinitis_fecha_diagnostico) AND $list[0]->rinitis_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->rinitis_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('rinitis_dia', $dias_ea, set_value('rinitis_dia', $list[0]->rinitis_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('rinitis_mes', $meses_ea, set_value('rinitis_mes', $list[0]->rinitis_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('rinitis_anio', $anio_ea, set_value('rinitis_anio', $list[0]->rinitis_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Accidente vascular encefálico:</td>
@@ -119,7 +162,11 @@
 					<?= form_radio('acc_vascular',1,set_radio('acc_vascular', 1,(($list[0]->acc_vascular == 1) ? true : false)));?> SI
 					<?= form_radio('acc_vascular',0,set_radio('acc_vascular', 0,(($list[0]->acc_vascular == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'acc_vascular_fecha_diagnostico', 'id'=>'acc_vascular_fecha_diagnostico', 'value'=>set_value('acc_vascular_fecha_diagnostico', ((!empty($list[0]->acc_vascular_fecha_diagnostico) AND $list[0]->acc_vascular_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->acc_vascular_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('acc_vascular_dia', $dias_ea, set_value('acc_vascular_dia', $list[0]->acc_vascular_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('acc_vascular_mes', $meses_ea, set_value('acc_vascular_mes', $list[0]->acc_vascular_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('acc_vascular_anio', $anio_ea, set_value('acc_vascular_anio', $list[0]->acc_vascular_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Asma:</td>
@@ -127,7 +174,11 @@
 					<?= form_radio('asma',1,set_radio('asma', 1,(($list[0]->asma == 1) ? true : false)));?> SI
 					<?= form_radio('asma',0,set_radio('asma', 0,(($list[0]->asma == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'asma_fecha_diagnostico', 'id'=>'asma_fecha_diagnostico', 'value'=>set_value('asma_fecha_diagnostico', ((!empty($list[0]->asma_fecha_diagnostico) AND $list[0]->asma_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->asma_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('asma_dia', $dias_ea, set_value('asma_dia', $list[0]->asma_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('asma_mes', $meses_ea, set_value('asma_mes', $list[0]->asma_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('asma_anio', $anio_ea, set_value('asma_anio', $list[0]->asma_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Gastritis/Reflujo GE:</td>
@@ -135,7 +186,11 @@
 					<?= form_radio('gastritis',1,set_radio('gastritis', 1,(($list[0]->gastritis == 1) ? true : false)));?> SI
 					<?= form_radio('gastritis',0,set_radio('gastritis', 0,(($list[0]->gastritis == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'gastritis_fecha_diagnostico', 'id'=>'gastritis_fecha_diagnostico', 'value'=>set_value('gastritis_fecha_diagnostico', ((!empty($list[0]->gastritis_fecha_diagnostico) AND $list[0]->gastritis_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->gastritis_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('gastritis_dia', $dias_ea, set_value('gastritis_dia', $list[0]->gastritis_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('gastritis_mes', $meses_ea, set_value('gastritis_mes', $list[0]->gastritis_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('gastritis_anio', $anio_ea, set_value('gastritis_anio', $list[0]->gastritis_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td>Cefaleas matinales:</td>
@@ -143,7 +198,11 @@
 					<?= form_radio('cefaleas',1,set_radio('cefaleas', 1,(($list[0]->cefaleas == 1) ? true : false)));?> SI
 					<?= form_radio('cefaleas',0,set_radio('cefaleas', 0,(($list[0]->cefaleas == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text', 'name'=>'cefaleas_fecha_diagnostico', 'id'=>'cefaleas_fecha_diagnostico', 'value'=>set_value('cefaleas_fecha_diagnostico', ((!empty($list[0]->cefaleas_fecha_diagnostico) AND $list[0]->cefaleas_fecha_diagnostico != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->cefaleas_fecha_diagnostico)) : "")))); ?></td>
+				<td>
+					<?= form_dropdown('cefaleas_dia', $dias_ea, set_value('cefaleas_dia', $list[0]->cefaleas_dia), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('cefaleas_mes', $meses_ea, set_value('cefaleas_mes', $list[0]->cefaleas_mes), array('class'=>'input-small')); ?> / 
+					<?= form_dropdown('cefaleas_anio', $anio_ea, set_value('cefaleas_anio', $list[0]->cefaleas_anio), array('class'=>'input-small')); ?>
+				</td>
 			</tr>
 			<tr>
 				<td style='background-color:#ccc;'></td>

@@ -1,27 +1,7 @@
-<div class="row">
-    <?= form_open('center/update', array('class'=>'form-horizontal')); ?>
-        <legend> Editar Centro </legend>
-
-        <?= my_validation_errors(validation_errors()); ?>
-        <div class="control-group">
-            <?= form_label('ID', 'id', array('class'=>'control-label')); ?>
-            <span class="uneditable-input"> <?= $registro->id; ?> </span>
-            <?= form_hidden('id', $registro->id); ?>
-        </div>
-
-        <div class="control-group">
-            <?= form_label('Nombre', 'name', array('class'=>'control-label')); ?>
-            <?= form_input(array('type'=>'text', 'name'=>'name', 'id'=>'name', 'value'=>$registro->name)); ?>
-        </div>         
-
-        <div class="form-actions">
-            <?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>
-            <?= anchor('center/index', 'Cancelar', array('class'=>'btn')); ?>
-            <?= anchor('center/delete/'.$registro->id, 'Borrar', array('class'=>'btn btn-warning', 'onClick'=>"return confirm('Esta seguro?')")); ?>
-        </div>
-    <?= form_close(); ?>
+<div class="row">    
 
     <?= form_open('center/update', array('class'=>'form-horizontal')); ?>
+    <?= form_hidden('id', $registro->id); ?>
         <legend> Actualizar Centro </legend>
 
         <?= my_validation_errors(validation_errors()); ?>
@@ -60,7 +40,7 @@
         </div>
         <div class="control-group">
             <?= form_label('Codigo Pais Contacto: ', 'contacto_codigo__pais', array('class'=>'control-label')); ?>
-            <?= form_input(array('type'=>'number', 'name'=>'contacto_codigo__pais', 'id'=>'contacto_codigo__pais', 'value'=>set_value('contacto_codigo_pais', $registro->contacto_codigo_pais), 'class'=>'form-control')); ?>
+            <?= form_input(array('type'=>'number', 'name'=>'contacto_codigo_pais', 'id'=>'contacto_codigo_pais', 'value'=>set_value('contacto_codigo_pais', $registro->contacto_codigo_pais), 'class'=>'form-control')); ?>
         </div>
         <div class="control-group">
             <?= form_label('Telefono Contacto: ', 'contacto_fono', array('class'=>'control-label')); ?>
@@ -108,9 +88,7 @@
                 Razon: <?= form_textarea(array('name'=>'disabled_reason', 'id'=>'disabled_reason', 'value'=>set_value('disabled_reason', $registro->disabled_reason), 'rows'=>'4','cols'=>'40')); ?>
             </p>                                      
         </div>
-        <div class="control-group">
-            El centro participara en el estudio (Nombre del Estudio)            
-        </div>
+        
 
         <div class="form-actions">
             <?= form_button(array('type'=>'submit', 'content'=>'Actualizar', 'class'=>'btn btn-primary')); ?>

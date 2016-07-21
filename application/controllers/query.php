@@ -320,4 +320,136 @@ class Query extends CI_Controller {
 		}
 
 	}
+
+	public function query(){
+		$p = $this->input->post();
+
+		if($p['tipo'] == 'new'){
+			
+			//mostramos el formulario para el query
+
+			$tabla = "<form action='". base_url('query/add') ."' method='post'>
+						<input type='hidden' name='SubjectManagement' value='". $this->security->get_csrf_hash() ."'>
+						<input type='hidden' name='campo' value='". $p['campo'] ."'>
+						<input type='hidden' name='form' value='". $p['form'] ."'>
+						<input type='hidden' name='etapa' value='". $p['etapa'] ."'>
+						<input type='hidden' name='subject_id' value='". $p['subject_id'] ."'>						
+							<table class='table table-striped table-bordered table-hover'>
+								<tr>
+									<td>Agregar query:</td>
+									<td><textarea name='question'></textarea></td>
+								</tr>
+								<tr>
+									<td colspan='2' style='text-align:center;'>
+										<input type='submit' content='Guardar' class='btn btn-primary'>
+									</td>
+								</tr>
+							</table>
+					</form>";
+			echo $tabla;
+
+		}
+		elseif($p['tipo'] == 'old'){
+			//buscamos el query de ese campo especifico y lo mostramos
+			$antiguo = $this->Model_Query->allWhere(array("subject_id"=>$p['subject_id'], "form"=>$p['form'], "etapa"=>$p['etapa'], "campo"=>$p['campo'], "status"=>'Abierto'));
+
+
+			$tabla = "<form action='". base_url('query/update') ."' method='post'>
+						<input type='hidden' name='SubjectManagement' value='". $this->security->get_csrf_hash() ."'>
+						<input type='hidden' name='campo' value='". $p['campo'] ."'>
+						<input type='hidden' name='form' value='". $p['form'] ."'>
+						<input type='hidden' name='etapa' value='". $p['etapa'] ."'>
+						<input type='hidden' name='subject_id' value='". $p['subject_id'] ."'>
+						<input type='hidden' name='id' value='". $antiguo[0]->id ."'>
+							<table class='table table-striped table-bordered table-hover'>
+								<tr>
+									<td>Query: </td>
+									<td>". $antiguo[0]->question ."</td>
+								</tr>
+								<tr>
+									<td>Iniciada por: </td>
+									<td>". $antiguo[0]->question_user ."</td>
+								</tr>
+								<tr>
+									<td>Fecha: </td>
+									<td>". date("d/m/Y H:i", strtotime($antiguo[0]->created)) ."</td>
+								</tr>
+								<tr>
+									<td>Actualizar a: </td>
+									<td>
+										<select name='cerrar'>
+											<option value='Cerrar'>Cerrar</option>
+											<option value='Mantener'>Mantener</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td>Reponder query:</td>
+									<td><textarea name='question'></textarea></td>
+								</tr>
+								<tr>
+									<td colspan='2' style='text-align:center;'>
+										<input type='submit' content='Guardar' class='btn btn-primary'>
+									</td>
+								</tr>
+							</table>
+					</form>";
+			echo $tabla;
+		}
+	}
+
+	public function add(){
+		$registro = $this->input->post();
+		
+		$registro['question_user'] = $this->session->userdata('usuario');
+		$registro['created'] = date("Y-m-d H:i:s");
+		$registro['status'] = 'Abierto';
+
+		//agregamos el query
+		$this->Model_Query->insert($registro);
+
+		//actualizamos el estado del formulario
+		if($registro['form'] == 'muestra_de_sangre'){			
+			
+			$subject['muestra_de_sangre_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+
+		redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+	}
+
+	public function update(){
+		$registro = $this->input->post();
+
+		$registro['answer_user'] = $this->session->userdata('usuario');
+		$registro['answer_date'] = date("Y-m-d H:i:s");
+		
+
+
+		if($registro['cerrar'] == 'Cerrar'){
+			$registro['status'] = 'cerrado';
+
+			//actualizamos el estado del formulario
+			if($registro['form'] == 'muestra_de_sangre'){			
+
+				//buscamos que el form no tenga mas query				
+				$no_tiene = 0;
+				
+				if($no_tiene == 0){
+					$subject['muestra_de_sangre_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+		}		
+
+		unset($registro['cerrar']);
+
+		//actualizamos el query
+		$this->Model_Query->update($registro);
+		
+		
+		redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['etapa']);	
+	}
 }

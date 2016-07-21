@@ -85,10 +85,7 @@
                 Fecha: <?= form_input(array('type'=>'text', 'name'=>'last_disabled', 'id'=>'last_disabled', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('last_disabled')));?></td><br />
                 Razon: <?= form_textarea(array('name'=>'disabled_reason', 'id'=>'disabled_reason', 'value'=>set_value('disabled_reason'), 'rows'=>'4','cols'=>'40')); ?>
             </p>                                      
-        </div>
-        <div class="control-group">
-            El centro participara en el estudio (Nombre del Estudio)            
-        </div>
+        </div>        
 
         <div class="form-actions">
             <?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>

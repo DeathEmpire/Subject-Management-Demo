@@ -16,17 +16,17 @@ class Usuario extends CI_Controller {
 
 	public function index() {
 		$data['contenido'] = 'usuario/index';
-		$data['titulo'] = 'Users';
+		$data['titulo'] = 'Usuarios';
 		$data['query'] = $this->Model_Usuario->all();
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function search() {
 		$data['contenido'] = 'usuario/index';
-		$data['titulo'] = 'Users';
+		$data['titulo'] = 'Usuarios';
 		$value = $this->input->post('buscar');
 		$data['query'] = $this->Model_Usuario->allFiltered('usuario.name', $value);
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function my_validation() {
@@ -35,7 +35,7 @@ class Usuario extends CI_Controller {
 
 	public function create() {
 		$data['contenido'] = 'usuario/create';
-		$data['titulo'] = 'New User';
+		$data['titulo'] = 'Nuevo Usuario';
 		$data['perfiles'] = $this->Model_Usuario->get_perfiles(); /* Lista de los Perfiles */
 
 		$this->load->Model("Model_Center");
@@ -111,7 +111,7 @@ class Usuario extends CI_Controller {
 		$this->load->model('Model_Center');
 		$data['centers'] = $this->Model_Center->all();
 
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function update() {

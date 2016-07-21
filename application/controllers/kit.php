@@ -101,7 +101,7 @@ class Kit extends CI_Controller {
 		$this->load->Model("Model_Center");
 		$data['centers'] = $this->Model_Center->all();
 
-		$this->auditlib->save_audit("Assign kits to a center");
+		$this->auditlib->save_audit("Se asignaron kits al centro");
 
 		$this->load->view('template', $data);
 	}

@@ -19,7 +19,7 @@ class Center extends CI_Controller {
 		
 		$this->auditlib->save_audit("Vio lista de centros");
 
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 
 
     }
@@ -30,14 +30,14 @@ class Center extends CI_Controller {
 		$value = $this->input->post('buscar');
 		$data['query'] = $this->Model_Center->allFiltered('center.id', $value);
 		$this->auditlib->save_audit("Busco un centro");
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}   
 
 	public function create() {
 		$data['contenido'] = 'center/create';
 		$data['titulo'] = 'Nuevo Centro';
 		$this->auditlib->save_audit("Ingreso al formulario para agregar un centro");		
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function insert() {
@@ -97,13 +97,41 @@ class Center extends CI_Controller {
 		$data['registro'] = $this->Model_Center->find($id);
 		#centros
 		$this->auditlib->save_audit("Entro a el formulario para editar centros");
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function update() {
 		$registro = $this->input->post();
 
+		
+		/*Validacion Datos Centro*/
+		$this->form_validation->set_rules('id', 'ID', 'required|xss_clean');
 		$this->form_validation->set_rules('name', 'Nombre del Centro', 'required|xss_clean');
+		$this->form_validation->set_rules('direccion', 'Direccion', 'required|xss_clean');
+		$this->form_validation->set_rules('ciudad_localidad', 'Ciudad', 'required|xss_clean');
+		$this->form_validation->set_rules('estado_provincia', 'Estado', 'required|xss_clean');
+		$this->form_validation->set_rules('zip_postal', 'Zip', 'xss_clean');
+		$this->form_validation->set_rules('pais', 'Pais', 'required|xss_clean');
+
+		/*Validacion Contacto*/
+		$this->form_validation->set_rules('contacto_nombre', 'Nombre del Contacto', 'xss_clean');
+		$this->form_validation->set_rules('contacto_codigo__pais', 'Codigo Pais', 'xss_clean');
+		$this->form_validation->set_rules('contacto_fono', 'Telefono', 'xss_clean');
+		$this->form_validation->set_rules('contacto_fax', 'Fax', 'xss_clean');
+		$this->form_validation->set_rules('contacto_email', 'Email', 'xss_clean');
+
+		/*Validacion Adicionales*/
+		$this->form_validation->set_rules('type', 'Tipo', 'xss_clean');
+		$this->form_validation->set_rules('disabled', 'Deshabilitado', 'xss_clean');
+
+		if(isset($registro['disabled']) AND $registro['disabled'] == '1'){			
+			$this->form_validation->set_rules('last_disabled', 'Fecha', 'required|xss_clean');
+			$this->form_validation->set_rules('disabled_reason', 'Rason', 'required|xss_clean');
+		}
+		else{			
+			$this->form_validation->set_rules('last_disabled', 'Fecha', 'xss_clean');	
+			$this->form_validation->set_rules('disabled_reason', 'Rason', 'xss_clean');
+		}
 		if($this->form_validation->run() == FALSE) {
 			$this->edit($registro['id']);
 		}
