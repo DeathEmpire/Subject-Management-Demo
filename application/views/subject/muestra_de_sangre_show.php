@@ -136,18 +136,24 @@ $(function(){
 			<td>
 				<?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
 				<?php
-					if(isset($_SESSION['role_options']['subject']) 
-						AND 
-						strpos($_SESSION['role_options']['subject'], 'muestra_de_sangre_verify')
-						AND
-						$list[0]->status == 'Record Complete')
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{
 						
 						if(!in_array("fecha", $campos_query)) 
 						{
-							echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";
+							if(strpos($_SESSION['role_options']['subject'], 'muestra_de_sangre_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
 						}else{
-							echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							if(strpos($_SESSION['role_options']['subject'], 'muestra_de_sangre_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
 						}						
 						
 					}
@@ -171,44 +177,7 @@ $(function(){
 <?php }?>
 
 <!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Muestra de Sangre', 'Responder',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
 
-			</tbody>
-		</table>
-
-<?php } ?>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>

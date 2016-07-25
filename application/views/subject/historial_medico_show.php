@@ -3,7 +3,32 @@
 	#ui-datepicker-div { display: none; }
 </style>
 <script type="text/javascript">
+$(function(){
+	$("#query_para_campos").dialog({
+			autoOpen: false,
+			height: 340,
+			width: 550
+		});
 
+		$(".query").click(function(){
+			var campo = $(this).attr('id').split("_query");
+			$.post("<?php echo base_url('query/query'); ?>",
+				{
+					'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+					"campo": campo[0], 
+					"etapa": "<?php echo $etapa;?>",
+					"subject_id": $("input[name=subject_id]").val(),
+					"form": "historial_medico",
+					"tipo": $(this).attr('tipo')
+				},
+				function(d){
+					
+					$("#query_para_campos").html(d);
+					$("#query_para_campos").dialog('open');
+				}
+			);
+		});
+	});
 </script>
 <?php
 	switch($etapa){
@@ -16,6 +41,7 @@
 		default : $protocolo = ""; break;
 	}
 ?>
+	<div id='query_para_campos' style='display:none;'></div>
 		<legend style='text-align:center;'>Historia Medica <?= $protocolo;?></legend>
 		
 		<b>Sujeto Actual:</b>
@@ -70,6 +96,32 @@
 					<?= form_dropdown('hipertension_dia', $dias_ea, set_value('hipertension_dia', $list[0]->hipertension_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('hipertension_mes', $meses_ea, set_value('hipertension_mes', $list[0]->hipertension_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('hipertension_anio', $anio_ea, set_value('hipertension_anio', $list[0]->hipertension_anio), array('class'=>'input-small')); ?>	
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("hipertension", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='hipertension_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='hipertension_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -82,6 +134,32 @@
 					<?= form_dropdown('ulcera_dia', $dias_ea, set_value('ulcera_dia', $list[0]->ulcera_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('ulcera_mes', $meses_ea, set_value('ulcera_mes', $list[0]->ulcera_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('ulcera_anio', $anio_ea, set_value('ulcera_anio', $list[0]->ulcera_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("ulcera", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='ulcera_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='ulcera_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -94,6 +172,32 @@
 					<?= form_dropdown('diabetes_dia', $dias_ea, set_value('diabetes_dia', $list[0]->diabetes_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('diabetes_mes', $meses_ea, set_value('diabetes_mes', $list[0]->diabetes_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('diabetes_anio', $anio_ea, set_value('diabetes_anio', $list[0]->diabetes_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("diabetes", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='diabetes_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='diabetes_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -106,6 +210,32 @@
 					<?= form_dropdown('hipo_hipertiroidismo_dia', $dias_ea, set_value('hipo_hipertiroidismo_dia', $list[0]->hipo_hipertiroidismo_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('hipo_hipertiroidismo_mes', $meses_ea, set_value('hipo_hipertiroidismo_mes', $list[0]->hipo_hipertiroidismo_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('hipo_hipertiroidismo_anio', $anio_ea, set_value('hipo_hipertiroidismo_anio', $list[0]->hipo_hipertiroidismo_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("hipo_hipertiroidismo", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='hipo_hipertiroidismo_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='hipo_hipertiroidismo_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -118,6 +248,32 @@
 					<?= form_dropdown('hiperlipidemia_dia', $dias_ea, set_value('hiperlipidemia_dia', $list[0]->hiperlipidemia_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('hiperlipidemia_mes', $meses_ea, set_value('hiperlipidemia_mes', $list[0]->hiperlipidemia_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('hiperlipidemia_anio', $anio_ea, set_value('hiperlipidemia_anio', $list[0]->hiperlipidemia_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("hiperlipidemia", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='hiperlipidemia_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='hiperlipidemia_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -130,6 +286,32 @@
 					<?= form_dropdown('epoc_dia', $dias_ea, set_value('epoc_dia', $list[0]->epoc_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('epoc_mes', $meses_ea, set_value('epoc_mes', $list[0]->epoc_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('epoc_anio', $anio_ea, set_value('epoc_anio', $list[0]->epoc_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("epoc", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='epoc_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='epoc_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -142,6 +324,32 @@
 					<?= form_dropdown('coronaria_dia', $dias_ea, set_value('coronaria_dia', $list[0]->coronaria_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('coronaria_mes', $meses_ea, set_value('coronaria_mes', $list[0]->coronaria_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('coronaria_anio', $anio_ea, set_value('coronaria_anio', $list[0]->coronaria_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("coronaria", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='coronaria_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='coronaria_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -154,6 +362,32 @@
 					<?= form_dropdown('rinitis_dia', $dias_ea, set_value('rinitis_dia', $list[0]->rinitis_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('rinitis_mes', $meses_ea, set_value('rinitis_mes', $list[0]->rinitis_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('rinitis_anio', $anio_ea, set_value('rinitis_anio', $list[0]->rinitis_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("rinitis", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='rinitis_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='rinitis_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -166,6 +400,32 @@
 					<?= form_dropdown('acc_vascular_dia', $dias_ea, set_value('acc_vascular_dia', $list[0]->acc_vascular_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('acc_vascular_mes', $meses_ea, set_value('acc_vascular_mes', $list[0]->acc_vascular_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('acc_vascular_anio', $anio_ea, set_value('acc_vascular_anio', $list[0]->acc_vascular_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("acc_vascular", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='acc_vascular_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='acc_vascular_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -178,6 +438,32 @@
 					<?= form_dropdown('asma_dia', $dias_ea, set_value('asma_dia', $list[0]->asma_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('asma_mes', $meses_ea, set_value('asma_mes', $list[0]->asma_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('asma_anio', $anio_ea, set_value('asma_anio', $list[0]->asma_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("asma", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='asma_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='asma_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -190,6 +476,32 @@
 					<?= form_dropdown('gastritis_dia', $dias_ea, set_value('gastritis_dia', $list[0]->gastritis_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('gastritis_mes', $meses_ea, set_value('gastritis_mes', $list[0]->gastritis_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('gastritis_anio', $anio_ea, set_value('gastritis_anio', $list[0]->gastritis_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("gastritis", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='gastritis_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='gastritis_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -202,6 +514,32 @@
 					<?= form_dropdown('cefaleas_dia', $dias_ea, set_value('cefaleas_dia', $list[0]->cefaleas_dia), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('cefaleas_mes', $meses_ea, set_value('cefaleas_mes', $list[0]->cefaleas_mes), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('cefaleas_anio', $anio_ea, set_value('cefaleas_anio', $list[0]->cefaleas_anio), array('class'=>'input-small')); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("cefaleas", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='cefaleas_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='cefaleas_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -215,7 +553,33 @@
 					<?= form_radio('alergia',1,set_radio('alergia', 1,(($list[0]->alergia == 1) ? true : false)));?> SI
 					<?= form_radio('alergia',0,set_radio('alergia', 0,(($list[0]->alergia == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'alergia_desc', 'id'=>'alergia_desc', 'value'=>set_value('alergia_desc', $list[0]->alergia_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'alergia_desc', 'id'=>'alergia_desc', 'value'=>set_value('alergia_desc', $list[0]->alergia_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("alergia", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='alergia_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='alergia_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?></td>
 			</tr>
 			<tr>
 				<td>Tabaquismo (cantidad):</td>
@@ -223,7 +587,33 @@
 					<?= form_radio('tabaquismo',1,set_radio('tabaquismo', 1,(($list[0]->tabaquismo == 1) ? true : false)));?> SI
 					<?= form_radio('tabaquismo',0,set_radio('tabaquismo', 0,(($list[0]->tabaquismo == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'tabaquismo_desc', 'id'=>'tabaquismo_desc', 'value'=>set_value('tabaquismo_desc', $list[0]->tabaquismo_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'tabaquismo_desc', 'id'=>'tabaquismo_desc', 'value'=>set_value('tabaquismo_desc', $list[0]->tabaquismo_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("tabaquismo", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='tabaquismo_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='tabaquismo_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?></td>
 			</tr>
 			<tr>
 				<td>Ingesta de Alcohol:</td>
@@ -231,7 +621,34 @@
 					<?= form_radio('ingesta_alcohol',1,set_radio('ingesta_alcohol', 1,(($list[0]->ingesta_alcohol == 1) ? true : false)));?> SI
 					<?= form_radio('ingesta_alcohol',0,set_radio('ingesta_alcohol', 0,(($list[0]->ingesta_alcohol == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'ingesta_alcohol_desc', 'id'=>'ingesta_alcohol_desc', 'value'=>set_value('ingesta_alcohol_desc', $list[0]->ingesta_alcohol_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'ingesta_alcohol_desc', 'id'=>'ingesta_alcohol_desc', 'value'=>set_value('ingesta_alcohol_desc', $list[0]->ingesta_alcohol_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("ingesta_alcohol", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='ingesta_alcohol_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='ingesta_alcohol_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<td>Consumo de Drogas de abuso:</td>
@@ -239,7 +656,34 @@
 					<?= form_radio('drogas',1,set_radio('drogas', 1,(($list[0]->drogas == 1) ? true : false)));?> SI
 					<?= form_radio('drogas',0,set_radio('drogas', 0,(($list[0]->drogas == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'drogas_desc', 'id'=>'drogas_desc', 'value'=>set_value('drogas_desc', $list[0]->drogas_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'drogas_desc', 'id'=>'drogas_desc', 'value'=>set_value('drogas_desc', $list[0]->drogas_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("drogas", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='drogas_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='drogas_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<td>¿Ha tenido alguna intervención quirúrgica y/o cirugía?</td>
@@ -247,7 +691,34 @@
 					<?= form_radio('cirugia',1,set_radio('cirugia', 1,(($list[0]->cirugia == 1) ? true : false)));?> SI
 					<?= form_radio('cirugia',0,set_radio('cirugia', 0,(($list[0]->cirugia == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'cirugia_desc', 'id'=>'cirugia_desc', 'value'=>set_value('cirugia_desc', $list[0]->cirugia_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'cirugia_desc', 'id'=>'cirugia_desc', 'value'=>set_value('cirugia_desc', $list[0]->cirugia_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("cirugia", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='cirugia_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='cirugia_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<td>¿Ha donado sangre o ha participado en algún estudio clínico farmacológico en los últimos tres meses?</td>
@@ -255,7 +726,34 @@
 					<?= form_radio('donado_sangre',1,set_radio('donado_sangre', 1,(($list[0]->donado_sangre == 1) ? true : false)));?> SI
 					<?= form_radio('donado_sangre',0,set_radio('donado_sangre', 0,(($list[0]->donado_sangre == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'donado_sangre_desc', 'id'=>'donado_sangre_desc', 'value'=>set_value('donado_sangre_desc', $list[0]->donado_sangre_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'donado_sangre_desc', 'id'=>'donado_sangre_desc', 'value'=>set_value('donado_sangre_desc', $list[0]->donado_sangre_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("donado_sangre", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='donado_sangre_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='donado_sangre_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<td>¿Está recibiendo o ha recibido en el último mes, algún tratamiento farmacológico?</td>
@@ -263,7 +761,34 @@
 					<?= form_radio('tratamiento_farma',1,set_radio('tratamiento_farma', 1,(($list[0]->tratamiento_farma == 1) ? true : false)));?> SI
 					<?= form_radio('tratamiento_farma',0,set_radio('tratamiento_farma', 0,(($list[0]->tratamiento_farma == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'tratamiento_farma_desc', 'id'=>'tratamiento_farma_desc', 'value'=>set_value('tratamiento_farma_desc', $list[0]->tratamiento_farma_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'tratamiento_farma_desc', 'id'=>'tratamiento_farma_desc', 'value'=>set_value('tratamiento_farma_desc', $list[0]->tratamiento_farma_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("tratamiento_farma", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='tratamiento_farma_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='tratamiento_farma_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<td>¿Está recibiendo o ha recibido en el último mes, algún suplemento dietético o vitamínico?</td>
@@ -271,7 +796,34 @@
 					<?= form_radio('suplemento_dietetico',1,set_radio('suplemento_dietetico', 1,(($list[0]->suplemento_dietetico == 1) ? true : false)));?> SI
 					<?= form_radio('suplemento_dietetico',0,set_radio('suplemento_dietetico', 0,(($list[0]->suplemento_dietetico == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'suplemento_dietetico_desc', 'id'=>'suplemento_dietetico_desc', 'value'=>set_value('suplemento_dietetico_desc', $list[0]->suplemento_dietetico_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'suplemento_dietetico_desc', 'id'=>'suplemento_dietetico_desc', 'value'=>set_value('suplemento_dietetico_desc', $list[0]->suplemento_dietetico_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("suplemento_dietetico", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='suplemento_dietetico_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='suplemento_dietetico_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
 			</tr>		
 			<tr>
 				<td>2.- ANTECEDENTES FAMILIARES DE ALZHEIMER (padre, madre, hermanos): </td>
@@ -279,7 +831,34 @@
 					<?= form_radio('alzheimer',1,set_radio('alzheimer', 1,(($list[0]->alzheimer == 1) ? true : false)));?> SI
 					<?= form_radio('alzheimer',0,set_radio('alzheimer', 0,(($list[0]->alzheimer == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'alzheimer_desc', 'id'=>'alzheimer_desc', 'value'=>set_value('alzheimer_desc', $list[0]->alzheimer_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'alzheimer_desc', 'id'=>'alzheimer_desc', 'value'=>set_value('alzheimer_desc', $list[0]->alzheimer_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("alzheimer", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='alzheimer_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='alzheimer_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<td>3.- FECHA EN QUE PRESENTÓ PRIMEROS SÍNTOMAS ASOCIADOS A LA EA</td>				
@@ -288,6 +867,32 @@
 					<?= form_dropdown('dia_ea', $dias_ea, set_value('dia_ea', $list[0]->dia_ea), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('mes_ea', $meses_ea, set_value('mes_ea', $list[0]->mes_ea), array('class'=>'input-small')); ?> / 
 					<?= form_dropdown('anio_ea', $anio_ea, set_value('anio_ea', $list[0]->anio_ea), array('class'=>'input-small')); ?>	
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("fecha_ea", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_ea_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='fecha_ea_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -296,11 +901,64 @@
 					<?= form_radio('morbido',1,set_radio('morbido', 1,(($list[0]->morbido == 1) ? true : false)));?> SI
 					<?= form_radio('morbido',0,set_radio('morbido', 0,(($list[0]->morbido == "0") ? true : false)));?> NO
 				</td>
-				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'morbido_desc', 'id'=>'morbido_desc', 'value'=>set_value('morbido_desc', $list[0]->morbido_desc), 'rows'=>'5')); ?></td>
+				<td><?= form_textarea(array('type'=>'textarea', 'name'=>'morbido_desc', 'id'=>'morbido_desc', 'value'=>set_value('morbido_desc', $list[0]->morbido_desc), 'rows'=>'5')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("morbido", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='morbido_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='morbido_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<td>Observaciones (Opcional)</td>
-				<td colspan='2'><?= form_textarea(array('type'=>'textarea', 'name'=>'observaciones', 'id'=>'observaciones', 'value'=>set_value('observaciones', $list[0]->observaciones), 'rows'=>'10', 'cols'=>'60', 'style'=>'width:98%;')); ?></td>
+				<td colspan='2'><?= form_textarea(array('type'=>'textarea', 'name'=>'observaciones', 'id'=>'observaciones', 'value'=>set_value('observaciones', $list[0]->observaciones), 'rows'=>'10', 'cols'=>'60', 'style'=>'width:98%;')); ?>
+				<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("observaciones", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='observaciones_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'historial_medico_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='observaciones_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?></td>
 			</tr>
 			<tr>
 				<td colspan='3' style='text-align:center;'>
@@ -316,45 +974,7 @@
 	</table>
 
 	<?= form_close(); ?>
-<!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Historial Medico', 'Responder',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
 
-			</tbody>
-		</table>
-
-<?php } ?>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>

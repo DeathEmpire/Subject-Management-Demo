@@ -21,6 +21,31 @@ $(function(){
 	}else{
 		$("#form_eq :input").removeAttr('readonly');
 	}
+
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": "<?php echo $etapa;?>",
+				"subject_id": $("input[name=subject_id]").val(),
+				"form": "eq_5d_5l",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
 });
 </script>
 <?php
@@ -34,6 +59,7 @@ $(function(){
 		default : $protocolo = ""; break;
 	}
 ?>
+<div id='query_para_campos' style='display:none;'></div>
 <legend style='text-align:center;'>EQ-5D-5L <?= $protocolo;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
@@ -89,7 +115,34 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("fecha", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>MOVILIDAD</td>			
@@ -115,6 +168,37 @@ $(function(){
 			<td><?= form_radio('movilidad','No puedo caminar',set_radio('movilidad', 'No puedo caminar', (($list[0]->movilidad == 'No puedo caminar') ? true : false))); ?></td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("movilidad", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='movilidad_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='movilidad_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
+		</tr>
+		<tr>
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>AUTOCUIDADO</td>			
 		</tr>
 		<tr>
@@ -136,6 +220,37 @@ $(function(){
 		<tr>
 			<td>No puedo lavarme o vestirme</td>
 			<td><?= form_radio('autocuidado','No puedo lavarme o vestirme',set_radio('autocuidado', 'No puedo lavarme o vestirme', (($list[0]->autocuidado == 'No puedo lavarme o vestirme') ? true : false))); ?></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("autocuidado", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='autocuidado_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='autocuidado_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>ACTIVIDADES HABITUALES <small>(Ej: Trabajar, estudiar, hacer las tareas domésticas, actividades familiares o realizadas durante el tiempo libre)</small></td>			
@@ -161,6 +276,37 @@ $(function(){
 			<td><?= form_radio('actividades_habituales','No puedo realizar mis actividades habituales',set_radio('actividades_habituales', 'No puedo realizar mis actividades habituales', (($list[0]->actividades_habituales == 'No puedo realizar mis actividades habituales') ? true : false))); ?></td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("actividades_habituales", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='actividades_habituales_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='actividades_habituales_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
+		</tr>
+		<tr>
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>DOLOR MALESTAR</td>			
 		</tr>
 		<tr>
@@ -184,6 +330,37 @@ $(function(){
 			<td><?= form_radio('dolor_malestar','Tengo dolor o malestar extremo',set_radio('dolor_malestar', 'Tengo dolor o malestar extremo', (($list[0]->dolor_malestar == 'Tengo dolor o malestar extremo') ? true : false))); ?></td>
 		</tr>
 		<tr>
+			<td></td>
+			<td>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("dolor_malestar", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='dolor_malestar_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='dolor_malestar_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
+		</tr>
+		<tr>
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>ANGUSTIA DEPRESION</td>			
 		</tr>
 		<tr>
@@ -205,10 +382,68 @@ $(function(){
 		<tr>
 			<td>Estoy extremadamente angustiado/a o deprimido/a</td>
 			<td><?= form_radio('angustia_depresion','Estoy extremadamente angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Estoy extremadamente angustiado/a o deprimido/a', (($list[0]->angustia_depresion == 'Estoy extremadamente angustiado/a o deprimido/a') ? true : false))); ?></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("angustia_depresion", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='angustia_depresion_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='angustia_depresion_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>				
 		<tr>
 			<td style='font-weight:bold;background-color:#ddd;'>SU SALUD HOY = </td>
-			<td style='font-weight:bold;background-color:#ddd;'><?= form_input(array('type'=>'number', 'name'=>'salud_hoy', 'id'=>'salud_hoy', 'value'=>set_value('salud_hoy', $list[0]->salud_hoy))); ?></td>
+			<td style='font-weight:bold;background-color:#ddd;'><?= form_input(array('type'=>'number', 'name'=>'salud_hoy', 'id'=>'salud_hoy', 'value'=>set_value('salud_hoy', $list[0]->salud_hoy))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("salud_hoy", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='salud_hoy_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'eq_5d_5l_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='salud_hoy_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

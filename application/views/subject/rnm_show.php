@@ -102,6 +102,30 @@ $(function(){
 			$(this).removeAttr('disabled', 'disabled');
 		});
 	}
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": "<?php echo $etapa;?>",
+				"subject_id": $("input[name=subject_id]").val(),
+				"form": "rnm",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
 
 });
 </script>
@@ -116,6 +140,7 @@ $(function(){
 		default : $protocolo = ""; break;
 	}
 ?>
+<div id='query_para_campos' style='display:none;'></div>
 <legend style='text-align:center;'>Resonancia Magnética o Tomografía Computarizada <?= $protocolo;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
@@ -214,8 +239,56 @@ $(function(){
 					<?= form_radio($data,$data['value'],set_radio($data['name'], 1, (($list[0]->resonancia == 1) ? true : false))); ?> Si
 					<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0, (($list[0]->resonancia == 0) ? true : false))); ?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text','name'=>'resonancia_fecha','id'=>'resonancia_fecha', 'value'=>set_value('resonancia_fecha', ((!empty($list[0]->resonancia_fecha) AND $list[0]->resonancia_fecha != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->resonancia_fecha)) : "")))); ?></td>
-				<td><?= form_textarea(array('name'=>'resonancia_comentario', 'id'=>'resonancia_comentario','value'=>set_value('resonancia_comentario', $list[0]->resonancia_comentario),'rows'=>'5')); ?></td>
+				<td><?= form_input(array('type'=>'text','name'=>'resonancia_fecha','id'=>'resonancia_fecha', 'value'=>set_value('resonancia_fecha', ((!empty($list[0]->resonancia_fecha) AND $list[0]->resonancia_fecha != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->resonancia_fecha)) : "")))); ?>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resonancia_fecha", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'rnm_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='resonancia_fecha_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'rnm_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='resonancia_fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
+				<td><?= form_textarea(array('name'=>'resonancia_comentario', 'id'=>'resonancia_comentario','value'=>set_value('resonancia_comentario', $list[0]->resonancia_comentario),'rows'=>'5')); ?>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resonancia_comentario", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'rnm_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='resonancia_comentario_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'rnm_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='resonancia_comentario_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 			</tr>
 			<tr>
 				<td>¿Se realizó una Tomografía Computarizada?</td>
@@ -223,8 +296,56 @@ $(function(){
 					<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1, (($list[0]->tomografia == 1) ? true : false))); ?> Si
 					<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0, (($list[0]->tomografia == 0) ? true : false))); ?> NO
 				</td>
-				<td><?= form_input(array('type'=>'text','name'=>'tomografia_fecha','id'=>'tomografia_fecha', 'value'=>set_value('tomografia_fecha', ((!empty($list[0]->tomografia_fecha) AND $list[0]->tomografia_fecha != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->tomografia_fecha)) : "")))); ?></td>
-				<td><?= form_textarea(array('name'=>'tomografia_comentario', 'id'=>'tomografia_comentario','value'=>set_value('tomografia_comentario', $list[0]->tomografia_comentario),'rows'=>'5')); ?></td>
+				<td><?= form_input(array('type'=>'text','name'=>'tomografia_fecha','id'=>'tomografia_fecha', 'value'=>set_value('tomografia_fecha', ((!empty($list[0]->tomografia_fecha) AND $list[0]->tomografia_fecha != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->tomografia_fecha)) : "")))); ?>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("tomografia_fecha", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'rnm_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='tomografia_fecha_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'rnm_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='tomografia_fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
+				<td><?= form_textarea(array('name'=>'tomografia_comentario', 'id'=>'tomografia_comentario','value'=>set_value('tomografia_comentario', $list[0]->tomografia_comentario),'rows'=>'5')); ?>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("tomografia_comentario", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'rnm_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='tomografia_comentario_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'rnm_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='tomografia_comentario_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 			</tr>
 			<tr id='tr_repetir' style='display:none;'>
 				<td colspan='4'>La fecha es superior a un año atrás, por favor recuerde repetir el examen antes de la visita basal</td>
@@ -261,45 +382,7 @@ $(function(){
 	</table>
 
 <?= form_close(); ?>
-<!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/RNM', 'Responder',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
 
-			</tbody>
-		</table>
-
-<?php } ?>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>

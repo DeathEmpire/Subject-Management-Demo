@@ -13,20 +13,35 @@ $(function(){
 			$("#tr_no").hide();
 		}
 	});
+
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": 0,
+				"subject_id": $("input[name=subject_id]").val(),
+				"form": "fin_tratamiento",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
 });
 </script>
-<?php
-	switch($etapa){
-		case 1 : $protocolo = "(Selección)"; break;
-		case 2 : $protocolo = "(Basal Día 1)"; break;
-		case 3 : $protocolo = "(Semana 4)"; break;
-		case 4 : $protocolo = "(Semana 12)"; break;
-		case 5 : $protocolo = "(Término del Estudio)"; break;
-		case 6 : $protocolo = "(Terminación Temprana)"; break;
-		default : $protocolo = ""; break;
-	}
-?>
-<legend style='text-align:center;'>Fin Tratamiento <?= $protocolo;?></legend>
+<div id='query_para_campos' style='display:none;'></div>
+<legend style='text-align:center;'>Fin Tratamiento</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -52,19 +67,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<!-- New Query-->
-<?php
-	if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
-?>
-	<div id='new_query' style='text-align:right;'>
-		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
-		<?= form_hidden('subject_id', $subject->id); ?>		
-		<?= form_hidden('form', "Fin Tratamiento"); ?>
-		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
-		<?= form_close(); ?>
-	</div>
-<?php }?>
-<!-- End Query-->
+
 <?php
 	if(isset($list) AND !empty($list)){
 ?>
@@ -88,11 +91,58 @@ $(function(){
 		</tr>
 		<tr>			
 			<td>Fecha Visita:</td>
-			<td> <?= form_input(array('type'=>'text','name'=>'fecha_visita', 'id'=>'fecha_visita', 'value'=>set_value('fecha_visita', ((!empty($list[0]->fecha_visita) AND $list[0]->fecha_visita != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->fecha_visita)) : "")))); ?></td>
+			<td> <?= form_input(array('type'=>'text','name'=>'fecha_visita', 'id'=>'fecha_visita', 'value'=>set_value('fecha_visita', ((!empty($list[0]->fecha_visita) AND $list[0]->fecha_visita != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->fecha_visita)) : "")))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("fecha_visita", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'fin_tratamiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_visita_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'fin_tratamiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='fecha_visita_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Fecha ultima dosis: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha_ultima_dosis', 'id'=>'fecha_ultima_dosis', 'value'=>set_value('fecha_ultima_dosis', ((!empty($list[0]->fecha_ultima_dosis) AND $list[0]->fecha_ultima_dosis != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->fecha_ultima_dosis)) : "")))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha_ultima_dosis', 'id'=>'fecha_ultima_dosis', 'value'=>set_value('fecha_ultima_dosis', ((!empty($list[0]->fecha_ultima_dosis) AND $list[0]->fecha_ultima_dosis != '0000-00-00') ? date("d/m/Y",strtotime($list[0]->fecha_ultima_dosis)) : "")))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("fecha_ultima_dosis", $campos_query)) 
+						{	
+							if(strpos($_SESSION['role_options']['subject'], 'fin_tratamiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_ultima_dosis_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'fin_tratamiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='fecha_ultima_dosis_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 		<?php
@@ -107,7 +157,30 @@ $(function(){
 			    'checked'     => set_radio('termino_el_estudio', 0,(($list[0]->termino_el_estudio == 0) ? true : false))
 			    );
        	?>
-			<td>¿Sujeto terminó el estudio? </td><td><?= form_radio($si); ?> Si <?= form_radio($no); ?> No</td>
+			<td>¿Sujeto terminó el estudio? </td><td><?= form_radio($si); ?> Si <?= form_radio($no); ?> No 
+		<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("termino_el_estudio", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'fin_tratamiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='termino_el_estudio_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'fin_tratamiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='termino_el_estudio_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr id='tr_no' style='display:none;'>
 			<td colspan='2' style='font-weight:bold;background-color:red;'>En este caso debe llenar el Fin de tratamiento terminación temprana, y marcar no aplica en esta página)</td>
@@ -127,45 +200,7 @@ $(function(){
 <?= form_close(); ?>
 <?php }?>
 
-<!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Fin Tratamiento', 'Responder',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
 
-			</tbody>
-		</table>
-
-<?php } ?>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
@@ -182,8 +217,7 @@ $(function(){
 		){
 	?>
 		<?= form_open('subject/fin_tratamiento_verify', array('class'=>'form-horizontal')); ?>    	
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
+		<?= form_hidden('subject_id', $subject->id); ?>		
 		<?= form_hidden('current_status', $list[0]->status); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 			
@@ -213,8 +247,7 @@ $(function(){
 			AND $list[0]->status == 'Form Approved by Monitor'){
 	?>
 		<?= form_open('subject/fin_tratamiento_lock', array('class'=>'form-horizontal')); ?>    	
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
+		<?= form_hidden('subject_id', $subject->id); ?>		
 		<?= form_hidden('current_status', $list[0]->status); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 			
@@ -244,8 +277,7 @@ $(function(){
 		){
 	?>
 		<?= form_open('subject/fin_tratamiento_signature', array('class'=>'form-horizontal')); ?>    	
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
+		<?= form_hidden('subject_id', $subject->id); ?>		
 		<?= form_hidden('current_status', $list[0]->status); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 			

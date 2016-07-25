@@ -198,6 +198,14 @@ class Subject extends CI_Controller {
 							'Universitaria Completa'=>'Universitaria Completa',
 							'Postgrado'=>'Postgrado');
 		
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"demography", "etapa"=>0, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->auditlib->save_audit("Entro al formulario de demografia",$id);
 		
@@ -827,7 +835,16 @@ class Subject extends CI_Controller {
 		$data['list'] = $this->Model_Hachinski_Form->allWhere("subject_id", $id);
 		#echo $this->db->last_query();
 		
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Hachinski"));
+		/*querys abiertos para el formulario*/
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"hachinski", "etapa"=>0, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
+
 
 		$this->load->view('template', $data);
 	}	
@@ -1100,7 +1117,14 @@ class Subject extends CI_Controller {
 		$this->load->model("Model_Examen_fisico");
 		$data['list'] = $this->Model_Examen_fisico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Examen Fisico", "etapa"=>$etapa));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"examen_fisico", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template', $data);
 	}
@@ -1838,8 +1862,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Digito_directo');
 		$data['list'] = $this->Model_Digito_directo->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));		
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Digito Directo", "etapa"=>$etapa));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"digito_directo", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 		
 		$this->load->view('template', $data);					
 	}
@@ -2237,8 +2267,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Mmse');
 		$data['list'] = $this->Model_Mmse->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"MMSE", "etapa"=>$etapa));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"mmse", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$data['puntaje'] = array(''=>'','0'=>'0','1'=>'1');
 
@@ -2607,8 +2643,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Electrocardiograma_de_reposo');
 		$data['list'] = $this->Model_Electrocardiograma_de_reposo->allWhereArray(array('subject_id'=>$subject_id));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"ECG"));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"ecg", "etapa"=>0, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template',$data);
 	}
@@ -2866,8 +2908,15 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Signos_vitales');
 		$data['list'] = $this->Model_Signos_vitales->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Signos Vitales"));
+		/*querys abiertos para el formulario*/
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"signos_vitales", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template',$data);
 	}
@@ -3173,8 +3222,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Cumplimiento');
 		$data['list'] = $this->Model_Cumplimiento->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Cumplimiento"));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"cumplimiento", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template',$data);
 	}
@@ -3444,8 +3499,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Fin_de_tratamiento');
 		$data['list'] = $this->Model_Fin_de_tratamiento->allWhereArray(array('subject_id'=>$subject_id));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Fin Tratamiento"));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"fin_tratamiento", "etapa"=>0, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template',$data);
 	}
@@ -3637,8 +3698,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Fin_de_tratamiento_temprano');
 		$data['list'] = $this->Model_Fin_de_tratamiento_temprano->allWhereArray(array('subject_id'=>$subject_id));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Fin Tratamiento Temprano"));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"fin_tratamiento_temprano", "etapa"=>0, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template',$data);
 	}
@@ -4166,8 +4233,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Examen_neurologico');
 		$data['list'] = $this->Model_Examen_neurologico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Examen Neurologico"));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"examen_neurologico", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template',$data);
 	}
@@ -4612,8 +4685,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Examen_laboratorio');
 		$data['list'] = $this->Model_Examen_laboratorio->allWhereArray(array('subject_id'=>$subject_id));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Examen Laboratorio"));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"examen_laboratorio", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template',$data);
 	}
@@ -4953,8 +5032,15 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Tmt_a');
 		$data['list'] = $this->Model_Tmt_a->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"TMT A", 'etapa'=>$etapa));
+		/*querys abiertos para el formulario*/
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"tmt_a", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template', $data);
 	}
@@ -5231,8 +5317,15 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Tmt_b');
 		$data['list'] = $this->Model_Tmt_b->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"TMT B", 'etapa'=>$etapa));
+		/*querys abiertos para el formulario*/
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"tmt_b", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template', $data);
 	}
@@ -5515,8 +5608,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Eq_5d_5l');
 		$data['list'] = $this->Model_Eq_5d_5l->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"EQ-5D-5L", 'etapa'=>$etapa));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"eq_5d_5l", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template', $data);
 	}
@@ -5900,8 +5999,15 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Npi');
 		$data['list'] = $this->Model_Npi->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"NPI", 'etapa'=>$etapa));
+		/*querys abiertos para el formulario*/
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"npi", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template2', $data);
 	}
@@ -6346,8 +6452,14 @@ class Subject extends CI_Controller {
 			$this->load->model('Model_Apatia');
 			$data['list'] = $this->Model_Apatia->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-			/*querys*/
-			$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"APATIA", 'etapa'=>$etapa));
+			$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"apatia", "etapa"=>$etapa, "status"=>'Abierto'));		
+			if(isset($campos_query) AND !empty($campos_query)){
+				foreach ($campos_query as $value) {
+					$data['campos_query'][] = $value->campo;
+				}
+			}else{
+				$data['campos_query'] = array();
+			}
 
 			$this->load->view('template', $data);
 	}
@@ -6768,8 +6880,15 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Rnm');
 		$data['list'] = $this->Model_Rnm->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"RNM o TC"));
+		/*querys abiertos para el formulario*/
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"rnm", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template', $data);
 	}
@@ -7156,6 +7275,15 @@ class Subject extends CI_Controller {
 			$data['anio_ea'][$i] = $i;
 		}
 		
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"historial_medico", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
+
 		$this->load->model('Model_Historial_medico');
 		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
@@ -7642,8 +7770,14 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Adas');
 		$data['list'] = $this->Model_Adas->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"ADAS COG"));
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"adas", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template', $data);
 	}
@@ -8041,8 +8175,15 @@ class Subject extends CI_Controller {
 		$this->load->model('Model_Restas');
 		$data['list'] = $this->Model_Restas->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
-		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Restas Seriadas"));
+		/*querys abiertos para el formulario*/
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"restas", "etapa"=>$etapa, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
 
 		$this->load->view('template', $data);
 	}

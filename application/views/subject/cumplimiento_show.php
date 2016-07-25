@@ -44,6 +44,31 @@ $(function(){
 			}
 		// }
 	});
+
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": "<?php echo $etapa;?>",
+				"subject_id": $("input[name=subject_id]").val(),
+				"form": "cumplimiento",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
 });
 </script>
 <?php
@@ -57,6 +82,7 @@ $(function(){
 		default : $protocolo = ""; break;
 	}
 ?>
+<div id='query_para_campos' style='display:none;'></div>
 <legend style='text-align:center;'>Cumplimiento <?= $protocolo;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
@@ -83,9 +109,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<!-- New Query-->
 
-<!-- End Query-->
 <?php
 	if(isset($list) AND !empty($list)){
 ?>	
@@ -117,19 +141,116 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("fecha", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}
+						else
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Numero cápsulas entregadas: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_entregados', 'id'=>'comprimidos_entregados', 'maxlength'=>'3','value'=>set_value('comprimidos_entregados', $list[0]->comprimidos_entregados))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_entregados', 'id'=>'comprimidos_entregados', 'maxlength'=>'3','value'=>set_value('comprimidos_entregados', $list[0]->comprimidos_entregados))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("comprimidos_entregados", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='comprimidos_entregados_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}	
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='comprimidos_entregados_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Numero cápsulas utilizadas: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_utilizados', 'id'=>'comprimidos_utilizados', 'maxlength'=>'3','value'=>set_value('comprimidos_utilizados', $list[0]->comprimidos_utilizados))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_utilizados', 'id'=>'comprimidos_utilizados', 'maxlength'=>'3','value'=>set_value('comprimidos_utilizados', $list[0]->comprimidos_utilizados))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("comprimidos_utilizados", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='comprimidos_utilizados_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='comprimidos_utilizados_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Numero cápsulas devueltas: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_devueltos', 'id'=>'comprimidos_devueltos', 'maxlength'=>'3','value'=>set_value('comprimidos_devueltos', $list[0]->comprimidos_devueltos))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_devueltos', 'id'=>'comprimidos_devueltos', 'maxlength'=>'3','value'=>set_value('comprimidos_devueltos', $list[0]->comprimidos_devueltos))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("comprimidos_devueltos", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='comprimidos_devueltos_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='comprimidos_devueltos_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 
@@ -146,19 +267,115 @@ $(function(){
 			    );
        	?>
 			<td>Se perdio alguna cápsula: </td>
-			<td><?= form_radio($si); ?> Si <?= form_radio($no); ?> No
+			<td><?= form_radio($si); ?> Si <?= form_radio($no); ?> No 
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("se_perdio_algun_comprimido", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='se_perdio_algun_comprimido_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='se_perdio_algun_comprimido_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."'' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>		
 			<td>Número de cápsulas perdidas: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_perdidos', 'id'=>'comprimidos_perdidos', 'maxlength'=>'3','value'=>set_value('comprimidos_perdidos', $list[0]->comprimidos_perdidos))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_perdidos', 'id'=>'comprimidos_perdidos', 'maxlength'=>'3','value'=>set_value('comprimidos_perdidos', $list[0]->comprimidos_perdidos))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("comprimidos_perdidos", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='comprimidos_perdidos_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='comprimidos_perdidos_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Días (desde entrega anterior hasta Día de visita): </td>
-			<td><?= form_input(array('type'=>'text','name'=>'dias', 'id'=>'dias', 'maxlength'=>'3','value'=>set_value('dias', $list[0]->dias))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'dias', 'id'=>'dias', 'maxlength'=>'3','value'=>set_value('dias', $list[0]->dias))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("dias", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='dias_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='dias_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>% cumplimiento: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlength'=>'3','value'=>set_value('porcentaje_cumplimiento', $list[0]->porcentaje_cumplimiento))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlength'=>'3','value'=>set_value('porcentaje_cumplimiento', $list[0]->porcentaje_cumplimiento))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("porcentaje_cumplimiento", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='porcentaje_cumplimiento_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='porcentaje_cumplimiento_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>
@@ -174,45 +391,7 @@ $(function(){
 <?= form_close(); ?>
 <?php }?>
 
-<!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Cumplimiento', 'Responder',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
 
-			</tbody>
-		</table>
-
-<?php } ?>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>

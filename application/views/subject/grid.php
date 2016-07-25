@@ -23,7 +23,6 @@
 	</tbody>
 </table>
 <br />
-<b>Legend:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
 		<tr style='background-color: #C0C0C0;'><th colspan='4' style='text-align:center;'>Significado de Iconos</th></tr>

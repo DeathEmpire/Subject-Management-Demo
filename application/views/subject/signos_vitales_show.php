@@ -48,6 +48,31 @@ $(function(){
 		var imc = (peso / estatura2) * 10000;
 		$("#imc").val(imc.toFixed(2));
 	}
+
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": "<?php echo $etapa;?>",
+				"subject_id": $("input[name=subject_id]").val(),
+				"form": "signos_vitales",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
 });
 </script>
 <?php
@@ -61,6 +86,7 @@ $(function(){
 		default : $protocolo = ""; break;
 	}
 ?>
+<div id='query_para_campos' style='display:none;'></div>
 <legend style='text-align:center;'>Signos Vitales <?= $protocolo;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
@@ -87,20 +113,7 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<!-- New Query-->
-<?php
-	if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
-?>
-	<div id='new_query' style='text-align:right;'>
-		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_hidden('form', "Signos Vitales"); ?>		
-		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
-		<?= form_close(); ?>
-	</div>
-<?php }?>
-<!-- End Query-->
+
 <?php
 	if(isset($list) AND !empty($list)){
 ?>	
@@ -133,14 +146,62 @@ $(function(){
 		</tr>
 		<tr>		
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("fecha", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<?php
 			if(isset($etapa) AND $etapa == 1){
 		?>
 		<tr>
 			<td>Estatura: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'estatura', 'id'=>'estatura', 'maxlenght'=>'3','value'=>set_value('estatura', $list[0]->estatura))); ?> cms</td>
+			<td><?= form_input(array('type'=>'text','name'=>'estatura', 'id'=>'estatura', 'maxlenght'=>'3','value'=>set_value('estatura', $list[0]->estatura))); ?> cms
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("estatura", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='estatura_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='estatura_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<?php }else{ ?>
 			
@@ -149,34 +210,201 @@ $(function(){
 		<?php }?>
 		<tr>
 			<td>Presion Sistolica: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'presion_sistolica', 'id'=>'presion_sistolica', 'maxlenght'=>'3','value'=>set_value('presion_sistolica', $list[0]->presion_sistolica))); ?> mmHg</td>
+			<td><?= form_input(array('type'=>'text','name'=>'presion_sistolica', 'id'=>'presion_sistolica', 'maxlenght'=>'3','value'=>set_value('presion_sistolica', $list[0]->presion_sistolica))); ?> mmHg 
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("presion_sistolica", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='presion_sistolica_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='presion_sistolica_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Presion Diastolica: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'presion_diastolica', 'id'=>'presion_diastolica', 'maxlenght'=>'3','value'=>set_value('presion_diastolica', $list[0]->presion_diastolica))); ?> mmHg</td>
+			<td><?= form_input(array('type'=>'text','name'=>'presion_diastolica', 'id'=>'presion_diastolica', 'maxlenght'=>'3','value'=>set_value('presion_diastolica', $list[0]->presion_diastolica))); ?> mmHg 
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("presion_diastolica", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='presion_diastolica_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='presion_diastolica_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>	
 			<td>Frecuencia Cardiaca: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_cardiaca', 'id'=>'frecuencia_cardiaca', 'maxlenght'=>'3','value'=>set_value('frecuencia_cardiaca', $list[0]->frecuencia_cardiaca))); ?> latidos/minuto</td>
+			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_cardiaca', 'id'=>'frecuencia_cardiaca', 'maxlenght'=>'3','value'=>set_value('frecuencia_cardiaca', $list[0]->frecuencia_cardiaca))); ?> latidos/minuto 
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("frecuencia_cardiaca", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='frecuencia_cardiaca_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='frecuencia_cardiaca_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Frecuencia Respiratoria: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_respiratoria', 'id'=>'frecuencia_respiratoria', 'maxlenght'=>'3','value'=>set_value('frecuencia_respiratoria', $list[0]->frecuencia_respiratoria))); ?> minuto</td>
+			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_respiratoria', 'id'=>'frecuencia_respiratoria', 'maxlenght'=>'3','value'=>set_value('frecuencia_respiratoria', $list[0]->frecuencia_respiratoria))); ?> minuto 
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("frecuencia_respiratoria", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='frecuencia_respiratoria_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='frecuencia_respiratoria_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Temperatura: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'temperatura', 'id'=>'temperatura', 'maxlenght'=>'3','value'=>set_value('temperatura', $list[0]->temperatura))); ?> °C</td>
+			<td><?= form_input(array('type'=>'text','name'=>'temperatura', 'id'=>'temperatura', 'maxlenght'=>'3','value'=>set_value('temperatura', $list[0]->temperatura))); ?> °C 
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("temperatura", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='temperatura_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='temperatura_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>Peso: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlenght'=>'3','value'=>set_value('peso', $list[0]->peso))); ?> kgs</td>
+			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlenght'=>'3','value'=>set_value('peso', $list[0]->peso))); ?> kgs 
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("peso", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='peso_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='peso_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?></td>
 		</tr>
 		<?php
 			if(isset($etapa) AND $etapa == 1){
 		?>
 			<tr>
 				<td>IMC: </td>
-				<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlenght'=>'3','value'=>set_value('imc'))); ?></td>
+				<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlenght'=>'3','value'=>set_value('imc'))); ?>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("imc", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='imc_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'signos_vitales_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='imc_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 			</tr>
 		<?php }else{ ?>
 			
@@ -197,45 +425,7 @@ $(function(){
 <?= form_close(); ?>
 <?php }?>
 
-<!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Signos Vitales', 'Responder',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
 
-			</tbody>
-		</table>
-
-<?php } ?>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>

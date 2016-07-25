@@ -39,8 +39,34 @@ $(function(){
 	else{
 		$("#race_especificacion").attr('readonly','readonly');
 	}
+
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": 0,
+				"subject_id": $("input[name=id]").val(),
+				"form": "demography",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
 });
 </script>
+<div id='query_para_campos' style='display:none;'></div>
 <legend style='text-align:center;'>Demograf&iacute;a - Consentimiento Informado</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
@@ -67,17 +93,6 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?php
-	if(isset($_SESSION['role_options']['query']) AND strstr($_SESSION['role_options']['query'], 'demography_query_new')){
-		
-?>
-	<div id='new_query' style='text-align:right;'>
-		<?= form_open('query/demography_query_new', array('class'=>'form-horizontal')); ?>
-		<?= form_hidden('id', $subject->id); ?>
-		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
-		<?= form_close(); ?>
-	</div>
-<?php }?>
 
 <?= form_open('subject/demography_update', array('class'=>'form-horizontal')); ?>    
 	
@@ -115,6 +130,32 @@ $(function(){
        		<td>Fecha: </td>
        		<td>
        			<?= form_input(array('type'=>'text', 'name'=>'sign_consent_date', 'id'=>'sign_consent_date', 'value'=>set_value('sign_consent_date', $subject->sign_consent_date)));?>
+				<?php
+					if($subject->demography_status == 'Record Complete' OR $subject->demography_status == 'Query' )
+					{
+						
+						if(!in_array("sign_consent_date", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='sign_consent_date_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'demography_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='sign_consent_date_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
        		</td>
        	</tr>
         <tr>
@@ -122,11 +163,65 @@ $(function(){
         </tr>		
 		<tr>
 			<td>Iniciales Sujeto: </td>
-			<td><?= form_input(array('type'=>'text', 'name'=>'initials', 'id'=>'initials', 'maxlength'=>'3' , 'value'=>set_value('initials', $subject->initials) ) ); ?></td>
+			<td><?= form_input(array('type'=>'text', 'name'=>'initials', 'id'=>'initials', 'maxlength'=>'3' , 'value'=>set_value('initials', $subject->initials) ) ); ?>
+			<?php
+					if($subject->demography_status == 'Record Complete' OR $subject->demography_status == 'Query' )
+					{
+						
+						if(!in_array("", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='initials_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'demography_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='initials_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>	
 		<tr>
 			<td>Edad: </td>
-			<td><?= form_input(array('type'=>'number', 'name'=>'edad', 'id'=>'edad', 'maxlength'=>'2' , 'value'=>set_value('edad', $subject->edad) ) ); ?></td>
+			<td><?= form_input(array('type'=>'number', 'name'=>'edad', 'id'=>'edad', 'maxlength'=>'2' , 'value'=>set_value('edad', $subject->edad) ) ); ?>
+				<?php
+					if($subject->demography_status == 'Record Complete' OR $subject->demography_status == 'Query' )
+					{
+						
+						if(!in_array("edad", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='edad_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'demography_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='edad_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<?php
 		    $data = array(
@@ -146,12 +241,65 @@ $(function(){
 	        <td>
 	        	<?= form_radio($data,$data['value'],set_radio($data['name'],$data['value'],($data['value'] == $subject->gender) ? true : false)); ?> Masc
 	        	<?= form_radio($data2,$data2['value'],set_radio($data2['name'],$data2['value'],($data2['value'] == $subject->gender) ? true : false)); ?> Fem
+	        	<?php
+					if($subject->demography_status == 'Record Complete' OR $subject->demography_status == 'Query' )
+					{
+						
+						if(!in_array("gender", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='gender_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'demography_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='gender_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
 	        </td>
 	    </tr> 
 
         <tr>        
         	<td><?= form_label('Fecha de Nacimiento: ', 'birth_date'); ?></td>
-        	<td><?= form_input(array('type'=>'text', 'name'=>'birth_date', 'id'=>'birth_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;','value'=>set_value('birth_date',$subject->birth_date))); ?></td>
+        	<td><?= form_input(array('type'=>'text', 'name'=>'birth_date', 'id'=>'birth_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;','value'=>set_value('birth_date',$subject->birth_date))); ?>
+        	<?php
+					if($subject->demography_status == 'Record Complete' OR $subject->demography_status == 'Query' )
+					{
+						
+						if(!in_array("birth_date", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='birth_date_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'demography_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='birth_date_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
     	</tr>
     
 	    
@@ -160,25 +308,81 @@ $(function(){
         	<td>
         		<?= form_dropdown('race',$etnias,set_value('race', $subject->race), array('id'=>'race')); ?>        		
         		Especificar: <?= form_input(array('type'=>'text','name'=>'race_especificacion','id'=>'race_especificacion', 'value'=>set_value('race_especificacion', $subject->race_especificacion))); ?>
+        		<?php
+					if($subject->demography_status == 'Record Complete' OR $subject->demography_status == 'Query' )
+					{
+						
+						if(!in_array("race", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='race_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'demography_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='race_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
         	</td>        	
     	</tr>
 
 		
     	<tr>    		
     		<td><?= form_label('Grado de Escolaridad: ', 'escolaridad'); ?></td>
-    		<td><?= form_dropdown('escolaridad', $escolaridad, set_value('escolaridad',$subject->escolaridad)); ?></td>
+    		<td><?= form_dropdown('escolaridad', $escolaridad, set_value('escolaridad',$subject->escolaridad)); ?>
+    		<?php
+					if($subject->demography_status == 'Record Complete' OR $subject->demography_status == 'Query' )
+					{
+						
+						if(!in_array("escolaridad", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'demography_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='escolaridad_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'demography_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='escolaridad_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
+
     	</tr>
 		
 		<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'demography_update')){
 			?>
-	    <tr><td colspan='2' style='text-align:center;'>
-			<?php if(empty($subject->demography_signature_user) AND empty($subject->demography_lock_user) AND empty($subject->demography_verify_user)){ ?>
-				<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary', 'id'=>'guardar')); ?>			
-			<?php }?>
-	        
-	        <?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
-	    </td></tr>
+	    <tr>
+	    	<td colspan='2' style='text-align:center;'>
+				<?php if(empty($subject->demography_signature_user) AND empty($subject->demography_lock_user) AND empty($subject->demography_verify_user)){ ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary', 'id'=>'guardar')); ?>			
+				<?php }?>
+		        
+		        <?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
+	    	</td>
+		</tr>
 	    <?php }?>
 	</table>
 <?= form_close(); ?>

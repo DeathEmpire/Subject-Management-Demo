@@ -415,16 +415,154 @@ class Query extends CI_Controller {
 			$subject['id'] = $registro['subject_id'];
 			$this->Model_Subject->update($subject);			
 		}
+		elseif($registro['form'] == 'tmt_a'){			
+			
+			$subject['tmt_a_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'tmt_b'){			
+			
+			$subject['tmt_b_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'signos_vitales'){			
+			
+			$subject['signos_vitales_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'rnm'){			
+			if($registro['etapa'] == 1){
+				$subject['rnm_status'] = "Query";
+			}
+			else{
+				$subject['rnm_'. $registro['etapa'] .'_status'] = "Query";	
+			}
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'restas'){			
+			
+			$subject['restas_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'npi'){			
+			
+			$subject['npi_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'hachinski'){			
+			
+			$subject['hachinski_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'cumplimiento'){			
+			
+			$subject['cumplimiento_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'ecg'){			
+			
+			$subject['ecg_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'fin_tratamiento'){			
+			
+			$subject['fin_tratamiento_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'fin_tratamiento_temprano'){			
+			
+			$subject['fin_tratamiento_temprano_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'digito_directo'){			
+			
+			$subject['digito_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'eq_5d_5l'){			
+			
+			$subject['eq_5d_5l_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'historial_medico'){			
+			
+			$subject['historial_medico_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'examen_neurologico'){			
+			
+			$subject['examen_neurologico_'. $registro['etapa'] .'_status'] = "Query";
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'examen_laboratorio'){			
+			
+			if($registro['etapa'] == 1){
+				$subject['examen_laboratorio_status'] = "Query";
+			}
+			else{
+				$subject['examen_laboratorio_'. $registro['etapa'] .'_status'] = "Query";
+			}
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'examen_fisico'){
+			
+			$subject['examen_fisico_'. $registro['etapa'] .'_status'] = "Query";			
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'apatia'){
+			
+			$subject['apatia_'. $registro['etapa'] .'_status'] = "Query";		
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'adas'){
+			
+			$subject['adas_'. $registro['etapa'] .'_status'] = "Query";		
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'demography'){
+			
+			$subject['demography_status'] = "Query";		
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
+		elseif($registro['form'] == 'mmse'){
+			
+			$subject['mmse_'. $registro['etapa'] .'_status'] = "Query";		
+			$subject['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subject);			
+		}
 
-		redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+		if($registro['form'] == 'demography'){
+			redirect('subject/'. $registro['form'] .'/'. $registro['subject_id']);
+		}else{
+			redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['etapa']);
+		}
 	}
 
 	public function update(){
 		$registro = $this->input->post();
-
-		$registro['answer_user'] = $this->session->userdata('usuario');
-		$registro['answer_date'] = date("Y-m-d H:i:s");
 		
+		$registro['answer_user'] = $this->session->userdata('usuario');
+		$registro['answer_date'] = date("Y-m-d H:i:s");	
 
 
 		if($registro['cerrar'] == 'Cerrar'){
@@ -442,6 +580,463 @@ class Query extends CI_Controller {
 					$this->Model_Subject->update($subject);			
 				}
 			}
+			elseif($registro['form'] == 'tmt_a'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['tmt_a_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'tmt_b'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['tmt_b_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'signos_vitales'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['signos_vitales_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'rnm'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					if($registro['etapa'] == 1){
+						$subject['rnm_status'] = "Record Complete";
+					}
+					else{
+						$subject['rnm_'. $registro['etapa'] .'_status'] = "Record Complete";	
+					}					
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'restas'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['restas_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'npi'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['npi_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'hachinski'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['hachinski_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'cumplimiento'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['cumplimiento_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'ecg'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['ecg_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'fin_tratamiento'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['fin_tratamiento_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'fin_tratamiento_temprano'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['fin_tratamiento_temprano_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'digito_directo'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['digito_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'eq_5d_5l'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['eq_5d_5l_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'historial_medico'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['historial_medico_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'examen_neurologico'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					$subject['examen_neurologico_'. $registro['etapa'] .'_status'] = "Record Complete";
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'examen_laboratorio'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){
+					if($registro['etapa'] == 1){
+						$subject['examen_laboratorio_status'] = "Record Complete";
+					}
+					else{
+						$subject['examen_laboratorio_'. $registro['etapa'] .'_status'] = "Record Complete";
+					}
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'examen_fisico'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$subject['examen_fisico_'. $registro['etapa'] .'_status'] = "Record Complete";					
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'apatia'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$subject['apatia_'. $registro['etapa'] .'_status'] = "Record Complete";					
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'adas'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$subject['adas_'. $registro['etapa'] .'_status'] = "Record Complete";					
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'demography'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$subject['demography_status'] = "Record Complete";					
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+			elseif($registro['form'] == 'mmse'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$subject['mmse_'. $registro['etapa'] .'_status'] = "Record Complete";					
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
+				
 		}		
 
 		unset($registro['cerrar']);
@@ -449,7 +1044,11 @@ class Query extends CI_Controller {
 		//actualizamos el query
 		$this->Model_Query->update($registro);
 		
-		
-		redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['etapa']);	
+		if($registro['form'] == 'demography'){
+			redirect('subject/'. $registro['form'] .'/'. $registro['subject_id']);
+		}
+		else{
+			redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['etapa']);	
+		}
 	}
 }

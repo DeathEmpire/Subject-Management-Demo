@@ -142,7 +142,7 @@ $(function(){
 			    );
        	?>
 			<td>Se perdio alguna cápsula: </td>
-			<td><?= form_radio($si); ?> Si <?= form_radio($no); ?> No
+			<td><?= form_radio($si); ?> Si <?= form_radio($no); ?> No</td>
 		</tr>
 		<tr>		
 			<td>Numero de cápsulas perdidas: </td>

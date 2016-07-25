@@ -35,20 +35,36 @@ $(function(){
 	}else{
 		$("#form_hach :input").removeAttr('readonly');		
 	}
+
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": 0,
+				"subject_id": $("input[name=subject_id]").val(),
+				"form": "hachinski",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
 });	
 </script>	
-<?php
-	switch($etapa){
-		case 1 : $protocolo = "(Selección)"; break;
-		case 2 : $protocolo = "(Basal Día 1)"; break;
-		case 3 : $protocolo = "(Semana 4)"; break;
-		case 4 : $protocolo = "(Semana 12)"; break;
-		case 5 : $protocolo = "(Término del Estudio)"; break;
-		case 6 : $protocolo = "(Terminación Temprana)"; break;
-		default : $protocolo = ""; break;
-	}
-?>
-<legend style='text-align:center;'>Escala de Hachinski <?= $protocolo;?></legend>
+
+<div id='query_para_campos' style='display:none;'></div>
+<legend style='text-align:center;'>Escala de Hachinski</legend>
 		<b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -76,19 +92,7 @@ $(function(){
 	<?php if(isset($list) AND !empty($list)){  ?>	
 		<!-- legend -->
 		
-			<!-- New Query-->
-			<?php
-				if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_new')){
-			?>
-				<div id='new_query' style='text-align:right;'>
-					<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
-					<?= form_hidden('subject_id', $subject->id); ?>
-					<?= form_hidden('form', "Hachinski"); ?>
-					<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
-					<?= form_close(); ?>
-				</div>
-			<?php }?>
-			<!-- End Query-->
+			
 
 		
 			<?= form_open('subject/hachinski_update', array('id'=>'form_hach')); ?>	
@@ -119,60 +123,396 @@ $(function(){
 					</tr>
 					<tr>
 						<td>Fecha: </td>
-						<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+						<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("fecha", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+			</td>
 					</tr>
 					<tr>
 						<td>Comienzo Brusco: </td>
-						<td><?= form_checkbox(array('name'=>'comienzo_brusco','id'=>'comienzo_brusco', 'checked'=>set_checkbox('comienzo_brusco','2',($list[0]->comienzo_brusco == 2) ? true : false ), 'value'=>'2')); ?></td>
+						<td><?= form_checkbox(array('name'=>'comienzo_brusco','id'=>'comienzo_brusco', 'checked'=>set_checkbox('comienzo_brusco','2',($list[0]->comienzo_brusco == 2) ? true : false ), 'value'=>'2')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("comienzo_brusco", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='comienzo_brusco_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='comienzo_brusco_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>
 					</tr>
 					
 					<tr>
 						<td>Deterioro escalonado: </td>						
-						<td><?= form_checkbox(array('name'=>'deterioro_escalonado','id'=>'deterioro_escalonado', 'checked'=>set_checkbox('deterioro_escalonado','1',($list[0]->deterioro_escalonado == 1) ? true : false ), 'value'=>'1')); ?></td>
+						<td><?= form_checkbox(array('name'=>'deterioro_escalonado','id'=>'deterioro_escalonado', 'checked'=>set_checkbox('deterioro_escalonado','1',($list[0]->deterioro_escalonado == 1) ? true : false ), 'value'=>'1')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("deterioro_escalonado", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='deterioro_escalonado_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='deterioro_escalonado_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>
 					</tr>
 					<tr>
 						<td>Curso fluctuante: </td>						
-						<td><?= form_checkbox(array('name'=>'curso_fluctante','id'=>'curso_fluctante', 'checked'=>set_checkbox('curso_fluctante','2',($list[0]->curso_fluctante == 2) ? true : false ), 'value'=>'2')); ?></td>
+						<td><?= form_checkbox(array('name'=>'curso_fluctante','id'=>'curso_fluctante', 'checked'=>set_checkbox('curso_fluctante','2',($list[0]->curso_fluctante == 2) ? true : false ), 'value'=>'2')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("curso_fluctante", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='curso_fluctante_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."' id='curso_fluctante_query' tipo='new' class='query'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='curso_fluctante_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>
 					</tr>
 					<tr>
 						<td>Desorientación nocturna: </td>
-						<td><?= form_checkbox(array('name'=>'desorientacion_noctura','id'=>'desorientacion_noctura', 'checked'=>set_checkbox('desorientacion_noctura','1',($list[0]->desorientacion_noctura == 1) ? true : false ), 'value'=>'1')); ?></td>						
+						<td><?= form_checkbox(array('name'=>'desorientacion_noctura','id'=>'desorientacion_noctura', 'checked'=>set_checkbox('desorientacion_noctura','1',($list[0]->desorientacion_noctura == 1) ? true : false ), 'value'=>'1')); ?>
+						<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("desorientacion_noctura", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='desorientacion_noctura_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='desorientacion_noctura_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>						
 					</tr>
 					<tr>
 						<td>Preservación relativa de la personalidad: </td>
-						<td><?= form_checkbox(array('name'=>'preservacion_relativa','id'=>'preservacion_relativa', 'checked'=>set_checkbox('preservacion_relativa','1',($list[0]->preservacion_relativa == 1) ? true : false ), 'value'=>'1')); ?></td>												
+						<td><?= form_checkbox(array('name'=>'preservacion_relativa','id'=>'preservacion_relativa', 'checked'=>set_checkbox('preservacion_relativa','1',($list[0]->preservacion_relativa == 1) ? true : false ), 'value'=>'1')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("preservacion_relativa", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='preservacion_relativa_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='preservacion_relativa_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>
 					</tr>
 					<tr>
 						<td>Depresión: </td>
-						<td><?= form_checkbox(array('name'=>'depresion','id'=>'depresion', 'checked'=>set_checkbox('depresion','1',($list[0]->depresion == 1) ? true : false ), 'value'=>'1')); ?></td>
+						<td><?= form_checkbox(array('name'=>'depresion','id'=>'depresion', 'checked'=>set_checkbox('depresion','1',($list[0]->depresion == 1) ? true : false ), 'value'=>'1')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("depresion", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='depresion_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='depresion_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>
 					</tr>
 					<tr>
 						<td>Somatización: </td>
-						<td><?= form_checkbox(array('name'=>'somatizacion','id'=>'somatizacion', 'checked'=>set_checkbox('somatizacion','1',($list[0]->somatizacion == 1) ? true : false ), 'value'=>'1')); ?></td>
+						<td><?= form_checkbox(array('name'=>'somatizacion','id'=>'somatizacion', 'checked'=>set_checkbox('somatizacion','1',($list[0]->somatizacion == 1) ? true : false ), 'value'=>'1')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("somatizacion", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='somatizacion_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='somatizacion_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>
 					</tr>
 					<tr>
 						<td>Labilidad emocional: </td>
-						<td><?= form_checkbox(array('name'=>'labilidad_emocional','id'=>'labilidad_emocional', 'checked'=>set_checkbox('labilidad_emocional','1',($list[0]->labilidad_emocional == 1) ? true : false ), 'value'=>'1')); ?></td>
+						<td><?= form_checkbox(array('name'=>'labilidad_emocional','id'=>'labilidad_emocional', 'checked'=>set_checkbox('labilidad_emocional','1',($list[0]->labilidad_emocional == 1) ? true : false ), 'value'=>'1')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("labilidad_emocional", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='labilidad_emocional_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='labilidad_emocional_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>
 					</tr>
 					<tr>
 						<td>Historia de HTA: </td>
-						<td><?= form_checkbox(array('name'=>'hta','id'=>'hta', 'checked'=>set_checkbox('hta','1',($list[0]->hta == 1) ? true : false ), 'value'=>'1')); ?></td>						
+						<td><?= form_checkbox(array('name'=>'hta','id'=>'hta', 'checked'=>set_checkbox('hta','1',($list[0]->hta == 1) ? true : false ), 'value'=>'1')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("hta", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='hta_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='hta_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>						
 					</tr>
 					<tr>
 						<td>Historia de ictus previos: </td>
-						<td><?= form_checkbox(array('name'=>'ictus_previos','id'=>'ictus_previos', 'checked'=>set_checkbox('ictus_previos','2',($list[0]->ictus_previos == 2) ? true : false ), 'value'=>'2')); ?></td>
+						<td><?= form_checkbox(array('name'=>'ictus_previos','id'=>'ictus_previos', 'checked'=>set_checkbox('ictus_previos','2',($list[0]->ictus_previos == 2) ? true : false ), 'value'=>'2')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("ictus_previos", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='ictus_previos_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='ictus_previos_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>
 					</tr>
 					<tr>
 						<td>Evidencia de arteriosclerosis asociada: </td>
-						<td><?= form_checkbox(array('name'=>'evidencia_arteriosclerosis','id'=>'evidencia_arteriosclerosis', 'checked'=>set_checkbox('evidencia_arteriosclerosis','1',($list[0]->evidencia_arteriosclerosis == 1) ? true : false ), 'value'=>'1')); ?></td>						
+						<td><?= form_checkbox(array('name'=>'evidencia_arteriosclerosis','id'=>'evidencia_arteriosclerosis', 'checked'=>set_checkbox('evidencia_arteriosclerosis','1',($list[0]->evidencia_arteriosclerosis == 1) ? true : false ), 'value'=>'1')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("evidencia_arteriosclerosis", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='evidencia_arteriosclerosis_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='evidencia_arteriosclerosis_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}
+								}						
+								
+							}
+						?>
+					</td>						
 					</tr>
 					<tr>
 						<td>Síntomas neurológicos focales: </td>
-						<td><?= form_checkbox(array('name'=>'sintomas_neurologicos','id'=>'sintomas_neurologicos', 'checked'=>set_checkbox('sintomas_neurologicos','2',($list[0]->sintomas_neurologicos == 2) ? true : false ), 'value'=>'2')); ?></td>						
+						<td><?= form_checkbox(array('name'=>'sintomas_neurologicos','id'=>'sintomas_neurologicos', 'checked'=>set_checkbox('sintomas_neurologicos','2',($list[0]->sintomas_neurologicos == 2) ? true : false ), 'value'=>'2')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("sintomas_neurologicos", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='sintomas_neurologicos_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='sintomas_neurologicos_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+									}	
+								}						
+								
+							}
+						?>
+					</td>						
 					</tr>
 					<tr>
 						<td>Signos neurológicos focales: </td>
-						<td><?= form_checkbox(array('name'=>'signos_neurologicos','id'=>'signos_neurologicos', 'checked'=>set_checkbox('signos_neurologicos','2',($list[0]->signos_neurologicos == 2) ? true : false ), 'value'=>'2')); ?></td>						
+						<td><?= form_checkbox(array('name'=>'signos_neurologicos','id'=>'signos_neurologicos', 'checked'=>set_checkbox('signos_neurologicos','2',($list[0]->signos_neurologicos == 2) ? true : false ), 'value'=>'2')); ?>
+						<?php
+							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+							{
+								
+								if(!in_array("signos_neurologicos", $campos_query)) 
+								{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_verify')){
+										echo "<img src='". base_url('img/icon-check.png') ."' id='signos_neurologicos_query' tipo='new' class='query'>";
+									}
+									else{
+										echo "<img src='". base_url('img/icon-check.png') ."'>";	
+									}	
+								}else{
+									if(strpos($_SESSION['role_options']['subject'], 'hachinski_update')){
+										echo "<img src='". base_url('img/question.png') ."' id='signos_neurologicos_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+									}
+									else{
+										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+									}	
+								}						
+								
+							}
+						?>
+					</td>						
 					</tr>
 					<tr>
 						<td><b>Puntaje Total: </b></td>
@@ -194,45 +534,7 @@ $(function(){
 				</table>
 			<?= form_close(); ?>
 
-			<!-- Querys -->
-			<?php
-				if(isset($querys) AND !empty($querys)){ ?>
-					<b>Querys:</b>
-					<table class="table table-condensed table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-							</tr>
-						</thead>
-						<tbody>
-							
-						<?php
-							foreach ($querys as $query) { ?>
-								<tr>
-									<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-									<td><?= $query->question_user; ?></td>
-									<td><?= $query->question; ?></td>						
-									<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-									<td><?= $query->answer_user; ?></td>
-									<?php
-										if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-									?>
-										<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id, 'Responder',array('class'=>'btn'))); ?></td>						
-									<?php }else{?>
-										<td><?= $query->answer; ?></td>
-									<?php }?>
-								</tr>					
-						<?php }?>	
-
-						</tbody>
-					</table>
-
-			<?php } ?>
+			
 			<!-- Verify -->
 			<b>Monitor Approve:</b><br />
 				<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>

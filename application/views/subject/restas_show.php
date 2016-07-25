@@ -40,6 +40,31 @@ $(function(){
 		$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha").removeAttr('readonly');
 		$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").removeAttr('disabled');
 	}
+
+	$("#query_para_campos").dialog({
+		autoOpen: false,
+		height: 340,
+		width: 550
+	});
+
+	$(".query").click(function(){
+		var campo = $(this).attr('id').split("_query");
+		$.post("<?php echo base_url('query/query'); ?>",
+			{
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+				"campo": campo[0], 
+				"etapa": "<?php echo $etapa;?>",
+				"subject_id": $("input[name=subject_id]").val(),
+				"form": "restas",
+				"tipo": $(this).attr('tipo')
+			},
+			function(d){
+				
+				$("#query_para_campos").html(d);
+				$("#query_para_campos").dialog('open');
+			}
+		);
+	});
 });
 </script>
 <?php
@@ -52,7 +77,8 @@ $(function(){
 		case 6 : $protocolo = "(Terminación Temprana)"; break;
 		default : $protocolo = ""; break;
 	}
-?>
+?><div id='query_para_campos' style='display:none;'></div>
+
 <legend style='text-align:center;'>Restas Seriadas <?= $protocolo;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
@@ -121,7 +147,29 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("fecha", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td style='background-color:#ccc;'>Resta 7 a partir de  100</td>
@@ -191,23 +239,132 @@ $(function(){
 	?>
 		<tr>
 			<td>93</td>
-			<td><?= form_checkbox($resta_1); ?></td>
+			<td><?= form_checkbox($resta_1); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_1", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_1_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_1_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?></td>
 		</tr>
 		<tr>
 			<td>86</td>
-			<td><?= form_checkbox($resta_2); ?></td>
+			<td><?= form_checkbox($resta_2); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_2", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_2_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_2_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>79</td>
-			<td><?= form_checkbox($resta_3); ?></td>
+			<td><?= form_checkbox($resta_3); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_3", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_3_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_3_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>72</td>
-			<td><?= form_checkbox($resta_4); ?></td>
+			<td><?= form_checkbox($resta_4); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_4", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_4_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_4_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>65</td>
-			<td><?= form_checkbox($resta_5); ?></td>
+			<td><?= form_checkbox($resta_5); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_5", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_5_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_5_query' tipo='old' style='width:20px;height:20px;' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}	
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 	</table>
 	<br />
@@ -224,7 +381,29 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha_alt', 'id'=>'fecha_alt', 'value'=>set_value('fecha_alt', $list[0]->fecha_alt))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha_alt', 'id'=>'fecha_alt', 'value'=>set_value('fecha_alt', $list[0]->fecha_alt))); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("fecha_alt", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_alt_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='fecha_alt_query' tipo='old' style='width:20px;height:20px;' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}	
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td style='background-color:#ccc;'>Reste 3 a partir del 20</td>
@@ -232,23 +411,133 @@ $(function(){
 		</tr>
 		<tr>
 			<td>17</td>
-			<td><?= form_checkbox($resta_1_alt); ?></td>
+			<td><?= form_checkbox($resta_1_alt); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_alt_1", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_alt_1_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_alt_1_query' tipo='old' style='width:20px;height:20px;' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}	
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>14</td>			
-			<td><?= form_checkbox($resta_2_alt); ?></td>
+			<td><?= form_checkbox($resta_2_alt); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_alt_2", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_alt_2_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_alt_2_query' tipo='old' style='width:20px;height:20px;' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}	
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>11</td>
-			<td><?= form_checkbox($resta_3_alt); ?></td>
+			<td><?= form_checkbox($resta_3_alt); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_alt_3", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_alt_3_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_alt_3_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>8</td>
-			<td><?= form_checkbox($resta_4_alt); ?></td>
+			<td><?= form_checkbox($resta_4_alt); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_alt_4", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_alt_4_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+							echo "<img src='". base_url('img/question.png') ."' id='resta_alt_4_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td>5</td>
-			<td><?= form_checkbox($resta_5_alt); ?></td>
+			<td><?= form_checkbox($resta_5_alt); ?>
+			<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("resta_alt_5", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
+							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_alt_5_query' tipo='new' class='query'>";
+							}else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='resta_alt_5_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
+							}
+						}						
+						
+					}
+				?>
+			</td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>
@@ -264,44 +553,7 @@ $(function(){
 
 <?= form_close(); ?>
 <!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Restas Seriadas', 'Responder',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
 
-			</tbody>
-		</table>
-
-<?php } ?>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
