@@ -8442,4 +8442,80 @@ class Subject extends CI_Controller {
 
 		return $fecha_1;
 	}
+	
+	/*--------------------------------------------Signos Vitales Adicional-------------------------------------------------------*/
+	public function signos_vitales_adicional($subject_id){
+		$data['contenido'] = 'subject/adicional/signos_vitales';
+		$data['titulo'] = 'Signos Vitales';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		
+		$this->load->model('Model_Signos_vitales_adicional');
+		$data['lista'] = $this->Model_Signos_vitales_adicional->allWhereArray(array('subject_id'=>$subject_id));
+
+		$this->load->view('template',$data);
+	}
+
+	public function signos_vitales_adicional_agregar($subject_id){
+		$data['contenido'] = 'subject/adicional/signos_vitales_agregar';
+		$data['titulo'] = 'Signos Vitales';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->view('template',$data);
+	}
+
+	public function signos_vitales_adicional_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');		
+		$this->form_validation->set_rules('presion_sistolica', '', 'xss_clean');
+		$this->form_validation->set_rules('presion_diastolica', '', 'xss_clean');
+		$this->form_validation->set_rules('frecuencia_cardiaca', '', 'xss_clean');
+		$this->form_validation->set_rules('frecuencia_respiratoria', '', 'xss_clean');
+		$this->form_validation->set_rules('temperatura', '', 'xss_clean');
+		$this->form_validation->set_rules('peso', '', 'xss_clean');
+		$this->form_validation->set_rules('observaciones', '', 'xss_clean');
+		
+		
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar signos vitales", $registro['subject_id']);
+			$this->signos_vitales_adicional_agregar($registro['subject_id']);
+
+		}else{
+
+			
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
+			}
+
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Signos_vitales_adicional');
+			$this->Model_Signos_vitales_adicional->insert($registro);			
+
+			$this->auditlib->save_audit("Signos vitales adicional agregados", $registro['subject_id']);     		
+     		redirect('subject/grid/'.$registro['subject_id']);
+
+		}
+	}
+
+	public function signos_vitales_adicional_show($subject_id, $id){
+		$data['contenido'] = 'subject/adicional/signos_vitales_show';
+		$data['titulo'] = 'Signos Vitales';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->model('Model_Signos_vitales_adicional');
+		$data['list'] = $this->Model_Signos_vitales_adicional->allWhereArray(array('subject_id'=>$subject_id, 'id'=>$id));		
+
+		$this->load->view('template',$data);
+	}
+	
+	/*-------------------------------ECG Adicional----------------------------------------------------------------------------------*/
+	/*-------------------------------Examen Fisico Adicional -----------------------------------------------------------------------*/
+	/*-------------------------------Examen Neuroloico Adicional -------------------------------------------------------------------*/
+	/*-------------------------------Examen Laboratorio Adicional-------------------------------------------------------------------*/
+	
 } 	

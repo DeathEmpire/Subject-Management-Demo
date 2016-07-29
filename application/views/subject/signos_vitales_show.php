@@ -177,7 +177,7 @@ $(function(){
 		?>
 		<tr>
 			<td>Estatura: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'estatura', 'id'=>'estatura', 'maxlenght'=>'3','value'=>set_value('estatura', $list[0]->estatura))); ?> cms
+			<td><?= form_input(array('type'=>'text','name'=>'estatura', 'id'=>'estatura', 'maxlength'=>'3','value'=>set_value('estatura', $list[0]->estatura))); ?> cms
 				<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{
@@ -210,7 +210,7 @@ $(function(){
 		<?php }?>
 		<tr>
 			<td>Presion Sistolica: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'presion_sistolica', 'id'=>'presion_sistolica', 'maxlenght'=>'3','value'=>set_value('presion_sistolica', $list[0]->presion_sistolica))); ?> mmHg 
+			<td><?= form_input(array('type'=>'text','name'=>'presion_sistolica', 'id'=>'presion_sistolica', 'maxlength'=>'3','value'=>set_value('presion_sistolica', $list[0]->presion_sistolica))); ?> mmHg 
 				<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{
@@ -238,7 +238,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Presion Diastolica: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'presion_diastolica', 'id'=>'presion_diastolica', 'maxlenght'=>'3','value'=>set_value('presion_diastolica', $list[0]->presion_diastolica))); ?> mmHg 
+			<td><?= form_input(array('type'=>'text','name'=>'presion_diastolica', 'id'=>'presion_diastolica', 'maxlength'=>'3','value'=>set_value('presion_diastolica', $list[0]->presion_diastolica))); ?> mmHg 
 				<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{
@@ -266,7 +266,7 @@ $(function(){
 		</tr>
 		<tr>	
 			<td>Frecuencia Cardiaca: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_cardiaca', 'id'=>'frecuencia_cardiaca', 'maxlenght'=>'3','value'=>set_value('frecuencia_cardiaca', $list[0]->frecuencia_cardiaca))); ?> latidos/minuto 
+			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_cardiaca', 'id'=>'frecuencia_cardiaca', 'maxlength'=>'3','value'=>set_value('frecuencia_cardiaca', $list[0]->frecuencia_cardiaca))); ?> latidos/minuto 
 				<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{
@@ -294,7 +294,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Frecuencia Respiratoria: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_respiratoria', 'id'=>'frecuencia_respiratoria', 'maxlenght'=>'3','value'=>set_value('frecuencia_respiratoria', $list[0]->frecuencia_respiratoria))); ?> minuto 
+			<td><?= form_input(array('type'=>'text','name'=>'frecuencia_respiratoria', 'id'=>'frecuencia_respiratoria', 'maxlength'=>'3','value'=>set_value('frecuencia_respiratoria', $list[0]->frecuencia_respiratoria))); ?> minuto 
 			<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{
@@ -322,7 +322,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Temperatura: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'temperatura', 'id'=>'temperatura', 'maxlenght'=>'3','value'=>set_value('temperatura', $list[0]->temperatura))); ?> °C 
+			<td><?= form_input(array('type'=>'text','name'=>'temperatura', 'id'=>'temperatura', 'maxlength'=>'3','value'=>set_value('temperatura', $list[0]->temperatura))); ?> °C 
 			<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{
@@ -350,7 +350,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Peso: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlenght'=>'3','value'=>set_value('peso', $list[0]->peso))); ?> kgs 
+			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlength'=>'3','value'=>set_value('peso', $list[0]->peso))); ?> kgs 
 			<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{
@@ -380,7 +380,7 @@ $(function(){
 		?>
 			<tr>
 				<td>IMC: </td>
-				<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlenght'=>'3','value'=>set_value('imc'))); ?>
+				<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlength'=>'3','value'=>set_value('imc'))); ?>
 				<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{

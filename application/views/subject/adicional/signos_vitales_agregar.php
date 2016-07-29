@@ -3,67 +3,11 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
-
-	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
-			$("#form_signos :input").attr('readonly','readonly');
-			$('select option:not(:selected)').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
-			$("input[name=realizado]").removeAttr('readonly');
-
-		}else{
-			$("#form_signos :input").removeAttr('readonly');
-			$('select option:not(:selected)').each(function(){
-				$(this).removeAttr('disabled', 'disabled');
-			});
-		}
-	});
-	if($("input[name=realizado]:checked").val() == 0){
-		$("#form_signos :input").attr('readonly','readonly');
-		$('select option:not(:selected)').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
-		$("input[name=realizado]").removeAttr('readonly');
-
-	}else{
-		$("#form_signos :input").removeAttr('readonly');
-		$('select option:not(:selected)').each(function(){
-			$(this).removeAttr('disabled', 'disabled');
-		});
-	}
-
-
-	$("#peso, #estatura").change(function(){
-		if($("#peso").val() != '' && $("#estatura").val() != ''){
-			var estatura2 = Math.pow($("#estatura").val(),2);
-			var peso = $("#peso").val();
-			var imc = (peso / estatura2) * 10000;
-			$("#imc").val(imc.toFixed(2));
-		}
-	});
-
-	if($("#peso").val() != '' && $("#estatura").val() != ''){
-		var estatura2 = Math.pow($("#estatura").val(),2);
-		var peso = $("#peso").val();
-		var imc = (peso / estatura2) * 10000;
-		$("#imc").val(imc.toFixed(2));
-	}
+	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 });
 </script>
-<?php
-	switch($etapa){
-		case 1 : $protocolo = "(Selección)"; break;
-		case 2 : $protocolo = "(Basal Día 1)"; break;
-		case 3 : $protocolo = "(Semana 4)"; break;
-		case 4 : $protocolo = "(Semana 12)"; break;
-		case 5 : $protocolo = "(Término del Estudio)"; break;
-		case 6 : $protocolo = "(Terminación Temprana)"; break;
-		default : $protocolo = ""; break;
-	}
-?>
-<legend style='text-align:center;'>Signos Vitales <?= $protocolo;?></legend>
+
+<legend style='text-align:center;'>Signos Vitales (Adicional)</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -89,11 +33,10 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/signos_vitales_insert', array('class'=>'form-horizontal','id'=>'form_signos')); ?>
+<?= form_open('subject/signos_vitales_adicional_insert', array('class'=>'form-horizontal','id'=>'form_signos')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
-	<?= form_hidden('subject_id', $subject->id); ?>	
-	<?= form_hidden('etapa', $etapa); ?>	
+	<?= form_hidden('subject_id', $subject->id); ?>		
 	
 	<?php
 		$data = array(
@@ -107,30 +50,11 @@ $(function(){
 
 	?>
 
-	<table class="table table-bordered table-striper table-hover">
-		<tr>	
-			<td>Realizado: </td>
-			<td>
-				<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si
-				<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
-			</td>
-		</tr>
+	<table class="table table-bordered table-striper table-hover">		
 		<tr>		
 			<td>Fecha: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
-		</tr>
-		<?php
-			if(isset($etapa) AND $etapa == 1){
-		?>
-		<tr>
-			<td>Estatura: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'estatura', 'id'=>'estatura', 'maxlength'=>'3','value'=>set_value('estatura'))); ?> cms</td>
-		</tr>
-		<?php }else{ ?>
-			
-				<?= form_hidden('estatura', ''); ?>
-
-		<?php }?>
+		</tr>		
 		<tr>
 			<td>Presion Sistolica: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'presion_sistolica', 'id'=>'presion_sistolica', 'maxlength'=>'3','value'=>set_value('presion_sistolica'))); ?> mmHg</td>
@@ -155,18 +79,11 @@ $(function(){
 			<td>Peso: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'maxlength'=>'3','value'=>set_value('peso'))); ?> kgs</td>
 		</tr>
-		<?php
-			if(isset($etapa) AND $etapa == 1){
-		?>
-			<tr>
-				<td>IMC: </td>
-				<td><?= form_input(array('type'=>'text','name'=>'imc', 'id'=>'imc', 'maxlength'=>'3','value'=>set_value('imc'))); ?></td>
-			</tr>
-		<?php }else{ ?>
-			
-				<?= form_hidden('imc', ''); ?>
-
-		<?php }?>
+		<tr>
+			<td>Obervaciones: </td>
+			<td><?= form_textarea(array('name'=>'observaciones', 'id'=>'observaciones', 'value'=>set_value('observaciones'), 'rows'=>'4','cols'=>'40')); ?></td>
+		</tr>
+		
 		<tr>
 			<td colspan='2' style='text-align:center;'>
 				<?php

@@ -2776,28 +2776,45 @@
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'adverse_event_form')){
 			?>
-				<td><?= anchor('subject/adverse_event_form/'.$subject->id,'Agregar'); ?></td>
-			<?php }?>	
-			<td><?= anchor('subject/adverse_event_show/'.$subject->id,'Ver'); ?></td>
+				<td><?= anchor('subject/adverse_event_form/'.$subject->id,'Agregar', array('class'=>'btn')); ?></td>
+			<?php }else{
+				echo "<td></td>";
+			}?>	
+			<td><?= anchor('subject/adverse_event_show/'.$subject->id,'Ver', array('class'=>'btn')); ?></td>
 		</tr>
 		<tr>	
 			<td>Protocol Deviation</td>
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'protocol_deviation_form')){
 			?>
-				<td><?= anchor('subject/protocol_deviation_form/'.$subject->id,'Agregar'); ?></td>
-			<?php }?>
+				<td><?= anchor('subject/protocol_deviation_form/'.$subject->id,'Agregar', array('class'=>'btn')); ?></td>
+			<?php }else{
+				echo "<td></td>";
+			}?>
 
-			<td><?= anchor('subject/protocol_deviation_show/'.$subject->id,'Ver'); ?></td>
+			<td><?= anchor('subject/protocol_deviation_show/'.$subject->id,'Ver', array('class'=>'btn')); ?></td>
 		</tr>
 		<tr>	
 			<td>Concomitant Medication</td>
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'concomitant_medication_form')){
 			?>
-				<td><?= anchor('subject/concomitant_medication_form/'.$subject->id,'Agregar'); ?></td>
-			<?php }?>
-			<td><?= anchor('subject/concomitant_medication_show/'.$subject->id,'Ver'); ?></td>
+				<td><?= anchor('subject/concomitant_medication_form/'.$subject->id,'Agregar', array('class'=>'btn')); ?></td>
+			<?php }else{
+				echo "<td></td>";
+			}?>
+			<td><?= anchor('subject/concomitant_medication_show/'.$subject->id,'Ver', array('class'=>'btn')); ?></td>
 		</tr>		
+		<tr>	
+			<td>Signos Vitales</td>
+			<?php
+				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'signos_vitales_insert')){
+			?>
+				<td><?= anchor('subject/signos_vitales_adicional_agregar/'.$subject->id,'Agregar', array('class'=>'btn')); ?></td>
+			<?php }else{
+				echo "<td></td>";
+			}?>
+			<td><?= anchor('subject/signos_vitales_adicional/'.$subject->id,'Ver', array('class'=>'btn')); ?></td>
+		</tr>
 	</tbody>
 </table>
