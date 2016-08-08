@@ -200,7 +200,7 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Palabras no recordadas: </td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'palabras_no_recordadas_1', 'id'=>'palabras_no_recordadas_1', 'value'=>set_value('palabras_no_recordadas_1', $list[0]->palabras_no_recordadas_1))); ?>
+				<td><?= form_dropdown('palabras_no_recordadas_1', $de0_a10,  set_value('palabras_no_recordadas_1', $list[0]->palabras_no_recordadas_1),array('id'=>'palabras_no_recordadas_1')); ?>
 				<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -265,7 +265,9 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Palabras no recordadas: </td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'palabras_no_recordadas_2', 'id'=>'palabras_no_recordadas_2', 'value'=>set_value('palabras_no_recordadas_2', $list[0]->palabras_no_recordadas_2))); ?>
+				<td>
+					<?= form_dropdown('palabras_no_recordadas_2', $de0_a10,  set_value('palabras_no_recordadas_2', $list[0]->palabras_no_recordadas_2),array('id'=>'palabras_no_recordadas_2')); ?>
+					
 				<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -330,7 +332,8 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Palabras no recordadas: </td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'palabras_no_recordadas_3', 'id'=>'palabras_no_recordadas_3', 'value'=>set_value('palabras_no_recordadas_3', $list[0]->palabras_no_recordadas_3))); ?>
+				<td>
+					<?= form_dropdown('palabras_no_recordadas_3', $de0_a10,  set_value('palabras_no_recordadas_3', $list[0]->palabras_no_recordadas_3),array('id'=>'palabras_no_recordadas_3')); ?>					
 				<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -681,6 +684,37 @@ $(function(){
 				</td>
 			</tr>
 			<tr>
+				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
+				<td><?= form_dropdown('no_administro_3', $no_administro, set_value('no_administro_3', $list[0]->no_administro_3)); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("no_administro_3", $campos_query))  
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'adas_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='no_administro_3_query' tipo='new' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
+								
+							}
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'adas_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='no_administro_3_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
+			</tr>
+			<tr>
 				<td>Puntuaci&oacute;n Total</td>
 				<td><?= form_dropdown('puntuacion_3', $puntaje, set_value('puntuacion_3', $list[0]->puntuacion_3), array('id'=>'puntuacion_3')); ?>
 					<?php
@@ -812,7 +846,7 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_4', $puntaje, set_value('puntuacion_4', $list[0]->puntuacion_4), array('id'=>'puntuacion_4')); ?>
+				<td><?= form_dropdown('puntuacion_4', $de0_a10, set_value('puntuacion_4', $list[0]->puntuacion_4), array('id'=>'puntuacion_4')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -1193,7 +1227,7 @@ $(function(){
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_7', $puntaje, set_value('puntuacion_7', $list[0]->puntuacion_7), array('id'=>'puntuacion_7')); ?>
+				<td><?= form_dropdown('puntuacion_7', $de0_a8, set_value('puntuacion_7', $list[0]->puntuacion_7), array('id'=>'puntuacion_7')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -1520,102 +1554,7 @@ $(function(){
 				</td>
 			</tr>
 
-			<tr>
-				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>13.	Eliminar números</td>
-			</tr>
-				<tr>
-				<td>Número de objetivos tachadas</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'objetivos_13', 'id'=>'objetivos_13', 'value'=>set_value('objetivos_13', $list[0]->objetivos_13))); ?>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("objetivos_13", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'adas_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='objetivos_13_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if(strpos($_SESSION['role_options']['subject'], 'adas_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='objetivos_13_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>Número de errores</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'errores_13', 'id'=>'errores_13', 'value'=>set_value('errores_13', $list[0]->errores_13))); ?>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("errores_13", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'adas_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='errores_13_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if(strpos($_SESSION['role_options']['subject'], 'adas_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='errores_13_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>Número de veces que se recordó la tarea</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'recordo_13', 'id'=>'recordo_13', 'value'=>set_value('recordo_13', $list[0]->recordo_13))); ?>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("recordo_13", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'adas_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='recordo_13_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if(strpos($_SESSION['role_options']['subject'], 'adas_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='recordo_13_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
+			
 			<tr>
 				<td colspan='2' style='text-align:center;'>
 					<?php

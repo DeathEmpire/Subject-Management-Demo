@@ -8,6 +8,11 @@ $(function(){
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
 			$("#form_examen_neurologico :input").attr('readonly','readonly');
+			$("#form_examen_neurologico :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+					$(this).val('');
+				}
+			});
 			$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -22,6 +27,11 @@ $(function(){
 	});
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_examen_neurologico :input").attr('readonly','readonly');
+		$("#form_examen_neurologico :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+					$(this).val('');
+				}
+			});
 		$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -32,6 +42,173 @@ $(function(){
 		$('select option:not(:selected)').each(function(){
 			$(this).removeAttr('disabled', 'disabled');
 		});
+	}
+
+
+	$("select[name=nervios_craneanos_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#nervios_craneanos").attr('readonly','readonly');
+		}else{
+			$("#nervios_craneanos").removeAttr('readonly');
+		}
+	});
+	$("select[name=fuerza_muscular_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#fuerza_muscular").attr('readonly','readonly');
+		}else{
+			$("#fuerza_muscular").removeAttr('readonly');
+		}
+	});
+	$("select[name=tono_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#tono").attr('readonly','readonly');
+		}else{
+			$("#tono").removeAttr('readonly');
+		}
+	});
+	$("select[name=mov_anormales_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#mov_anormales").attr('readonly','readonly');
+		}else{
+			$("#mov_anormales").removeAttr('readonly');
+		}
+	});
+	$("select[name=motora_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#motora").attr('readonly','readonly');
+		}else{
+			$("#motora").removeAttr('readonly');
+		}
+	});
+	$("select[name=reflejos_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#reflejos").attr('readonly','readonly');
+		}else{
+			$("#reflejos").removeAttr('readonly');
+		}
+	});
+	$("select[name=examen_sensitivo_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#examen_sensitivo").attr('readonly','readonly');
+		}else{
+			$("#examen_sensitivo").removeAttr('readonly');
+		}
+	});
+	$("select[name=coordinacion_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#coordinacion").attr('readonly','readonly');
+		}else{
+			$("#coordinacion").removeAttr('readonly');
+		}
+	});
+	$("select[name=marcha_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#marcha").attr('readonly','readonly');
+		}else{
+			$("#marcha").removeAttr('readonly');
+		}
+	});
+	$("select[name=postura_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#postura").attr('readonly','readonly');
+		}else{
+			$("#postura").removeAttr('readonly');
+		}
+	});
+	$("select[name=funcion_cerebelosa_normal_anormal]").change(function(){
+		if($(this).val() == 1){
+			$("#funcion_cerebelosa").attr('readonly','readonly');
+		}else{
+			$("#funcion_cerebelosa").removeAttr('readonly');
+		}
+	});
+
+
+
+	
+	if($("select[name=nervios_craneanos_normal_anormal] option:selected").text() == 'Normal'){		
+		$("#nervios_craneanos").attr('readonly','readonly');
+	}else{
+		
+		$("#nervios_craneanos").removeAttr('readonly');
+	}
+
+	if($("select[name=fuerza_muscular_normal_anormal] option:selected").text() == 'Normal'){
+		$("#fuerza_muscular").attr('readonly','readonly');
+	}else{
+		$("#fuerza_muscular").removeAttr('readonly');
+	}
+
+	if($("select[name=tono_normal_anormal]option:selected").text() == 'Normal'){
+		$("#tono").attr('readonly','readonly');
+	}else{
+		$("#tono").removeAttr('readonly');
+	}
+
+	if($("select[name=mov_anormales_normal_anormal] option:selected").text() == 'Normal'){
+		$("#mov_anormales").attr('readonly','readonly');
+	}else{
+		$("#mov_anormales").removeAttr('readonly');
+	}
+
+	if($("select[name=motora_normal_anormal] option:selected").text() == 'Normal'){
+		$("#motora").attr('readonly','readonly');
+	}else{
+		$("#motora").removeAttr('readonly');
+	}
+
+	if($("select[name=reflejos_normal_anormal] option:selected").text() == 'Normal'){
+		$("#reflejos").attr('readonly','readonly');
+	}else{
+		$("#reflejos").removeAttr('readonly');
+	}
+
+	if($("select[name=examen_sensitivo_normal_anormal] option:selected").text() == 'Normal'){
+		$("#examen_sensitivo").attr('readonly','readonly');
+	}else{
+		$("#examen_sensitivo").removeAttr('readonly');
+	}
+
+	if($("select[name=coordinacion_normal_anormal] option:selected").text() == 'Normal'){
+		$("#coordinacion").attr('readonly','readonly');
+	}else{
+		$("#coordinacion").removeAttr('readonly');
+	}
+
+	if($("select[name=marcha_normal_anormal] option:selected").text() == 'Normal'){
+		$("#marcha").attr('readonly','readonly');
+	}else{
+		$("#marcha").removeAttr('readonly');
+	}
+
+	if($("select[name=postura_normal_anormal] option:selected").text() == 'Normal'){
+		$("#postura").attr('readonly','readonly');
+	}else{
+		$("#postura").removeAttr('readonly');
+	}
+
+	if($("select[name=funcion_cerebelosa_normal_anormal] option:selected").text() == 'Normal'){
+		$("#funcion_cerebelosa").attr('readonly','readonly');
+	}else{
+		$("#funcion_cerebelosa").removeAttr('readonly');
+	}
+	
+	$("input[name=tuvo_cambios]").change(function(){
+		if($(this).val() == 1)
+		{
+			$("#tr_observaciones").show();
+		}else{
+			$("#tr_observaciones").hide();
+			$("#cambios_observaciones").val('');
+		}
+	});
+
+	if($("input[name=tuvo_cambios]:checked").val() == 1)
+	{
+		$("#tr_observaciones").show();
+	}else{
+		$("#tr_observaciones").hide();
+		$("#cambios_observaciones").val('');
 	}
 
 	$("#query_para_campos").dialog({
@@ -412,39 +589,7 @@ $(function(){
 				?>
 			</td>
 			</tr>
-			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
-				<tr>
-					<td>Coordinación</td>
-					<td><?= form_dropdown("coordinacion_normal_anormal",$normal_anormal,set_value('coordinacion_normal_anormal',$list[0]->coordinacion_normal_anormal)); ?></td>
-					<td><?= form_input(array('type'=>'text','name'=>'coordinacion', 'id'=>'coordinacion', 'value'=>set_value('coordinacion',$list[0]->coordinacion)));?>
-					<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("coordinacion", $campos_query))  
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'examen_neurologico_verify')){
-								echo "<img src='". base_url('img/icon-check.png') ."' id='coordinacion_query' tipo='new' class='query'>";	
-							}
-							else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";		
-							}
-							
-						}
-						else 
-						{	
-							if (strpos($_SESSION['role_options']['subject'], 'examen_neurologico_update')){					
-								echo "<img src='". base_url('img/question.png') ."' id='coordinacion_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-							}
-							else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-							}
-						}						
-						
-					}
-				?>
-			</td>
-				</tr>
+			</tr>
 				<tr>
 					<td>Marcha</td>
 					<td><?= form_dropdown("marcha_normal_anormal",$normal_anormal,set_value('marcha_normal_anormal',$list[0]->marcha_normal_anormal)); ?></td>
@@ -509,6 +654,39 @@ $(function(){
 				?>
 			</td>
 				</tr>
+			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
+				<tr>
+					<td>Coordinación</td>
+					<td><?= form_dropdown("coordinacion_normal_anormal",$normal_anormal,set_value('coordinacion_normal_anormal',$list[0]->coordinacion_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'coordinacion', 'id'=>'coordinacion', 'value'=>set_value('coordinacion',$list[0]->coordinacion)));?>
+					<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("coordinacion", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'examen_neurologico_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='coordinacion_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'examen_neurologico_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='coordinacion_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+			</td>
+				
 				<tr>
 					<td>Función cortical superior</td>
 					<td><?= form_dropdown("funcion_cerebelosa_normal_anormal",$normal_anormal,set_value('funcion_cerebelosa_normal_anormal',$list[0]->funcion_cerebelosa_normal_anormal)); ?></td>
@@ -543,14 +721,30 @@ $(function(){
 				</tr>
 			<?php } else { ?>
 					<?= form_hidden('coordinacion_normal_anormal','0'); ?>
-					<?= form_hidden('coordinacion',''); ?>
-					<?= form_hidden('marcha_normal_anormal','0'); ?>
-					<?= form_hidden('marcha',''); ?>
-					<?= form_hidden('postura_normal_anormal','0'); ?>
-					<?= form_hidden('postura',''); ?>
+					<?= form_hidden('coordinacion',''); ?>					
 					<?= form_hidden('funcion_cerebelosa_normal_anormal','0'); ?>
 					<?= form_hidden('funcion_cerebelosa',''); ?>
 			<?php } ?>	
+			<?php if($etapa != 1 AND $etapa != 5 AND $etapa != 6){ ?>
+
+				<tr>
+					<td>¿Tuvo el sujeto algún cambio desde la visita anterior?</td>
+					<td>						
+						<?= form_radio(array('name'=>'tuvo_cambios', 'value'=>1, 'checked'=>set_radio('tuvo_cambios', 1, (($list[0]->tuvo_cambios == 1) ? true : false)  ))); ?> Si
+						<?= form_radio(array('name'=>'tuvo_cambios', 'value'=>0, 'checked'=>set_radio('tuvo_cambios', 0, (($list[0]->tuvo_cambios == 0) ? true : false)  ))); ?> No
+					</td>
+				</tr>
+				<tr id='tr_observaciones' style='display:none;'>
+					<td>Observaciones</td>
+					<td>
+						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones', $list[0]->cambios_observaciones), array('rows'=>3, 'style'=>'width:100%;'))); ?>
+					</td>	
+				</tr>
+					
+			<?php }else{ ?>
+					<?= form_hidden('tuvo_cambios',''); ?>
+					<?= form_hidden('cambios_observaciones',''); ?>
+			<?php }?>
 			<tr>
 				<td style='font-weight:bold;' colspan='3'>Anormalidades de significancia clínica en la visita de screening deben reportarse como historia médica si el consentimiento informado está firmado.</td>
 			</tr>

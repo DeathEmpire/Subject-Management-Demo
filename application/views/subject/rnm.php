@@ -194,7 +194,7 @@ $(function(){
 		</thead>
 		<tbody>
 			<tr>
-				<td>¿Se realizó una Resonancia Magnética? </td>
+				<td>¿Sujeto dispone de una Resonancia Magnética? </td>
 				<td>
 					<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si
 					<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
@@ -203,7 +203,7 @@ $(function(){
 				<td><?= form_textarea(array('name'=>'resonancia_comentario', 'id'=>'resonancia_comentario','value'=>set_value('resonancia_comentario'),'rows'=>'5')); ?></td>
 			</tr>
 			<tr>
-				<td>¿Se realizó una Tomografía Computarizada?</td>
+				<td>¿Sujeto dispone de una Tomografía Computarizada?</td>
 				<td>
 					<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1)); ?> Si
 					<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0)); ?> NO
@@ -232,6 +232,20 @@ $(function(){
 				<td></td>
 				<td></td>
 			</tr>
+
+			<?php if($etapa == 1){ ?>
+				<tr>
+					<td>Se solicita Tomografía computarizada para el estudio</td>
+					<td>
+						<?= form_radio('se_solicita_tomografia','Si', set_radio('se_solicita_tomografia','Si')); ?> Si
+						<?= form_radio('se_solicita_tomografia','No',set_radio('se_solicita_tomografia','No')); ?> No	
+						<?= form_radio('se_solicita_tomografia','No Aplica',set_radio('se_solicita_tomografia','No Aplica')); ?> No Aplica
+					</td>
+				</tr>
+					
+			<?php } else{ ?>
+				<?= form_hidden('se_solicita_tomografia',''); ?>
+			<?php }?>
 			<tr>
 				<td colspan='4' style='text-align:center;'>
 					<?php

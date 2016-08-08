@@ -3,25 +3,8 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha, #fecha_alt").datepicker({ dateFormat: 'dd/mm/yy' });
+	$("#fecha_alt").datepicker({ dateFormat: 'dd/mm/yy' });
 	
-	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
-			$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").attr('readonly','readonly');			
-			$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").attr('disabled','disabled');
-
-		}else{
-			$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").removeAttr('readonly');
-			$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").removeAttr('disabled');
-		}
-	});
-	if($("input[name=realizado]:checked").val() == 0){
-		$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").attr('readonly','readonly');
-		$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").attr('disabled','disabled');
-	}else{
-		$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").removeAttr('readonly');
-		$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").removeAttr('disabled');
-	}
 
 	$("input[name=realizado_alt]").change(function(){
 		if($(this).val() == 0){
@@ -106,56 +89,9 @@ $(function(){
 		    #'checked'	  => set_radio('gender', 'female', TRUE),		    
 		    );
 	?>
-	<table class="table table-bordered table-striped table-hover">
-		<tr>
-			<td colspan='2' style='background-color:#ccc;'>Resta seriada</td>
-		</tr>
-		<tr>		
-			<td>Realizado: </td>
-			<td>
-				<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si
-				<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
-			</td>
-		</tr>
-		<tr>
-			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
-		</tr>
-		<tr>
-			<td style='background-color:#ccc;'>Resta 7 a partir de  100</td>
-			<td style='background-color:#ccc;'>Indicar respuestas correctas</td>
-		</tr>
+	
 	<?php 
-		$resta_1 = array(
-			    'name'        => 'resta_1',
-			    'id'          => 'resta_1',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_1','1')			    
-		    );
-		$resta_2 = array(
-			    'name'        => 'resta_2',
-			    'id'          => 'resta_2',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_2','1')			    
-		    );
-		$resta_3 = array(
-			    'name'        => 'resta_3',
-			    'id'          => 'resta_3',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_3','1')			    
-		    );
-		$resta_4 = array(
-			    'name'        => 'resta_4',
-			    'id'          => 'resta_4',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_4','1')			    
-		    );
-		$resta_5 = array(
-			    'name'        => 'resta_5',
-			    'id'          => 'resta_5',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_5','1')			    
-		    );
+		
 		$resta_1_alt = array(
 			    'name'        => 'resta_alt_1',
 			    'id'          => 'resta_alt_1',
@@ -187,37 +123,17 @@ $(function(){
 			    
 		    );
 	?>
-		<tr>
-			<td>93</td>
-			<td><?= form_checkbox($resta_1); ?></td>
-		</tr>
-		<tr>
-			<td>86</td>
-			<td><?= form_checkbox($resta_2); ?></td>
-		</tr>
-		<tr>
-			<td>79</td>
-			<td><?= form_checkbox($resta_3); ?></td>
-		</tr>
-		<tr>
-			<td>72</td>
-			<td><?= form_checkbox($resta_4); ?></td>
-		</tr>
-		<tr>
-			<td>65</td>
-			<td><?= form_checkbox($resta_5); ?></td>
-		</tr>
-	</table>
+		
 	<br />
 	<table class="table table-bordered table-striped table-hover">	
 		<tr>
-			<td colspan='2' style='background-color:#ccc;'>Resta seriada alternativa</td>
+			<td colspan='2' style='background-color:#ccc;'>Resta seriada</td>
 		</tr>
 		<tr>		
 			<td>Realizado: </td>
 			<td>
 				<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1)); ?> Si
-				<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0, true)); ?> NO
+				<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0)); ?> NO
 			</td>
 		</tr>
 		<tr>

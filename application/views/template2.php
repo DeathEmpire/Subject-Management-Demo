@@ -118,13 +118,19 @@
         </header>       
 
         <!-- Contenido dividos en 2, una parte izquierda para el menú, una parte central para las vistas -->
+        <?php 
+            $segment = $this->uri->segment(2);            
+        ?>
         <div class="container-fluid">
             <div class="row-fluid">             
                 <!-- Menú del sistema -->
                  <div class="row row-offcanvas row-offcanvas-left">
-                    <div class="row-offcanvas row-offcanvas-right">
+                    <div class="row-offcanvas row-offcanvas-right">                        
                         <div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebarLeft" role="navigation">
-                        <?php if(null !== $this->session->userdata('usuario')){ ?>
+                        <?php
+                        
+                        
+                        if(null !== $this->session->userdata('usuario')){ ?>
                                 <div class="well sidebar-nav" style='position: fixed'>
                                     <ul class="nav">                                    
                                         <?= my_menu_app(); ?>

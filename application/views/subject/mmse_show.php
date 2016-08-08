@@ -439,39 +439,7 @@ $(function(){
 	    </tr>
 	    <tr>
 	    	<td style='font-weight:bold;' colspan='4'>ORIENTACION EN EL LUGAR</td>	    	
-	    </tr>
-	    <tr>
-			<td>¿Dónde estás ahora?</td>
-			<td><?= form_input(array('type'=>'text','name'=>'donde_estas_ahora', 'id'=>'donde_estas_ahora', 'value'=>set_value('donde_estas_ahora', $list[0]->donde_estas_ahora))); ?></td>
-			<td><?= form_dropdown('donde_estas_ahora_puntaje',$puntaje,set_value('donde_estas_ahora_puntaje', $list[0]->donde_estas_ahora_puntaje)); ?></td>
-			<td>
-	    		<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("donde_estas_ahora_puntaje", $campos_query))  
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'mmse_verify')){
-								echo "<img src='". base_url('img/icon-check.png') ."' id='donde_estas_ahora_puntaje_query' tipo='new' class='query'>";	
-							}
-							else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";		
-							}
-							
-						}
-						else 
-						{	
-							if (strpos($_SESSION['role_options']['subject'], 'mmse_update')){					
-								echo "<img src='". base_url('img/question.png') ."' id='donde_estas_ahora_puntaje_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-							}
-							else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-							}
-						}						
-					}
-				?>
-			</td>
-		</tr>
+	    </tr>	    
 	    <tr>
 	    	<td>¿En qué Región (provincia) estamos?</td>
 	    	<td><?= form_input(array('type'=>'text','name'=>'en_que_region_estamos', 'id'=>'en_que_region_estamos', 'value'=>set_value('en_que_region_estamos', $list[0]->en_que_region_estamos))); ?></td>
@@ -505,7 +473,7 @@ $(function(){
 			</td>
 	    </tr>			
 		<tr>
-			<td>¿Comuna (o ciudad/pueblo) estamos?</td>
+			<td>¿En qué Comuna (o ciudad/pueblo) estamos?</td>
 			<td><?= form_input(array('type'=>'text','name'=>'comuna_estamos', 'id'=>'comuna_estamos', 'value'=>set_value('comuna_estamos', $list[0]->comuna_estamos))); ?></td>
 			<td><?= form_dropdown('comuna_estamos_puntaje',$puntaje,set_value('comuna_estamos_puntaje', $list[0]->comuna_estamos_puntaje)); ?></td>
 			<td>
@@ -537,7 +505,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>¿Ciudad/pueblo (o parte de la ciudad/barrio) estamos?</td>
+			<td>¿En qué Ciudad/pueblo (o parte de la ciudad/barrio) estamos?</td>
 			<td><?= form_input(array('type'=>'text','name'=>'barrio_estamos', 'id'=>'barrio_estamos', 'value'=>set_value('barrio_estamos', $list[0]->barrio_estamos))); ?></td>
 			<td><?= form_dropdown('barrio_estamos_puntaje',$puntaje,set_value('barrio_estamos_puntaje', $list[0]->barrio_estamos_puntaje)); ?></td>
 			<td>
@@ -569,7 +537,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>¿Edificio (nombre o tipo) estamos?</td>
+			<td>¿En qué Edificio (nombre o tipo) estamos?</td>
 			<td><?= form_input(array('type'=>'text','name'=>'edificio_estamos', 'id'=>'edificio_estamos', 'value'=>set_value('edificio_estamos', $list[0]->edificio_estamos))); ?></td>
 			<td><?= form_dropdown('edificio_estamos_puntaje',$puntaje,set_value('edificio_estamos_puntaje', $list[0]->edificio_estamos_puntaje)); ?></td>
 			<td>
@@ -601,18 +569,61 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
+			<td>¿En que Piso del Edificio (número de habitación o dirección) estamos?</td>
+			<td><?= form_input(array('type'=>'text','name'=>'edificio_estamos2', 'id'=>'edificio_estamos2', 'value'=>set_value('edificio_estamos2', $list[0]->edificio_estamos2))); ?></td>
+			<td><?= form_dropdown('edificio_estamos2_puntaje',$puntaje,set_value('edificio_estamos2_puntaje', $list[0]->edificio_estamos2_puntaje)); ?></td>
+			<td>
+	    		<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("edificio_estamos2", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'mmse_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='edificio_estamos2_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'mmse_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='edificio_estamos2_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+					}
+				?>
+			</td>
+		</tr>
+		<tr>
 			<td style='font-style:italic;' colspan='4'>*Los nombres de los lugares se pueden sustituir por nombres alternativos que sean apropiados y más precisos para el escenario. Se deben registrar.</td>
 		</tr>	
 		<tr>
 			<td style='font-weight:bold;' colspan='4'>REGISTRO</td>
 		</tr>
 		<tr>			
-			<td colspan='4'><b>Escuche atentamente. Voy a decir tres palabras. Repítalas una vez que yo las haya dicho. ¿Estás listo? Las palabras son… MANZANA</b>
-	 [pausa], PESO [pausa], MESA [pausa]. Ahora dígame esas palabras (se puede repetir hasta cinco veces, pero registre sólo el primer intento).
-			</td>
+			<?php if($etapa == 1 OR $etapa == 5){ ?>
+				<td colspan='4'><b>Escuche atentamente. Voy a decir tres palabras. Repítalas una vez que yo las haya dicho. ¿Estás listo? Las palabras son… ÁRBOL</b>
+		 [pausa], MESA [pausa], AVIÓN [pausa]. Ahora dígame esas palabras (se puede repetir hasta cinco veces, pero registre sólo el primer intento).
+				</td>
+			<?php } elseif($etapa == 4){ ?>
+					<td colspan='4'><b>Escuche atentamente. Voy a decir tres palabras. Repítalas una vez que yo las haya dicho. ¿Estás listo? Las palabras son… PELOTA</b>
+		 [pausa], BANDERA [pausa], MANZANA [pausa]. Ahora dígame esas palabras (se puede repetir hasta cinco veces, pero registre sólo el primer intento).
+				</td>
+			<?php }else{ ?>
+				<td colspan='4'><b>Escuche atentamente. Voy a decir tres palabras. Repítalas una vez que yo las haya dicho. ¿Estás listo? Las palabras son… MANZANA</b>
+		 [pausa], PESO [pausa], MESA [pausa]. Ahora dígame esas palabras (se puede repetir hasta cinco veces, pero registre sólo el primer intento).
+				</td>
+
+			<?php } ?>
 		</tr>
 		<tr>
-			<td>MANZANA</td>
+			<td><?= (($etapa == 1 OR $etapa == 5) ? 'ÁRBOL' : (($etapa == 4) ? 'PELOTA' : 'MANZANA' ));?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'manzana', 'id'=>'manzana', 'value'=>set_value('manzana', $list[0]->manzana))); ?></td>
 			<td><?= form_dropdown('manzana_puntaje',$puntaje,set_value('manzana_puntaje', $list[0]->manzana_puntaje)); ?></td>
 			<td>
@@ -644,7 +655,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>PESO</td>
+			<td><?= (($etapa == 1 OR $etapa == 5) ? 'MESA' : (($etapa == 4) ? 'BANDERA' : 'PESO' ));?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'value'=>set_value('peso', $list[0]->peso))); ?></td>
 			<td><?= form_dropdown('peso_puntaje',$puntaje,set_value('peso_puntaje', $list[0]->peso_puntaje)); ?></td>
 			<td>
@@ -676,7 +687,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>MESA</td>
+			<td><?= (($etapa == 1 OR $etapa == 5) ? 'AVIÓN' : (($etapa == 4) ? 'MANZANA' : 'MESA' ));?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'mesa', 'id'=>'mesa', 'value'=>set_value('mesa', $list[0]->mesa))); ?></td>
 			<td><?= form_dropdown('mesa_puntaje',$puntaje,set_value('mesa_puntaje', $list[0]->mesa_puntaje)); ?></td>
 			<td>
@@ -885,7 +896,7 @@ $(function(){
 			<td colspan='4' style='font-weight:bold;'>¿Cuáles eran las tres palabras que le pedí que recordara? [No de pistas]</td>
 		</tr>
 		<tr>
-			<td>MANZANA</td>
+			<td><?= (($etapa == 1 OR $etapa == 5) ? 'ÁRBOL' : (($etapa == 4) ? 'PELOTA' : 'MANZANA' ));?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'manzana_2', 'id'=>'manzana_2', 'value'=>set_value('manzana_2', $list[0]->manzana_2))); ?></td>
 			<td><?= form_dropdown('manzana_2_puntaje',$puntaje,set_value('manzana_2_puntaje', $list[0]->manzana_2_puntaje)); ?></td>
 			<td>
@@ -917,7 +928,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>PESO</td>
+			<td><?= (($etapa == 1 OR $etapa == 5) ? 'MESA' : (($etapa == 4) ? 'BANDERA' : 'PESO' ));?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'peso_2', 'id'=>'peso_2', 'value'=>set_value('peso_2', $list[0]->peso_2))); ?></td>
 			<td><?= form_dropdown('peso_2_puntaje',$puntaje,set_value('peso_2_puntaje', $list[0]->peso_2_puntaje)); ?></td>
 			<td>
@@ -949,7 +960,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>MESA</td>
+			<td><?= (($etapa == 1 OR $etapa == 5) ? 'AVIÓN' : (($etapa == 4) ? 'MANZANA' : 'MESA' ));?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'mesa_2', 'id'=>'mesa_2', 'value'=>set_value('mesa_2', $list[0]->mesa_2))); ?></td>
 			<td><?= form_dropdown('mesa_2_puntaje',$puntaje,set_value('mesa_2_puntaje', $list[0]->mesa_2_puntaje)); ?></td>
 			<td>

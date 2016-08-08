@@ -1,61 +1,91 @@
 $(function(){
 	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
 
-	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
-			$("#form_adas :input").attr('readonly','readonly');
+	jQuery("input[name=realizado]").change(function(){
+		if(jQuery(this).val() == 0){
+			jQuery("#form_adas :input").attr('readonly','readonly');			
+			jQuery("input[name^=realizado]").removeAttr('readonly');
 			
-			$("input[name=realizado]").removeAttr('readonly');
-			
-			$("#guardar").removeAttr('readonly');
+			jQuery("#form_adas :input").each(function(){
+				if(jQuery(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+					jQuery(this).val('');
+				}
+			});
+
+			jQuery("#guardar").removeAttr('readonly');
 			
 
 		}else{
-			$("#form_adas :input").removeAttr('readonly');
-			$("#puntaje_total").attr('readonly','readonly');
+			jQuery("#form_adas :input").each(function(){
+				jQuery(this).attr('readonly', false);
+			});
+			jQuery("#puntaje_total").attr('readonly','readonly');
 			
 		}
 	});
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_adas :input").attr('readonly','readonly');
 		
+		jQuery("#form_adas :input").each(function(){
+			if(jQuery(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+				jQuery(this).val('');
+			}
+		});
+
 		$("input[name=realizado]").removeAttr('readonly');
 		
 		$("#guardar").removeAttr('readonly');
 		
 
 	}else{
-		$("#form_adas :input").removeAttr('readonly');
+		$("#form_adas :input").each(function(){
+				$(this).removeAttr('readonly');
+			});
 		$("#puntaje_total").attr('readonly','readonly');
 		
 	}
 
-	$("select[name^=total_correctas_], input[name^=palabras_recordadas_], input[name^=total_recordadas], select[name^=puntuacion_]").change(function(){
+	$("#puntaje_total_1, #puntuacion_2, #puntuacion_3, #puntuacion_4, #puntuacion_5, #puntuacion_6, #puntuacion_7, #puntuacion_8, #puntuacion_9, #puntuacion_10, #puntuacion_11, #puntuacion_12, #total_incorrectas_8, select[name*=total_incorrectas], select[name*=palabras_no_recordadas]").change(function(){
 		var total = 0;
-		/*4 each*/
+		
+		if($("#puntaje_total_1").val() != ''){
+			total = total + parseFloat($("#puntaje_total_1").val());
+		}
+		if($("#puntuacion_2").val() != ''){
+			total = total + parseFloat($("#puntuacion_2").val());
+		}
+		if($("#puntuacion_3").val() != ''){
+			total = total + parseFloat($("#puntuacion_3").val());
+		}
+		if($("#puntuacion_4").val() != ''){
+			total = total + parseFloat($("#puntuacion_4").val());
+		}
+		if($("#puntuacion_5").val() != ''){
+			total = total + parseFloat($("#puntuacion_5").val());
+		}
+		if($("#puntuacion_6").val() != ''){
+			total = total + parseFloat($("#puntuacion_6").val());
+		}
+		if($("#puntuacion_7").val() != ''){
+			total = total + parseFloat($("#puntuacion_7").val());
+		}
+		if($("#puntuacion_8").val() != ''){
+			total = total + parseFloat($("#puntuacion_8").val());
+		}
+		if($("#puntuacion_9").val() != ''){
+			total = total + parseFloat($("#puntuacion_9").val());
+		}
+		if($("#puntuacion_10").val() != ''){
+			total = total + parseFloat($("#puntuacion_10").val());
+		}
+		if($("#puntuacion_11").val() != ''){
+			total = total + parseFloat($("#puntuacion_11").val());
+		}
+		if($("#puntuacion_12").val() != ''){
+			total = total + parseFloat($("#puntuacion_12").val());
+		}
 
-		$("select[name^=total_correctas_]").each(function(){
-			if($('option:selected',this).text() != ''){
-				total = total + parseInt($('option:selected',this).text());
-			}
-		});
-		$("select[name^=puntuacion_]").each(function(){
-			if($('option:selected',this).text() != ''){
-				total = total + parseInt($('option:selected',this).text());
-			}
-		});
-		$("input[name^=palabras_recordadas_]").each(function(){
-			if($(this).val() != ''){
-				total = total + parseInt($(this).val());
-			}
-		});
-		$("input[name^=total_recordadas]").each(function(){
-			if($(this).val() != ''){
-				total = total + parseInt($(this).val());
-			}
-		});
-
-		$("#puntaje_total").val(total);
+		$("#puntaje_total").val(total.toFixed(1));
 
 	});
 
@@ -77,12 +107,16 @@ $(function(){
 
 		puntaje = puntaje / 3;
 
-		$("#puntaje_total_1").val(puntaje);
+		$("#puntaje_total_1").val(puntaje.toFixed(1));
+
+		calcular_puntaje();
 
 	});
 
 	$("#total_incorrectas_2").change(function(){
 		$("#puntuacion_2").val($(this).val());
+
+		calcular_puntaje();
 	});
 
 	$("#total_incorrectas_3").change(function(){
@@ -91,6 +125,8 @@ $(function(){
 		}else{
 			$("#puntuacion_3").val($(this).val());	
 		}
+
+		calcular_puntaje();
 	});
 
 	$("#paciente_no_dibujo_3").click(function(){
@@ -100,10 +136,13 @@ $(function(){
 		else{
 			$("#puntuacion_3").val($(this).val());
 		}
+
+		calcular_puntaje();
 	});
 
 	$("#total_no_recordadas_4").change(function(){
 		$("#puntuacion_4").val($(this).val());
+		calcular_puntaje();
 	});
 
 
@@ -128,19 +167,49 @@ $(function(){
 			$("#puntuacion_5").val(5);
 		}	
 		
+		calcular_puntaje();
 	});
 	
 	$("#total_incorrectas_6").change(function(){
 		$("#puntuacion_6").val($(this).val());
+		calcular_puntaje();
 	});
 
 	$("#total_incorrectas_7").change(function(){
 		$("#puntuacion_7").val($(this).val());
+		calcular_puntaje();
 	});
 
 	$("#total_incorrectas_8").change(function(){
 		var puntaje = parseInt($(this).val()) / 2;
-		$("#puntuacion_7").val(puntaje);
+		$("#puntuacion_8").val(puntaje.toFixed(1));
+		calcular_puntaje();
+	});
+
+	$("#cantidad_recordadas_8").change(function(){
+		if($(this).val() == 0){
+			$("#puntuacion_9").val(0);
+		}
+		else if($(this).val() == 1){
+			$("#puntuacion_9").val(1);	
+		}
+		else if($(this).val() == 2){
+			$("#puntuacion_9").val(2);	
+		}
+		else if($(this).val() == 3 || $(this).val() == 4){
+			$("#puntuacion_9").val(3);	
+		}
+		else if($(this).val() == 5 || $(this).val() == 6){
+			$("#puntuacion_9").val(4);	
+		}
+		else if($(this).val() >= 7){
+			$("#puntuacion_9").val(5);	
+		}
+		else{
+			$("#puntuacion_9").val('');		
+		}
+
+		calcular_puntaje();
 	});
 
 	$("#puntuacion_9").change(function(){
@@ -166,3 +235,46 @@ $(function(){
 
 	});
 });
+
+function calcular_puntaje(){
+	var total = 0;
+		
+		if($("#puntaje_total_1").val() != ''){
+			total = total + parseFloat($("#puntaje_total_1").val());
+		}
+		if($("#puntuacion_2").val() != ''){
+			total = total + parseFloat($("#puntuacion_2").val());
+		}
+		if($("#puntuacion_3").val() != ''){
+			total = total + parseFloat($("#puntuacion_3").val());
+		}
+		if($("#puntuacion_4").val() != ''){
+			total = total + parseFloat($("#puntuacion_4").val());
+		}
+		if($("#puntuacion_5").val() != ''){
+			total = total + parseFloat($("#puntuacion_5").val());
+		}
+		if($("#puntuacion_6").val() != ''){
+			total = total + parseFloat($("#puntuacion_6").val());
+		}
+		if($("#puntuacion_7").val() != ''){
+			total = total + parseFloat($("#puntuacion_7").val());
+		}
+		if($("#puntuacion_8").val() != ''){
+			total = total + parseFloat($("#puntuacion_8").val());
+		}
+		if($("#puntuacion_9").val() != ''){
+			total = total + parseFloat($("#puntuacion_9").val());
+		}
+		if($("#puntuacion_10").val() != ''){
+			total = total + parseFloat($("#puntuacion_10").val());
+		}
+		if($("#puntuacion_11").val() != ''){
+			total = total + parseFloat($("#puntuacion_11").val());
+		}
+		if($("#puntuacion_12").val() != ''){
+			total = total + parseFloat($("#puntuacion_12").val());
+		}
+
+		$("#puntaje_total").val(total.toFixed(1));
+}

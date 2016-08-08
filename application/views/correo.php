@@ -1,6 +1,6 @@
 <?php date_default_timezone_set('America/Santiago');?>
 	<div id='header'>
-		<img src="<?= base_url('img/logo5.jpg'); ?>" /><br />	
+		<img src="<?= base_url('img/icc_logo.png'); ?>" /><br />	
 	</div>
 
 	<div id='cuerpo'>

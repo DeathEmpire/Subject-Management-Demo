@@ -16,6 +16,11 @@ $(function(){
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
 			$("#form_cumplimiento :input").attr('readonly','readonly');
+			$("#form_cumplimiento :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+					$(this).val('');
+				}
+			});
 			$("input[name=realizado]").removeAttr('readonly');
 
 		}else{
@@ -24,6 +29,11 @@ $(function(){
 	});
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_cumplimiento :input").attr('readonly','readonly');
+		$("#form_cumplimiento :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+					$(this).val('');
+				}
+			});
 		$("input[name=realizado]").removeAttr('readonly');
 
 	}else{

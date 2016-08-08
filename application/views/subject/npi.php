@@ -104,7 +104,7 @@
 				<td><?= form_dropdown('delirio_status', $status, set_value('delirio_status'), array('id'=>'delirio_status')); ?></td>
 				<td><?= form_dropdown('delirio_frecuencia', $frecuencia, set_value('delirio_frecuencia'), array('id'=>'delirio_frecuencia')); ?></td>
 				<td><?= form_dropdown('delirio_severidad',  $severidad, set_value('delirio_severidad'), array('id'=>'delirio_severidad')); ?></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'delirio_puntaje', 'id'=>'delirio_puntaje' 'value'=>set_value('delirio_puntaje'), 'readonly'=>'readonly')); ?></td>
+				<td><?= form_input(array('type'=>'number', 'name'=>'delirio_puntaje', 'id'=>'delirio_puntaje', 'value'=>set_value('delirio_puntaje'), 'readonly'=>'readonly')); ?></td>
 				<td><?= form_dropdown('delirio_angustia', $angustia, set_value('delirio_angustia'), array('id'=>'delirio_angustia')); ?></td>				
 			</tr>
 			<tr>

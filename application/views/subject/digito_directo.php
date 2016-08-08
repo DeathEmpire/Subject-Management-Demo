@@ -183,7 +183,9 @@
 		<table class='table table-bordered table-hover'>
 			<tr>
 				<td style='text-align:right;'>MSDD<br><small>(Maximo = 9)</small></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'msdd', 'id'=>'msdd', 'value'=>set_value('msdd'))); ?></td>
+				<td><?= form_dropdown('msdd', $de_0a9, set_value('msdd'),array('id'=>'msdd')); ?></td>
+				<td>Digitos Orden Direto (DOD) Puntaje Bruto Total (Maximo = 16)</td>
+				<td><?= form_input(array('name'=>'puntaje_bruto', 'id'=>'puntaje_bruto', 'value'=>set_value('puntaje_bruto'))); ?></td>
 			</tr>
 		</table>
 

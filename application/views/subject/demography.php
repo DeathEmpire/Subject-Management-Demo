@@ -64,6 +64,27 @@ $(function(){
 			}
 		);
 	});
+
+	$("#birth_date").change(function(){
+		var fecha_nac = $(this).val().split("/");
+		
+		var ano_nac = parseInt(fecha_nac[2]);
+		var dia_nac = parseInt(fecha_nac[0]);
+		var mes_nac = parseInt(fecha_nac[1]);
+
+		var ano_actual = parseInt("<?php echo date('Y');?>");
+		var dia_actual = parseInt("<?php echo date('j');?>");
+		var mes_actual = parseInt("<?php echo date('n');?>");
+
+		var edad = ano_actual - ano_nac;
+		
+		var dif_dia = dia_actual - dia_nac;
+		var dif_mes = mes_actual - mes_nac;
+		if(dif_mes < 0 || (dif_mes == 0 && dif_dia < 0)){
+			edad--;
+		}
+		$("#edad").val(edad);
+	});
 });
 </script>
 <div id='query_para_campos' style='display:none;'></div>

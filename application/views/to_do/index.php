@@ -75,10 +75,86 @@
 		 	</table>
 		<?php }
 
+
+		//formularios pendientes de verificacion
+		if(isset($to_do['pendientes_verificar_links']) AND !empty($to_do['pendientes_verificar_links'])){?>
+			<b>Formularios pendientes de Aprobacion: </b><br>
+			<table class='table table-bordered table-striped table-hover table-condensed'>
+				<thead>
+					<th>Sujeto</th>
+					<th>Formulario</th>					
+				</thead>
+				<tbody>
+				<?php
+					$cantidad = count($to_do['pendientes_verificar_links']);
+					for($i = 0; $i < $cantidad; $i++){
+
+						echo "<tr>							
+							<td>". $to_do['pendientes_verificar_codigos'][$i][0] ."</td>
+							<td>". $to_do['pendientes_verificar_links'][$i] ."</td>
+						</tr>";
+					}	
+				?>
+				</tbody>
+			</table>
+			
+		<?php
+		}		
+
+		//formularios pendientes de Cierre
+		if(isset($to_do['pendientes_cerrar_links']) AND !empty($to_do['pendientes_cerrar_links'])){?>
+			<b>Formularios pendientes de Cierre: </b><br>
+			<table class='table table-bordered table-striped table-hover table-condensed'>
+				<thead>
+					<th>Sujeto</th>
+					<th>Formulario</th>					
+				</thead>
+				<tbody>
+				<?php
+					$cantidad = count($to_do['pendientes_cerrar_links']);
+					for($i = 0; $i < $cantidad; $i++){
+
+						echo "<tr>							
+							<td>". $to_do['pendientes_cerrar_codigos'][$i][0] ."</td>
+							<td>". $to_do['pendientes_cerrar_links'][$i] ."</td>
+						</tr>";
+					}	
+				?>
+				</tbody>
+			</table>
+			
+		<?php
+		}
+
+		//formularios pendientes de firma
+		if(isset($to_do['pendientes_firma_links']) AND !empty($to_do['pendientes_firma_links'])){?>
+			<b>Formularios pendientes de Firma: </b><br>
+			<table class='table table-bordered table-striped table-hover table-condensed'>
+				<thead>
+					<th>Sujeto</th>
+					<th>Formulario</th>					
+				</thead>
+				<tbody>
+				<?php
+					$cantidad = count($to_do['pendientes_firma_links']);
+					for($i = 0; $i < $cantidad; $i++){
+
+						echo "<tr>							
+							<td>". $to_do['pendientes_firma_codigos'][$i][0] ."</td>
+							<td>". $to_do['pendientes_firma_links'][$i] ."</td>
+						</tr>";
+					}	
+				?>
+				</tbody>
+			</table>
+			
+		<?php
+		}
+
 		#Pending Querys
 		if(isset($to_do['querys']) AND !empty($to_do['querys'])){
 			#List of pending querys in all forms?>
-			<b>Pending Querys: </b>
+			<b>Querys Pendientes: </b>
 			<table class='table table-striped table-condensed table-bordered'>
 				<thead>
 					<th>Formulario</th>					

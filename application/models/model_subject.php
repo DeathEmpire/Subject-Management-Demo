@@ -82,4 +82,19 @@ class Model_Subject extends CI_Model {
 		$this->db->update('subject');
     }
 
+    public function buscarEstadosFormOr($or_where){
+        $this->db->select('subject.*');
+        $this->db->from('subject');        
+        $centro = $this->session->userdata('center_id');
+        if($centro != 'Todos'){
+            $this->db->where('subject.center', $centro);
+        }
+
+        $this->db->or_where($or_where);
+       
+        $query = $this->db->get();
+        return $query->result();
+    
+    }
+
 }

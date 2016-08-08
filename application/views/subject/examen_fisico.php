@@ -21,6 +21,240 @@ $(function(){
 
 		}
 	});
+
+	$("input[name=tuvo_cambios]").change(function(){
+		if($(this).val() == 1)
+		{
+			$("#tr_observaciones").show();
+		}else{
+			$("#tr_observaciones").hide();
+			$("#cambios_observaciones").val('');
+		}
+	});
+	if($("input[name=tuvo_cambios]:checked").val() == 1)
+	{
+		$("#tr_observaciones").show();
+	}else{
+		$("#tr_observaciones").hide();
+		$("#cambios_observaciones").val('');
+	}
+
+	$("input[name=aspecto_general]").change(function(){		
+		if($(this).val() == 1){
+			// alert(122);
+			$("textarea[name=aspecto_general_desc]").prop('readonly', true);			
+		}
+		else{
+			$("textarea[name=aspecto_general_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=estado_nutricional]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=estado_nutricional_desc]").attr('readonly','readonly');
+
+		}
+		else{
+			$("textarea[name=estado_nutricional_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=piel]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=piel_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=piel_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=cabeza]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=cabeza_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=cabeza_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=ojos]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=ojos_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=ojos_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=nariz]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=nariz_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=nariz_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=boca]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=boca_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=boca_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=oidos]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=oidos_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=oidos_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=cuello]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=cuello_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=cuello_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=pulmones]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=pulmones_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=pulmones_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=cardiovascular]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=cardiovascular_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=cardiovascular_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=abdomen]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=abdomen_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=abdomen_desc]").removeAttr('readonly');	
+		}
+	});
+	$("input[name=muscular]").change(function(){
+		if($(this).val() == 1){
+			$("textarea[name=muscular_desc]").attr('readonly','readonly');
+		}
+		else{
+			$("textarea[name=muscular_desc]").removeAttr('readonly');	
+		}
+	});
+
+	/*-----------------------------*/
+	
+	if($("input[name=aspecto_general]:checked").val() == 1){			
+		$("textarea[name=aspecto_general_desc]").prop('readonly', true);			
+	}
+	else{
+		$("textarea[name=aspecto_general_desc]").removeAttr('readonly');	
+	}
+	
+	
+	if($("input[name=estado_nutricional]:checked").val() == 1){
+		$("textarea[name=estado_nutricional_desc]").attr('readonly','readonly');
+
+	}
+	else{
+		$("textarea[name=estado_nutricional_desc]").removeAttr('readonly');	
+	}
+	
+	
+	if($("input[name=piel]:checked").val() == 1){
+		$("textarea[name=piel_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=piel_desc]").removeAttr('readonly');	
+	}
+	
+
+	if($("input[name=cabeza]:checked").val() == 1){
+		$("textarea[name=cabeza_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=cabeza_desc]").removeAttr('readonly');	
+	}
+
+
+	if($("input[name=ojos]:checked").val() == 1){
+		$("textarea[name=ojos_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=ojos_desc]").removeAttr('readonly');	
+	}
+
+
+	if($("input[name=nariz]:checked").val() == 1){
+		$("textarea[name=nariz_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=nariz_desc]").removeAttr('readonly');	
+	}
+
+
+	if($("input[name=boca]:checked").val() == 1){
+		$("textarea[name=boca_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=boca_desc]").removeAttr('readonly');	
+	}
+
+
+	if($("input[name=oidos]:checked").val() == 1){
+		$("textarea[name=oidos_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=oidos_desc]").removeAttr('readonly');	
+	}
+
+	
+	if($("input[name=cuello]:checked").val() == 1){
+		$("textarea[name=cuello_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=cuello_desc]").removeAttr('readonly');	
+	}
+	
+
+	if($("input[name=pulmones]:checked").val() == 1){
+		$("textarea[name=pulmones_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=pulmones_desc]").removeAttr('readonly');	
+	}
+
+
+	if($("input[name=cardiovascular]:checked").val() == 1){
+		$("textarea[name=cardiovascular_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=cardiovascular_desc]").removeAttr('readonly');	
+	}
+
+
+	if($("input[name=abdomen]:checked").val() == 1){
+		$("textarea[name=abdomen_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=abdomen_desc]").removeAttr('readonly');	
+	}
+
+	
+	if($("input[name=muscular]:checked").val() == 1){
+		$("textarea[name=muscular_desc]").attr('readonly','readonly');
+	}
+	else{
+		$("textarea[name=muscular_desc]").removeAttr('readonly');	
+	}
+	
+
+
+
 });
 </script>
 <?php
@@ -117,15 +351,16 @@ $(function(){
 				</td>
 				<td><?= form_textarea(array('name'=>'aspecto_general_desc','id'=>'aspecto_general_desc', 'value'=>set_value('aspecto_general_desc'), 'rows'=>3)); ?></td>
 			</tr>
-			<tr>
-				<td>Estado nutricional: </td>
-				<td>
-					<?= form_radio(array('name'=>'estado_nutricional','value'=>'1','checked'=>set_radio('estado_nutricional', 1))); ?> Normal
-					<?= form_radio(array('name'=>'estado_nutricional','value'=>'0','checked'=>set_radio('estado_nutricional', 0))); ?> Anormal
-				</td>
-				<td><?= form_textarea(array('name'=>'estado_nutricional_desc','id'=>'estado_nutricional_desc', 'value'=>set_value('renal_desc'), 'rows'=>3)); ?></td>
-			</tr>
 			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
+				<tr>
+					<td>Estado nutricional: </td>
+					<td>
+						<?= form_radio(array('name'=>'estado_nutricional','value'=>'1','checked'=>set_radio('estado_nutricional', 1))); ?> Normal
+						<?= form_radio(array('name'=>'estado_nutricional','value'=>'0','checked'=>set_radio('estado_nutricional', 0))); ?> Anormal
+					</td>
+					<td><?= form_textarea(array('name'=>'estado_nutricional_desc','id'=>'estado_nutricional_desc', 'value'=>set_value('renal_desc'), 'rows'=>3)); ?></td>
+				</tr>
+			
 				<tr>
 					<td>Piel: </td>
 					<td>
@@ -183,6 +418,8 @@ $(function(){
 					<td><?= form_textarea(array('name'=>'cuello_desc','id'=>'cuello_desc', 'value'=>set_value('cuello_desc'), 'rows'=>3)); ?></td>
 				</tr>
 			<?php } else { ?>
+				<?= form_hidden('estado_nutricional',''); ?>
+				<?= form_hidden('estado_nutricional_desc',''); ?>
 				<?= form_hidden('piel',''); ?>
 				<?= form_hidden('piel_desc',''); ?>
 				<?= form_hidden('cabeza',''); ?>
@@ -230,39 +467,28 @@ $(function(){
 				</td>
 				<td><?= form_textarea(array('name'=>'muscular_desc','id'=>'muscular_desc', 'value'=>set_value('muscular_desc'), 'rows'=>3)); ?></td>
 			</tr>
-			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
+
+			<?php if($etapa != 1 AND $etapa != 5 AND $etapa != 6){ ?>
+
 				<tr>
-					<td>Extremidades superiores: </td>
-					<td>
-						<?= form_radio(array('name'=>'ext_superiores','value'=>'1','checked'=>set_radio('ext_superiores', 1))); ?> Normal
-						<?= form_radio(array('name'=>'ext_superiores','value'=>'0','checked'=>set_radio('ext_superiores', 0))); ?> Anormal
+					<td>¿Tuvo el sujeto algún cambio desde la visita anterior?</td>
+					<td>						
+						<?= form_radio(array('name'=>'tuvo_cambios', 'value'=>1, 'checked'=>set_radio('tuvo_cambios', 1))); ?> Si
+						<?= form_radio(array('name'=>'tuvo_cambios', 'value'=>0, 'checked'=>set_radio('tuvo_cambios', 0))); ?> No
 					</td>
-					<td><?= form_textarea(array('name'=>'ext_superiores_desc','id'=>'ext_superiores_desc', 'value'=>set_value('ext_superiores_desc'), 'rows'=>3)); ?></td>
 				</tr>
-				<tr>
-					<td>Extremidades inferiores: </td>
+				<tr id='tr_observaciones' style='display:none;'>
+					<td>Observaciones</td>
 					<td>
-						<?= form_radio(array('name'=>'ext_inferiores','value'=>'1','checked'=>set_radio('ext_inferiores', 1))); ?> Normal
-						<?= form_radio(array('name'=>'ext_inferiores','value'=>'0','checked'=>set_radio('ext_inferiores', 0))); ?> Anormal
-					</td>
-					<td><?= form_textarea(array('name'=>'ext_inferiores_desc','id'=>'ext_inferiores_desc', 'value'=>set_value('ext_inferiores_desc'), 'rows'=>3)); ?></td>
+						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones'), array('rows'=>3, 'style'=>'width:100%;'))); ?>
+					</td>	
 				</tr>
-				<tr>
-					<td>Pulsos perif&eacute;ricos: </td>
-					<td>
-						<?= form_radio(array('name'=>'periferico','value'=>'1','checked'=>set_radio('periferico', 1))); ?> Normal
-						<?= form_radio(array('name'=>'periferico','value'=>'0','checked'=>set_radio('periferico', 0))); ?> Anormal
-					</td>
-					<td><?= form_textarea(array('name'=>'periferico_desc','id'=>'periferico_desc', 'value'=>set_value('periferico_desc'), 'rows'=>3)); ?></td>
-				</tr>
-			<?php } else { ?>
-				<?= form_hidden('ext_superiores',''); ?>
-				<?= form_hidden('ext_superiores_desc',''); ?>
-				<?= form_hidden('ext_inferiores',''); ?>
-				<?= form_hidden('ext_inferiores_desc',''); ?>
-				<?= form_hidden('periferico',''); ?>
-				<?= form_hidden('periferico_desc',''); ?>
-			<?php }?>	
+					
+			<?php }else{ ?>
+					<?= form_hidden('tuvo_cambios',''); ?>
+					<?= form_hidden('cambios_observaciones',''); ?>
+			<?php }?>
+			
 			<tr>
 				<td colspan='3' style='text-align:center;'>
 					<?php

@@ -3,25 +3,7 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#fecha, #fecha_alt").datepicker({ dateFormat: 'dd/mm/yy' });
-	
-	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
-			$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").attr('readonly','readonly');			
-			$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").attr('disabled','disabled');
-
-		}else{
-			$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").removeAttr('readonly');
-			$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").removeAttr('disabled');
-		}
-	});
-	if($("input[name=realizado]:checked").val() == 0){
-		$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").attr('readonly','readonly');
-		$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").attr('disabled','disabled');
-	}else{
-		$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").removeAttr('readonly');
-		$("#resta_1, #resta_2, #resta_3, #resta_4, #resta_5, #fecha").removeAttr('disabled');
-	}
+	$("#fecha_alt").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$("input[name=realizado_alt]").change(function(){
 		if($(this).val() == 0){
@@ -133,244 +115,43 @@ $(function(){
 		    'value'       => 0,
 		    #'checked'	  => set_radio('gender', 'female', TRUE),		    
 		    );
-	?>
-	<table class="table table-bordered table-striped table-hover">
-		<tr>
-			<td colspan='2' style='background-color:#ccc;'>Resta seriada</td>
-		</tr>
-		<tr>		
-			<td>Realizado: </td>
-			<td>
-				<?= form_radio($data,$data['value'],set_radio($data['name'], 1, (($list[0]->realizado == 1) ? true : false))); ?> Si
-				<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0, (($list[0]->realizado == 0) ? true : false))); ?> NO
-			</td>
-		</tr>
-		<tr>
-			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
-			<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("fecha", $campos_query)) 
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
-								echo "<img src='". base_url('img/icon-check.png') ."' id='fecha_query' tipo='new' class='query'>";
-							}else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";
-							}
-						}else{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
-							echo "<img src='". base_url('img/question.png') ."' id='fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-							}else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
-							}
-						}						
-						
-					}
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td style='background-color:#ccc;'>Resta 7 a partir de  100</td>
-			<td style='background-color:#ccc;'>Indicar respuestas correctas</td>
-		</tr>
-	<?php 
-		$resta_1 = array(
-			    'name'        => 'resta_1',
-			    'id'          => 'resta_1',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_1','1', (($list[0]->resta_1 == 1) ? true : false) )			    
-		    );
-		$resta_2 = array(
-			    'name'        => 'resta_2',
-			    'id'          => 'resta_2',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_2','1', (($list[0]->resta_2 == 1) ? true : false))			    
-		    );
-		$resta_3 = array(
-			    'name'        => 'resta_3',
-			    'id'          => 'resta_3',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_3','1', (($list[0]->resta_3 == 1) ? true : false))			    
-		    );
-		$resta_4 = array(
-			    'name'        => 'resta_4',
-			    'id'          => 'resta_4',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_4','1', (($list[0]->resta_4 == 1) ? true : false))			    
-		    );
-		$resta_5 = array(
-			    'name'        => 'resta_5',
-			    'id'          => 'resta_5',
-			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_5','1', (($list[0]->resta_5 == 1) ? true : false))			    
-		    );
+
+		
 		$resta_1_alt = array(
 			    'name'        => 'resta_alt_1',
 			    'id'          => 'resta_alt_1',
 			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_alt_1','1', (($list[0]->resta_alt_1 == 1) ? true : false))			    
+			    
 		    );
 		$resta_2_alt = array(
 			    'name'        => 'resta_alt_2',
 			    'id'          => 'resta_alt_2',
 			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_alt_2','1', (($list[0]->resta_alt_2 == 1) ? true : false))			    
+			    
 		    );
 		$resta_3_alt = array(
 			    'name'        => 'resta_alt_3',
 			    'id'          => 'resta_alt_3',
 			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_alt_3','1', (($list[0]->resta_alt_3 == 1) ? true : false))			    
+			    
 		    );
 		$resta_4_alt = array(
 			    'name'        => 'resta_alt_4',
 			    'id'          => 'resta_alt_4',
 			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_alt_4','1', (($list[0]->resta_alt_4 == 1) ? true : false))			    
+			    
 		    );
 		$resta_5_alt = array(
 			    'name'        => 'resta_alt_5',
 			    'id'          => 'resta_alt_5',
 			    'value'       => '1',
-			    'checked'     => set_checkbox('resta_alt_5','1', (($list[0]->resta_alt_5 == 1) ? true : false))			    
+			    
 		    );
 	?>
-		<tr>
-			<td>93</td>
-			<td><?= form_checkbox($resta_1); ?>
-			<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("resta_1", $campos_query)) 
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
-							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_1_query' tipo='new' class='query'>";
-							}else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";
-							}
-						}else{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
-							echo "<img src='". base_url('img/question.png') ."' id='resta_1_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-							}else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
-							}
-						}						
-						
-					}
-				?></td>
-		</tr>
-		<tr>
-			<td>86</td>
-			<td><?= form_checkbox($resta_2); ?>
-			<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("resta_2", $campos_query)) 
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
-							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_2_query' tipo='new' class='query'>";
-							}else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";
-							}
-						}else{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
-							echo "<img src='". base_url('img/question.png') ."' id='resta_2_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-							}else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
-							}
-						}						
-						
-					}
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td>79</td>
-			<td><?= form_checkbox($resta_3); ?>
-			<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("resta_3", $campos_query)) 
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
-							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_3_query' tipo='new' class='query'>";
-							}else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";
-							}
-						}else{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
-							echo "<img src='". base_url('img/question.png') ."' id='resta_3_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-							}else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
-							}
-						}						
-						
-					}
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td>72</td>
-			<td><?= form_checkbox($resta_4); ?>
-			<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("resta_4", $campos_query)) 
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
-							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_4_query' tipo='new' class='query'>";
-							}else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";
-							}
-						}else{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
-							echo "<img src='". base_url('img/question.png') ."' id='resta_4_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-							}else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
-							}
-						}						
-						
-					}
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td>65</td>
-			<td><?= form_checkbox($resta_5); ?>
-			<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("resta_5", $campos_query)) 
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_verify')){
-							echo "<img src='". base_url('img/icon-check.png') ."' id='resta_5_query' tipo='new' class='query'>";
-							}else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";
-							}
-						}else{
-							if(strpos($_SESSION['role_options']['subject'], 'restas_update')){
-							echo "<img src='". base_url('img/question.png') ."' id='resta_5_query' tipo='old' style='width:20px;height:20px;' class='query'>";
-							}else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";
-							}	
-						}						
-						
-					}
-				?>
-			</td>
-		</tr>
-	</table>
-	<br />
+	
 	<table class="table table-bordered table-striped table-hover">	
 		<tr>
-			<td colspan='2' style='background-color:#ccc;'>Resta seriada alternativa</td>
+			<td colspan='2' style='background-color:#ccc;'>Resta seriada</td>
 		</tr>
 		<tr>		
 			<td>Realizado: </td>
@@ -381,7 +162,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>Fecha: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'fecha_alt', 'id'=>'fecha_alt', 'value'=>set_value('fecha_alt', $list[0]->fecha_alt))); ?>
+			<td><?= form_input(array('type'=>'text','name'=>'fecha_alt', 'id'=>'fecha_alt', 'value'=>set_value('fecha_alt', (($list[0]->fecha_alt != '0000-00-00') ?  date('d/m/Y', strtotime($list[0]->fecha_alt)) : '' )  ))); ?>
 			<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 					{

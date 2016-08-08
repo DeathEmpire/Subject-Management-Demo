@@ -761,7 +761,8 @@ $(function(){
 		<table class='table table-bordered table-hover'>
 			<tr>
 				<td style='text-align:right;'>MSDD<br><small>(Maximo = 9)</small></td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'msdd', 'id'=>'msdd', 'value'=>set_value('msdd',$list[0]->msdd))); ?>
+				<td>
+					<?= form_dropdown('msdd', $de_0a9, set_value('msdd',$list[0]->msdd),array('id'=>'msdd')); ?>					
 				<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -776,6 +777,30 @@ $(function(){
 							}else{
 								if(strpos($_SESSION['role_options']['subject'], 'digito_directo_update')){
 									echo "<img src='". base_url('img/question.png') ."' id='msdd_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+								}
+							}						
+							
+						}
+					?>
+				</td>
+				<td>Digitos Orden Direto (DOD) Puntaje Bruto Total (Maximo = 16)</td>
+				<td><?= form_input(array('name'=>'puntaje_bruto', 'id'=>'puntaje_bruto', 'value'=>set_value('puntaje_bruto',$list[0]->puntaje_bruto))); ?>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("puntaje_bruto", $campos_query)) 
+							{
+								if(strpos($_SESSION['role_options']['subject'], 'digito_directo_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='puntaje_bruto_query' tipo='new' class='query'>";
+								}else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";
+								}
+							}else{
+								if(strpos($_SESSION['role_options']['subject'], 'digito_directo_update')){
+									echo "<img src='". base_url('img/question.png') ."' id='puntaje_bruto_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
 								}else{
 									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
 								}

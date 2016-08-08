@@ -49,7 +49,7 @@
 	<?= form_hidden('subject_id', $subject->id); ?>
 	<?= form_hidden('etapa', $etapa); ?>
 
-	<table class='table table-striped table-hover table-bordered table-condensed'>		
+	<table class='table table-striped table-hover table-bordered table-condensed table-responsive'>		
 		<thead>
 			<tr>
 				<td style='font-weight:bold;'>1.- ANTECEDENTES DEL SUJETO</td>	
@@ -64,10 +64,10 @@
 					<?= form_radio('hipertension',1,set_radio('hipertension'));?> SI
 					<?= form_radio('hipertension',0,set_radio('hipertension'));?> NO
 				</td>
-				<td>
-					<?= form_dropdown('hipertension_dia', $dias_ea, set_value('hipertension_dia'), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('hipertension_mes', $meses_ea, set_value('hipertension_mes'), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('hipertension_anio', $anio_ea, set_value('hipertension_anio'), array('class'=>'input-small')); ?>		
+				<td style='vertical-align: middle;'>
+					Dia <?= form_dropdown('hipertension_dia', $dias_ea, set_value('hipertension_dia'), array('class'=>'input-small')); ?> / 
+					Mes <?= form_dropdown('hipertension_mes', $meses_ea, set_value('hipertension_mes'), array('class'=>'input-small')); ?> / 
+					Año <?= form_dropdown('hipertension_anio', $anio_ea, set_value('hipertension_anio'), array('class'=>'input-small')); ?>		
 				</td>
 			</tr>
 			<tr>
@@ -309,7 +309,7 @@
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>
-					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
+					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn btn-default')); ?>
 				</td>				
 			</tr>			
 		</tbody>

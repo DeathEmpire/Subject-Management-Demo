@@ -93,9 +93,9 @@ $(function(){
 					<?= form_radio('hipertension',0,set_radio('hipertension', 0,(($list[0]->hipertension == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('hipertension_dia', $dias_ea, set_value('hipertension_dia', $list[0]->hipertension_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('hipertension_mes', $meses_ea, set_value('hipertension_mes', $list[0]->hipertension_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('hipertension_anio', $anio_ea, set_value('hipertension_anio', $list[0]->hipertension_anio), array('class'=>'input-small')); ?>	
+					Dia <?= form_dropdown('hipertension_dia', $dias_ea, set_value('hipertension_dia', $list[0]->hipertension_dia), array('class'=>'input-small')); ?> / 
+					Mes <?= form_dropdown('hipertension_mes', $meses_ea, set_value('hipertension_mes', $list[0]->hipertension_mes), array('class'=>'input-small')); ?> / 
+					Año <?= form_dropdown('hipertension_anio', $anio_ea, set_value('hipertension_anio', $list[0]->hipertension_anio), array('class'=>'input-small')); ?>	
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{

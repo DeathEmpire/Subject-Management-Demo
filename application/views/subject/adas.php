@@ -64,8 +64,8 @@
 			<tr>		
 				<td>Realizado: </td>
 				<td>
-					<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si
-					<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
+					<?= form_radio('realizado',1,set_radio('realizado', 1, true)); ?> Si
+					<?= form_radio('realizado',0,set_radio('realizado', 0)); ?> NO
 				</td>
 			</tr>
 			<tr>
@@ -87,8 +87,8 @@
 				<td><?= form_input(array('type'=>'number', 'name'=>'palabras_recordadas_1', 'id'=>'palabras_recordadas_1', 'value'=>set_value('palabras_recordadas_1'))); ?></td>
 			</tr>
 			<tr>
-				<td>Palabras no recordadas: </td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'palabras_no_recordadas_1', 'id'=>'palabras_no_recordadas_1', 'value'=>set_value('palabras_no_recordadas_1'))); ?></td>
+				<td>Palabras no recordadas: </td>				
+				<td><?= form_dropdown('palabras_no_recordadas_1', $de0_a10,  set_value('palabras_no_recordadas_1'),array('id'=>'palabras_no_recordadas_1')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;'>Ensayo 2</td>
@@ -99,7 +99,7 @@
 			</tr>
 			<tr>
 				<td>Palabras no recordadas: </td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'palabras_no_recordadas_2', 'id'=>'palabras_no_recordadas_2', 'value'=>set_value('palabras_no_recordadas_2'))); ?></td>
+				<td><?= form_dropdown('palabras_no_recordadas_2', $de0_a10,  set_value('palabras_no_recordadas_2'),array('id'=>'palabras_no_recordadas_2')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;'>Ensayo 3</td>
@@ -109,8 +109,8 @@
 				<td><?= form_input(array('type'=>'number', 'name'=>'palabras_recordadas_3', 'id'=>'palabras_recordadas_3', 'value'=>set_value('palabras_recordadas_3'))); ?></td>
 			</tr>
 			<tr>
-				<td>Palabras no recordadas: </td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'palabras_no_recordadas_3', 'id'=>'palabras_no_recordadas_3', 'value'=>set_value('palabras_no_recordadas_3'))); ?></td>
+				<td>Palabras no recordadas: </td>				
+				<td><?= form_dropdown('palabras_no_recordadas_3', $de0_a10,  set_value('palabras_no_recordadas_3'),array('id'=>'palabras_no_recordadas_3')); ?></td>								
 			</tr>
 			<tr>
 				<td>Hora de finalizacion: </td>
@@ -165,6 +165,10 @@
 				<td><?= form_checkbox('paciente_no_dibujo_3','1', set_value('paciente_no_dibujo_3'), array('id'=>'paciente_no_dibujo_3')); ?></td>
 			</tr>
 			<tr>
+				<td>Si alguna tarea no se administró o no se completó, elija una opción: </td>
+				<td><?= form_dropdown('no_administro_3', $no_administro, set_value('no_administro_3')); ?></td>
+			</tr>
+			<tr>
 				<td>Puntuaci&oacute;n Total</td>
 				<td><?= form_dropdown('puntuacion_3', $puntaje, set_value('puntuacion_3'), array('id'=>'puntuacion_3')); ?></td>
 			</tr>				
@@ -189,7 +193,7 @@
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_4', $puntaje, set_value('puntuacion_4'), array('id'=>'puntuacion_4')); ?></td>
+				<td><?= form_dropdown('puntuacion_4', $de0_a10, set_value('puntuacion_4'), array('id'=>'puntuacion_4')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>5.- Tarea de nombrar</td>
@@ -246,7 +250,7 @@
 			</tr>
 			<tr>
 				<td>Puntuaci&oacute;n Total</td>
-				<td><?= form_dropdown('puntuacion_7', $puntaje, set_value('puntuacion_7'), array('id'=>'puntuacion_7')); ?></td>
+				<td><?= form_dropdown('puntuacion_7', $de0_a8, set_value('puntuacion_7'), array('id'=>'puntuacion_7')); ?></td>
 			</tr>
 			<tr>
 				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>8.- Tarea de reconocer palabras</td>
@@ -302,22 +306,7 @@
 				<td>Puntuación</td>
 				<td><?= form_dropdown('puntuacion_12', $puntaje, set_value('puntuacion_12'), array('id'=>'puntuacion_12')); ?></td>
 			</tr>
-
-			<tr>
-				<td colspan='2' style='background-color:#ccc;font-weight:bold;'>13.	Eliminar números</td>
-			</tr>
-				<tr>
-				<td>Número de objetivos tachadas</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'objetivos_13', 'id'=>'objetivos_13', 'value'=>set_value('objetivos_13'))); ?></td>
-			</tr>
-			<tr>
-				<td>Número de errores</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'errores_13', 'id'=>'errores_13', 'value'=>set_value('errores_13'))); ?></td>
-			</tr>
-			<tr>
-				<td>Número de veces que se recordó la tarea</td>
-				<td><?= form_input(array('type'=>'number', 'name'=>'recordo_13', 'id'=>'recordo_13', 'value'=>set_value('recordo_13'))); ?></td>
-			</tr>
+			
 			<tr>
 				<td colspan='2' style='text-align:center;'>
 					<?php

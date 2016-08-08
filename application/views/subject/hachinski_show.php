@@ -16,12 +16,24 @@ $(function(){
             }
         });
 
+		if(total >= 5){
+			$("#tr_no_cumple").show();
+		}
+		else{
+			$("#tr_no_cumple").hide();
+		} 
+
 		$("#td_total").text(total);
 		$("#total").val(total);
 	});
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
-			$("#form_hach :input").attr('readonly','readonly');			
+			$("#form_hach :input").attr('readonly','readonly');
+			$("#form_hach :input").each(function(){
+				if($(this).attr('name') != 'realizado' && $(this).attr('type') == 'text'){
+					$(this).val('');
+				}
+			});			
 			$("input[name=realizado]").removeAttr('readonly');
 
 		}else{
@@ -29,7 +41,12 @@ $(function(){
 		}
 	});
 	if($("input[name=realizado]:checked").val() == 0){
-		$("#form_hach :input").attr('readonly','readonly');		
+		$("#form_hach :input").attr('readonly','readonly');
+		$("#form_hach :input").each(function(){
+				if($(this).attr('name') != 'realizado' && $(this).attr('type') == 'text'){
+					$(this).val('');
+				}
+			});		
 		$("input[name=realizado]").removeAttr('readonly');
 
 	}else{
@@ -519,7 +536,10 @@ $(function(){
 						<td style='text-align:rigth;font-weight:bold;' id='td_total'><?php echo $list[0]->total; ?></td>
 					</tr>
 					<tr>
-						<td colspan='2' style='text-align:right;font-weight:bold;font-style:italic;'>Puntaje de isquemia de Hachinski modificada ≤ 4, según criterios de inclusión.</td>
+						<td colspan='2' style='text-align:right;font-weight:bold;font-style:italic;'>Puntaje de isquemia de Hachinski modificada debe ser ≤ 4, según criterios de inclusión.</td>
+					</tr>
+					<tr id="tr_no_cumple" style='display:none;'>
+						<td colspan='2' class='alert alert-warning'><b>Revisar, no cumple con criterios de inclusión. Si no tiene autorización escrita del patrocinador, este sujeto debe ser excluido.</b></td>
 					</tr>
 					<tr>
 						<td colspan='2' style='text-align:center;'>

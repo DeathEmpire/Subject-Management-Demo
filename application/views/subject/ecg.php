@@ -8,6 +8,11 @@ $(function(){
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
 			$("#form_ecg :input").attr('readonly','readonly');
+			$("#form_ecg :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+					$(this).val('');
+				}
+			});
 			$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});			
@@ -22,6 +27,11 @@ $(function(){
 	});
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_ecg :input").attr('readonly','readonly');
+		$("#form_ecg :input").each(function(){
+			if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+				$(this).val('');
+			}
+		});
 		$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
