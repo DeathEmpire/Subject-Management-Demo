@@ -98,10 +98,10 @@ $(function(){
 					?>
             			<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
             		<?php }?>	
-            			<?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?>
+            			<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
             	<?php	
             		}else{ ?>
-						<?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?>
+						<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
             	<?php }?>
         	</td>
        </tr>

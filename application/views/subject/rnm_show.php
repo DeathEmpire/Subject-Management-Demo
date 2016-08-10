@@ -2,21 +2,11 @@
 	#ui-datepicker-div { display: none; }
 </style>
 <script type="text/javascript">
-restaFechas = function(f1,f2)
- {
- var aFecha1 = f1.split('-'); 
- var aFecha2 = f2.split('-'); 
- var fFecha1 = Date.UTC(aFecha1[0],aFecha1[1]-1,aFecha1[2]); 
- var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]); 
- var dif = fFecha2 - fFecha1;
- var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
- return dias;
- }
 
 
 
 $(function(){
-	$("#tomografia_fecha, #resonancia_fecha").datepicker({dateFormat: 'dd/mm/dd'});	
+	$("#tomografia_fecha, #resonancia_fecha").datepicker({dateFormat: 'dd/mm/yy'});	
 
 	$("input[name=tomografia]").change(function(){
 		if($(this).val() == 0){
@@ -66,7 +56,18 @@ $(function(){
 	
 	$("#resonancia_fecha, #tomografia_fecha").change(function(){
 
-		var dias = restaFechas($(this).val(),'<?php echo date("Y-m-d");?>');
+		var dias = 0;	
+
+		var f1 = $(this).val();
+		var f2 = '<?php echo date("Y-m-d");?>';
+
+		var aFecha1 = f1.split('/'); 
+		var aFecha2 = f2.split('-'); 
+		var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
+		var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]); 
+		var dif = fFecha2 - fFecha1;
+		var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 		
+
 		if(dias >= 365){
 			$('#tr_repetir').show();			
 			$('#tr_repetir_rnm').show();
@@ -77,6 +78,11 @@ $(function(){
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
 			$("#form_rnm :input").attr('readonly','readonly');
+			$("#form_rnm :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 			$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -91,6 +97,11 @@ $(function(){
 	});
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_rnm :input").attr('readonly','readonly');
+		$("#form_rnm :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 		$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -128,6 +139,7 @@ $(function(){
 	});
 
 });
+
 </script>
 <?php
 	switch($etapa){

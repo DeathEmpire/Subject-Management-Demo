@@ -60,7 +60,7 @@
 		?>
 
 		Realizado: 
-		<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si
+		<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si
 		<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
 		<br />
 		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?>

@@ -14,7 +14,7 @@ $(function(){
 });
 </script>
 <?= form_open('subject/insert', array('class'=>'form-horizontal')); ?>
-    <legend style='text-align:center;'> New Subject (Screening)</legend>
+    <legend style='text-align:center;'> Nuevo Sujeto (Selección)</legend>
 
     <?= my_validation_errors(validation_errors()); ?>
      <?php
@@ -33,7 +33,7 @@ $(function(){
     <table class="table table-condensed table-bordered">        
         <tr>
             <td>¿Esta seguro que quiere agregar un nuevo sujeto?: </td>
-            <td><?= form_radio($data); ?> Yes <?= form_radio($data2); ?> No</td>
+            <td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
         </tr>        
 
         <?php
@@ -50,7 +50,7 @@ $(function(){
         ?>
 
         <tr class='buttons_form' style='display:none'>
-            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Crear', 'class'=>'btn btn-primary')); ?>
+            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
             <?= anchor('subject/index', 'Cancelar', array('class'=>'btn')); ?></td>
         </tr>
     </table>

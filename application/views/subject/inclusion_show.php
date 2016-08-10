@@ -1,24 +1,52 @@
 <script type="text/javascript">
 $(function(){
-		$("input[name=cumple_criterios]").change(function(){
-		if($(this).val() == 1){
+	$("input[name=cumple_criterios]").change(function(){
+		if($(this).val() != 1){
 			$("#tr_autorizacion").hide();
 			$("input[name=autorizacion_patrocinador][value='No Aplica']").prop("checked",true);
 			$("#tr_no_ingresa").hide();
 			$("#tr_submit").show();
+			$("#form_inclusion input, textarea").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
 		}
 		else{
 			$("#tr_autorizacion").show();
+			$("#form_inclusion input, textarea").attr('readonly', 'readonly');
+			$("#form_inclusion :input").each(function(){				
+				if($(this).attr('name') != 'cumple_criterios' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});	
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+
 		}
 	});
-	if($('input[name=cumple_criterios]:checked').val() == 1){
+	if($('input[name=cumple_criterios]:checked').val() != 1){
 		$("#tr_autorizacion").hide();
 		$("input[name=autorizacion_patrocinador][value='No Aplica']").prop("checked",true);
 		$("#tr_no_ingresa").hide();
 		$("#tr_submit").show();
+		$("#form_inclusion input, textarea").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
 	}
 	else{
 		$("#tr_autorizacion").show();
+		$("#form_inclusion input, textarea").attr('readonly', 'readonly');
+		$("#form_inclusion :input").each(function(){
+				if($(this).attr('name') != 'cumple_criterios' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){				
+					$(this).val('');
+				}
+			});
+		$('select option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
+
 	}
 
 	$("input[name=autorizacion_patrocinador]").change(function(){
@@ -96,7 +124,7 @@ $(function(){
 	</div>
 <?php }?>
 
-<?= form_open('subject/inclusion_update', array('class'=>'form-horizontal')); ?>    
+<?= form_open('subject/inclusion_update', array('class'=>'form-horizontal', 'id'=>'form_inclusion')); ?>    
 	
 	<?= form_hidden('subject_id', $subject->id); ?>
 	<?= form_hidden('etapa', $etapa); ?>

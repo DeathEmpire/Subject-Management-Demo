@@ -15,7 +15,7 @@ $(function(){
 	});
 });
 </script>
-<legend style='text-align:center;'>Protocol Deviation</legend>
+<legend style='text-align:center;'>Desviación de Protocolo</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -59,25 +59,25 @@ $(function(){
 
 	<table class="table table-striped table-condensed table-bordered">       		
         <tr>
-        	<td>Date of Deviation: </td>
+        	<td>Fecha de Desviación: </td>
         	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_deviation', 'id'=>'date_of_deviation', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('date_of_deviation')));?></td>
 		</tr>
 		<tr>
-        	<td>Description of deviation: </td>
+        	<td>Descripción de la Desviación: </td>
         	<td><?= form_input(array('type'=>'text','name'=>'description', 'id'=>'description', 'value'=>set_value('description'))); ?></td>
 		</tr>
 		<tr>
-        	<td>Was the Protocol Deviation Pre-Approved by Sponsor?: </td>
-        	<td><?= form_radio($data); ?> Yes <?= form_radio($data2); ?> No</td>
+        	<td>¿Está la desviación aprobada por el Patrocinador?: </td>
+        	<td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
 		</tr>
 		<tr style='display:none;' id='sponsor_tr'>
-        	<td>Name of the Sponsor designee approving the deviation: </td>        	
+        	<td>Nombre de la persona que autoriza: </td>        	
         	<td><?= form_input(array('type'=>'text','name'=>'sponsor_name', 'id'=>'sponsor_name', 'value'=>set_value('sponsor_name'))); ?></td>
 		</tr>	
 		
 		<tr>
-            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-            <?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?></td>
+            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+            <?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn btn-default')); ?></td>
        </tr>
     </table>
 <?= form_close(); ?>

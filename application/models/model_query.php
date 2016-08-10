@@ -28,6 +28,11 @@ class Model_Query extends CI_Model {
         $this->db->from('query');
         $this->db->join('subject', 'query.subject_id = subject.id', 'left');
         $this->db->where($where);
+        $centro = $this->session->userdata('center_id');
+        if($centro != 'Todos'){
+            $this->db->where('subject.center', $centro);
+        }
+        $this->db->order_by('subject.code ASC, query.form ASC, query.etapa ASC');
 
         $query = $this->db->get();
         return $query->result();

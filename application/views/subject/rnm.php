@@ -53,7 +53,18 @@ $(function(){
 
 	$("#resonancia_fecha, #tomografia_fecha").change(function(){
 
-		var dias = restaFechas($(this).val(),'<?php echo date("Y-m-d");?>');
+		var dias = 0;	
+
+		var f1 = $(this).val();
+		var f2 = '<?php echo date("Y-m-d");?>';
+
+		var aFecha1 = f1.split('/'); 
+		var aFecha2 = f2.split('-'); 
+		var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
+		var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]); 
+		var dif = fFecha2 - fFecha1;
+		var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+
 		if(dias >= 365){
 			$('#tr_repetir').show();			
 			$('#tr_repetir_rnm').show();
@@ -64,6 +75,11 @@ $(function(){
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 1){
 			$("#form_rnm :input").attr('readonly','readonly');
+			$("#form_rnm :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 			$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -78,6 +94,11 @@ $(function(){
 	});
 	if($("input[name=realizado]:checked").val() == 1){
 		$("#form_rnm :input").attr('readonly','readonly');
+		$("#form_rnm :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 		$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -218,7 +239,7 @@ $(function(){
 				<td>¿Se solicita una RNM?</td>
 				<td>
 					<?= form_radio($data5,$data5['value'],set_radio($data5['name'], 1)); ?> Si
-					<?= form_radio($data6,$data6['value'],set_radio($data6['name'], 0,true)); ?> NO
+					<?= form_radio($data6,$data6['value'],set_radio($data6['name'], 0)); ?> NO
 				</td>
 				<td></td>
 				<td></td>
@@ -227,7 +248,7 @@ $(function(){
 				<td>¿Se solicita un TC?</td>
 				<td>
 					<?= form_radio($data7,$data7['value'],set_radio($data7['name'], 1)); ?> Si
-					<?= form_radio($data8,$data8['value'],set_radio($data8['name'], 0,true)); ?> NO
+					<?= form_radio($data8,$data8['value'],set_radio($data8['name'], 0)); ?> NO
 				</td>
 				<td></td>
 				<td></td>

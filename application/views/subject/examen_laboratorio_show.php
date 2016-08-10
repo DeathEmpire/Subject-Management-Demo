@@ -1,48 +1,9 @@
+<script src="<?= base_url('js/examen_laboratorio.js') ?>"></script>
 <style type="text/css">
 	#ui-datepicker-div { display: none; }
 </style>
 <script type="text/javascript">
-$(function(){
-	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });
-
-	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
-			$("#form_examen_laboratorio :input").attr('readonly','readonly');
-			$("#form_examen_laboratorio :input").each(function(){
-				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
-					$(this).val('');
-				}
-			});
-			$('select option:not(:selected)').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
-			$("input[name=realizado]").removeAttr('readonly');
-
-		}else{
-			$("#form_examen_laboratorio :input").removeAttr('readonly');
-			$('select option:not(:selected)').each(function(){
-				$(this).removeAttr('disabled', 'disabled');
-			});
-		}
-	});
-	if($("input[name=realizado]:checked").val() == 0){
-		$("#form_examen_laboratorio :input").attr('readonly','readonly');
-		$("#form_examen_laboratorio :input").each(function(){
-				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
-					$(this).val('');
-				}
-			});
-		$('select option:not(:selected)').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
-		$("input[name=realizado]").removeAttr('readonly');
-
-	}else{
-		$("#form_examen_laboratorio :input").removeAttr('readonly');
-		$('select option:not(:selected)').each(function(){
-			$(this).removeAttr('disabled', 'disabled');
-		});
-	}
+$(function(){	
 
 	$("#query_para_campos").dialog({
 		autoOpen: false,
@@ -1599,7 +1560,7 @@ $(function(){
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>
-            <?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+            <?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn btn-default')); ?>
 		</div>
 
 <?= form_close(); ?>

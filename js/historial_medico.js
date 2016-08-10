@@ -4,6 +4,7 @@ $(function(){
 
 	$("input[name=hipertension]").change(function(){
 		if($(this).val() == 0){			
+			$('select[name*=hipertension]').val('');
 			$('select[name*=hipertension] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -15,7 +16,8 @@ $(function(){
 		}
 	});
 	$("input[name=ulcera]").change(function(){
-		if($(this).val() == 0){			
+		if($(this).val() == 0){
+			$('select[name*=ulcera]').val('');			
 			$('select[name*=ulcera] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -27,7 +29,8 @@ $(function(){
 		}
 	});
 	$("input[name=diabetes]").change(function(){
-		if($(this).val() == 0){			
+		if($(this).val() == 0){
+			$('select[name*=diabetes]').val('');
 			$('select[name*=diabetes] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -39,7 +42,8 @@ $(function(){
 		}
 	});
 	$("input[name=hipo_hipertiroidismo]").change(function(){
-		if($(this).val() == 0){			
+		if($(this).val() == 0){		
+			$('select[name*=hipo_hipertiroidismo]').val('');	
 			$('select[name*=hipo_hipertiroidismo] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -51,7 +55,8 @@ $(function(){
 		}
 	});
 	$("input[name=hiperlipidemia]").change(function(){
-		if($(this).val() == 0){			
+		if($(this).val() == 0){		
+			$('select[name*=hiperlipidemia]').val('');	
 			$('select[name*=hiperlipidemia] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -64,6 +69,7 @@ $(function(){
 	});
 	$("input[name=epoc]").change(function(){
 		if($(this).val() == 0){			
+			$('select[name*=epoc]').val('');
 			$('select[name*=epoc] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -75,7 +81,8 @@ $(function(){
 		}
 	});
 	$("input[name=coronaria]").change(function(){
-		if($(this).val() == 0){			
+		if($(this).val() == 0){		
+			$('select[name*=coronaria]').val('');	
 			$('select[name*=coronaria] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -88,6 +95,7 @@ $(function(){
 	});
 	$("input[name=rinitis]").change(function(){
 		if($(this).val() == 0){			
+			$('select[name*=rinitis]').val('');
 			$('select[name*=rinitis] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -100,6 +108,7 @@ $(function(){
 	});
 	$("input[name=acc_vascular]").change(function(){
 		if($(this).val() == 0){			
+			$('select[name*=acc_vascular]').val('');
 			$('select[name*=acc_vascular] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -111,7 +120,8 @@ $(function(){
 		}
 	});
 	$("input[name=asma]").change(function(){
-		if($(this).val() == 0){			
+		if($(this).val() == 0){	
+			$('select[name*=asma]').val('');		
 			$('select[name*=asma] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -123,7 +133,8 @@ $(function(){
 		}
 	});
 	$("input[name=gastritis]").change(function(){
-		if($(this).val() == 0){			
+		if($(this).val() == 0){	
+			$('select[name*=gastritis]').val('');		
 			$('select[name*=gastritis] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -136,6 +147,7 @@ $(function(){
 	});
 	$("input[name=cefaleas]").change(function(){
 		if($(this).val() == 0){			
+			$('select[name*=cefaleas]').val('');
 			$('select[name*=cefaleas] option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -146,8 +158,10 @@ $(function(){
 			});
 		}
 	});
+	/*---------*/
 	$("input[name=alergia]").change(function(){
 		if($(this).val() == 0){
+			$("#alergia_desc").val('');
 			$("#alergia_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -157,6 +171,7 @@ $(function(){
 
 	$("input[name=tabaquismo]").change(function(){
 		if($(this).val() == 0){
+			$("#tabaquismo_desc").val('');
 			$("#tabaquismo_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -165,6 +180,7 @@ $(function(){
 	});
 	$("input[name=ingesta_alcohol]").change(function(){
 		if($(this).val() == 0){
+			$("#ingesta_alcohol_desc").val('');
 			$("#ingesta_alcohol_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -173,6 +189,7 @@ $(function(){
 	});
 	$("input[name=drogas]").change(function(){
 		if($(this).val() == 0){
+			$("#drogas_desc").val('');
 			$("#drogas_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -181,6 +198,7 @@ $(function(){
 	});
 	$("input[name=cirugia]").change(function(){
 		if($(this).val() == 0){
+			$("#cirugia_desc").val('');
 			$("#cirugia_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -189,6 +207,7 @@ $(function(){
 	});
 	$("input[name=donado_sangre]").change(function(){
 		if($(this).val() == 0){
+			$("#donado_sangre_desc").val('');
 			$("#donado_sangre_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -197,6 +216,7 @@ $(function(){
 	});
 	$("input[name=tratamiento_farma]").change(function(){
 		if($(this).val() == 0){
+			$("#tratamiento_farma_desc").val('');
 			$("#tratamiento_farma_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -205,6 +225,7 @@ $(function(){
 	});
 	$("input[name=suplemento_dietetico]").change(function(){
 		if($(this).val() == 0){
+			$("#suplemento_dietetico_desc").val('');
 			$("#suplemento_dietetico_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -213,6 +234,7 @@ $(function(){
 	});
 	$("input[name=alzheimer]").change(function(){
 		if($(this).val() == 0){
+			$("#alzheimer_desc").val('');
 			$("#alzheimer_desc").attr('readonly','readonly');			
 		}
 		else{
@@ -221,6 +243,7 @@ $(function(){
 	});
 	$("input[name=morbido]").change(function(){
 		if($(this).val() == 0){
+			$("#morbido_desc").val('');
 			$("#morbido_desc").attr('readonly','readonly');			
 		}
 		else{

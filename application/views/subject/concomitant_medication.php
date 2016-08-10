@@ -33,7 +33,7 @@ $(function(){
 
 });
 </script>
-<legend style='text-align:center;'>Concomitant Medication</legend>
+<legend style='text-align:center;'>Medicación Concomitante</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
     <thead>
@@ -90,7 +90,7 @@ $(function(){
     						"TBS"=>"TBS",
     						"TSP"=>"TSP",
     						"uL"=>"uL",
-    						"UNIT"=>"UNIT");
+    						"UNIT"=>"Unidad");
     $frequencys = array(""=>"",
     					"BID"=>"BID",
     					"HS"=>"HS",
@@ -103,12 +103,12 @@ $(function(){
     					"QPM"=>"QPM",
     					"QWK"=>"QWK",
     					"TID"=>"TID",
-    					"Before a Meal"=>"Before a Meal",
-    					"After a Meal"=>"Afte a Meal",    					
-    					"Every Hour (qhr)"=>"Every Hour (qhr)",
-    					"Every 4 Hour (q4hr)"=>"Every 4 Hour (q4hr)",
+    					"Before a Meal"=>"Antes de cada comida",
+    					"After a Meal"=>"Despues de cada comida",    					
+    					"Every Hour (qhr)"=>"Cada Horas (qhr)",
+    					"Every 4 Hour (q4hr)"=>"Cada 4 Horas (q4hr)",
     					"Stat"=>"Stat",
-    					"Other"=>"Other");
+    					"Other"=>"Otro");
     $routes = array(""=>"",
     				"ID"=>"ID",
     				"IH"=>"IH",
@@ -121,9 +121,9 @@ $(function(){
     				"SQ"=>"SQ",
     				"TOP"=>"TOP",
     				"UNK"=>"UNK",
-    				"Inhalation"=>"Inhalation",
+    				"Inhalation"=>"Inhalación",
     				"Intranasal"=>"Intranasal",
-    				"Other"=>"Other");
+    				"Other"=>"Otro");
 
 ?>
 <?= form_open('subject/concomitant_medication_form_insert', array('class'=>'form-horizontal')); ?>
@@ -133,51 +133,51 @@ $(function(){
 
 	<table class="table table-striped table-condensed table-bordered">       		
         <tr>
-        	<td>Brand Name: </td>
+        	<td>Nombre Comercial: </td>
         	<td><?= form_input(array('type'=>'text', 'name'=>'brand_name', 'id'=>'brand_name', 'value'=>set_value('brand_name')));?></td>
 		</tr>
 		<tr>
-        	<td>Generic Name: </td>
+        	<td>Nombre Genérico: </td>
         	<td><?= form_input(array('type'=>'text','name'=>'generic_name', 'id'=>'generic_name', 'value'=>set_value('generic_name'))); ?></td>
 		</tr>
 		<tr>
-        	<td>Indication: </td>
+        	<td>Indicación: </td>
         	<td><?= form_input(array('type'=>'text','name'=>'indication', 'id'=>'indication', 'value'=>set_value('indication'))); ?></td>
 		</tr>
 		<tr>
-        	<td>Totaly Daily Dose: </td>
+        	<td>Dosis total diaria : </td>
         	<td>
         		<?= form_input(array('type'=>'text','name'=>'daily_dose', 'id'=>'daily_dose', 'size'=>'4','value'=>set_value('daily_dose'))); ?>
 				<?= form_dropdown("unit_of_measure",$unit_of_measure,set_value('unit_of_measure')); ?>
         	</td>
 		</tr>
 		<tr>
-        	<td>Frecuency: </td>
+        	<td>Frecuencia: </td>
         	<td><?= form_dropdown("frequency",$frequencys,set_value('frequency')); ?></td>
 		</tr>
 		<tr>
-        	<td>If other specify: </td>
+        	<td>Si es otra especificar: </td>
         	<td><?= form_input(array('type'=>'text','name'=>'other', 'id'=>'other', 'value'=>set_value('other'), "style"=>"display:none;")); ?></td>
 		</tr>
 		<tr>
-        	<td>Route: </td>
+        	<td>Ruta: </td>
         	<td><?= form_dropdown("route",$routes,set_value('route')); ?></td>
 		</tr>
 		<tr>
-        	<td>Start Date: </td>
+        	<td>Fecha de inicio: </td>
         	<td><?= form_input(array('type'=>'text','name'=>'start_date', 'id'=>'start_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('start_date'))); ?></td>
 		</tr>
 		<tr>
-        	<td>On Going: </td>
+        	<td>Continúa: </td>
         	<td><?= form_radio($data); ?> Yes <?= form_radio($data2); ?> No</td>
 		</tr>
 		<tr id="end_date_tr" stlye='display:none;'>
-        	<td>End Date: </td>
+        	<td>Fecha término: </td>
         	<td><?= form_input(array('type'=>'text','name'=>'end_date', 'id'=>'end_date', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('end_date'))); ?></td>
 		</tr>
 		<tr>
-            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-            <?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?></td>
+            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+            <?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn btn-default')); ?></td>
        </tr>
     </table>
 <?= form_close(); ?>

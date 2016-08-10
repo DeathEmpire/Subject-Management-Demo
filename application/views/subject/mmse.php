@@ -1,62 +1,7 @@
+<script src="<?= base_url('js/mmse.js') ?>"></script>
 <style type="text/css">
 	#ui-datepicker-div { display: none; }
 </style>
-<script type="text/javascript">
-$(function(){
-	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
-
-	$("select[name*=puntaje]").change(function(){
-		var total = 0;
-		$("select[name*=puntaje]").each(function(index, value){
-			if(value.value != ''){
-				total = total + parseInt(value.value);
-			}
-			
-		});
-		$("#puntaje_total_td").html(total);
-		$("input[name=puntaje_total]").val(total);		
-	});
-
-	var total2 = 0;
-	$("select[name*=puntaje]").each(function(index, value){
-		if(value.value != ''){
-			total2 = total2 + parseInt(value.value);
-		}
-		
-	});
-	$("#puntaje_total_td").html(total2);
-	$("input[name=puntaje_total]").val(total2);
-
-	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
-			$("#form_mmse :input").attr('readonly','readonly');
-			$('select option:not(:selected)').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
-			$("input[name=realizado]").removeAttr('readonly');
-
-		}else{
-			$("#form_mmse :input").removeAttr('readonly');
-			$('select option:not(:selected)').each(function(){
-				$(this).removeAttr('disabled');
-			});
-		}
-	});
-	if($("input[name=realizado]:checked").val() == 0){
-		$("#form_mmse :input").attr('readonly','readonly');
-		$('select option:not(:selected)').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
-		$("input[name=realizado]").removeAttr('readonly');
-
-	}else{
-		$("#form_mmse :input").removeAttr('readonly');
-		$('select option:not(:selected)').each(function(){
-			$(this).removeAttr('disabled', 'disabled');
-		});
-	}	
-});
-</script>
 <?php
 	switch($etapa){
 		case 1 : $protocolo = "(Selección)"; break;
@@ -132,7 +77,7 @@ $(function(){
 		<tr>
 			<td>Realizado: </td>
 			<td>
-				<?= form_radio($data,$data['value'],set_radio($data['name'], 1, true)); ?> Si
+				<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si
 				<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
 			</td>
 		</tr>
@@ -265,6 +210,7 @@ $(function(){
 		<tr>
 			<td style='font-weight:bold;' colspan='3'>ATENCIÓN Y CÁLCULO (Series de 7)</td>
 		</tr>
+		<tr><td colspan='3'>A.-</td></tr>
 		<tr>
 			<td colspan='3'><b>Ahora, me gustaría que restara 100 menos 7. Siga restando 7 a los resultados que vaya obteniendo, hasta que le diga que se detenga.</b></td>
 		</tr>
@@ -293,7 +239,18 @@ $(function(){
 			<td>Si es necesario diga: Continúa.	[65]</td>
 			<td><?= form_input(array('type'=>'text','name'=>'cuanto_65', 'id'=>'cuanto_65', 'value'=>set_value('cuanto_65'))); ?></td>
 			<td><?= form_dropdown('cuanto_65_puntaje',$puntaje,set_value('cuanto_65_puntaje')); ?></td>
+		</tr>
+		<tr>
+			<td colspan='2'>Puntaje total seccion a</td>			
+			<td><?= form_dropdown('puntaje_seccion_a',array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'),set_value('puntaje_seccion_a'), array('id'=>'puntaje_seccion_a')); ?></td>
+		</tr>
+		<tr><td colspan='3'>B.-</td></tr>
+		<tr>
+			<td>Pídale al paciente que deletree la palabra "MUNDO" (usted puede ayudarlo) Luego dígale. "Ahora deletréela de atrás para adelante" (espere máximo 30")</td>
+			<td><?= form_input(array('type'=>'text','name'=>'mundo_respuesta', 'id'=>'mundo_respuesta', 'value'=>set_value('mundo_respuesta'))); ?></td>
+			<td><?= form_dropdown('mundo_puntaje',array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'),set_value('mundo_puntaje')); ?></td>
 		</tr>	
+
 		<tr>
 			<td colspan='3' style='font-weight:bold;'>MEMORIA</td>			
 		</tr>
@@ -320,12 +277,17 @@ $(function(){
 			<td colspan='3' style='font-weight:bold;'>NOMBRES</td>
 		</tr>
 		<tr>
-			<td><b>¿Qué es esto?</b> [Muestre un lápiz mina o pasta].</td>
+			<td>Objeto Mostrado</td>
+			<td>Respuesta</td>
+			<td>Puntaje</td>
+		</tr>
+		<tr>
+			<td><b>¿Qué es esto?</b><?= form_input(array('type'=>'text','name'=>'mostrado_que_es_1', 'id'=>'mostrado_que_es_1', 'value'=>set_value('mostrado_que_es_1'))); ?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'que_es_1', 'id'=>'que_es_1', 'value'=>set_value('que_es_1'))); ?></td>
 			<td><?= form_dropdown('que_es_1_puntaje',$puntaje,set_value('que_es_1_puntaje')); ?></td>
 		</tr>
 		<tr>
-			<td><b>¿Qué es esto?</b> [Muestre un reloj].</td>
+			<td><b>¿Qué es esto?</b><?= form_input(array('type'=>'text','name'=>'mostrado_que_es_2', 'id'=>'mostrado_que_es_2', 'value'=>set_value('mostrado_que_es_2'))); ?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'que_es_2', 'id'=>'que_es_2', 'value'=>set_value('que_es_2'))); ?></td>
 			<td><?= form_dropdown('que_es_2_puntaje',$puntaje,set_value('que_es_2_puntaje')); ?></td>
 		</tr>

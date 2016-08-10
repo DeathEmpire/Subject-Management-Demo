@@ -8,6 +8,11 @@ $(function(){
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
 			$("#form_muestra :input").attr('readonly','readonly');
+			$("#form_muestra :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 			$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -16,12 +21,17 @@ $(function(){
 		}else{
 			$("#form_muestra :input").removeAttr('readonly');
 			$('select option:not(:selected)').each(function(){
-				$(this).removeAttr('disabled', 'disabled');
+				$(this).removeAttr('disabled');
 			});
 		}
 	});
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_muestra :input").attr('readonly','readonly');
+		$("#form_muestra :input").each(function(){
+			if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+				$(this).val('');
+			}
+		});
 		$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -30,7 +40,7 @@ $(function(){
 	}else{
 		$("#form_muestra :input").removeAttr('readonly');
 		$('select option:not(:selected)').each(function(){
-			$(this).removeAttr('disabled', 'disabled');
+			$(this).removeAttr('disabled');
 		});
 	}
 });

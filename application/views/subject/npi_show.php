@@ -1734,7 +1734,7 @@ $(function(){
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>
-		        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>
+		        	<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn btn-default')); ?>
 				</td>
 			</tr>
 		</tbody>

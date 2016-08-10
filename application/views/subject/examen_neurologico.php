@@ -9,7 +9,7 @@ $(function(){
 		if($(this).val() == 0){
 			$("#form_examen_neurologico :input").attr('readonly','readonly');
 			$("#form_examen_neurologico :input").each(function(){
-				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
 					$(this).val('');
 				}
 			});
@@ -28,7 +28,7 @@ $(function(){
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_examen_neurologico :input").attr('readonly','readonly');
 		$("#form_examen_neurologico :input").each(function(){
-				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
 					$(this).val('');
 				}
 			});
@@ -283,9 +283,8 @@ $(function(){
        	?>	
 
 		Examen Neurológico realizado <?= form_radio($si); ?> Si <?= form_radio($no); ?> No<br />
-		La fecha del examen neurológico es la misma fecha de la visita?	 <?= form_radio($si2); ?> Si <?= form_radio($no2); ?> No<br />
- 
-		Si la respuesta es “NO”, por favor reporte fecha del examen: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
+		La fecha del examen neurológico es la misma fecha de la visita?	 <?= form_radio($si2); ?> Si <?= form_radio($no2); ?> No<br /> 
+		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
 		<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<tr>

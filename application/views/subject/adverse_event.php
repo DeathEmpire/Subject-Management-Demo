@@ -15,7 +15,7 @@ $(function(){
 	});
 });
 </script>
-<legend style='text-align:center;'>Adverse Event/Serious Adverse Event</legend>
+<legend style='text-align:center;'>Evento Adverso/Evento Adverso Serio</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -44,20 +44,20 @@ $(function(){
 
 <?php
 	$stages = array(	""=>"",
-						"Screening - Baseline period"=>"Screening - Baseline period",
-						"Beseline - week 4 period"=>"Beseline - week 4 period",
-						"Week 4 - week 12 period"=>"Week 4 - week 12 period",
-						"Week 12 - week 24 period"=>"Week 12 - week 24 period"
+						"Seleccion - Visita Basal"=>"Selección - Visita Basal",
+						"Visita Basal - Semana 4"=>"Visita Basal - Semana 4",
+						"Semana 4 - Semana 12"=>"Semana 4 – Semana 12",
+						"Semana 12 - Semana 24"=>"Semana 12 - Semana 24"
 						);
 	$event_categorys = array(	""=>"",
-								"Musculoskeletal and Connective Disorder"=>"Musculoskeletal and Connective Disorder",
-								"Neurvous System Disorder"=>"Neurvous System Disorder",
-								"Psychiatric Disorders"=>"Psychiatric Disorders",
-								"Renal Function Disorders"=>"Renal Function Disorders",
-								"Respiratory, Thoracic and Mediastinal Disorders"=>"Respiratory, Thoracic and Mediastinal Disorders",
-								"Skin and Tissue Disorders"=>"Skin and Tissue Disorders",
-								"Vascular Complications"=>"Vascular Complications",
-								"Other"=>"Other");
+								"Desordenes Musculo esqueletico y Conectivo"=>"Desordenes Musculo esquelético y Conectivo",
+								"Desordenes Sistema Nervioso"=>"Desordenes Sistema Nervioso",
+								"Desordenes Psiquiatricos"=>"Desordenes Psiquiátricos",
+								"Desordenes de la Funcion Renal"=>"Desordenes de la Función Renal",
+								"Desordenes Mediastino, Respiratorio y/o Toraxico"=>"Desordenes Mediastino, Respiratorio y/o Toráxico",
+								"Desordenes de Tejidos y Piel"=>"Desordenes de Tejidos y Piel",
+								"Complicaciones Vasculares"=>"Complicaciones Vasculares",
+								"Otros"=>"Otros");
 	
 	$data = array(
         'name'        => 'continuing',                
@@ -104,9 +104,9 @@ $(function(){
         );
 
     $assessment_of_severitys = array(""=>"",
-    								"Mild"=>"Mild",
-    								"Moderate"=>"Moderate",
-    								"Severe"=>"Severe");
+    								"Leve"=>"Leve",
+    								"Moderado"=>"Moderado",
+    								"Severo"=>"Severo");
 
     $action_taken_none = array(
 	    'name'        => 'action_taken_none',
@@ -142,70 +142,70 @@ $(function(){
 	
 	<table class="table table-striped table-condensed table-bordered">        
         <tr>
-            <td>Provide Stage that Adverse Event Occurred: </td>
+            <td>Etapa en que ocurre el Evento Adverso: </td>
             <td><?= form_dropdown("stage",$stages,set_value('stage')); ?></td>
         </tr>        
 
 		<tr>
-            <td>Adverse Event Category: </td>
+            <td>Categoría del Evento Adverso: </td>
             <td><?= form_dropdown("event_category",$event_categorys,set_value('event_category')); ?></td>
         </tr>  
 		
 		<tr>
-        	<td>Description: </td>
+        	<td>Descripción: </td>
         	<td><?= form_textarea(array('name'=>'event_category_description', 'id'=>'event_category_description', 'value'=>set_value('event_category_description'), 'rows'=>'4','cols'=>'40')); ?></td>
 		</tr>
 
 		<tr>
-        	<td>Adverse event narrative: </td>
+        	<td>Narrativa del Evento Adverso: </td>
         	<td><?= form_textarea(array('name'=>'event_category_narrative', 'id'=>'event_category_narrative', 'value'=>set_value('event_category_narrative'), 'rows'=>'4','cols'=>'40')); ?></td>
 		</tr>
 
         <tr>
-        	<td>Date of Onset: </td>
+        	<td>Fecha Inicio: </td>
         	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_onset', 'id'=>'date_of_onset', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('date_of_onset')));?></td>
 		</tr>
 
 		<tr>
-        	<td>Continuing: </td>
+        	<td>Continúa: </td>
         	<td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
 		</tr>
 
 		<tr>
-        	<td>Date of Resolution: </td>
+        	<td>Fecha Resolución: </td>
         	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_resolution', 'id'=>'date_of_resolution', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('date_of_resolution')));?></td>
 		</tr>
 
 		<tr>
-            <td>Assessment of Severity: </td>
+            <td>Evaluación de Severidad: </td>
             <td><?= form_dropdown("assessment_of_severity",$assessment_of_severitys,set_value('assessment_of_severity')); ?></td>
         </tr>
 
 		<tr>
-        	<td>Assessment of Casuality To IP: </td>
+        	<td>¿Está el Evento relacionado con el Producto de Investigación? : </td>
         	<td><?= form_radio($data3); ?> Si <?= form_radio($data4); ?> No</td>
 		</tr>
 
 		<tr>
-        	<td>Was this a serious adverse event (SAE)?: </td>
+        	<td>¿Es un Evento Adverso Serio? (SAE)? : </td>
         	<td><?= form_radio($data5); ?> Si <?= form_radio($data6); ?> No</td>
 		</tr>
 
 		<tr>
-        	<td>Action Taken / Treatment Administered: (check all that apply): </td>
-        	<td><?= form_checkbox($action_taken_none);?>None 
-        		<?= form_checkbox($action_taken_medication);?>Medication 
-        		<?= form_checkbox($action_taken_hospitalization);?>Hospitalization
+        	<td>Acción tomada/Tratamiento administrado: </td>
+        	<td><?= form_checkbox($action_taken_none);?>Ninguna 
+        		<?= form_checkbox($action_taken_medication);?>Medicación 
+        		<?= form_checkbox($action_taken_hospitalization);?>Hospitalización
         	</td>
 		</tr>
 		
 		<tr>
-        	<td>Action Taken on Investigation Product: </td>
-        	<td><?= form_radio($data7); ?> None <?= form_radio($data8); ?> Discontinued</td>
+        	<td>Se toma acción con el Producto de Investigación: </td>
+        	<td><?= form_radio($data7); ?> Ninguna <?= form_radio($data8); ?> Discontinuado</td>
 		</tr>
 		<tr>
-            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Submit', 'class'=>'btn btn-primary')); ?>
-            <?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?></td>
+            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+            <?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn btn-default')); ?></td>
        </tr>
     </table>
 <?= form_close(); ?>

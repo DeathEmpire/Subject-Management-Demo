@@ -115,7 +115,7 @@ $(function(){
 			<tr>		
 				<td>Realizado: </td>
 				<td colspan='4'>
-					<?= form_radio($data5,$data5['value'],set_radio($data5['name'], 1, true)); ?> Si
+					<?= form_radio($data5,$data5['value'],set_radio($data5['name'], 1)); ?> Si
 					<?= form_radio($data6,$data6['value'],set_radio($data6['name'], 0)); ?> NO
 				</td>
 			</tr>

@@ -9,6 +9,11 @@ $(function(){
 	$("input[name=realizado_alt]").change(function(){
 		if($(this).val() == 0){
 			$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").attr('readonly','readonly');
+			$("#form_restas :input").each(function(){
+				if($(this).attr('name') != 'realizado_alt' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 			$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").attr('disabled','disabled');
 
 		}else{
@@ -18,6 +23,11 @@ $(function(){
 	});
 	if($("input[name=realizado_alt]:checked").val() == 0){
 		$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").attr('readonly','readonly');
+		$("#form_restas :input").each(function(){
+				if($(this).attr('name') != 'realizado_alt' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 		$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").attr('disabled','disabled');
 	}else{
 		$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha").removeAttr('readonly');

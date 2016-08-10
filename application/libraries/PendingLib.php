@@ -211,7 +211,7 @@ class PendingLib {
            
 
     		#Pending Querys
-    		$result['querys'] = $this->CI->Model_Query->allWhere('answer = ""');
+    		$result['querys'] = $this->CI->Model_Query->allWhere('status = "Abierto"');
 
     	}
     	elseif($role == 4){
@@ -582,7 +582,7 @@ class PendingLib {
 
 
     		#Pending Querys
-    		$result['querys'] = $this->CI->Model_Query->allWhere('answer = ""');
+    		$result['querys'] = $this->CI->Model_Query->allWhere('status = "Abierto"');
     		
     	}
     	

@@ -3,7 +3,13 @@ $(function(){
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
-			$("select[name*=frecuencia], select[name*=severidad], select[name*=angustia], input[name=fecha]").attr('readonly','readonly');								
+			$("select[name*=frecuencia], select[name*=severidad], select[name*=angustia], input[name=fecha]").attr('readonly','readonly');
+			$("#form_npi :input").each(function(){
+				
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 			$('select option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
@@ -16,12 +22,16 @@ $(function(){
 			});
 		}
 	});
-	if($("input[name=realizado]:checked").val() == 0){
+	if($("input[name=realizado]:checked").val() != 1){
 		$("select[name*=frecuencia], select[name*=severidad], select[name*=angustia], input[name=fecha]").attr('readonly','readonly');		
-		
+		$("#form_npi :input").each(function(){
+			if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+				$(this).val('');
+			}
+		});
 		$('select option:not()').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
+			$(this).attr('disabled', 'disabled');
+		});
 
 	}else{
 		$("select[name*=frecuencia], select[name*=severidad], select[name*=angustia], input[name=fecha]").removeAttr('readonly');

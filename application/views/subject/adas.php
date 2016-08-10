@@ -64,7 +64,7 @@
 			<tr>		
 				<td>Realizado: </td>
 				<td>
-					<?= form_radio('realizado',1,set_radio('realizado', 1, true)); ?> Si
+					<?= form_radio('realizado',1,set_radio('realizado', 1)); ?> Si
 					<?= form_radio('realizado',0,set_radio('realizado', 0)); ?> NO
 				</td>
 			</tr>

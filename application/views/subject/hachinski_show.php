@@ -30,7 +30,7 @@ $(function(){
 		if($(this).val() == 0){
 			$("#form_hach :input").attr('readonly','readonly');
 			$("#form_hach :input").each(function(){
-				if($(this).attr('name') != 'realizado' && $(this).attr('type') == 'text'){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
 					$(this).val('');
 				}
 			});			
@@ -43,7 +43,7 @@ $(function(){
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_hach :input").attr('readonly','readonly');
 		$("#form_hach :input").each(function(){
-				if($(this).attr('name') != 'realizado' && $(this).attr('type') == 'text'){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
 					$(this).val('');
 				}
 			});		
@@ -140,7 +140,7 @@ $(function(){
 					</tr>
 					<tr>
 						<td>Fecha: </td>
-						<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
+						<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha', ((!empty($list[0]->fecha) AND $list[0]->fecha != '0000-00-00') ? date("d/m/Y", strtotime($list[0]->fecha)) : "") ))); ?>
 						<?php
 							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 							{

@@ -9,7 +9,7 @@ $(function(){
 		if($(this).val() == 0){
 			$("#form_ecg :input").attr('readonly','readonly');
 			$("#form_ecg :input").each(function(){
-				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
 					$(this).val('');
 				}
 			});
@@ -28,7 +28,7 @@ $(function(){
 	if($("input[name=realizado]:checked").val() == 0){
 		$("#form_ecg :input").attr('readonly','readonly');
 		$("#form_ecg :input").each(function(){
-			if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
+			if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
 				$(this).val('');
 			}
 		});

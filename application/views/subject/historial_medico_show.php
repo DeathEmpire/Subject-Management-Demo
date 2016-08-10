@@ -82,7 +82,13 @@ $(function(){
 			<tr>
 				<td style='font-weight:bold;'>1.- ANTECEDENTES DEL SUJETO</td>	
 				<td class='span2'></td>		
-				<td style='font-weight:bold;'>FECHA DIAGNOSTICO</td>
+				<td style='font-weight:bold;' colspan='3'>FECHA DIAGNOSTICO</td>
+			</tr>
+			<tr>
+				<td colspan='2'></td>
+				<td>Dia</td>
+				<td>Mes</td>
+				<td>Año</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -93,9 +99,9 @@ $(function(){
 					<?= form_radio('hipertension',0,set_radio('hipertension', 0,(($list[0]->hipertension == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					Dia <?= form_dropdown('hipertension_dia', $dias_ea, set_value('hipertension_dia', $list[0]->hipertension_dia), array('class'=>'input-small')); ?> / 
-					Mes <?= form_dropdown('hipertension_mes', $meses_ea, set_value('hipertension_mes', $list[0]->hipertension_mes), array('class'=>'input-small')); ?> / 
-					Año <?= form_dropdown('hipertension_anio', $anio_ea, set_value('hipertension_anio', $list[0]->hipertension_anio), array('class'=>'input-small')); ?>	
+					<?= form_dropdown('hipertension_dia', $dias_ea, set_value('hipertension_dia', $list[0]->hipertension_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('hipertension_mes', $meses_ea, set_value('hipertension_mes', $list[0]->hipertension_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('hipertension_anio', $anio_ea, set_value('hipertension_anio', $list[0]->hipertension_anio), array('class'=>'input-small')); ?>	
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -131,9 +137,9 @@ $(function(){
 					<?= form_radio('ulcera',0,set_radio('ulcera', 0,(($list[0]->ulcera == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('ulcera_dia', $dias_ea, set_value('ulcera_dia', $list[0]->ulcera_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('ulcera_mes', $meses_ea, set_value('ulcera_mes', $list[0]->ulcera_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('ulcera_anio', $anio_ea, set_value('ulcera_anio', $list[0]->ulcera_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('ulcera_dia', $dias_ea, set_value('ulcera_dia', $list[0]->ulcera_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('ulcera_mes', $meses_ea, set_value('ulcera_mes', $list[0]->ulcera_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('ulcera_anio', $anio_ea, set_value('ulcera_anio', $list[0]->ulcera_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -169,9 +175,9 @@ $(function(){
 					<?= form_radio('diabetes',0,set_radio('diabetes', 0,(($list[0]->diabetes == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('diabetes_dia', $dias_ea, set_value('diabetes_dia', $list[0]->diabetes_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('diabetes_mes', $meses_ea, set_value('diabetes_mes', $list[0]->diabetes_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('diabetes_anio', $anio_ea, set_value('diabetes_anio', $list[0]->diabetes_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('diabetes_dia', $dias_ea, set_value('diabetes_dia', $list[0]->diabetes_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('diabetes_mes', $meses_ea, set_value('diabetes_mes', $list[0]->diabetes_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('diabetes_anio', $anio_ea, set_value('diabetes_anio', $list[0]->diabetes_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -207,9 +213,9 @@ $(function(){
 					<?= form_radio('hipo_hipertiroidismo',0,set_radio('hipo_hipertiroidismo', 0,(($list[0]->hipo_hipertiroidismo == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('hipo_hipertiroidismo_dia', $dias_ea, set_value('hipo_hipertiroidismo_dia', $list[0]->hipo_hipertiroidismo_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('hipo_hipertiroidismo_mes', $meses_ea, set_value('hipo_hipertiroidismo_mes', $list[0]->hipo_hipertiroidismo_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('hipo_hipertiroidismo_anio', $anio_ea, set_value('hipo_hipertiroidismo_anio', $list[0]->hipo_hipertiroidismo_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('hipo_hipertiroidismo_dia', $dias_ea, set_value('hipo_hipertiroidismo_dia', $list[0]->hipo_hipertiroidismo_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('hipo_hipertiroidismo_mes', $meses_ea, set_value('hipo_hipertiroidismo_mes', $list[0]->hipo_hipertiroidismo_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('hipo_hipertiroidismo_anio', $anio_ea, set_value('hipo_hipertiroidismo_anio', $list[0]->hipo_hipertiroidismo_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -245,9 +251,9 @@ $(function(){
 					<?= form_radio('hiperlipidemia',0,set_radio('hiperlipidemia', 0,(($list[0]->hiperlipidemia == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('hiperlipidemia_dia', $dias_ea, set_value('hiperlipidemia_dia', $list[0]->hiperlipidemia_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('hiperlipidemia_mes', $meses_ea, set_value('hiperlipidemia_mes', $list[0]->hiperlipidemia_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('hiperlipidemia_anio', $anio_ea, set_value('hiperlipidemia_anio', $list[0]->hiperlipidemia_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('hiperlipidemia_dia', $dias_ea, set_value('hiperlipidemia_dia', $list[0]->hiperlipidemia_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('hiperlipidemia_mes', $meses_ea, set_value('hiperlipidemia_mes', $list[0]->hiperlipidemia_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('hiperlipidemia_anio', $anio_ea, set_value('hiperlipidemia_anio', $list[0]->hiperlipidemia_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -283,9 +289,9 @@ $(function(){
 					<?= form_radio('epoc',0,set_radio('epoc', 0,(($list[0]->epoc == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('epoc_dia', $dias_ea, set_value('epoc_dia', $list[0]->epoc_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('epoc_mes', $meses_ea, set_value('epoc_mes', $list[0]->epoc_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('epoc_anio', $anio_ea, set_value('epoc_anio', $list[0]->epoc_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('epoc_dia', $dias_ea, set_value('epoc_dia', $list[0]->epoc_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('epoc_mes', $meses_ea, set_value('epoc_mes', $list[0]->epoc_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('epoc_anio', $anio_ea, set_value('epoc_anio', $list[0]->epoc_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -321,9 +327,9 @@ $(function(){
 					<?= form_radio('coronaria',0,set_radio('coronaria', 0,(($list[0]->coronaria == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('coronaria_dia', $dias_ea, set_value('coronaria_dia', $list[0]->coronaria_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('coronaria_mes', $meses_ea, set_value('coronaria_mes', $list[0]->coronaria_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('coronaria_anio', $anio_ea, set_value('coronaria_anio', $list[0]->coronaria_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('coronaria_dia', $dias_ea, set_value('coronaria_dia', $list[0]->coronaria_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('coronaria_mes', $meses_ea, set_value('coronaria_mes', $list[0]->coronaria_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('coronaria_anio', $anio_ea, set_value('coronaria_anio', $list[0]->coronaria_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -359,9 +365,9 @@ $(function(){
 					<?= form_radio('rinitis',0,set_radio('rinitis', 0,(($list[0]->rinitis == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('rinitis_dia', $dias_ea, set_value('rinitis_dia', $list[0]->rinitis_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('rinitis_mes', $meses_ea, set_value('rinitis_mes', $list[0]->rinitis_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('rinitis_anio', $anio_ea, set_value('rinitis_anio', $list[0]->rinitis_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('rinitis_dia', $dias_ea, set_value('rinitis_dia', $list[0]->rinitis_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('rinitis_mes', $meses_ea, set_value('rinitis_mes', $list[0]->rinitis_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('rinitis_anio', $anio_ea, set_value('rinitis_anio', $list[0]->rinitis_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -397,9 +403,9 @@ $(function(){
 					<?= form_radio('acc_vascular',0,set_radio('acc_vascular', 0,(($list[0]->acc_vascular == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('acc_vascular_dia', $dias_ea, set_value('acc_vascular_dia', $list[0]->acc_vascular_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('acc_vascular_mes', $meses_ea, set_value('acc_vascular_mes', $list[0]->acc_vascular_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('acc_vascular_anio', $anio_ea, set_value('acc_vascular_anio', $list[0]->acc_vascular_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('acc_vascular_dia', $dias_ea, set_value('acc_vascular_dia', $list[0]->acc_vascular_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('acc_vascular_mes', $meses_ea, set_value('acc_vascular_mes', $list[0]->acc_vascular_mes), array('class'=>'input-small')); ?></td> 
+					<td><?= form_dropdown('acc_vascular_anio', $anio_ea, set_value('acc_vascular_anio', $list[0]->acc_vascular_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -435,9 +441,9 @@ $(function(){
 					<?= form_radio('asma',0,set_radio('asma', 0,(($list[0]->asma == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('asma_dia', $dias_ea, set_value('asma_dia', $list[0]->asma_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('asma_mes', $meses_ea, set_value('asma_mes', $list[0]->asma_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('asma_anio', $anio_ea, set_value('asma_anio', $list[0]->asma_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('asma_dia', $dias_ea, set_value('asma_dia', $list[0]->asma_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('asma_mes', $meses_ea, set_value('asma_mes', $list[0]->asma_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('asma_anio', $anio_ea, set_value('asma_anio', $list[0]->asma_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -473,9 +479,9 @@ $(function(){
 					<?= form_radio('gastritis',0,set_radio('gastritis', 0,(($list[0]->gastritis == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('gastritis_dia', $dias_ea, set_value('gastritis_dia', $list[0]->gastritis_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('gastritis_mes', $meses_ea, set_value('gastritis_mes', $list[0]->gastritis_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('gastritis_anio', $anio_ea, set_value('gastritis_anio', $list[0]->gastritis_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('gastritis_dia', $dias_ea, set_value('gastritis_dia', $list[0]->gastritis_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('gastritis_mes', $meses_ea, set_value('gastritis_mes', $list[0]->gastritis_mes), array('class'=>'input-small')); ?></td> 
+					<td><?= form_dropdown('gastritis_anio', $anio_ea, set_value('gastritis_anio', $list[0]->gastritis_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -511,9 +517,9 @@ $(function(){
 					<?= form_radio('cefaleas',0,set_radio('cefaleas', 0,(($list[0]->cefaleas == "0") ? true : false)));?> NO
 				</td>
 				<td>
-					<?= form_dropdown('cefaleas_dia', $dias_ea, set_value('cefaleas_dia', $list[0]->cefaleas_dia), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('cefaleas_mes', $meses_ea, set_value('cefaleas_mes', $list[0]->cefaleas_mes), array('class'=>'input-small')); ?> / 
-					<?= form_dropdown('cefaleas_anio', $anio_ea, set_value('cefaleas_anio', $list[0]->cefaleas_anio), array('class'=>'input-small')); ?>
+					<?= form_dropdown('cefaleas_dia', $dias_ea, set_value('cefaleas_dia', $list[0]->cefaleas_dia), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('cefaleas_mes', $meses_ea, set_value('cefaleas_mes', $list[0]->cefaleas_mes), array('class'=>'input-small')); ?></td>
+					<td><?= form_dropdown('cefaleas_anio', $anio_ea, set_value('cefaleas_anio', $list[0]->cefaleas_anio), array('class'=>'input-small')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 						{
@@ -542,11 +548,17 @@ $(function(){
 					?>
 				</td>
 			</tr>
+		</tbody>
+	</table>
+	<table class='table table-bordered table-hover table-striped'>
+		<thead>
 			<tr>
 				<td style='background-color:#ccc;'></td>
 				<td style='background-color:#ccc;'>
 				<td style='font-weight:bold;background-color:#ccc;'>Describir</td>
 			</tr>
+		</thead>
+		<tbody>
 			<tr>
 				<td>Alergias:</td>
 				<td>
@@ -967,7 +979,7 @@ $(function(){
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>
-					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn')); ?>
+					<?= anchor('subject/grid/'. $subject->id, 'Volver', array('class'=>'btn btn-default')); ?>
 				</td>				
 			</tr>			
 		</tbody>

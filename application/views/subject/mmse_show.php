@@ -1,60 +1,9 @@
+<script src="<?= base_url('js/mmse.js') ?>"></script>
 <style type="text/css">
 	#ui-datepicker-div { display: none; }
 </style>
 <script type="text/javascript">
-$(function(){
-	$("#fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
-
-	$("select[name*=puntaje]").change(function(){
-		var total = 0;
-		$("select[name*=puntaje]").each(function(index, value){
-			if(value.value != ''){
-				total = total + parseInt(value.value);
-			}
-			
-		});
-		$("#puntaje_total_td").html(total);
-		$("input[name=puntaje_total]").val(total);		
-	});
-
-	var total2 = 0;
-	$("select[name*=puntaje]").each(function(index, value){
-		if(value.value != ''){
-			total2 = total2 + parseInt(value.value);
-		}
-		
-	});
-	$("#puntaje_total_td").html(total2);
-	$("input[name=puntaje_total]").val(total2);
-
-	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
-			$("#form_mmse :input").attr('readonly','readonly');
-			$('select option:not(:selected)').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
-			$("input[name=realizado]").removeAttr('readonly');
-
-		}else{
-			$("#form_mmse :input").removeAttr('readonly');
-			$('select option:not(:selected)').each(function(){
-				$(this).removeAttr('disabled', 'disabled');
-			});
-		}
-	});
-	if($("input[name=realizado]:checked").val() == 0){
-		$("#form_mmse :input").attr('readonly','readonly');
-		$('select option:not(:selected)').each(function(){
-				$(this).attr('disabled', 'disabled');
-			});
-		$("input[name=realizado]").removeAttr('readonly');
-
-	}else{
-		$("#form_mmse :input").removeAttr('readonly');
-		$('select option:not(:selected)').each(function(){
-			$(this).removeAttr('disabled', 'disabled');
-		});
-	}
+$(function(){	
 
 	$("#query_para_campos").dialog({
 		autoOpen: false,
@@ -164,7 +113,7 @@ $(function(){
 			<td>Realizado: 
 			<td>
 				<?= form_radio($data, 1, set_radio($data['name'], 1, (($list[0]->realizado == 1) ? true : false))); ?> Si
-				<?= form_radio($data2, 2, set_radio($data2['name'], 0, (($list[0]->realizado == 0) ? true : false))); ?> NO
+				<?= form_radio($data2, 2, set_radio($data2['name'], '0', (($list[0]->realizado == '0') ? true : false))); ?> NO
 			</td>
 		</tr>
 		<tr>
@@ -725,6 +674,7 @@ $(function(){
 		<tr>
 			<td style='font-weight:bold;' colspan='4'>ATENCIÓN Y CÁLCULO (Series de 7)</td>
 		</tr>
+		<tr><td colspan='4'>A.-</td></tr>
 		<tr>
 			<td colspan='4'><b>Ahora, me gustaría que restara 100 menos 7. Siga restando 7 a los resultados que vaya obteniendo, hasta que le diga que se detenga.</b></td>
 		</tr>
@@ -890,6 +840,43 @@ $(function(){
 			</td>
 		</tr>	
 		<tr>
+			<td colspan='2'>Puntaje total seccion a</td>			
+			<td><?= form_dropdown('puntaje_seccion_a',array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'),set_value('puntaje_seccion_a', $list[0]->puntaje_seccion_a), array('id'=>'puntaje_seccion_a')); ?></td>
+		</tr>
+		<tr><td colspan='3'>B.-</td></tr>
+		<tr>
+			<td>Pídale al paciente que deletree la palabra "MUNDO" (usted puede ayudarlo) Luego dígale. "Ahora deletréela de atrás para adelante" (espere máximo 30")</td>
+			<td><?= form_input(array('type'=>'text','name'=>'mundo_respuesta', 'id'=>'mundo_respuesta', 'value'=>set_value('mundo_respuesta', $list[0]->mundo_respuesta))); ?></td>
+			<td><?= form_dropdown('mundo_puntaje',$puntaje,set_value('mundo_puntaje', $list[0]->mundo_puntaje)); ?></td>
+			<td>
+	    		<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("mundo_puntaje", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'mmse_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='mundo_puntaje_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'mmse_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='mundo_puntaje_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+					}
+				?>
+			</td>
+		</tr>
+		<tr>
 			<td colspan='4' style='font-weight:bold;'>MEMORIA</td>			
 		</tr>
 		<tr>
@@ -996,7 +983,7 @@ $(function(){
 			<td colspan='4' style='font-weight:bold;'>NOMBRES</td>
 		</tr>
 		<tr>
-			<td><b>¿Qué es esto?</b> [Muestre un lápiz mina o pasta].</td>
+			<td><b>¿Qué es esto?</b><?= form_input(array('type'=>'text','name'=>'mostrado_que_es_1', 'id'=>'mostrado_que_es_1', 'value'=>set_value('mostrado_que_es_1', $list[0]->mostrado_que_es_2))); ?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'que_es_1', 'id'=>'que_es_1', 'value'=>set_value('que_es_1', $list[0]->que_es_1))); ?></td>
 			<td><?= form_dropdown('que_es_1_puntaje',$puntaje,set_value('que_es_1_puntaje', $list[0]->que_es_1_puntaje)); ?></td>
 			<td>
@@ -1028,7 +1015,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td><b>¿Qué es esto?</b> [Muestre un reloj].</td>
+			<td><b>¿Qué es esto?</b><?= form_input(array('type'=>'text','name'=>'mostrado_que_es_2', 'id'=>'mostrado_que_es_2', 'value'=>set_value('mostrado_que_es_2', $list[0]->mostrado_que_es_2))); ?></td>
 			<td><?= form_input(array('type'=>'text','name'=>'que_es_2', 'id'=>'que_es_2', 'value'=>set_value('que_es_2', $list[0]->que_es_2))); ?></td>
 			<td><?= form_dropdown('que_es_2_puntaje',$puntaje,set_value('que_es_2_puntaje', $list[0]->que_es_2_puntaje)); ?></td>
 			<td>

@@ -140,8 +140,8 @@ $(function(){
        	<tr>	
        		<td>Firmado: </td>
        		<td>
-       			<?= form_radio($sign_consent_1,$sign_consent_1['value'],set_radio($sign_consent_1['name'],$sign_consent_1['value'],($sign_consent_1['value'] == $subject->sign_consent) ? true : false)); ?> Si
-	        	<?= form_radio($sign_consent_0,$sign_consent_0['value'],set_radio($sign_consent_0['name'],$sign_consent_0['value'],($sign_consent_0['value'] == $subject->sign_consent) ? true : false)); ?> No
+       			<?= form_radio('sign_consent',1,set_radio('sign_consent',1,((1 == $subject->sign_consent) ? true : false))); ?> Si
+	        	<?= form_radio('sign_consent',0,set_radio('sign_consent',0,(('0' == $subject->sign_consent) ? true : false))); ?> No
 	        </td>
        	</tr>
        	<tr id='mensaje' style='display:none;'>

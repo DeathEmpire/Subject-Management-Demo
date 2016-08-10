@@ -2776,45 +2776,89 @@
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'adverse_event_form')){
 			?>
-				<td><?= anchor('subject/adverse_event_form/'.$subject->id,'Agregar', array('class'=>'btn')); ?></td>
+				<td><?= anchor('subject/adverse_event_form/'.$subject->id,'Agregar', array('class'=>'btn btn-default')); ?></td>
 			<?php }else{
 				echo "<td></td>";
 			}?>	
-			<td><?= anchor('subject/adverse_event_show/'.$subject->id,'Ver', array('class'=>'btn')); ?></td>
+			<td><?= anchor('subject/adverse_event_show/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
 		</tr>
 		<tr>	
-			<td>Protocol Deviation</td>
+			<td>Desviación de Protocolo</td>
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'protocol_deviation_form')){
 			?>
-				<td><?= anchor('subject/protocol_deviation_form/'.$subject->id,'Agregar', array('class'=>'btn')); ?></td>
+				<td><?= anchor('subject/protocol_deviation_form/'.$subject->id,'Agregar', array('class'=>'btn btn-default')); ?></td>
 			<?php }else{
 				echo "<td></td>";
 			}?>
 
-			<td><?= anchor('subject/protocol_deviation_show/'.$subject->id,'Ver', array('class'=>'btn')); ?></td>
+			<td><?= anchor('subject/protocol_deviation_show/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
 		</tr>
 		<tr>	
-			<td>Concomitant Medication</td>
+			<td>Medicación Concomitante</td>
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'concomitant_medication_form')){
 			?>
-				<td><?= anchor('subject/concomitant_medication_form/'.$subject->id,'Agregar', array('class'=>'btn')); ?></td>
+				<td><?= anchor('subject/concomitant_medication_form/'.$subject->id,'Agregar', array('class'=>'btn btn-default')); ?></td>
 			<?php }else{
 				echo "<td></td>";
 			}?>
-			<td><?= anchor('subject/concomitant_medication_show/'.$subject->id,'Ver', array('class'=>'btn')); ?></td>
+			<td><?= anchor('subject/concomitant_medication_show/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
 		</tr>		
 		<tr>	
 			<td>Signos Vitales</td>
 			<?php
 				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'signos_vitales_insert')){
 			?>
-				<td><?= anchor('subject/signos_vitales_adicional_agregar/'.$subject->id,'Agregar', array('class'=>'btn')); ?></td>
+				<td><?= anchor('subject/signos_vitales_adicional_agregar/'.$subject->id,'Agregar', array('class'=>'btn btn-default')); ?></td>
 			<?php }else{
 				echo "<td></td>";
 			}?>
-			<td><?= anchor('subject/signos_vitales_adicional/'.$subject->id,'Ver', array('class'=>'btn')); ?></td>
+			<td><?= anchor('subject/signos_vitales_adicional/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
+		</tr>
+		<tr>	
+			<td>Electrocardiograma de reposo (ECG) </td>
+			<?php
+				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'ecg_insert')){
+			?>
+				<td><?= anchor('subject/ecg_adicional_agregar/'.$subject->id,'Agregar', array('class'=>'btn btn-default')); ?></td>
+			<?php }else{
+				echo "<td></td>";
+			}?>
+			<td><?= anchor('subject/ecg_adicional/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
+		</tr>
+		<tr>	
+			<td>Examen Fisico </td>
+			<?php
+				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'examen_fisico_insert')){
+			?>
+				<td><?= anchor('subject/examen_fisico_adicional_agregar/'.$subject->id,'Agregar', array('class'=>'btn btn-default')); ?></td>
+			<?php }else{
+				echo "<td></td>";
+			}?>
+			<td><?= anchor('subject/examen_fisico_adicional/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
+		</tr>
+		<tr>	
+			<td>Examen Laboratorio </td>
+			<?php
+				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_insert')){
+			?>
+				<td><?= anchor('subject/examen_laboratorio_adicional_agregar/'.$subject->id,'Agregar', array('class'=>'btn btn-default')); ?></td>
+			<?php }else{
+				echo "<td></td>";
+			}?>
+			<td><?= anchor('subject/examen_laboratorio_adicional/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
+		</tr>
+		<tr>	
+			<td>Examen Neurológico </td>
+			<?php
+				if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'examen_neurologico_insert')){
+			?>
+				<td><?= anchor('subject/examen_neurologico_adicional_agregar/'.$subject->id,'Agregar', array('class'=>'btn btn-default')); ?></td>
+			<?php }else{
+				echo "<td></td>";
+			}?>
+			<td><?= anchor('subject/examen_neurologico_adicional/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
 		</tr>
 	</tbody>
 </table>

@@ -159,6 +159,7 @@
 				<thead>
 					<th>Formulario</th>					
 					<th>Sujeto</th>
+					<th>Visita</th>
 					<th>Link</th>					
 				</thead>
 				<tbody>
@@ -181,11 +182,25 @@
 						$link = 'query/additional_form_query_show/'. $query->subject_id .'/'. $query->id .'/Concomitant Medication';
 					}
 
+
+					$link = 'subject/'. $query->form ."_show/". $query->subject_id ."/". $query->etapa;
+
+					switch($query->etapa){
+						case 1 : $protocolo = "Selección"; break;
+						case 2 : $protocolo = "Basal Día 1"; break;
+						case 3 : $protocolo = "Semana 4"; break;
+						case 4 : $protocolo = "Semana 12"; break;
+						case 5 : $protocolo = "Término del Estudio"; break;
+						case 6 : $protocolo = "Terminación Temprana"; break;
+						default : $protocolo = "Selección"; break;
+					}
+
 			?>
 
 				<tr>
 					<td><?= $query->form;?></td>
 					<td><?= $query->code;?></td>
+					<td><?= $protocolo;?></td>
 					<td><?= anchor($link, 'Ver', array('class'=>'btn'));?></td>
 				</tr>	
 				

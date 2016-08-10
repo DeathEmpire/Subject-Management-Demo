@@ -718,18 +718,20 @@ class Subject extends CI_Controller {
 
      		$save['created_at'] = date('Y/m/d H:i:s');		
      		$save['updated_at'] = date('Y/m/d H:i:s');	
-     		$save['usuario_actualizadion'] = $this->session->userdata('usuario');	
+     		$save['usuario_actualizacion'] = $this->session->userdata('usuario');	
      		$save['created_by'] = $this->session->userdata('usuario');		
      		$save['status']  = "Record Complete";
      		$save['stage']  = "stage_1";
+
+     		if(!empty($save['fecha'])){
+				$save['fecha'] = $this->convertirFecha($save['fecha']);
+			}
 
      		$this->load->model('Model_Hachinski_Form');
      		$this->Model_Hachinski_Form->insert($save);
      		$this->auditlib->save_audit("Escala de Hachinski ingresada",$id);
      		
-     		if(!empty($save['fecha'])){
-				$save['fecha'] = $this->convertirFecha($save['fecha']);
-			}
+     		
 
      		/*Actualizar estado de hachinski en el sujeto*/
      		$actualizar['hachinski_status'] = 'Record Complete';
@@ -750,7 +752,7 @@ class Subject extends CI_Controller {
 		
 		$save = $this->input->post();
 		$save['updated_at'] = date('Y/m/d H:i:s');
-		$save['usuario_actualizadion'] = $this->session->userdata('usuario');
+		$save['usuario_actualizacion'] = $this->session->userdata('usuario');
 
 		$id = $save['subject_id'];
 
@@ -1002,9 +1004,9 @@ class Subject extends CI_Controller {
 				(
 					$registro['etapa'] == 1 AND
 					(
-						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '1' AND empty($registro['aspecto_general_desc']))
+						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
 						OR
-						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '1' AND empty($registro['estado_nutricional_desc']))
+						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
 						OR
 						(isset($registro['piel']) AND $registro['piel'] == '0' AND empty($registro['piel_desc']))
 						OR
@@ -1067,7 +1069,7 @@ class Subject extends CI_Controller {
 
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status'] = $estado;
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 
@@ -1172,32 +1174,31 @@ class Subject extends CI_Controller {
 				(
 					$registro['etapa'] == 1 AND
 					(
-						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '1' AND empty($registro['aspecto_general_desc']))
+						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
 						OR
-						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '1' AND empty($registro['estado_nutricional_desc']))
+						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
 						OR
-						(isset($registro['piel']) AND $registro['piel'] == '1' AND empty($registro['piel_desc']))
+						(isset($registro['piel']) AND $registro['piel'] == '0' AND empty($registro['piel_desc']))
 						OR
-						(isset($registro['cabeza']) AND $registro['cabeza'] == '1' AND empty($registro['cabeza_desc']))
+						(isset($registro['cabeza']) AND $registro['cabeza'] == '0' AND empty($registro['cabeza_desc']))
 						OR
-						(isset($registro['ojos']) AND $registro['ojos'] == '1' AND empty($registro['ojos_desc']))
+						(isset($registro['ojos']) AND $registro['ojos'] == '0' AND empty($registro['ojos_desc']))
 						OR
-						(isset($registro['nariz']) AND $registro['nariz'] == '1' AND empty($registro['nariz_desc']))
+						(isset($registro['nariz']) AND $registro['nariz'] == '0' AND empty($registro['nariz_desc']))
 						OR
-						(isset($registro['oidos']) AND $registro['oidos'] == '1' AND empty($registro['oidos_desc']))
+						(isset($registro['oidos']) AND $registro['oidos'] == '0' AND empty($registro['oidos_desc']))
 						OR
-						(isset($registro['boca']) AND $registro['boca'] == '1' AND empty($registro['boca_desc']))
+						(isset($registro['boca']) AND $registro['boca'] == '0' AND empty($registro['boca_desc']))
 						OR
-						(isset($registro['cuello']) AND $registro['cuello'] == '1' AND empty($registro['cuello_desc']))
+						(isset($registro['cuello']) AND $registro['cuello'] == '0' AND empty($registro['cuello_desc']))
 						OR
-						(isset($registro['pulmones']) AND $registro['pulmones'] == '1' AND empty($registro['pulmones_desc']))
+						(isset($registro['pulmones']) AND $registro['pulmones'] == '0' AND empty($registro['pulmones_desc']))
 						OR
-						(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '1' AND empty($registro['cardiovascular_desc']))
+						(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '0' AND empty($registro['cardiovascular_desc']))
 						OR
-						(isset($registro['abdomen']) AND $registro['abdomen'] == '1' AND empty($registro['abdomen_desc']))
+						(isset($registro['abdomen']) AND $registro['abdomen'] == '0' AND empty($registro['abdomen_desc']))
 						OR
-						(isset($registro['muscular']) AND $registro['muscular'] == '1' AND empty($registro['muscular_desc']))
-						
+						(isset($registro['muscular']) AND $registro['muscular'] == '0' AND empty($registro['muscular_desc']))										
 
 						OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
 						OR !isset($registro['ojos']) OR !isset($registro['nariz']) OR !isset($registro['oidos']) OR !isset($registro['boca'])
@@ -1207,17 +1208,17 @@ class Subject extends CI_Controller {
 					OR
 					$registro['etapa'] != 1 AND
 					(
-						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '1' AND empty($registro['aspecto_general_desc']))
+						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
 						OR
-						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '1' AND empty($registro['estado_nutricional_desc']))
+						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
 						OR
-						(isset($registro['pulmones']) AND $registro['pulmones'] == '1' AND empty($registro['pulmones_desc']))
+						(isset($registro['pulmones']) AND $registro['pulmones'] == '0' AND empty($registro['pulmones_desc']))
 						OR
-						(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '1' AND empty($registro['cardiovascular_desc']))
+						(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '0' AND empty($registro['cardiovascular_desc']))
 						OR
-						(isset($registro['abdomen']) AND $registro['abdomen'] == '1' AND empty($registro['abdomen_desc']))
+						(isset($registro['abdomen']) AND $registro['abdomen'] == '0' AND empty($registro['abdomen_desc']))
 						OR
-						(isset($registro['muscular']) AND $registro['muscular'] == '1' AND empty($registro['muscular_desc']))					
+						(isset($registro['muscular']) AND $registro['muscular'] == '0' AND empty($registro['muscular_desc']))					
 
 						OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['pulmones']) 
 						OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen']) OR !isset($registro['muscular'])
@@ -1236,7 +1237,7 @@ class Subject extends CI_Controller {
 			}
 
 			$registro['updated_at'] = date("Y-m-d H:i:s");	
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');					
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');					
 			$registro['status'] = $estado;
 
 			$this->load->model("Model_Examen_fisico");
@@ -1444,7 +1445,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 
 			/*Salvamos la lista de no respetados*/
 			$numeros = $registro['numero'];
@@ -1571,7 +1572,7 @@ class Subject extends CI_Controller {
 
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
@@ -1745,7 +1746,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');				
 
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha', 'Fecha', 'required|xss_clean');
 		
 			$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
@@ -1824,7 +1825,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos Form*/
 			$this->load->model('Model_Digito_directo');
@@ -1872,7 +1873,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', 'Etapa', 'required|xss_clean');				
 
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha', 'Fecha', 'required|xss_clean');
 
 		$this->form_validation->set_rules('puntaje_intento_1a', 'Puntaje Intento 1', 'xss_clean');
@@ -1947,7 +1948,7 @@ class Subject extends CI_Controller {
 			
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos Form*/
 			$this->load->model('Model_Digito_directo');
@@ -2107,7 +2108,7 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('tiene_problemas_memoria', '', 'xss_clean');
 		$this->form_validation->set_rules('le_puedo_hacer_preguntas', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');		
@@ -2168,6 +2169,10 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('dibujo_puntaje', '', 'xss_clean');
 		$this->form_validation->set_rules('escritura_puntaje', '', 'xss_clean');
 		$this->form_validation->set_rules('puntaje_total', '', 'xss_clean');		
+		$this->form_validation->set_rules('mundo_respuesta', '', 'xss_clean');	
+		$this->form_validation->set_rules('mundo_puntaje', '', 'xss_clean');	
+		$this->form_validation->set_rules('mostrado_que_es_1', '', 'xss_clean');	
+		$this->form_validation->set_rules('mostrado_que_es_2', '', 'xss_clean');	
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar estudio MMSE", $registro['subject_id']);
@@ -2190,11 +2195,18 @@ class Subject extends CI_Controller {
 						empty($registro['cuanto_86_puntaje']) OR empty($registro['cuanto_79']) OR empty($registro['cuanto_79_puntaje']) OR empty($registro['cuanto_72']) OR 
 						empty($registro['cuanto_72_puntaje']) OR empty($registro['cuanto_65']) OR empty($registro['cuanto_65_puntaje']) OR empty($registro['manzana_2']) OR 
 						empty($registro['manzana_2_puntaje']) OR empty($registro['peso_2']) OR empty($registro['peso_2_puntaje']) OR empty($registro['mesa_2']) OR 
-						empty($registro['mesa_2_puntaje']) OR empty($registro['que_es_1']) OR empty($registro['que_es_1_puntaje']) OR empty($registro['que_es_2']) OR 
-						empty($registro['que_es_2_puntaje']) OR empty($registro['no_si_cuando_porque']) OR empty($registro['no_si_cuando_porque_puntaje']) OR empty($registro['tomar_con_la_mano_derecha']) OR 
+						empty($registro['mesa_2_puntaje']) 
+						
+						//OR empty($registro['que_es_2']) OR empty($registro['que_es_2_puntaje']) 
+						OR ($registro['mostrado_que_es_1'] != '' AND (empty($registro['que_es_1']) OR empty($registro['que_es_1_puntaje'])))
+						OR ($registro['mostrado_que_es_2'] != '' AND (empty($registro['que_es_2']) OR empty($registro['que_es_2_puntaje'])))
+						OR ( empty($registro['mostrado_que_es_1']) AND empty($registro['mostrado_que_es_2']))
+
+						OR empty($registro['no_si_cuando_porque']) OR empty($registro['no_si_cuando_porque_puntaje']) OR empty($registro['tomar_con_la_mano_derecha']) OR 
 						empty($registro['tomar_con_la_mano_derecha_puntaje']) OR empty($registro['doblar_por_la_mitad']) OR empty($registro['doblar_por_la_mitad_puntaje']) OR empty($registro['poner_en_el_piso']) OR 
 						empty($registro['poner_en_el_piso_puntaje']) OR empty($registro['cierre_los_ojos']) OR empty($registro['cierre_los_ojos_puntaje']) OR
 						empty($registro['dibujo_puntaje']) OR empty($registro['escritura_puntaje']) OR empty($registro['puntaje_total'])
+						OR empty($registro['mundo_respuesta']) OR $registro['mundo_puntaje'] == ''
 					)
 				)
 
@@ -2234,7 +2246,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Mmse');
@@ -2280,7 +2292,7 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('tiene_problemas_memoria', '', 'xss_clean');
 		$this->form_validation->set_rules('le_puedo_hacer_preguntas', '', 'xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');
@@ -2340,7 +2352,11 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('cierre_los_ojos_puntaje', '', 'xss_clean');
 		$this->form_validation->set_rules('dibujo_puntaje', '', 'xss_clean');
 		$this->form_validation->set_rules('escritura_puntaje', '', 'xss_clean');
-		$this->form_validation->set_rules('puntaje_total', '', 'xss_clean');		
+		$this->form_validation->set_rules('puntaje_total', '', 'xss_clean');	
+		$this->form_validation->set_rules('mundo_respuesta', '', 'xss_clean');	
+		$this->form_validation->set_rules('mundo_puntaje', '', 'xss_clean');	
+		$this->form_validation->set_rules('mostrado_que_es_1', '', 'xss_clean');	
+		$this->form_validation->set_rules('mostrado_que_es_2', '', 'xss_clean');	
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar el estudio MMSE", $registro['subject_id']);
@@ -2363,11 +2379,17 @@ class Subject extends CI_Controller {
 						empty($registro['cuanto_86_puntaje']) OR empty($registro['cuanto_79']) OR empty($registro['cuanto_79_puntaje']) OR empty($registro['cuanto_72']) OR 
 						empty($registro['cuanto_72_puntaje']) OR empty($registro['cuanto_65']) OR empty($registro['cuanto_65_puntaje']) OR empty($registro['manzana_2']) OR 
 						empty($registro['manzana_2_puntaje']) OR empty($registro['peso_2']) OR empty($registro['peso_2_puntaje']) OR empty($registro['mesa_2']) OR 
-						empty($registro['mesa_2_puntaje']) OR empty($registro['que_es_1']) OR empty($registro['que_es_1_puntaje']) OR empty($registro['que_es_2']) OR 
-						empty($registro['que_es_2_puntaje']) OR empty($registro['no_si_cuando_porque']) OR empty($registro['no_si_cuando_porque_puntaje']) OR empty($registro['tomar_con_la_mano_derecha']) OR 
+						empty($registro['mesa_2_puntaje']) 
+						
+						OR ($registro['mostrado_que_es_1'] != '' AND (empty($registro['que_es_1']) OR empty($registro['que_es_1_puntaje'])))
+						OR ($registro['mostrado_que_es_2'] != '' AND (empty($registro['que_es_2']) OR empty($registro['que_es_2_puntaje'])))
+						OR (empty($registro['mostrado_que_es_1']) AND empty($registro['mostrado_que_es_2']))
+
+						OR empty($registro['no_si_cuando_porque']) OR empty($registro['no_si_cuando_porque_puntaje']) OR empty($registro['tomar_con_la_mano_derecha']) OR 
 						empty($registro['tomar_con_la_mano_derecha_puntaje']) OR empty($registro['doblar_por_la_mitad']) OR empty($registro['doblar_por_la_mitad_puntaje']) OR empty($registro['poner_en_el_piso']) OR 
 						empty($registro['poner_en_el_piso_puntaje']) OR empty($registro['cierre_los_ojos']) OR empty($registro['cierre_los_ojos_puntaje']) OR
 						empty($registro['dibujo_puntaje']) OR empty($registro['escritura_puntaje']) OR empty($registro['puntaje_total'])
+						OR empty($registro['mundo_respuesta']) OR $registro['mundo_puntaje'] == ''
 					)
 				)
 
@@ -2379,7 +2401,7 @@ class Subject extends CI_Controller {
 			}	
 			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status'] = $estado;
 
 			if(!isset($registro['le_puedo_hacer_preguntas']) OR empty($registro['le_puedo_hacer_preguntas'])){
@@ -2610,7 +2632,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Electrocardiograma_de_reposo');
@@ -2622,7 +2644,7 @@ class Subject extends CI_Controller {
 			$this->Model_Subject->update($subjet_);
 
 			$this->auditlib->save_audit("ECG agregado", $registro['subject_id']);     		
-     		redirect('subject/ecg_show/'. $registro['subject_id']);
+     		redirect('subject/grid/'.$registro['subject_id']);
 
 		}
 	}
@@ -2695,7 +2717,7 @@ class Subject extends CI_Controller {
 			}
 
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status'] = $estado;
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
@@ -2821,7 +2843,7 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');		
 		$this->form_validation->set_rules('estatura', '', 'xss_clean');
 		
@@ -2858,8 +2880,8 @@ class Subject extends CI_Controller {
 			if($registro['etapa'] == 1){				
 				$subjet_['signos_vitales_1_status'] = $estado;
 			}
-			elseif($registro['etapa'] == 3){
-				$subjet_['signos_vitales_3_status'] = $estado;
+			elseif($registro['etapa'] == 2){
+				$subjet_['signos_vitales_2_status'] = $estado;
 			}
 			elseif($registro['etapa'] == 4){
 				$subjet_['signos_vitales_4_status'] = $estado;
@@ -2877,7 +2899,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Signos_vitales');
@@ -2920,7 +2942,7 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		$this->form_validation->set_rules('estatura', '', 'xss_clean');
 		$this->form_validation->set_rules('presion_sistolica', '', 'xss_clean');
@@ -2953,7 +2975,7 @@ class Subject extends CI_Controller {
 			}
 			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status'] = $estado;
 
 			
@@ -2965,8 +2987,8 @@ class Subject extends CI_Controller {
 			if($registro['etapa'] == 1){				
 				$subjet_['signos_vitales_1_status'] = $estado;
 			}
-			elseif($registro['etapa'] == 3){
-				$subjet_['signos_vitales_3_status'] = $estado;
+			elseif($registro['etapa'] == 2){
+				$subjet_['signos_vitales_2_status'] = $estado;
 			}
 			elseif($registro['etapa'] == 4){
 				$subjet_['signos_vitales_4_status'] = $estado;
@@ -3193,7 +3215,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Cumplimiento');
@@ -3270,7 +3292,7 @@ class Subject extends CI_Controller {
 			}
 			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status'] = $estado;
 			
 			/*Actualizamos el Form*/
@@ -3465,7 +3487,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			if(!empty($registro['fecha_visita'])){
 				$registro['fecha_visita'] = $this->convertirFecha($registro['fecha_visita']);
 			}
@@ -3530,7 +3552,7 @@ class Subject extends CI_Controller {
 				$registro['fecha_ultima_dosis'] = $this->convertirFecha($registro['fecha_ultima_dosis']);
 			}
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Fin_de_tratamiento');
@@ -3673,7 +3695,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Fin_de_tratamiento_temprano');
@@ -3737,7 +3759,7 @@ class Subject extends CI_Controller {
 				$registro['fecha_ultima_dosis'] = $this->convertirFecha($registro['fecha_ultima_dosis']);
 			}
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Fin_de_tratamiento_temprano');
@@ -3856,7 +3878,7 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		
 		
@@ -3893,7 +3915,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Muestra_de_sangre');
@@ -3936,7 +3958,7 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		
 		
@@ -3971,7 +3993,7 @@ class Subject extends CI_Controller {
 			
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Muestra_de_sangre');
@@ -4216,7 +4238,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Examen_neurologico');
@@ -4356,7 +4378,7 @@ class Subject extends CI_Controller {
 
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Examen_neurologico');
@@ -4659,33 +4681,53 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['hematocrito'])  OR empty($registro['hematocrito_nom_anom']) OR
-					empty($registro['hemoglobina']) OR empty($registro['hemoglobina_nom_anom'])  OR empty($registro['eritocritos']) OR
-					empty($registro['eritocritos_nom_anom']) OR empty($registro['leucocitos'])  OR empty($registro['leucocitos_nom_anom']) OR
-					empty($registro['neutrofilos']) OR empty($registro['neutrofilos_nom_anom'])  OR empty($registro['linfocitos']) OR
-					empty($registro['linfocitos_nom_anom']) OR empty($registro['monocitos'])  OR empty($registro['monocitos_nom_anom']) OR
-					empty($registro['eosinofilos']) OR empty($registro['eosinofilos_nom_anom'])  OR empty($registro['basofilos']) OR
-					empty($registro['basofilos_nom_anom']) OR empty($registro['recuento_plaquetas'])  OR empty($registro['recuento_plaquetas_nom_anom']) OR
-					empty($registro['glucosa_ayunas']) OR
-					empty($registro['glucosa_ayunas_nom_anom']) OR empty($registro['bun'])  OR empty($registro['bun_nom_anom']) OR
-					empty($registro['creatinina']) OR empty($registro['creatinina_nom_anom'])  OR empty($registro['bilirrubina_total']) OR
-					empty($registro['bilirrubina_total_nom_anom']) OR empty($registro['proteinas_totales'])  OR empty($registro['proteinas_totales_nom_anom']) OR
-					empty($registro['fosfatasas_alcalinas']) OR empty($registro['fosfatasas_alcalinas_nom_anom'])  OR empty($registro['ast']) OR
-					empty($registro['ast_nom_anom']) OR empty($registro['alt'])  OR empty($registro['alt_nom_anom']) OR
-					empty($registro['calcio']) OR empty($registro['calcio_nom_anom'])  OR empty($registro['sodio']) OR
-					empty($registro['sodio_nom_anom']) OR empty($registro['potasio'])  OR empty($registro['potasio_nom_anom']) OR
-					empty($registro['cloro']) OR empty($registro['cloro_nom_anom'])  OR empty($registro['acido_urico']) OR
-					empty($registro['acido_urico_nom_anom']) OR empty($registro['albumina'])  OR empty($registro['albumina_nom_anom']) OR
-					empty($registro['orina_ph']) OR empty($registro['orina_ph_nom_anom'])  OR empty($registro['orina_glucosa']) OR
-					empty($registro['orina_glucosa_nom_anom']) OR empty($registro['orina_proteinas'])  OR empty($registro['orina_proteinas_nom_anom']) OR
-					empty($registro['orina_sangre']) OR empty($registro['orina_sangre_nom_anom'])  OR empty($registro['orina_cetonas']) OR
-					empty($registro['orina_cetonas_nom_anom']) OR empty($registro['orina_microscospia'])  OR empty($registro['orina_microscospia_nom_anom']) OR
-					empty($registro['otros_sangre_homocisteina']) OR empty($registro['otros_sangre_homocisteina_nom_anom'])  OR empty($registro['otros_perfil_tiroideo']) OR
-					empty($registro['otros_perfil_tiroideo_nom_anom']) OR empty($registro['otros_nivel_b12'])  OR empty($registro['otros_nivel_b12_nom_anom']) OR
-					empty($registro['otros_acido_folico']) OR empty($registro['otros_acido_folico_nom_anom'])  OR empty($registro['otros_hba1c']) OR
-					empty($registro['otros_hba1c_nom_anom']) OR empty($registro['sifilis'])  OR empty($registro['sifilis_nom_anom']) 
-					OR empty($registro['calcio_unidad_medida']) OR empty($registro['sodio_unidad_medida']) OR empty($registro['potasio_unidad_medida'])
-					OR empty($registro['cloro_unidad_medida']) OR empty($registro['glucosa_unidad_medida'])
+					empty($registro['fecha']) 
+					OR ($registro['hecho_1'] == 1 AND (empty($registro['hematocrito']) OR !isset($registro['hematocrito_nom_anom']) ))
+					OR ($registro['hecho_2'] == 1 AND (empty($registro['hemoglobina']) OR !isset($registro['hemoglobina_nom_anom'])  ))
+					OR ($registro['hecho_3'] == 1 AND (empty($registro['eritocritos']) OR !isset($registro['eritocritos_nom_anom']) ))
+					OR ($registro['hecho_4'] == 1 AND (empty($registro['leucocitos']) OR !isset($registro['leucocitos_nom_anom']) ))
+					OR ($registro['hecho_5'] == 1 AND (empty($registro['neutrofilos']) OR !isset($registro['neutrofilos_nom_anom'])  ))
+					OR ($registro['hecho_6'] == 1 AND (empty($registro['linfocitos']) OR !isset($registro['linfocitos_nom_anom']) ))
+					OR ($registro['hecho_7'] == 1 AND (empty($registro['monocitos']) OR !isset($registro['monocitos_nom_anom'])))
+					OR ($registro['hecho_8'] == 1 AND (empty($registro['eosinofilos']) OR !isset($registro['eosinofilos_nom_anom'])  ))
+					OR ($registro['hecho_9'] == 1 AND (empty($registro['basofilos']) OR	!isset($registro['basofilos_nom_anom']) ))
+					OR ($registro['hecho_10'] == 1 AND (empty($registro['recuento_plaquetas']) OR !isset($registro['recuento_plaquetas_nom_anom'])))
+					OR ($registro['hecho_11'] == 1 AND (empty($registro['glucosa_ayunas']) OR !isset($registro['glucosa_ayunas_nom_anom']) ))
+					OR ($registro['hecho_12'] == 1 AND (empty($registro['bun']) OR !isset($registro['bun_nom_anom']) ))
+					OR ($registro['hecho_13'] == 1 AND (empty($registro['creatinina']) OR !isset($registro['creatinina_nom_anom'])))
+					OR ($registro['hecho_14'] == 1 AND (empty($registro['bilirrubina_total']) OR	!isset($registro['bilirrubina_total_nom_anom']) ))
+					OR ($registro['hecho_15'] == 1 AND (empty($registro['proteinas_totales']) OR !isset($registro['proteinas_totales_nom_anom']) ))
+					OR ($registro['hecho_16'] == 1 AND (empty($registro['fosfatasas_alcalinas']) OR !isset($registro['fosfatasas_alcalinas_nom_anom'])))
+					OR ($registro['hecho_17'] == 1 AND (empty($registro['ast']) OR !isset($registro['ast_nom_anom'])))
+					OR ($registro['hecho_18'] == 1 AND (empty($registro['alt']) OR !isset($registro['alt_nom_anom']) ))
+					OR ($registro['hecho_19'] == 1 AND (empty($registro['calcio']) OR !isset($registro['calcio_nom_anom']) OR empty($registro['calcio_unidad_medida']) ))
+					OR ($registro['hecho_20'] == 1 AND (empty($registro['sodio']) OR	!isset($registro['sodio_nom_anom']) OR empty($registro['sodio_unidad_medida']) ))
+					OR ($registro['hecho_21'] == 1 AND (empty($registro['potasio']) OR !isset($registro['potasio_nom_anom']) OR empty($registro['potasio_unidad_medida'])))
+					OR ($registro['hecho_22'] == 1 AND (empty($registro['cloro']) OR !isset($registro['cloro_nom_anom']) OR empty($registro['cloro_unidad_medida']) ))
+					OR ($registro['hecho_23'] == 1 AND (empty($registro['acido_urico']) OR !isset($registro['acido_urico_nom_anom']) ))
+					OR ($registro['hecho_24'] == 1 AND (empty($registro['albumina']) OR !isset($registro['albumina_nom_anom'])))
+					OR ($registro['hecho_25'] == 1 AND (empty($registro['orina_ph']) OR !isset($registro['orina_ph_nom_anom'])))
+					OR ($registro['hecho_26'] == 1 AND (empty($registro['orina_glucosa']) OR	!isset($registro['orina_glucosa_nom_anom']) OR empty($registro['glucosa_unidad_medida']) ))
+					OR ($registro['hecho_27'] == 1 AND (empty($registro['orina_proteinas']) OR !isset($registro['orina_proteinas_nom_anom'])))
+					OR ($registro['hecho_28'] == 1 AND (empty($registro['orina_sangre']) OR !isset($registro['orina_sangre_nom_anom'])))
+					OR ($registro['hecho_29'] == 1 AND (empty($registro['orina_cetonas']) OR	!isset($registro['orina_cetonas_nom_anom'])))
+					OR ($registro['hecho_30'] == 1 AND (empty($registro['orina_microscospia']) OR !isset($registro['orina_microscospia_nom_anom'])))
+					OR ($registro['hecho_31'] == 1 AND (empty($registro['otros_sangre_homocisteina']) OR !isset($registro['otros_sangre_homocisteina_nom_anom'])))
+					OR ($registro['hecho_32'] == 1 AND (empty($registro['otros_perfil_tiroideo']) OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
+					OR ($registro['hecho_33'] == 1 AND (empty($registro['otros_nivel_b12']) OR !isset($registro['otros_nivel_b12_nom_anom'])))
+					OR ($registro['hecho_34'] == 1 AND (empty($registro['otros_acido_folico']) OR !isset($registro['otros_acido_folico_nom_anom'])))
+					OR ($registro['hecho_35'] == 1 AND (empty($registro['otros_hba1c']) OR !isset($registro['otros_hba1c_nom_anom'])))
+					OR ($registro['hecho_36'] == 1 AND (empty($registro['sifilis']) OR !isset($registro['sifilis_nom_anom']) ))					
+
+					OR $registro['hecho_1'] == '' OR $registro['hecho_2'] == '' OR $registro['hecho_3'] == '' OR $registro['hecho_4'] == ''
+					OR $registro['hecho_5'] == '' OR $registro['hecho_6'] == '' OR $registro['hecho_7'] == '' OR $registro['hecho_8'] == ''
+					OR $registro['hecho_9'] == '' OR $registro['hecho_10'] == '' OR $registro['hecho_11'] == '' OR $registro['hecho_12'] == ''
+					OR $registro['hecho_13'] == '' OR $registro['hecho_14'] == '' OR $registro['hecho_15'] == '' OR $registro['hecho_16'] == ''
+					OR $registro['hecho_17'] == '' OR $registro['hecho_18'] == '' OR $registro['hecho_19'] == '' OR $registro['hecho_20'] == ''
+					OR $registro['hecho_21'] == '' OR $registro['hecho_22'] == '' OR $registro['hecho_23'] == '' OR $registro['hecho_24'] == ''
+					OR $registro['hecho_25'] == '' OR $registro['hecho_26'] == '' OR $registro['hecho_27'] == '' OR $registro['hecho_28'] == ''
+					OR $registro['hecho_29'] == '' OR $registro['hecho_30'] == '' OR $registro['hecho_31'] == '' OR $registro['hecho_32'] == ''
+					OR $registro['hecho_33'] == '' OR $registro['hecho_34'] == '' OR $registro['hecho_35'] == '' OR $registro['hecho_36'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -4698,7 +4740,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
@@ -4882,33 +4924,53 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['hematocrito'])  OR empty($registro['hematocrito_nom_anom']) OR
-					empty($registro['hemoglobina']) OR empty($registro['hemoglobina_nom_anom'])  OR empty($registro['eritocritos']) OR
-					empty($registro['eritocritos_nom_anom']) OR empty($registro['leucocitos'])  OR empty($registro['leucocitos_nom_anom']) OR
-					empty($registro['neutrofilos']) OR empty($registro['neutrofilos_nom_anom'])  OR empty($registro['linfocitos']) OR
-					empty($registro['linfocitos_nom_anom']) OR empty($registro['monocitos'])  OR empty($registro['monocitos_nom_anom']) OR
-					empty($registro['eosinofilos']) OR empty($registro['eosinofilos_nom_anom'])  OR empty($registro['basofilos']) OR
-					empty($registro['basofilos_nom_anom']) OR empty($registro['recuento_plaquetas'])  OR empty($registro['recuento_plaquetas_nom_anom']) OR
-					empty($registro['glucosa_ayunas']) OR
-					empty($registro['glucosa_ayunas_nom_anom']) OR empty($registro['bun'])  OR empty($registro['bun_nom_anom']) OR
-					empty($registro['creatinina']) OR empty($registro['creatinina_nom_anom'])  OR empty($registro['bilirrubina_total']) OR
-					empty($registro['bilirrubina_total_nom_anom']) OR empty($registro['proteinas_totales'])  OR empty($registro['proteinas_totales_nom_anom']) OR
-					empty($registro['fosfatasas_alcalinas']) OR empty($registro['fosfatasas_alcalinas_nom_anom'])  OR empty($registro['ast']) OR
-					empty($registro['ast_nom_anom']) OR empty($registro['alt'])  OR empty($registro['alt_nom_anom']) OR
-					empty($registro['calcio']) OR empty($registro['calcio_nom_anom'])  OR empty($registro['sodio']) OR
-					empty($registro['sodio_nom_anom']) OR empty($registro['potasio'])  OR empty($registro['potasio_nom_anom']) OR
-					empty($registro['cloro']) OR empty($registro['cloro_nom_anom'])  OR empty($registro['acido_urico']) OR
-					empty($registro['acido_urico_nom_anom']) OR empty($registro['albumina'])  OR empty($registro['albumina_nom_anom']) OR
-					empty($registro['orina_ph']) OR empty($registro['orina_ph_nom_anom'])  OR empty($registro['orina_glucosa']) OR
-					empty($registro['orina_glucosa_nom_anom']) OR empty($registro['orina_proteinas'])  OR empty($registro['orina_proteinas_nom_anom']) OR
-					empty($registro['orina_sangre']) OR empty($registro['orina_sangre_nom_anom'])  OR empty($registro['orina_cetonas']) OR
-					empty($registro['orina_cetonas_nom_anom']) OR empty($registro['orina_microscospia'])  OR empty($registro['orina_microscospia_nom_anom']) OR
-					empty($registro['otros_sangre_homocisteina']) OR empty($registro['otros_sangre_homocisteina_nom_anom'])  OR empty($registro['otros_perfil_tiroideo']) OR
-					empty($registro['otros_perfil_tiroideo_nom_anom']) OR empty($registro['otros_nivel_b12'])  OR empty($registro['otros_nivel_b12_nom_anom']) OR
-					empty($registro['otros_acido_folico']) OR empty($registro['otros_acido_folico_nom_anom'])  OR empty($registro['otros_hba1c']) OR
-					empty($registro['otros_hba1c_nom_anom']) OR empty($registro['sifilis'])  OR empty($registro['sifilis_nom_anom']) 
-					OR empty($registro['calcio_unidad_medida']) OR empty($registro['sodio_unidad_medida']) OR empty($registro['potasio_unidad_medida'])
-					OR empty($registro['cloro_unidad_medida']) OR empty($registro['glucosa_unidad_medida'])
+					empty($registro['fecha']) 
+					OR ($registro['hecho_1'] == 1 AND (empty($registro['hematocrito']) OR !isset($registro['hematocrito_nom_anom']) ))
+					OR ($registro['hecho_2'] == 1 AND (empty($registro['hemoglobina']) OR !isset($registro['hemoglobina_nom_anom'])  ))
+					OR ($registro['hecho_3'] == 1 AND (empty($registro['eritocritos']) OR !isset($registro['eritocritos_nom_anom']) ))
+					OR ($registro['hecho_4'] == 1 AND (empty($registro['leucocitos']) OR !isset($registro['leucocitos_nom_anom']) ))
+					OR ($registro['hecho_5'] == 1 AND (empty($registro['neutrofilos']) OR !isset($registro['neutrofilos_nom_anom'])  ))
+					OR ($registro['hecho_6'] == 1 AND (empty($registro['linfocitos']) OR !isset($registro['linfocitos_nom_anom']) ))
+					OR ($registro['hecho_7'] == 1 AND (empty($registro['monocitos']) OR !isset($registro['monocitos_nom_anom'])))
+					OR ($registro['hecho_8'] == 1 AND (empty($registro['eosinofilos']) OR !isset($registro['eosinofilos_nom_anom'])  ))
+					OR ($registro['hecho_9'] == 1 AND (empty($registro['basofilos']) OR	!isset($registro['basofilos_nom_anom']) ))
+					OR ($registro['hecho_10'] == 1 AND (empty($registro['recuento_plaquetas']) OR !isset($registro['recuento_plaquetas_nom_anom'])))
+					OR ($registro['hecho_11'] == 1 AND (empty($registro['glucosa_ayunas']) OR !isset($registro['glucosa_ayunas_nom_anom']) ))
+					OR ($registro['hecho_12'] == 1 AND (empty($registro['bun']) OR !isset($registro['bun_nom_anom']) ))
+					OR ($registro['hecho_13'] == 1 AND (empty($registro['creatinina']) OR !isset($registro['creatinina_nom_anom'])))
+					OR ($registro['hecho_14'] == 1 AND (empty($registro['bilirrubina_total']) OR	!isset($registro['bilirrubina_total_nom_anom']) ))
+					OR ($registro['hecho_15'] == 1 AND (empty($registro['proteinas_totales']) OR !isset($registro['proteinas_totales_nom_anom']) ))
+					OR ($registro['hecho_16'] == 1 AND (empty($registro['fosfatasas_alcalinas']) OR !isset($registro['fosfatasas_alcalinas_nom_anom'])))
+					OR ($registro['hecho_17'] == 1 AND (empty($registro['ast']) OR !isset($registro['ast_nom_anom'])))
+					OR ($registro['hecho_18'] == 1 AND (empty($registro['alt']) OR !isset($registro['alt_nom_anom']) ))
+					OR ($registro['hecho_19'] == 1 AND (empty($registro['calcio']) OR !isset($registro['calcio_nom_anom']) OR empty($registro['calcio_unidad_medida']) ))
+					OR ($registro['hecho_20'] == 1 AND (empty($registro['sodio']) OR	!isset($registro['sodio_nom_anom']) OR empty($registro['sodio_unidad_medida']) ))
+					OR ($registro['hecho_21'] == 1 AND (empty($registro['potasio']) OR !isset($registro['potasio_nom_anom']) OR empty($registro['potasio_unidad_medida'])))
+					OR ($registro['hecho_22'] == 1 AND (empty($registro['cloro']) OR !isset($registro['cloro_nom_anom']) OR empty($registro['cloro_unidad_medida']) ))
+					OR ($registro['hecho_23'] == 1 AND (empty($registro['acido_urico']) OR !isset($registro['acido_urico_nom_anom']) ))
+					OR ($registro['hecho_24'] == 1 AND (empty($registro['albumina']) OR !isset($registro['albumina_nom_anom'])))
+					OR ($registro['hecho_25'] == 1 AND (empty($registro['orina_ph']) OR !isset($registro['orina_ph_nom_anom'])))
+					OR ($registro['hecho_26'] == 1 AND (empty($registro['orina_glucosa']) OR	!isset($registro['orina_glucosa_nom_anom']) OR empty($registro['glucosa_unidad_medida']) ))
+					OR ($registro['hecho_27'] == 1 AND (empty($registro['orina_proteinas']) OR !isset($registro['orina_proteinas_nom_anom'])))
+					OR ($registro['hecho_28'] == 1 AND (empty($registro['orina_sangre']) OR !isset($registro['orina_sangre_nom_anom'])))
+					OR ($registro['hecho_29'] == 1 AND (empty($registro['orina_cetonas']) OR	!isset($registro['orina_cetonas_nom_anom'])))
+					OR ($registro['hecho_30'] == 1 AND (empty($registro['orina_microscospia']) OR !isset($registro['orina_microscospia_nom_anom'])))
+					OR ($registro['hecho_31'] == 1 AND (empty($registro['otros_sangre_homocisteina']) OR !isset($registro['otros_sangre_homocisteina_nom_anom'])))
+					OR ($registro['hecho_32'] == 1 AND (empty($registro['otros_perfil_tiroideo']) OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
+					OR ($registro['hecho_33'] == 1 AND (empty($registro['otros_nivel_b12']) OR !isset($registro['otros_nivel_b12_nom_anom'])))
+					OR ($registro['hecho_34'] == 1 AND (empty($registro['otros_acido_folico']) OR !isset($registro['otros_acido_folico_nom_anom'])))
+					OR ($registro['hecho_35'] == 1 AND (empty($registro['otros_hba1c']) OR !isset($registro['otros_hba1c_nom_anom'])))
+					OR ($registro['hecho_36'] == 1 AND (empty($registro['sifilis']) OR !isset($registro['sifilis_nom_anom']) ))					
+
+					OR $registro['hecho_1'] == '' OR $registro['hecho_2'] == '' OR $registro['hecho_3'] == '' OR $registro['hecho_4'] == ''
+					OR $registro['hecho_5'] == '' OR $registro['hecho_6'] == '' OR $registro['hecho_7'] == '' OR $registro['hecho_8'] == ''
+					OR $registro['hecho_9'] == '' OR $registro['hecho_10'] == '' OR $registro['hecho_11'] == '' OR $registro['hecho_12'] == ''
+					OR $registro['hecho_13'] == '' OR $registro['hecho_14'] == '' OR $registro['hecho_15'] == '' OR $registro['hecho_16'] == ''
+					OR $registro['hecho_17'] == '' OR $registro['hecho_18'] == '' OR $registro['hecho_19'] == '' OR $registro['hecho_20'] == ''
+					OR $registro['hecho_21'] == '' OR $registro['hecho_22'] == '' OR $registro['hecho_23'] == '' OR $registro['hecho_24'] == ''
+					OR $registro['hecho_25'] == '' OR $registro['hecho_26'] == '' OR $registro['hecho_27'] == '' OR $registro['hecho_28'] == ''
+					OR $registro['hecho_29'] == '' OR $registro['hecho_30'] == '' OR $registro['hecho_31'] == '' OR $registro['hecho_32'] == ''
+					OR $registro['hecho_33'] == '' OR $registro['hecho_34'] == '' OR $registro['hecho_35'] == '' OR $registro['hecho_36'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -4918,7 +4980,7 @@ class Subject extends CI_Controller {
 			}
 
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status'] = $estado;
 
 			if(!empty($registro['fecha'])){
@@ -5101,7 +5163,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Tmt_a');
@@ -5183,7 +5245,7 @@ class Subject extends CI_Controller {
 
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
@@ -5388,7 +5450,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Tmt_b');
@@ -5473,7 +5535,7 @@ class Subject extends CI_Controller {
 			
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Tmt_b');
@@ -5677,7 +5739,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
@@ -5768,7 +5830,7 @@ class Subject extends CI_Controller {
 
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
@@ -6071,7 +6133,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Npi');
@@ -6231,7 +6293,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;
 			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Npi');
@@ -6461,7 +6523,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Apatia');
@@ -6568,7 +6630,7 @@ class Subject extends CI_Controller {
 
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");		
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');	
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');	
 		
 			if(!empty($registro['apatia_fecha'])){
 				$registro['apatia_fecha'] = $this->convertirFecha($registro['apatia_fecha']);
@@ -6737,7 +6799,7 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');  
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');  
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');  
 
 		$this->form_validation->set_rules('resonancia', '', 'xss_clean');
 		$this->form_validation->set_rules('resonancia_fecha', '', 'xss_clean');
@@ -6824,7 +6886,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Rnm');
@@ -6867,7 +6929,7 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');  
 		$this->form_validation->set_rules('etapa', '', 'required|xss_clean');  
-		$this->form_validation->set_rules('realizado', '', 'xss_clean');  
+		$this->form_validation->set_rules('realizado', '', 'required|xss_clean');  
 
 		$this->form_validation->set_rules('id', 'ID', 'required|xss_clean'); 
 		$this->form_validation->set_rules('resonancia', '', 'xss_clean');
@@ -6950,7 +7012,7 @@ class Subject extends CI_Controller {
 			}
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Rnm');
@@ -7214,7 +7276,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Historial_medico');
@@ -7263,7 +7325,7 @@ class Subject extends CI_Controller {
 		/*querys*/
 		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Historia Medica"));
 
-		$this->load->view('template', $data);
+		$this->load->view('template2', $data);
 	}
 
 	public function historial_medico_update($subject_id, $etapa){
@@ -7400,7 +7462,7 @@ class Subject extends CI_Controller {
 			
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Historial_medico');
@@ -7683,7 +7745,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Adas');
@@ -7861,7 +7923,7 @@ class Subject extends CI_Controller {
 
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Adas');
@@ -8088,7 +8150,7 @@ class Subject extends CI_Controller {
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Restas');
@@ -8201,7 +8263,7 @@ class Subject extends CI_Controller {
 			}
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
-			$registro['usuario_actualizadion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Restas');
@@ -8422,8 +8484,477 @@ class Subject extends CI_Controller {
 	}
 	
 	/*-------------------------------ECG Adicional----------------------------------------------------------------------------------*/
+	public function ecg_adicional($subject_id){
+
+		$data['contenido'] = 'subject/adicional/ecg';
+		$data['titulo'] = 'ECG';
+		$data['subject'] = $this->Model_Subject->find($subject_id);						
+
+		$this->load->view('template',$data);
+	}
+
+	public function ecg_adicional_agregar($subject_id){
+		$data['contenido'] = 'subject/adicional/ecg_agregar';
+		$data['titulo'] = 'ECG';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->view('template',$data);
+	}
+
+	public function ecg_adicional_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
+	
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('ritmo_sinusal', '', 'xss_clean');
+		$this->form_validation->set_rules('ritmo_sinusal_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('fc', '', 'xss_clean');
+		$this->form_validation->set_rules('fc_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('pr', '', 'xss_clean');
+		$this->form_validation->set_rules('pr_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qt', '', 'xss_clean');
+		$this->form_validation->set_rules('qt_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qtc', '', 'xss_clean');
+		$this->form_validation->set_rules('qtc_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs2', '', 'xss_clean');
+		$this->form_validation->set_rules('qrs2_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('interpretacion_ecg', '', 'xss_clean');
+		$this->form_validation->set_rules('comentarios', '', 'xss_clean');
+		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar estudio ECG", $registro['subject_id']);
+			$this->ecg($registro['subject_id']);
+
+		}else{
+
+			
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
+			}
+			
+			
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Ecg_adicional');
+			$this->Model_Ecg_adicional->insert($registro);			
+
+			$this->auditlib->save_audit("ECG adicional agregado", $registro['subject_id']);     		
+     		redirect('subject/grid/'.$registro['subject_id']);
+
+		}
+	}
+
+	public function ecg_adicional_show($subject_id){
+		$data['contenido'] = 'subject/adicional/ecg_show';
+		$data['titulo'] = 'ECG';
+		$data['subject'] = $this->Model_Subject->find($subject_id);						
+		
+		$this->load->model('Model_Ecg_adicional');
+		$data['list'] = $this->Model_Ecg_adicional->allWhereArray(array('subject_id'=>$subject_id));
+
+		// $campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"ecg", "etapa"=>0, "status"=>'Abierto'));		
+		// if(isset($campos_query) AND !empty($campos_query)){
+		// 	foreach ($campos_query as $value) {
+		// 		$data['campos_query'][] = $value->campo;
+		// 	}
+		// }else{
+		// 	$data['campos_query'] = array();
+		// }
+
+		$this->load->view('template',$data);
+	}
 	/*-------------------------------Examen Fisico Adicional -----------------------------------------------------------------------*/
+	public function examen_fisico_adicional($id){
+		$data['contenido'] = 'subject/adicional/examen_fisico';
+		$data['titulo'] = 'Examen Fisico';
+		$data['subject'] = $this->Model_Subject->find($id);		
+
+		$this->load->view('template', $data);
+	}
+
+	public function examen_fisico_adicional_agregar($subject_id){
+		$data['contenido'] = 'subject/adicional/examen_fisico_agregar';
+		$data['titulo'] = 'Examen Fisico';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->view('template',$data);
+	}
+
+	public function examen_fisico_adicional_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');		
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		
+		/*Si se tiene algun hallazgo todo es obligatorio*/
+	
+		$this->form_validation->set_rules('aspecto_general', '', 'xss_clean');
+		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('estado_nutricional', '', 'xss_clean');
+		$this->form_validation->set_rules('estado_nutricional_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('piel', '', 'xss_clean');
+		$this->form_validation->set_rules('piel_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cabeza', '', 'xss_clean');
+		$this->form_validation->set_rules('cabeza_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('ojos', '', 'xss_clean');
+		$this->form_validation->set_rules('ojos_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('nariz', '', 'xss_clean');			
+		$this->form_validation->set_rules('nariz_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('oidos', '', 'xss_clean');
+		$this->form_validation->set_rules('oidos_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('boca', '', 'xss_clean');
+		$this->form_validation->set_rules('boca_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cuello', '', 'xss_clean');
+		$this->form_validation->set_rules('cuello_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('pulmones', '', 'xss_clean');
+		$this->form_validation->set_rules('pulmones_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('cardiovascular', '', 'xss_clean');
+		$this->form_validation->set_rules('cardiovascular_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('abdomen', '', 'xss_clean');
+		$this->form_validation->set_rules('abdomen_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('muscular', '', 'xss_clean');
+		$this->form_validation->set_rules('muscular_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('tuvo_cambios', '', 'xss_clean');
+		$this->form_validation->set_rules('cambios_observaciones', '', 'xss_clean');	
+		
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');
+
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Tuvo errores al tratar de agregar Examen Fisico", $registro['subject_id']);
+			$this->examen_fisico($registro['subject_id'],$registro['etapa']);
+		}
+		else {		
+
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
+			}
+
+			$registro['created_at'] = date("Y-m-d H:i:s");						
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+
+			$this->load->model("Model_Examen_fisico_adicional");
+			$this->Model_Examen_fisico_adicional->insert($registro);
+
+			$this->auditlib->save_audit("Examen Fisico Adicional Ingresado", $registro['subject_id']);		
+
+     		redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	public function examen_fisico_adicional_show($subject_id){
+		$data['contenido'] = 'subject/adicional/examen_fisico_show';
+		$data['titulo'] = 'Examen Fisico';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+
+		$this->load->model("Model_Examen_fisico_adicional");
+		$data['list'] = $this->Model_Examen_fisico_adicional->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		// $campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"examen_fisico", "etapa"=>$etapa, "status"=>'Abierto'));		
+		// if(isset($campos_query) AND !empty($campos_query)){
+		// 	foreach ($campos_query as $value) {
+		// 		$data['campos_query'][] = $value->campo;
+		// 	}
+		// }else{
+		// 	$data['campos_query'] = array();
+		// }
+
+		$this->load->view('template', $data);
+	}
 	/*-------------------------------Examen Neuroloico Adicional -------------------------------------------------------------------*/
+	public function examen_neurologico_adicional($subject_id){
+		$data['contenido'] = 'subject/adicional/examen_neurologico';
+		$data['titulo'] = 'Examen Neurologico';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		
+
+		$this->load->view('template',$data);
+	}
+
+	public function examen_neurologico_adicional_agregar($subject_id){
+		$data['contenido'] = 'subject/adicional/examen_neurologico_agregar';
+		$data['titulo'] = 'Examen Neurologico';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->view('template',$data);
+	}
+
+	public function examen_neurologico_adicional_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');				
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('nervios_craneanos', '', 'xss_clean');		
+		$this->form_validation->set_rules('examen_sensitivo_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('examen_sensitivo', '', 'xss_clean');
+		$this->form_validation->set_rules('reflejos_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('reflejos', '', 'xss_clean');
+		$this->form_validation->set_rules('funcion_cerebelosa_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('funcion_cerebelosa', '', 'xss_clean');
+		$this->form_validation->set_rules('marcha_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('marcha', '', 'xss_clean');
+		$this->form_validation->set_rules('fuerza_muscular_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('fuerza_muscular', '', 'xss_clean');
+		$this->form_validation->set_rules('tono_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('tono', '', 'xss_clean');
+		$this->form_validation->set_rules('mov_anormales_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('mov_anormales', '', 'xss_clean');
+		$this->form_validation->set_rules('coordinacion_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('coordinacion', '', 'xss_clean');
+		$this->form_validation->set_rules('postura_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('postura', '', 'xss_clean');		
+		$this->form_validation->set_rules('motora_normal_anormal', '', 'xss_clean');
+		$this->form_validation->set_rules('motora', '', 'xss_clean');
+		$this->form_validation->set_rules('tuvo_cambios', '', 'xss_clean');
+		$this->form_validation->set_rules('cambios_observaciones', '', 'xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar examen neurologico", $registro['subject_id']);
+			$this->examen_neurologico($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			
+
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
+			}
+			
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");		
+
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Examen_neurologico_adicional');
+			$this->Model_Examen_neurologico_adicional->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Examen Neurologico agregado", $registro['subject_id']);     		
+     		redirect('subject/grid/'.$registro['subject_id']);
+
+		}
+
+	}
+
+	public function examen_neurologico_adicional_show($subject_id){
+		$data['contenido'] = 'subject/adicional/examen_neurologico_show';
+		$data['titulo'] = 'Examen Neurologico';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		
+
+		$this->load->model('Model_Examen_neurologico_adicional');
+		$data['list'] = $this->Model_Examen_neurologico_adicional->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
+
+		// $campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"examen_neurologico", "etapa"=>$etapa, "status"=>'Abierto'));		
+		// if(isset($campos_query) AND !empty($campos_query)){
+		// 	foreach ($campos_query as $value) {
+		// 		$data['campos_query'][] = $value->campo;
+		// 	}
+		// }else{
+		// 	$data['campos_query'] = array();
+		// }
+
+		$this->load->view('template',$data);
+	}
 	/*-------------------------------Examen Laboratorio Adicional-------------------------------------------------------------------*/
+	public function examen_laboratorio_adicional($subject_id){
+		$data['contenido'] = 'subject/adicional/examen_laboratorio';
+		$data['titulo'] = 'Examen Laboratorio';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		
+		$data['medidas1'] = array(''=>'','meq/L'=>'meq/L','mmol/L'=>'mmol/L');
+		$data['medidas2'] = array(''=>'','mmol/l'=>'mmol/l','mg/dL'=>'mg/dL');
+
+		$this->load->view('template2',$data);
+	}
+
+
+	public function examen_laboratorio_adicional_agregar($subject_id){
+		$data['contenido'] = 'subject/adicional/examen_laboratorio_agregar';
+		$data['titulo'] = 'Examen Laboratorio';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->view('template',$data);
+	}
+
+	public function examen_laboratorio_adicional_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');						
+		$this->form_validation->set_rules('fecha', '', 'xss_clean');
+		$this->form_validation->set_rules('hematocrito', '', 'xss_clean');
+		$this->form_validation->set_rules('hematocrito_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('hemoglobina', '', 'xss_clean');
+		$this->form_validation->set_rules('hemoglobina_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('eritocritos', '', 'xss_clean');
+		$this->form_validation->set_rules('eritocritos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('leucocitos', '', 'xss_clean');
+		$this->form_validation->set_rules('leucocitos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('neutrofilos', '', 'xss_clean');
+		$this->form_validation->set_rules('neutrofilos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('linfocitos', '', 'xss_clean');
+		$this->form_validation->set_rules('linfocitos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('monocitos', '', 'xss_clean');
+		$this->form_validation->set_rules('monocitos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('eosinofilos', '', 'xss_clean');
+		$this->form_validation->set_rules('eosinofilos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('basofilos', '', 'xss_clean');
+		$this->form_validation->set_rules('basofilos_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('recuento_plaquetas', '', 'xss_clean');
+		$this->form_validation->set_rules('recuento_plaquetas_nom_anom', '', 'xss_clean');		
+		$this->form_validation->set_rules('glucosa_ayunas', '', 'xss_clean');
+		$this->form_validation->set_rules('glucosa_ayunas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('bun', '', 'xss_clean');
+		$this->form_validation->set_rules('bun_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('creatinina', '', 'xss_clean');
+		$this->form_validation->set_rules('creatinina_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('bilirrubina_total', '', 'xss_clean');
+		$this->form_validation->set_rules('bilirrubina_total_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('proteinas_totales', '', 'xss_clean');
+		$this->form_validation->set_rules('proteinas_totales_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('fosfatasas_alcalinas', '', 'xss_clean');
+		$this->form_validation->set_rules('fosfatasas_alcalinas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('ast', '', 'xss_clean');
+		$this->form_validation->set_rules('ast_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('alt', '', 'xss_clean');
+		$this->form_validation->set_rules('alt_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('calcio', '', 'xss_clean');
+		$this->form_validation->set_rules('calcio_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('sodio', '', 'xss_clean');
+		$this->form_validation->set_rules('sodio_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('potasio', '', 'xss_clean');
+		$this->form_validation->set_rules('potasio_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('cloro', '', 'xss_clean');
+		$this->form_validation->set_rules('cloro_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('acido_urico', '', 'xss_clean');
+		$this->form_validation->set_rules('acido_urico_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('albumina', '', 'xss_clean');
+		$this->form_validation->set_rules('albumina_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_ph', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_ph_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_glucosa', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_glucosa_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_proteinas', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_proteinas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_sangre', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_sangre_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_cetonas', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_cetonas_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_microscospia', '', 'xss_clean');
+		$this->form_validation->set_rules('orina_microscospia_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_sangre_homocisteina', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_sangre_homocisteina_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_perfil_tiroideo', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_perfil_tiroideo_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_nivel_b12', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_nivel_b12_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_acido_folico', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_acido_folico_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_hba1c', '', 'xss_clean');
+		$this->form_validation->set_rules('otros_hba1c_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('sifilis', '', 'xss_clean');
+		$this->form_validation->set_rules('sifilis_nom_anom', '', 'xss_clean');
+		$this->form_validation->set_rules('calcio_unidad_medida', '', 'xss_clean');
+		$this->form_validation->set_rules('sodio_unidad_medida', '', 'xss_clean');
+		$this->form_validation->set_rules('potasio_unidad_medida', '', 'xss_clean');
+		$this->form_validation->set_rules('cloro_unidad_medida', '', 'xss_clean');
+		$this->form_validation->set_rules('glucosa_unidad_medida', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_1', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_2', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_3', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_4', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_5', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_6', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_7', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_8', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_9', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_10', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_11', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_12', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_13', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_14', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_15', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_16', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_17', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_18', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_19', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_20', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_21', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_22', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_23', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_24', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_25', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_26', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_27', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_28', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_29', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_30', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_31', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_32', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_33', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_34', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_35', '', 'xss_clean');
+		$this->form_validation->set_rules('hecho_36', '', 'xss_clean');
+		$this->form_validation->set_rules('observaciones', '', 'xss_clean');
+		
+		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar examen de laboratorio", $registro['subject_id']);
+			$this->examen_laboratorio($registro['subject_id'], $registro['etapa']);
+
+		}else{
+
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");			
+			
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
+			}
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Examen_laboratorio_adicional');
+			$this->Model_Examen_laboratorio_adicional->insert($registro);			
+
+			$this->auditlib->save_audit("Examen de Laboratorio adicional agregado", $registro['subject_id']);     		
+     		redirect('subject/grid/'.$registro['subject_id']);
+
+		}
+
+	}
+
+	public function examen_laboratorio_adicional_show($subject_id){
+		$data['contenido'] = 'subject/adicional/examen_laboratorio_show';
+		$data['titulo'] = 'Examen Laboratorio';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+		
+		$data['medidas1'] = array(''=>'','meq/L'=>'meq/L','mmol/L'=>'mmol/L');
+		$data['medidas2'] = array(''=>'','mmol/l'=>'mmol/l','mg/dL'=>'mg/dL');
+
+		$this->load->model('Model_Examen_laboratorio_adicional');
+		$data['list'] = $this->Model_Examen_laboratorio_adicional->allWhereArray(array('subject_id'=>$subject_id));
+
+		// $campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"examen_laboratorio", "etapa"=>$etapa, "status"=>'Abierto'));		
+		// if(isset($campos_query) AND !empty($campos_query)){
+		// 	foreach ($campos_query as $value) {
+		// 		$data['campos_query'][] = $value->campo;
+		// 	}
+		// }else{
+		// 	$data['campos_query'] = array();
+		// }
+
+		$this->load->view('template2',$data);
+	}
 	
 } 	
