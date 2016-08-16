@@ -68,6 +68,8 @@ $(function(){
 				"etapa": 0,
 				"subject_id": $("input[name=subject_id]").val(),
 				"form": "hachinski",
+				"form_nombre" : "Escala de Hachinski",
+				"form_id" : '<?php echo $list[0]->id;?>',
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

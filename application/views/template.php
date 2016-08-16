@@ -8,9 +8,76 @@
 		<link href="<?= base_url('css/micss.css') ?>" rel="stylesheet">
 		<script src="<?= base_url('js/jquery.js') ?>"></script>
 		<script src="<?= base_url('js/jquery-ui.js') ?>"></script>
-    	<script src="<?= base_url('js/bootstrap.min.js') ?>"></script>
+    	<script src="<?= base_url('js/bootstrap.min.js') ?>"></script>        
 		<link href="<?= base_url('css/jquery-ui.css') ?>" rel="stylesheet">
         <link href="<?= base_url('css/font-awesome.css') ?>" rel="stylesheet">
+        <script src="<?= base_url('js/jquery-idletimer-master/src/idle-timer.js') ?>"></script>
+        <script>
+        $(function(){
+            var
+                session = {
+                    //Logout Settings
+                    inactiveTimeout: 900000,     //(ms) The time until we display a warning message
+                    warningTimeout: 900000,      //(ms) The time until we log them out
+                    minWarning: 900000,           //(ms) If they come back to page (on mobile), The minumum amount, before we just log them out
+                    warningStart: null,         //Date time the warning was started
+                    warningTimer: null,         //Timer running every second to countdown to logout
+                    logout: function () {       //Logout function once warningTimeout has expired
+                        window.location = "<?php echo base_url('home/salir'); ?>";
+                        //$("#mdlLoggedOut").modal("show");
+                    },
+
+                    //Keepalive Settings
+                    keepaliveTimer: null,
+                    keepaliveUrl: "",
+                    keepaliveInterval: 900000,     //(ms) the interval to call said url
+                    keepAlive: function () {
+                        $.ajax({ url: session.keepaliveUrl });
+                    }
+                }
+            ;
+
+
+            $(document).on("idle.idleTimer", function (event, elem, obj) {
+                //Get time when user was last active
+                var
+                    diff = (+new Date()) - obj.lastActive - obj.timeout,
+                    warning = (+new Date()) - diff
+                ;
+                
+                //On mobile js is paused, so see if this was triggered while we were sleeping
+                if (diff >= session.warningTimeout || warning <= session.minWarning) {
+                    window.location = "<?php echo base_url('home/salir'); ?>";
+                    // $("#mdlLoggedOut").modal("show");
+                } else {
+                    //Show dialog, and note the time
+                    // $('#sessionSecondsRemaining').html(Math.round((session.warningTimeout - diff) / 1000));
+                    // $("#myModal").modal("show");
+                    session.warningStart = (+new Date()) - diff;
+
+                    //Update counter downer every second
+                    session.warningTimer = setInterval(function () {
+                        var remaining = Math.round((session.warningTimeout / 1000) - (((+new Date()) - session.warningStart) / 1000));
+                        if (remaining >= 0) {
+                            // $('#sessionSecondsRemaining').html(remaining);
+                        } else {
+                            session.logout();
+                        }
+                    }, 1000)
+                }
+            });
+
+            // create a timer to keep server session alive, independent of idle timer
+            session.keepaliveTimer = setInterval(function () {
+                session.keepAlive();
+            }, session.keepaliveInterval);
+
+           
+
+            //Set up the timer, if inactive for 10 seconds log them out
+            $(document).idleTimer(session.inactiveTimeout);
+        });
+        </script>
 		<title>Manejo de Sujetos</title>
 	</head>
 

@@ -47,6 +47,8 @@ $(function(){
 				"etapa": "<?php echo $etapa;?>",
 				"subject_id": $("input[name=subject_id]").val(),
 				"form": "eq_5d_5l",
+				"form_nombre" : "EQ-5D-5L",
+				"form_id" : '<?php echo $list[0]->id;?>',
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

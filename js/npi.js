@@ -1161,7 +1161,7 @@ $(function(){
 			});
 			$('#puntaje_total_para_angustia').val(total2);
 
-			$('#trastornos_sueno_status option:not(), #trastornos_sueno_severidad option:not(), #trastornos_sueno_angustia option:not()').each(function(){
+			$('#trastornos_sueno_frecuencia option:not(), #trastornos_sueno_severidad option:not(), #trastornos_sueno_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
 		}
@@ -1198,7 +1198,7 @@ $(function(){
 			});
 			$('#puntaje_total_para_angustia').val(total2);
 
-		$('#trastornos_sueno_status option:not(), #trastornos_sueno_severidad option:not(), #trastornos_sueno_angustia option:not()').each(function(){
+		$('#trastornos_sueno_frecuencia option:not(), #trastornos_sueno_severidad option:not(), #trastornos_sueno_angustia option:not()').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
 	}

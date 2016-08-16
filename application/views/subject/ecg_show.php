@@ -59,6 +59,8 @@ $(function(){
 				"etapa": 0,
 				"subject_id": $("input[name=subject_id]").val(),
 				"form": "ecg",
+				"form_nombre" : "Electrocardiograma de reposo (ECG)",
+				"form_id" : '<?php echo $list[0]->id;?>',
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

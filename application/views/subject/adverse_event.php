@@ -13,6 +13,8 @@ $(function(){
 			$("#date_of_resolution").show();
 		}
 	});
+	
+	
 });
 </script>
 <legend style='text-align:center;'>Evento Adverso/Evento Adverso Serio</legend>

@@ -74,6 +74,8 @@ $(function(){
 				"etapa": "<?php echo $etapa;?>",
 				"subject_id": $("input[name=subject_id]").val(),
 				"form": "tmt_a",
+				"form_nombre" : "TMT A",
+				"form_id" : '<?php echo $list[0]->id;?>',
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

@@ -74,6 +74,8 @@ $(function(){
 				"etapa": "<?php echo $etapa;?>",
 				"subject_id": $("input[name=subject_id]").val(),
 				"form": "signos_vitales",
+				"form_nombre" : "Sginos Vitales",
+				"form_id" : '<?php echo $list[0]->id;?>',
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

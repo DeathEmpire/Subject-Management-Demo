@@ -1,4 +1,28 @@
-<legend style='text-align:center;'>Protocol Deviation</legend>
+<style type="text/css">
+	#ui-datepicker-div { display: none; }
+</style>
+<script type="text/javascript">
+$(function(){
+
+	$("#date_of_deviation").datepicker({ dateFormat: 'dd/mm/yy' });
+
+	$("input[name^=pre_approved]").change(function(){
+		if($(this).val() == 1){
+			$("#sponsor_tr").show();
+		}else{
+			$("#sponsor_tr").hide();
+		}
+	});
+	
+	if($("input[name=pre_approved]:checked").val() == 1){
+		$("#sponsor_tr").show();
+	}else{
+		$("#sponsor_tr").hide();
+	}
+	
+});
+</script>
+<legend style='text-align:center;'>Desviación de Protocolo</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -22,88 +46,46 @@
 		</tr>
 	</tbody>
 </table>
-<!-- New Query-->
+<br />
 <?php
-	if(isset($_SESSION['role_options']['query']) AND strstr($_SESSION['role_options']['query'], 'additional_form_query_new')){
+	$data = array(
+        'name'        => 'pre_approved',                
+        'value'       => '1',            
+        'checked'     => set_radio('pre_approved', 1, (($list[0]->pre_approved == 1) ? true : false) ),
+        );
+    $data2 = array(
+        'name'        => 'pre_approved',                
+        'value'       => '0',
+        'checked'     => set_radio('pre_approved', 0, (($list[0]->pre_approved == 0) ? true : false) ),           
+        );
 ?>
-	<div id='new_query' style='text-align:right;'>
-		<?= form_open('query/additional_form_query_new', array('class'=>'form-horizontal')); ?>
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('form', "Protocol Deviation"); ?>
-		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
-		<?= form_close(); ?>
-	</div>
-<?php }?>
-<!-- End Query-->
-<?php
-	if(isset($list) AND !empty($list)){
-?>		
+<?= form_open('subject/protocol_deviation_form_update', array('class'=>'form-horizontal')); ?>
+	
+	<?= my_validation_errors(validation_errors()); ?>
+	<?= form_hidden('subject_id', $subject->id); ?>
+	<?= form_hidden('id', $list[0]->id); ?>
 
-	<table class="table table-condensed table-bordered table-striped">
-		<thead>
-			<tr>			
-				<th>Date of Deviation</th>
-				<th>Description</th>
-				<th>Pre-Approved</th>
-				<th>Sponsor Name</th>						
-			</tr>
-		</thead>
-		<tbody>
-
-		<?php
-		foreach ($list as $v) { ?>
-			<tr>
-				<td><?= date("d-M-Y", strtotime($v->date_of_deviation));?></td>				
-				<td><?= $v->description;?></td>
-				<td><?= (($v->pre_approved == 1) ? "Yes" : "No");?></td>				
-				<td><?= (($v->pre_approved == 1) ? $v->sponsor_name : "-"); ?></td>
-			</tr>		
-		<?php } ?>
-
-		<tr><td colspan='4' style='text-align:center;'><?= anchor('subject/grid/'.$subject->id, 'Back', array('class'=>'btn')); ?></td></tr>
-		</tbody>
-	</table>
-
-
-<?php
-	}
-?>
-<!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strstr($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Protocol Deviation', 'Add',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
-
-			</tbody>
-		</table>
-
-<?php } ?>
+	<table class="table table-striped table-condensed table-bordered">       		
+        <tr>
+        	<td>Fecha de Desviación: </td>
+        	<td><?= form_input(array('type'=>'text', 'name'=>'date_of_deviation', 'id'=>'date_of_deviation', 'readonly'=>'readonly', 'style'=>'cursor: pointer;', 'value'=>set_value('date_of_deviation', (($list[0]->date_of_deviation != '0000-00-00') ? date('d/m/Y', strtotime($list[0]->date_of_deviation)) : '') )));?></td>
+		</tr>
+		<tr>
+        	<td>Descripción de la Desviación: </td>
+        	<td><?= form_input(array('type'=>'text','name'=>'description', 'id'=>'description', 'value'=>set_value('description', $list[0]->description))); ?></td>
+		</tr>
+		<tr>
+        	<td>¿Está la desviación aprobada por el Patrocinador?: </td>
+        	<td><?= form_radio($data); ?> Si <?= form_radio($data2); ?> No</td>
+		</tr>
+		<tr style='display:none;' id='sponsor_tr'>
+        	<td>Nombre de la persona que autoriza: </td>        	
+        	<td><?= form_input(array('type'=>'text','name'=>'sponsor_name', 'id'=>'sponsor_name', 'value'=>set_value('sponsor_name', $list[0]->sponsor_name))); ?></td>
+		</tr>	
+		
+		<tr>
+            <td colspan='2' style='text-align:center;'><?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+            <?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn btn-default')); ?></td>
+       </tr>
+    </table>
+<?= form_close(); ?>

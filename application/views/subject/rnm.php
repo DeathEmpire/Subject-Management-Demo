@@ -66,9 +66,9 @@ $(function(){
 		var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
 
 		if(dias >= 365){
-			$('#tr_repetir').show();			
-			$('#tr_repetir_rnm').show();
-			$('#tr_repetir_tc').show();		
+			$('#tr_repetir').hide();			
+			$('#tr_repetir_rnm').hide();
+			$('#tr_repetir_tc').hide();		
 		}
 	});
 	

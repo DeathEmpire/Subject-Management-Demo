@@ -19,6 +19,8 @@ $(function(){
 				"etapa": "<?php echo $etapa;?>",
 				"subject_id": $("input[name=subject_id]").val(),
 				"form": "digito_directo",
+				"form_nombre" : "Prueba de digito directo",
+				"form_id" : '<?php echo $list[0]->id;?>',
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

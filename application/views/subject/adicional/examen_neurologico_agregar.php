@@ -209,35 +209,15 @@ $(function(){
 	 
 	
 		<?php
-       		$si = array(
-			    'name'        => 'realizado',			    
-			    'value'       => 1,		    			    
-			    'checked'     => set_radio('realizado', 1)
-			    );
-	   		$no = array(
-			    'name'        => 'realizado',			    
-			    'value'       => 0,	
-			    'checked'     => set_radio('realizado', 0)
-			    );
-	   		$si2 = array(
-			    'name'        => 'fecha_examen_misma_visita',			    
-			    'value'       => 1,		    			    
-			    'checked'     => set_radio('fecha_examen_misma_visita', 1)
-			    );
-	   		$no2 = array(
-			    'name'        => 'fecha_examen_misma_visita',			    
-			    'value'       => 0,	
-			    'checked'     => set_radio('fecha_examen_misma_visita', 0)
-			    );
-
+       		
 	   		$normal_anormal = array(''=>'',
 	   								'1'=>'Normal',
 	   								'0'=>'Anormal');
        	?>	
 
-		Examen Neurológico realizado <?= form_radio($si); ?> Si <?= form_radio($no); ?> No<br />
-		La fecha del examen neurológico es la misma fecha de la visita?	 <?= form_radio($si2); ?> Si <?= form_radio($no2); ?> No<br /> 
+		
 		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
+		Visita: <?= form_dropdown('etapa',$etapas, set_value('etapa')); ?>
 		<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<tr>
@@ -307,31 +287,6 @@ $(function(){
 					<td><?= form_input(array('type'=>'text','name'=>'funcion_cerebelosa', 'id'=>'funcion_cerebelosa', 'value'=>set_value('funcion_cerebelosa')));?></td>
 				</tr>
 			
-					
-			
-
-				<tr>
-					<td>¿Tuvo el sujeto algún cambio desde la visita anterior?</td>
-					<td>						
-						<?= form_radio(array('name'=>'tuvo_cambios', 'value'=>1, 'checked'=>set_radio('tuvo_cambios', 1))); ?> Si
-						<?= form_radio(array('name'=>'tuvo_cambios', 'value'=>0, 'checked'=>set_radio('tuvo_cambios', 0))); ?> No
-					</td>
-				</tr>
-				<tr id='tr_observaciones' style='display:none;'>
-					<td>Observaciones</td>
-					<td>
-						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones'), array('rows'=>3, 'style'=>'width:100%;'))); ?>
-					</td>	
-				</tr>
-					
-		
-					
-			<tr>
-				<td style='font-weight:bold;' colspan='3'>Anormalidades de significancia clínica en la visita de screening deben reportarse como historia médica si el consentimiento informado está firmado.</td>
-			</tr>
-			<tr>
-				<td style='font-weight:bold;' colspan='3'>Anormalidades de significancia clínica después de la visita de screening deben reportarse como eventos adversos.</td>
-			</tr>
 			<tr>
 				<td colspan='3' style='text-align:center;'>
 					<?php

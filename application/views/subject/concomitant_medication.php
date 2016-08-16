@@ -17,7 +17,7 @@ $(function(){
 	});
 
 	$("select[name=frequency]").change(function(){
-		if($(this).val() == "Other"){
+		if($(this).val() == "Otro"){
 			$("#other").show();
 		}
 		else{
@@ -25,7 +25,7 @@ $(function(){
 		}
 	});
 
-	if($("select[name=frequency]").val() == "Other"){
+	if($("select[name=frequency]").val() == "Otro"){
 		$("#other").show();
 	}else{
 		$("#other").hide();
@@ -70,60 +70,60 @@ $(function(){
         'value'       => '0',
         'checked'     => set_radio('on_going', 0),           
         );
-    $unit_of_measure = array(""=>"",
-    						"CAP"=>"CAP",
-    						"g"=>"g",
-    						"GR"=>"GR",
-    						"GTT"=>"GTT",
-    						"IU"=>"IU",
-    						"LPM"=>"LPM",
-    						"mcg"=>"mcg",
-    						"mEq"=>"mEq",
-    						"mg"=>"mg",
-    						"mL"=>"mL",
-    						"oz"=>"oz",
-    						"PCH"=>"PCH",
-    						"PUF"=>"PUF",
-    						"SPY"=>"SPY",
-    						"SUP"=>"SUP",
-    						"TAB"=>"TAB",
-    						"TBS"=>"TBS",
-    						"TSP"=>"TSP",
-    						"uL"=>"uL",
-    						"UNIT"=>"Unidad");
+     $unit_of_measure = array(""=>"",
+                            "CAP"=>"CAP",
+                            "g"=>"g",
+                            "GR"=>"GR",
+                            "GTT"=>"GTT",
+                            "IU"=>"IU",
+                            "LPM"=>"LPM",
+                            "mcg"=>"mcg",
+                            "mEq"=>"mEq",
+                            "mg"=>"mg",
+                            "mL"=>"mL",
+                            "oz"=>"oz",
+                            "PCH"=>"PCH",
+                            "PUF"=>"PUF",
+                            "SPY"=>"SPY",
+                            "SUP"=>"SUP",
+                            "TAB"=>"TAB",
+                            "TBS"=>"TBS",
+                            "TSP"=>"TSP",
+                            "uL"=>"uL",
+                            "Unidad"=>"Unidad");
     $frequencys = array(""=>"",
-    					"BID"=>"BID",
-    					"HS"=>"HS",
-    					"OTH"=>"OTH",
-    					"PRN"=>"PRN",
-    					"QAM"=>"QAM",
-    					"QD"=>"QD",
-    					"QID"=>"QID",
-    					"QOD"=>"QOD",
-    					"QPM"=>"QPM",
-    					"QWK"=>"QWK",
-    					"TID"=>"TID",
-    					"Before a Meal"=>"Antes de cada comida",
-    					"After a Meal"=>"Despues de cada comida",    					
-    					"Every Hour (qhr)"=>"Cada Horas (qhr)",
-    					"Every 4 Hour (q4hr)"=>"Cada 4 Horas (q4hr)",
-    					"Stat"=>"Stat",
-    					"Other"=>"Otro");
+                        "BID"=>"BID",
+                        "HS"=>"HS",
+                        "OTH"=>"OTH",
+                        "PRN"=>"PRN",
+                        "QAM"=>"QAM",
+                        "QD"=>"QD",
+                        "QID"=>"QID",
+                        "QOD"=>"QOD",
+                        "QPM"=>"QPM",
+                        "QWK"=>"QWK",
+                        "TID"=>"TID",
+                        "Antes de cada comida"=>"Antes de cada comida",
+                        "Despues de cada comida"=>"Despues de cada comida",                     
+                        "Cada Horas (qhr)"=>"Cada Horas (qhr)",
+                        "Cada 4 Horas (q4hr)"=>"Cada 4 Horas (q4hr)",
+                        "Stat"=>"Stat",
+                        "Otro"=>"Otro");
     $routes = array(""=>"",
-    				"ID"=>"ID",
-    				"IH"=>"IH",
-    				"IM"=>"IM",
-    				"IV"=>"IV",
-    				"PO"=>"PO",
-    				"PR"=>"PR",
-    				"PV"=>"PV",
-    				"SL"=>"SL",
-    				"SQ"=>"SQ",
-    				"TOP"=>"TOP",
-    				"UNK"=>"UNK",
-    				"Inhalation"=>"Inhalación",
-    				"Intranasal"=>"Intranasal",
-    				"Other"=>"Otro");
+                    "ID"=>"ID",
+                    "IH"=>"IH",
+                    "IM"=>"IM",
+                    "IV"=>"IV",
+                    "PO"=>"PO",
+                    "PR"=>"PR",
+                    "PV"=>"PV",
+                    "SL"=>"SL",
+                    "SQ"=>"SQ",
+                    "TOP"=>"TOP",
+                    "UNK"=>"UNK",
+                    "Inhalacion"=>"Inhalación",
+                    "Intranasal"=>"Intranasal",
+                    "Otro"=>"Otro");
 
 ?>
 <?= form_open('subject/concomitant_medication_form_insert', array('class'=>'form-horizontal')); ?>

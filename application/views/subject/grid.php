@@ -2780,7 +2780,7 @@
 			<?php }else{
 				echo "<td></td>";
 			}?>	
-			<td><?= anchor('subject/adverse_event_show/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
+			<td><?= anchor('subject/adverse_event_lista/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
 		</tr>
 		<tr>	
 			<td>Desviación de Protocolo</td>
@@ -2792,7 +2792,7 @@
 				echo "<td></td>";
 			}?>
 
-			<td><?= anchor('subject/protocol_deviation_show/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
+			<td><?= anchor('subject/protocol_deviation_lista/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
 		</tr>
 		<tr>	
 			<td>Medicación Concomitante</td>
@@ -2803,7 +2803,7 @@
 			<?php }else{
 				echo "<td></td>";
 			}?>
-			<td><?= anchor('subject/concomitant_medication_show/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
+			<td><?= anchor('subject/concomitant_medication_lista/'.$subject->id,'Ver', array('class'=>'btn btn-default')); ?></td>
 		</tr>		
 		<tr>	
 			<td>Signos Vitales</td>

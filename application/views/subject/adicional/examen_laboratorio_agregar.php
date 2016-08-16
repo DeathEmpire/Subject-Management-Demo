@@ -43,7 +43,9 @@
        	?>	
 
 		
-		Fecha: <?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?>		
+		Fecha: <?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
+		Visita: <?= form_dropdown('etapa',$etapas, set_value('etapa')); ?>
+					
 		<br />&nbsp;<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<thead>
@@ -389,7 +391,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php if($etapa == 1){ ?>
+				<?php if(isset($etapa) AND $etapa == 1){ ?>
 					<tr>
 						<td>Perfil Tiroideo</td>
 						<td><?= form_dropdown('hecho_32', $hecho, set_value('hecho_32'));?></td>
@@ -418,7 +420,7 @@
 					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_acido_folico_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_acido_folico_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_acido_folico_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_acido_folico_nom_anom', 'Anormal_con')));?></td>
 				</tr>
-				<?php if($etapa == 1){ ?>
+				<?php if(isset($etapa) AND$etapa == 1){ ?>
 					<tr>
 						<td>HbA1C</td>
 						<td><?= form_dropdown('hecho_35', $hecho, set_value('hecho_35'));?></td>

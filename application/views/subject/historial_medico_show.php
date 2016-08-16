@@ -19,6 +19,8 @@ $(function(){
 					"etapa": "<?php echo $etapa;?>",
 					"subject_id": $("input[name=subject_id]").val(),
 					"form": "historial_medico",
+					"form_nombre" : "Historia Medica",
+				"form_id" : '<?php echo $list[0]->id;?>',
 					"tipo": $(this).attr('tipo')
 				},
 				function(d){

@@ -328,12 +328,18 @@ class Query extends CI_Controller {
 			
 			//mostramos el formulario para el query
 
+			if(!isset($p['etapa'])){
+				$p['etapa'] = '';
+			}
+
 			$tabla = "<form action='". base_url('query/add') ."' method='post'>
 						<input type='hidden' name='SubjectManagement' value='". $this->security->get_csrf_hash() ."'>
 						<input type='hidden' name='campo' value='". $p['campo'] ."'>
 						<input type='hidden' name='form' value='". $p['form'] ."'>
 						<input type='hidden' name='etapa' value='". $p['etapa'] ."'>
 						<input type='hidden' name='subject_id' value='". $p['subject_id'] ."'>						
+						<input type='hidden' name='form_nombre' value='". $p['form_nombre'] ."'>
+						<input type='hidden' name='form_id' value='". $p['form_id'] ."'>	
 							<table class='table table-striped table-bordered table-hover'>
 								<tr>
 									<td>Agregar query:</td>
@@ -351,7 +357,13 @@ class Query extends CI_Controller {
 		}
 		elseif($p['tipo'] == 'old'){
 			//buscamos el query de ese campo especifico y lo mostramos
-			$antiguo = $this->Model_Query->allWhere(array("subject_id"=>$p['subject_id'], "form"=>$p['form'], "etapa"=>$p['etapa'], "campo"=>$p['campo'], "status"=>'Abierto'));
+			if(isset($p['etapa'])){
+				$antiguo = $this->Model_Query->allWhere(array("subject_id"=>$p['subject_id'], "form"=>$p['form'], "etapa"=>$p['etapa'], "campo"=>$p['campo'], "status"=>'Abierto'));
+			}
+			else{
+				$p['etapa'] = '';
+				$antiguo = $this->Model_Query->allWhere(array("subject_id"=>$p['subject_id'], "form"=>$p['form'], "form_id"=>$p['form_id'], "campo"=>$p['campo'], "status"=>'Abierto'));
+			}
 
 
 			$tabla = "<form action='". base_url('query/update') ."' method='post'>
@@ -361,6 +373,8 @@ class Query extends CI_Controller {
 						<input type='hidden' name='etapa' value='". $p['etapa'] ."'>
 						<input type='hidden' name='subject_id' value='". $p['subject_id'] ."'>
 						<input type='hidden' name='id' value='". $antiguo[0]->id ."'>
+						<input type='hidden' name='form_nombre' value='". $p['form_nombre'] ."'>
+						<input type='hidden' name='form_id' value='". $p['form_id'] ."'>	
 							<table class='table table-striped table-bordered table-hover'>
 								<tr>
 									<td>Query: </td>
@@ -550,10 +564,35 @@ class Query extends CI_Controller {
 			$subject['id'] = $registro['subject_id'];
 			$this->Model_Subject->update($subject);			
 		}
+		elseif ($registro['form'] == 'signos_vitales_adicional') {
+			$this->load->model('Model_Signos_vitales_adicional');
+			$this->Model_Signos_vitales_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Query'));
+		}
+		elseif ($registro['form'] == 'ecg_adicional') {
+			$this->load->model('Model_Ecg_adicional');
+			$this->Model_Ecg_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Query'));
+		}
+		elseif ($registro['form'] == 'examen_fisico_adicional') {
+			$this->load->model('Model_Examen_fisico_adicional');
+			$this->Model_Examen_fisico_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Query'));
+		}
+		elseif ($registro['form'] == 'examen_laboratorio_adicional') {
+			$this->load->model('Model_Examen_laboratorio_adicional');
+			$this->Model_Examen_laboratorio_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Query'));
+		}
+		elseif ($registro['form'] == 'examen_neurologico_adicional') {
+			$this->load->model('Model_Examen_neurologico_adicional');
+			$this->Model_Examen_neurologico_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Query'));
+		}
 
 		if($registro['form'] == 'demography'){
 			redirect('subject/'. $registro['form'] .'/'. $registro['subject_id']);
-		}else{
+		}
+		elseif(strstr($registro['form'], 'adicional'))
+		{ 
+			redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['form_id']);
+		}
+		else{
 			redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['etapa']);
 		}
 	}
@@ -1036,6 +1075,102 @@ class Query extends CI_Controller {
 					$this->Model_Subject->update($subject);			
 				}
 			}
+			elseif($registro['form'] == 'signos_vitales_adicional'){
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],													
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$this->load->model('Model_Signos_vitales_adicional');
+					$this->Model_Signos_vitales_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Record Complete'));
+				}
+			}
+			elseif($registro['form'] == 'ecg_adicional'){
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],													
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$this->load->model('Model_Ecg_adicional');
+					$this->Model_Ecg_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Record Complete'));
+				}
+			}
+			elseif($registro['form'] == 'examen_fisico_adicional'){
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],													
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$this->load->model('Model_Examen_fisico_adicional');
+					$this->Model_Examen_fisico_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Record Complete'));
+				}
+			}
+			elseif($registro['form'] == 'examen_laboratorio_adicional'){
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],													
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$this->load->model('Model_Examen_laboratorio_adicional');
+					$this->Model_Examen_laboratorio_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Record Complete'));
+				}
+			}
+			elseif($registro['form'] == 'examen_neurologico_adicional'){
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],													
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$this->load->model('Model_Examen_neurologico_adicional');
+					$this->Model_Examen_neurologico_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Record Complete'));
+				}
+			}
+			
 				
 		}		
 
@@ -1046,6 +1181,10 @@ class Query extends CI_Controller {
 		
 		if($registro['form'] == 'demography'){
 			redirect('subject/'. $registro['form'] .'/'. $registro['subject_id']);
+		}
+		elseif(strstr($registro['form'], 'adicional'))
+		{ 
+			redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['form_id']);
 		}
 		else{
 			redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id'] ."/". $registro['etapa']);	

@@ -29,6 +29,8 @@ $(function(){
 				"etapa": 0,
 				"subject_id": $("input[name=subject_id]").val(),
 				"form": "fin_tratamiento",
+				"form_nombre" : "Fin Tratamiento",
+				"form_id" : '<?php echo $list[0]->id;?>',
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

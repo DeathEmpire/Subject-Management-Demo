@@ -69,9 +69,9 @@ $(function(){
 		var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 		
 
 		if(dias >= 365){
-			$('#tr_repetir').show();			
-			$('#tr_repetir_rnm').show();
-			$('#tr_repetir_tc').show();		
+			$('#tr_repetir').hide(); 			
+			$('#tr_repetir_rnm').hide();
+			$('#tr_repetir_tc').hide();		
 		}
 	});
 
@@ -128,6 +128,8 @@ $(function(){
 				"etapa": "<?php echo $etapa;?>",
 				"subject_id": $("input[name=subject_id]").val(),
 				"form": "rnm",
+				"form_nombre" : "Resonancia Magnetica o Tomografia Computarizada",
+				"form_id" : '<?php echo $list[0]->id;?>',
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

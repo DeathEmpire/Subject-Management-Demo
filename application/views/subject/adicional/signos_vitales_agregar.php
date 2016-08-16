@@ -48,12 +48,18 @@ $(function(){
 		    'value'       => 0,		    
 		    );
 
+		
+
 	?>
 
 	<table class="table table-bordered table-striper table-hover">		
 		<tr>		
 			<td>Fecha: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
+		</tr>
+		<tr>
+			<td>Visita: </td>
+			<td><?= form_dropdown('etapa',$etapas, set_value('etapa')); ?></td>
 		</tr>		
 		<tr>
 			<td>Presion Sistolica: </td>

@@ -55,6 +55,8 @@ $(function(){
 				"etapa": 0,
 				"subject_id": $("input[name=id]").val(),
 				"form": "demography",
+				"form_nombre" : "Demografia",
+				"form_id" : $("input[name=id]").val(),
 				"tipo": $(this).attr('tipo')
 			},
 			function(d){

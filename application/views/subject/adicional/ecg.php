@@ -1,4 +1,4 @@
-<legend style='text-align:center;'>Signos Vitales (Adicional)</legend>
+<legend style='text-align:center;'>Electrocardiograma de reposo (ECG)</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -31,7 +31,18 @@
 	<table class='table table-striped table-bordered table-hover'>
 		<thead>
 			<tr>
-				
+				<td>Estado</td>
+				<th>Visita</th>
+				<th>Fecha</th>
+				<th>Ritmo Sinusal</th>
+				<th>FC</th>
+				<th>PR</th>
+				<th>QRS</th>
+				<th>QT</th>
+				<th>QTc</th>
+				<th>Eje QRS</th>
+				<th>Iterpretación ECG</th>
+				<th>Observaciones</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,7 +50,47 @@
 				foreach ($lista as $v) {
 			?>
 				<tr>
-					
+					<?php
+						
+						if(!isset($v->status) OR empty($v->status)){
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						}
+						elseif ($v->status == 'Record Complete') {
+							$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						}
+						elseif ($v->status == 'Document Approved and Signed by PI') {
+							$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						}
+						elseif ($v->status == 'Form Approved and Locked') {
+							$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						}
+						elseif ($v->status == 'Form Approved by Monitor') {
+							$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						}
+						elseif ($v->status == 'Query') {
+							$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						}
+						elseif ($v->status == 'Error') {
+							$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						}
+						else{
+							$icon = '*';		
+						}
+
+					?>
+					<td><?= $icon; ?></td>
+					<td><?= $v->etapa; ?></td>
+					<td><?= (($v->fecha != '0000-00-00') ? date("d/m/Y", strtotime($v->fecha)) : "");?></td>
+					<td><?= (($v->ritmo_sinusal == 1) ? 'Si' : 'No' ); ?></td>
+					<td><?= $v->fc; ?></td>
+					<td><?= $v->pr; ?></td>
+					<td><?= $v->qrs; ?></td>
+					<td><?= $v->qt; ?></td>
+					<td><?= $v->qtc; ?></td>
+					<td><?= $v->qrs2; ?></td>
+					<td><?= (($v->interpretacion_ecg == 1) ? 'Normal' : 'Anormal' ); ?></td>
+					<td><?= $v->comentarios; ?></td>
+					<td><?= anchor('subject/ecg_adicional_show/'. $subject->id .'/'.$v->id,'Ver', array('class'=>'btn btn-default')); ?></td>
 				</tr>
 
 			<?php	}

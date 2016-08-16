@@ -282,6 +282,10 @@ $(function(){
 				<td><?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 				<td></td>
 			</tr>
+			<tr>
+				<td>Visita: </td>
+				<td><?= form_dropdown('etapa',$etapas, set_value('etapa')); ?></td>
+			</tr>
 			<tr style='background-color:#ddd;'>
 				<td></td>
 				<td></td>
@@ -395,16 +399,7 @@ $(function(){
 				</td>
 				<td><?= form_textarea(array('name'=>'muscular_desc','id'=>'muscular_desc', 'value'=>set_value('muscular_desc'), 'rows'=>3)); ?></td>
 			</tr>
-
-			
-
-				<tr>
-					<td>¿Tuvo el sujeto algún cambio desde la visita anterior?</td>
-					<td>						
-						<?= form_radio(array('name'=>'tuvo_cambios', 'value'=>1, 'checked'=>set_radio('tuvo_cambios', 1))); ?> Si
-						<?= form_radio(array('name'=>'tuvo_cambios', 'value'=>0, 'checked'=>set_radio('tuvo_cambios', 0))); ?> No
-					</td>
-				</tr>
+				
 				<tr id='tr_observaciones' style='display:none;'>
 					<td>Observaciones</td>
 					<td>
