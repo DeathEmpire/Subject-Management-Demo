@@ -1,6 +1,6 @@
 <?php date_default_timezone_set('America/Santiago');?>
 	<div id='header'>
-		<img src="<?= base_url('img/icc_logo.png'); ?>" /><br />	
+		<img src="<?= base_url('img/icc_logo.png'); ?>" style='width:70px;' /><br />	
 	</div>
 
 	<div id='cuerpo'>
@@ -10,8 +10,7 @@
 	</div>
 
 	<div id='footer' style="text-align:right;">
-	<br />
-	Nombre Estudio &reg;
+	<br />	
 	Asesorías en Investigación Clínica SpA
 	<br />
 	</div>

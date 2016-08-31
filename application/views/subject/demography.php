@@ -448,11 +448,12 @@ $(function(){
 		</table>
 
 <?php } ?>
+
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($subject->demography_verify_user) AND !empty($subject->demography_verify_date)){ ?>
 		
-		Formulario aprobado por <?= $subject->demography_verify_user;?> el <?= date("d-M-Y",strtotime($subject->demography_verify_date));?>
+		Formulario aprobado por <?= $subject->demography_verify_user;?> el <?= date("d-M-Y H:i:s",strtotime($subject->demography_verify_date));?>
 	
 	<?php
 	}
@@ -467,7 +468,7 @@ $(function(){
 		<?= form_hidden('id', $subject->id); ?>
 		<?= form_hidden('current_status', $subject->demography_status); ?>
 			
-		<?= form_button(array('type'=>'submit', 'content'=>'Verify Form', 'class'=>'btn btn-primary')); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'Verificar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
@@ -482,7 +483,7 @@ $(function(){
 <br /><b>Cierre:</b><br />
 	<?php if(!empty($subject->demography_lock_user) AND !empty($subject->demography_lock_date)){ ?>
 		
-		Formulario cerrado por <?= $subject->demography_lock_user;?> el <?= date("d-M-Y",strtotime($subject->demography_lock_date));?>
+		Formulario cerrado por <?= $subject->demography_lock_user;?> el <?= date("d-M-Y H:i:s",strtotime($subject->demography_lock_date));?>
 	
 	<?php
 	}
@@ -496,7 +497,7 @@ $(function(){
 		<?= form_hidden('id', $subject->id); ?>
 		<?= form_hidden('current_status', $subject->demography_status); ?>
 			
-		<?= form_button(array('type'=>'submit', 'content'=>'Lock Form', 'class'=>'btn btn-primary')); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
@@ -510,7 +511,7 @@ $(function(){
 	<br /><b>Firma:</b><br />
 	<?php if(!empty($subject->demography_signature_user) AND !empty($subject->demography_signature_date)){ ?>
 		
-		Formulario Firmado por <?= $subject->demography_signature_user;?> on <?= date("d-M-Y",strtotime($subject->demography_signature_date));?>
+		Formulario Firmado por <?= $subject->demography_signature_user;?> el <?= date("d-M-Y H:i:s",strtotime($subject->demography_signature_date));?>
 	
 	<?php
 	}
@@ -525,7 +526,7 @@ $(function(){
 		<?= form_hidden('id', $subject->id); ?>
 		<?= form_hidden('current_status', $subject->demography_status); ?>
 			
-		<?= form_button(array('type'=>'submit', 'content'=>'Add Signature', 'class'=>'btn btn-primary')); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'Firmar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 

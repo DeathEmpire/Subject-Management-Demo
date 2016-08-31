@@ -164,7 +164,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td>% cumplimiento: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlength'=>'3','value'=>set_value('porcentaje_cumplimiento'))); ?></td>
+			<td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlength'=>'5','value'=>set_value('porcentaje_cumplimiento'))); ?></td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

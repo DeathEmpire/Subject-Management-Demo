@@ -111,7 +111,7 @@ $(function(){
 					}
 				?>
 		<br />
-		Visita: <?= form_dropdown('etapa',$etapas, set_value('etapa', $list[0]->etapa)); ?>
+		¿Entre que visitas se realiazó?: <?= form_dropdown('etapa',$etapas, set_value('etapa', $list[0]->etapa)); ?>
 		<br />&nbsp;<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<thead>
@@ -1432,51 +1432,12 @@ $(function(){
 
 <?= form_close(); ?>
 <?php }?>
-
-<!-- Querys -->
-<?php
-	if(isset($querys) AND !empty($querys)){ ?>
-		<b>Querys:</b>
-		<table class="table table-condensed table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>Fecha de Consulta</th>
-								<th>Usuario</th>
-								<th>Consulta</th>
-								<th>Fecha de Respuesta</th>
-								<th>Usuario</th>
-								<th>Respuesta</th>				
-				</tr>
-			</thead>
-			<tbody>
-				
-			<?php
-				foreach ($querys as $query) { ?>
-					<tr>
-						<td><?= date("d-M-Y H:i:s", strtotime($query->created)); ?></td>
-						<td><?= $query->question_user; ?></td>
-						<td><?= $query->question; ?></td>						
-						<td><?= (($query->answer_date != "0000-00-00 00:00:00") ? date("d-M-Y H:i:s", strtotime($query->answer_date)) : ""); ?></td>
-						<td><?= $query->answer_user; ?></td>
-						<?php
-							if(isset($_SESSION['role_options']['query']) AND strpos($_SESSION['role_options']['query'], 'additional_form_query_show')){
-						?>
-							<td><?= (($query->answer != '') ? $query->answer : anchor('query/additional_form_query_show/'. $subject->id .'/'.$query->id .'/Examen Laboratorio', 'Responder',array('class'=>'btn'))); ?></td>						
-						<?php }else{?>
-							<td><?= $query->answer; ?></td>
-						<?php }?>
-					</tr>					
-			<?php }?>	
-
-			</tbody>
-		</table>
-
-<?php } ?>
+<b>Creado por:</b> <?= $list[0]->usuario_creacion;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->created_at));?><br />&nbsp;</br>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
 		
-		Formulario aprobado por <?= $list[0]->verify_user;?> el <?= date("d-M-Y",strtotime($list[0]->verify_date));?>
+		Formulario aprobado por <?= $list[0]->verify_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->verify_date));?>
 	
 	<?php
 	}
@@ -1507,7 +1468,7 @@ $(function(){
 <br /><b>Cierre:</b><br />
 	<?php if(!empty($list[0]->lock_user) AND !empty($list[0]->lock_date)){ ?>
 		
-		Formulario cerrado por <?= $list[0]->lock_user;?> el <?= date("d-M-Y",strtotime($list[0]->lock_date));?>
+		Formulario cerrado por <?= $list[0]->lock_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->lock_date));?>
 	
 	<?php
 	}
@@ -1536,7 +1497,7 @@ $(function(){
 	<br /><b>Firma:</b><br />
 	<?php if(!empty($list[0]->signature_user) AND !empty($list[0]->signature_date)){ ?>
 		
-		Formulario Firmado por <?= $list[0]->signature_user;?> on <?= date("d-M-Y",strtotime($list[0]->signature_date));?>
+		Formulario Firmado por <?= $list[0]->signature_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->signature_date));?>
 	
 	<?php
 	}

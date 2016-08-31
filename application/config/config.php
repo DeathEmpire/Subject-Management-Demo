@@ -441,8 +441,8 @@ $config['global_xss_filtering'] = TRUE;
 $config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'SubjectManagement';
 $config['csrf_cookie_name'] = 'SubjectManagement';
-$config['csrf_expire'] = 7200;
-$config['csrf_regenerate'] = TRUE;
+$config['csrf_expire'] = 72000;
+$config['csrf_regenerate'] = FALSE;
 $config['csrf_exclude_uris'] = array();
 
 /*

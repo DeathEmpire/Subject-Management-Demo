@@ -65,4 +65,12 @@ class Model_Audit extends CI_Model {
 		$this->db->update('audit');
     }
 
+    function buscarAudit($tabla, $id){
+        $this->db->select($tabla .'.*');
+        $this->db->from($tabla);        
+        $this->db->where('form_id', $id);        
+
+        $query = $this->db->get();
+        return $query->result();    
+    }
 }

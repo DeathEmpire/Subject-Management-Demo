@@ -52,7 +52,7 @@ class Model_Muestra_de_sangre extends CI_Model {
 		$this->db->insert('muestra_de_sangre');
     }
 
-    function update($registro) {
+    function update($registro) {        
     	$this->db->set($registro);
 		$this->db->where('id', $registro['id']);
 		$this->db->update('muestra_de_sangre');

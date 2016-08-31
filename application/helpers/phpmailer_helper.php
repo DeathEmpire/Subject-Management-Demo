@@ -9,10 +9,10 @@ function send_email($recipient, $sender, $subject, $message)
 		$mail->SMTPAuth = true;  
 		$mail->IsHTML(true);		
 		$mail->Port  = "25";       
-		$mail->Username   = "iwrs@clinicaliwrs.com"; 
-		$mail->Password   = "1)hf10;{V&D1";        
-		$mail->FromName = "IWRS Estudio Dentoxol";
-		$mail->From = "iwrs@clinicaliwrs.com";
+		$mail->Username   = "icc@medcrf.com"; 
+		$mail->Password   = "+WTvl$Haob{H";        
+		$mail->FromName = "ICC International Center For Biomedicine";
+		$mail->From = "icc@medcrf.com";
 		$mail->Subject = $subject;		
 		$mail->MsgHTML($message);
 		$recipient2 = str_replace(";",",",trim($recipient));

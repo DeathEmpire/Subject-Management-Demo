@@ -67,7 +67,7 @@ class Usuario extends CI_Controller {
         }
         else {						
 			for ($i = 0, $z = strlen($a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890')-1, $s = $a{rand(0,$z)}, $i = 1; $i != 12; $x = rand(0,$z), $s .= $a{$x}, $s = ($s{$i} == $s{$i-1} ? substr($s,0,-1) : $s), $i=strlen($s)); 									
-			$registro['password'] = md5($s); /* Por defecto misma login y pwd*/
+			$registro['password'] = md5($s); 
 			$registro['created'] = date('Y/m/d H:i');
 			$registro['updated'] = date('Y/m/d H:i');
 			$registro['estado'] = 'Active';
@@ -94,7 +94,7 @@ class Usuario extends CI_Controller {
 			
 			Se recomienda cambiar su password en el <a href='http://www.biotechnologiesresearch.com/pruebasclinicas/home/cambio_clave'>siguiente enlace</a>";			
 			*/
-			#$enviar_correo = send_email($registro['email'],"x","New User",$mensaje);			
+			$enviar_correo = send_email($registro['email'],"x","Nuevo Usuario",$mensaje);
 			redirect('usuario/index');
         }
 	}

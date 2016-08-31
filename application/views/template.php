@@ -9,6 +9,8 @@
 		<script src="<?= base_url('js/jquery.js') ?>"></script>
 		<script src="<?= base_url('js/jquery-ui.js') ?>"></script>
     	<script src="<?= base_url('js/bootstrap.min.js') ?>"></script>        
+        <script src="<?= base_url('js/colorbox/jquery.colorbox-min.js') ?>"></script>
+        <link href="<?= base_url('css/colorbox.css') ?>" rel="stylesheet">
 		<link href="<?= base_url('css/jquery-ui.css') ?>" rel="stylesheet">
         <link href="<?= base_url('css/font-awesome.css') ?>" rel="stylesheet">
         <script src="<?= base_url('js/jquery-idletimer-master/src/idle-timer.js') ?>"></script>
@@ -76,6 +78,8 @@
 
             //Set up the timer, if inactive for 10 seconds log them out
             $(document).idleTimer(session.inactiveTimeout);
+
+            $(".colorbox_inline").colorbox({inline:true, width:"80%"});
         });
         </script>
 		<title>Manejo de Sujetos</title>

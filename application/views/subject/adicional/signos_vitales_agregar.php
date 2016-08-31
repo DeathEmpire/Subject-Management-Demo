@@ -58,7 +58,7 @@ $(function(){
 			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 		</tr>
 		<tr>
-			<td>Visita: </td>
+			<td>¿Entre que visitas se realiazó?: </td>
 			<td><?= form_dropdown('etapa',$etapas, set_value('etapa')); ?></td>
 		</tr>		
 		<tr>

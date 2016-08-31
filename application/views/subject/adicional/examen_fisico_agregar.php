@@ -283,7 +283,7 @@ $(function(){
 				<td></td>
 			</tr>
 			<tr>
-				<td>Visita: </td>
+				<td>¿Entre que visitas se realiazó?: </td>
 				<td><?= form_dropdown('etapa',$etapas, set_value('etapa')); ?></td>
 			</tr>
 			<tr style='background-color:#ddd;'>

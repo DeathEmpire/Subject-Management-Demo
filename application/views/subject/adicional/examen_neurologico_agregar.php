@@ -217,7 +217,7 @@ $(function(){
 
 		
 		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?><br />
-		Visita: <?= form_dropdown('etapa',$etapas, set_value('etapa')); ?>
+		¿Entre que visitas se realiazó?: <?= form_dropdown('etapa',$etapas, set_value('etapa')); ?>
 		<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<tr>

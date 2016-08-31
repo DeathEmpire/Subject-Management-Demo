@@ -346,7 +346,7 @@ $(function(){
 				</td>
 			</tr>
 			<tr>
-				<td>Visita: </td>
+				<td>¿Entre que visitas se realiazó?: </td>
 				<td><?= form_dropdown('etapa',$etapas, set_value('etapa', $list[0]->etapa)); ?></td>
 			</tr>
 			<tr style='background-color:#ddd;'>
@@ -830,12 +830,12 @@ $(function(){
 
 	<?php }?>
 
-
+<b>Creado por:</b> <?= $list[0]->usuario_creacion;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->created_at));?><br />&nbsp;</br>
 			<!-- Verify -->
 			<b>Monitor Approve:</b><br />
 				<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
 					
-					Este formulario fue aprobado por <?= $list[0]->verify_user;?> on <?= date("d-M-Y",strtotime($list[0]->verify_date));?>
+					Este formulario fue aprobado por <?= $list[0]->verify_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->verify_date));?>
 				
 				<?php
 				}
@@ -857,17 +857,17 @@ $(function(){
 					<?= form_close(); ?>
 
 			<?php }else{
-					echo "Este formulario aun no na sido aprobado";
+					echo "Pendiente de Aprobacion";
 					}
 				}
 			?>
 			<br />
 
 			<!--Signature/Lock-->
-			<br /><b>Lock:</b><br />
+			<br /><b>Cierre:</b><br />
 				<?php if(!empty($list[0]->lock_user) AND !empty($list[0]->lock_date)){ ?>
 					
-					Este formulario fue cerrado por <?= $list[0]->lock_user;?> on <?= date("d-M-Y",strtotime($list[0]->lock_date));?>
+					Este formulario fue cerrado por <?= $list[0]->lock_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->lock_date));?>
 				
 				<?php
 				}
@@ -882,21 +882,21 @@ $(function(){
 					<?= form_hidden('subject_id', $subject->id); ?>					
 					<?= form_hidden('current_status', $list[0]->status); ?>
 						
-					<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
+					<?= form_button(array('type'=>'submit', 'content'=>'Cerrar', 'class'=>'btn btn-primary')); ?>
 
 					<?= form_close(); ?>
 
 			<?php }else{
-					echo "Este formulario aun no ha sido cerrado";
+					echo "Pendiente de Cierre";
 					}
 				}
 			?>
 			<br />
 			<!--Signature-->
-				<br /><b>Signature:</b><br />
+				<br /><b>Firma:</b><br />
 				<?php if(!empty($list[0]->signature_user) AND !empty($list[0]->signature_date)){ ?>
 					
-					Este formulario fue firmado por <?= $list[0]->signature_user;?> on <?= date("d-M-Y",strtotime($list[0]->signature_date));?>
+					Este formulario fue firmado por <?= $list[0]->signature_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->signature_date));?>
 				
 				<?php
 				}
@@ -917,7 +917,7 @@ $(function(){
 					<?= form_close(); ?>
 
 			<?php }else{
-					echo "Este formulario aun no ha sido firmado";
+					echo "Pendiente de Firma";
 					}
 				}
 			?>

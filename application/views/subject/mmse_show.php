@@ -1331,12 +1331,12 @@ Dibujo: página con el diagrama).</td>
 
 <?php }?>
 
-
+<b>Creado por:</b> <?= $list[0]->usuario_creacion;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->created_at));?><br />&nbsp;</br>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
 		
-		Formulario aprobado por <?= $list[0]->verify_user;?> el <?= date("d-M-Y",strtotime($list[0]->verify_date));?>
+		Formulario aprobado por <?= $list[0]->verify_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->verify_date));?>
 	
 	<?php
 	}
@@ -1368,7 +1368,7 @@ Dibujo: página con el diagrama).</td>
 <br /><b>Cierre:</b><br />
 	<?php if(!empty($list[0]->lock_user) AND !empty($list[0]->lock_date)){ ?>
 		
-		Formulario cerrado por <?= $list[0]->lock_user;?> el <?= date("d-M-Y",strtotime($list[0]->lock_date));?>
+		Formulario cerrado por <?= $list[0]->lock_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->lock_date));?>
 	
 	<?php
 	}
@@ -1384,7 +1384,7 @@ Dibujo: página con el diagrama).</td>
 		<?= form_hidden('current_status', $list[0]->status); ?>
 		<?= form_hidden('id', $list[0]->id); ?>	
 
-		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
@@ -1398,7 +1398,7 @@ Dibujo: página con el diagrama).</td>
 	<br /><b>Firma:</b><br />
 	<?php if(!empty($list[0]->signature_user) AND !empty($list[0]->signature_date)){ ?>
 		
-		Formulario Firmado por <?= $list[0]->signature_user;?> on <?= date("d-M-Y",strtotime($list[0]->signature_date));?>
+		Formulario Firmado por <?= $list[0]->signature_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->signature_date));?>
 	
 	<?php
 	}

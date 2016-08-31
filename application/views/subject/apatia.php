@@ -132,129 +132,129 @@ $(function(){
 			</tr>
 			<tr>
 				<td>1. El/ella tiene interés en las cosas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_1','4',set_radio('apatia_1','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_1','3',set_radio('apatia_1','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_1','2',set_radio('apatia_1','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_1','1',set_radio('apatia_1','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_1','3',set_radio('apatia_1','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_1','2',set_radio('apatia_1','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_1','1',set_radio('apatia_1','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_1','0',set_radio('apatia_1','0')); ?></td>
 			</tr>
 			<tr>
 				<td>2. Hace cosas durante el día.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_2','4',set_radio('apatia_2','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_2','3',set_radio('apatia_2','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_2','2',set_radio('apatia_2','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_2','1',set_radio('apatia_2','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_2','3',set_radio('apatia_2','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_2','2',set_radio('apatia_2','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_2','1',set_radio('apatia_2','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_2','0',set_radio('apatia_2','0')); ?></td>
 			</tr>
 			<tr>
 				<td>3. Comienza a hacer cosas que son importantes para él / ella.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_3','4',set_radio('apatia_3','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_3','3',set_radio('apatia_3','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_3','2',set_radio('apatia_3','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_3','1',set_radio('apatia_3','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_3','3',set_radio('apatia_3','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_3','2',set_radio('apatia_3','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_3','1',set_radio('apatia_3','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_3','0',set_radio('apatia_3','0')); ?></td>
 			</tr>
 			<tr>
 				<td>4. Está interesado en tener cosas nuevas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_4','4',set_radio('apatia_4','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_4','3',set_radio('apatia_4','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_4','2',set_radio('apatia_4','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_4','1',set_radio('apatia_4','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_4','3',set_radio('apatia_4','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_4','2',set_radio('apatia_4','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_4','1',set_radio('apatia_4','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_4','0',set_radio('apatia_4','0')); ?></td>
 			</tr>
 			<tr>
 				<td>5. Esta interesado en aprender cosas nuevas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_5','4',set_radio('apatia_5','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_5','3',set_radio('apatia_5','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_5','2',set_radio('apatia_5','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_5','1',set_radio('apatia_5','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_5','3',set_radio('apatia_5','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_5','2',set_radio('apatia_5','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_5','1',set_radio('apatia_5','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_5','0',set_radio('apatia_5','0')); ?></td>
 			</tr>
 			<tr>
 				<td>6. Pone poco esfuerzo en las cosas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_6','1',set_radio('apatia_6','0')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_6','2',set_radio('apatia_6','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_6','3',set_radio('apatia_6','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_6','4',set_radio('apatia_6','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_6','0',set_radio('apatia_6','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_6','1',set_radio('apatia_6','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_6','2',set_radio('apatia_6','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_6','3',set_radio('apatia_6','3')); ?></td>
 			</tr>
 			<tr>
 				<td>7. Se enfrenta a la vida con intensidad.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_7','4',set_radio('apatia_7','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_7','3',set_radio('apatia_7','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_7','2',set_radio('apatia_7','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_7','1',set_radio('apatia_7','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_7','3',set_radio('apatia_7','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_7','2',set_radio('apatia_7','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_7','1',set_radio('apatia_7','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_7','0',set_radio('apatia_7','0')); ?></td>
 			</tr>
 			<tr>
 				<td>8. Termina los trabajos que son importantes para él / ella.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_8','4',set_radio('apatia_8','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_8','3',set_radio('apatia_8','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_8','2',set_radio('apatia_8','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_8','1',set_radio('apatia_8','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_8','3',set_radio('apatia_8','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_8','2',set_radio('apatia_8','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_8','1',set_radio('apatia_8','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_8','0',set_radio('apatia_8','0')); ?></td>
 			</tr>
 			<tr>
 				<td>9. Ocupa su tiempo haciendo cosas que son de su interés.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_9','4',set_radio('apatia_9','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_9','3',set_radio('apatia_9','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_9','2',set_radio('apatia_9','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_9','1',set_radio('apatia_9','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_9','3',set_radio('apatia_9','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_9','2',set_radio('apatia_9','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_9','1',set_radio('apatia_9','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_9','0',set_radio('apatia_9','0')); ?></td>
 			</tr>
 			<tr>
 				<td>10. Alguien debe decirle lo que hacer cada día.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_10','1',set_radio('apatia_10','0')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_10','2',set_radio('apatia_10','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_10','3',set_radio('apatia_10','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_10','4',set_radio('apatia_10','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_10','0',set_radio('apatia_10','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_10','1',set_radio('apatia_10','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_10','2',set_radio('apatia_10','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_10','3',set_radio('apatia_10','3')); ?></td>
 			</tr>
 			<tr>
 				<td>11. Esta menos preocupada de sus problemas que lo que debiera.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_11','1',set_radio('apatia_11','0')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_11','2',set_radio('apatia_11','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_11','3',set_radio('apatia_11','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_11','4',set_radio('apatia_11','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_11','0',set_radio('apatia_11','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_11','1',set_radio('apatia_11','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_11','2',set_radio('apatia_11','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_11','3',set_radio('apatia_11','3')); ?></td>
 			</tr>
 			<tr>
 				<td>12. Tiene amigos.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_12','4',set_radio('apatia_12','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_12','3',set_radio('apatia_12','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_12','2',set_radio('apatia_12','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_12','1',set_radio('apatia_12','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_12','3',set_radio('apatia_12','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_12','2',set_radio('apatia_12','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_12','1',set_radio('apatia_12','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_12','0',set_radio('apatia_12','0')); ?></td>
 			</tr>
 			<tr>
 				<td>13. Estar junto a sus amigos es importante para él / ella.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_13','4',set_radio('apatia_13','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_13','3',set_radio('apatia_13','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_13','2',set_radio('apatia_13','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_13','1',set_radio('apatia_13','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_13','3',set_radio('apatia_13','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_13','2',set_radio('apatia_13','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_13','1',set_radio('apatia_13','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_13','0',set_radio('apatia_13','0')); ?></td>
 			</tr>
 			<tr>
 				<td>14. Cuando algo bueno pasa, él / ella se alegra.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_14','4',set_radio('apatia_14','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_14','3',set_radio('apatia_14','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_14','2',set_radio('apatia_14','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_14','1',set_radio('apatia_14','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_14','3',set_radio('apatia_14','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_14','2',set_radio('apatia_14','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_14','1',set_radio('apatia_14','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_14','0',set_radio('apatia_14','0')); ?></td>
 			</tr>
 			<tr>
 				<td>15. Tiene una adecuada comprensión de sus problemas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_15','4',set_radio('apatia_15','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_15','3',set_radio('apatia_15','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_15','2',set_radio('apatia_15','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_15','1',set_radio('apatia_15','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_15','3',set_radio('apatia_15','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_15','2',set_radio('apatia_15','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_15','1',set_radio('apatia_15','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_15','0',set_radio('apatia_15','0')); ?></td>
 			</tr>
 			<tr>
 				<td>16. Se mantiene, durante el día, haciendo cosas importantes para él / ella.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_16','4',set_radio('apatia_16','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_16','3',set_radio('apatia_16','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_16','2',set_radio('apatia_16','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_16','1',set_radio('apatia_16','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_16','3',set_radio('apatia_16','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_16','2',set_radio('apatia_16','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_16','1',set_radio('apatia_16','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_16','0',set_radio('apatia_16','0')); ?></td>
 			</tr>
 			<tr>
 				<td>17. Tiene iniciativa.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_17','4',set_radio('apatia_17','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_17','3',set_radio('apatia_17','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_17','2',set_radio('apatia_17','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_17','1',set_radio('apatia_17','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_17','3',set_radio('apatia_17','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_17','2',set_radio('apatia_17','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_17','1',set_radio('apatia_17','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_17','0',set_radio('apatia_17','0')); ?></td>
 			</tr>
 			<tr>
 				<td>18. Tiene motivación.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_18','4',set_radio('apatia_18','3')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_18','3',set_radio('apatia_18','2')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_18','2',set_radio('apatia_18','1')); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_18','1',set_radio('apatia_18','0')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_18','3',set_radio('apatia_18','3')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_18','2',set_radio('apatia_18','2')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_18','1',set_radio('apatia_18','1')); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_18','0',set_radio('apatia_18','0')); ?></td>
 			</tr>
 			<tr>
 				<td style='font-weight:bold;'>RESULTADO: </td>

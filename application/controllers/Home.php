@@ -17,7 +17,12 @@ class Home extends CI_Controller {
 	public function index() {
 		$data['contenido'] = 'home/index';
 		$data['titulo'] = 'Home';
-		$this->load->view('template', $data);
+		if(isset($_SESSION['perfil_id']) AND $_SESSION['perfil_id'] == 1){
+			$this->load->view('template2', $data);
+		}
+		else{
+			$this->load->view('template', $data);
+		}
 	}
 
 	public function acerca_de() {

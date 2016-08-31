@@ -10,17 +10,22 @@ $(function(){
 			$("#tomografia_fecha").attr('readonly','readonly');
 			$("#tomografia_fecha").attr('disabled','disabled');
 			$("#tomografia_comentario").attr('readonly','readonly');			
+			$("#tomografia_fecha").val('');
+			$("#tomografia_comentario").val('');
 
 		}else{
 			$("#tomografia_fecha").removeAttr('readonly');
 			$("#tomografia_fecha").removeAttr('disabled');
 			$("#tomografia_comentario").removeAttr('readonly');
+
 		}
 	});
 	if($("input[name=tomografia]:checked").val() == 0){
 		$("#tomografia_fecha").attr('readonly','readonly');
 		$("#tomografia_fecha").attr('disabled','disabled');
 		$("#tomografia_comentario").attr('readonly','readonly');			
+		$("#tomografia_fecha").val('');
+		$("#tomografia_comentario").val('');
 
 	}else{
 		$("#tomografia_fecha").removeAttr('readonly');
@@ -32,7 +37,9 @@ $(function(){
 		if($(this).val() == 0){
 			$("#resonancia_fecha").attr('readonly','readonly');
 			$("#resonancia_fecha").attr('disabled','disabled');
-			$("#resonancia_comentario").attr('readonly','readonly');			
+			$("#resonancia_comentario").attr('readonly','readonly');	
+			$("#resonancia_fecha").val('');
+			$("#resonancia_comentario").val('');		
 
 		}else{
 			$("#resonancia_fecha").removeAttr('readonly');
@@ -44,6 +51,8 @@ $(function(){
 		$("#resonancia_fecha").attr('readonly','readonly');
 		$("#resonancia_fecha").attr('disabled','disabled');
 		$("#resonancia_comentario").attr('readonly','readonly');			
+		$("#resonancia_fecha").val('');
+			$("#resonancia_comentario").val('');	
 
 	}else{
 		$("#resonancia_fecha").removeAttr('readonly');
@@ -66,7 +75,8 @@ $(function(){
 		var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
 
 		if(dias >= 365){
-			$('#tr_repetir').hide();			
+			$('#tr_repetir').show();
+			$("#tr_se_solicita_tomografia").show();
 			$('#tr_repetir_rnm').hide();
 			$('#tr_repetir_tc').hide();		
 		}
@@ -235,6 +245,21 @@ $(function(){
 			<tr id='tr_repetir' style='display:none;'>
 				<td colspan='4'>La fecha es superior a un año atrás, por favor recuerde repetir el examen antes de la visita basal</td>
 			</tr>
+			<?php if($etapa == 1){ ?>
+				<tr id='tr_se_solicita_tomografia' style='display:none;'>
+					<td>Se solicita Tomografía computarizada para el estudio</td>
+					<td>
+						<?= form_radio('se_solicita_tomografia','Si', set_radio('se_solicita_tomografia','Si')); ?> Si
+						<?= form_radio('se_solicita_tomografia','No',set_radio('se_solicita_tomografia','No')); ?> No	
+						<?= form_radio('se_solicita_tomografia','No Aplica',set_radio('se_solicita_tomografia','No Aplica')); ?> No Aplica
+					</td>
+				</tr>
+					
+			<?php } else{ ?>
+				<?= form_hidden('se_solicita_tomografia',''); ?>
+			<?php }?>
+
+
 			<tr id='tr_repetir_rnm' style='display:none;'>
 				<td>¿Se solicita una RNM?</td>
 				<td>
@@ -254,19 +279,7 @@ $(function(){
 				<td></td>
 			</tr>
 
-			<?php if($etapa == 1){ ?>
-				<tr>
-					<td>Se solicita Tomografía computarizada para el estudio</td>
-					<td>
-						<?= form_radio('se_solicita_tomografia','Si', set_radio('se_solicita_tomografia','Si')); ?> Si
-						<?= form_radio('se_solicita_tomografia','No',set_radio('se_solicita_tomografia','No')); ?> No	
-						<?= form_radio('se_solicita_tomografia','No Aplica',set_radio('se_solicita_tomografia','No Aplica')); ?> No Aplica
-					</td>
-				</tr>
-					
-			<?php } else{ ?>
-				<?= form_hidden('se_solicita_tomografia',''); ?>
-			<?php }?>
+			
 			<tr>
 				<td colspan='4' style='text-align:center;'>
 					<?php

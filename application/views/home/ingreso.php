@@ -13,7 +13,7 @@
 		<?= form_input(array('type'=>'password', 'name'=>'password', 'id'=>'password', 'value'=>set_value('password'))); ?>
 	</div>
 
-	<div style="font-style:italic;text-align:right;"><a href="recuperarclave">forgot password</a></div>
+	<div style="font-style:italic;text-align:right;"><a href="recuperarclave">recuperar password</a></div>
 	
 	<div class="form-actions">
 		<?= form_button(array('type'=>'submit', 'content'=>'Enviar', 'class'=>'btn btn-primary')); ?>

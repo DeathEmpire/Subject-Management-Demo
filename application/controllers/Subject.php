@@ -280,7 +280,7 @@ class Subject extends CI_Controller {
 			$registro['demography_status'] = 'Form Approved by Monitor';
 			$registro['updated'] = date('Y-m-d H:i:s');
 			$registro['demography_verify_user'] = $this->session->userdata('usuario');
-			$registro['demography_verify_date'] = date('Y-m-d');
+			$registro['demography_verify_date'] = date('Y-m-d H:i:s');
 
 			$this->Model_Subject->update($registro);
 			$this->auditlib->save_audit("Verifico el formulario de demografia", $registro['id']);
@@ -305,7 +305,7 @@ class Subject extends CI_Controller {
 			$registro['demography_status'] = 'Document Approved and Signed by PI';
 			$registro['updated'] = date('Y-m-d H:i:s');
 			$registro['demography_signature_user'] = $this->session->userdata('usuario');
-			$registro['demography_signature_date'] = date('Y-m-d');
+			$registro['demography_signature_date'] = date('Y-m-d H:i:s');
 
 			$this->Model_Subject->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario de demografia", $registro['id']);
@@ -330,7 +330,7 @@ class Subject extends CI_Controller {
 			$registro['demography_status'] = 'Form Approved and Locked';
 			$registro['updated'] = date('Y-m-d H:i:s');
 			$registro['demography_lock_user'] = $this->session->userdata('usuario');
-			$registro['demography_lock_date'] = date('Y-m-d');
+			$registro['demography_lock_date'] = date('Y-m-d H:i:s');
 
 			$this->Model_Subject->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario de demografia", $registro['id']);
@@ -355,10 +355,10 @@ class Subject extends CI_Controller {
 
 		$id = $registro['id'];
 
-		$this->form_validation->set_rules('center', 'Center', 'required|xss_clean|callback_stock');
+		$this->form_validation->set_rules('center', 'Centro', 'required|xss_clean|callback_stock');
 		$this->form_validation->set_rules('id', 'ID', 'required|xss_clean');
-		$this->form_validation->set_rules('is_randomizable', 'Is Randomizable', 'required|xss_clean');		
-        $this->form_validation->set_rules('randomization_date', 'Randomization Date', 'required|xss_clean');     
+		$this->form_validation->set_rules('is_randomizable', 'Es elegible para randomizacion', 'required|xss_clean');		
+        $this->form_validation->set_rules('randomization_date', 'Fecha de randomizacion', 'required|xss_clean');     
 
         if ($this->form_validation->run() == FALSE) {
         	$this->auditlib->save_audit("Tiene errores al tratar de randomizar", $registro['id']);        	
@@ -442,6 +442,79 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'. $id);
         }
         
+	}
+
+	public function randomization_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Tuvo errores de validacion al tratar de verificar el formulario de randomizacion", $registro['id']);
+			$this->demography($registro['id']);
+		}
+		else {
+			$registro['randomization_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['randomization_status'] = 'Form Approved by Monitor';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['randomization_verify_user'] = $this->session->userdata('usuario');
+			$registro['randomization_verify_date'] = date('Y-m-d H:i:s');
+
+			$this->Model_Subject->update($registro);
+			$this->auditlib->save_audit("Verifico el formulario de randomizacion", $registro['id']);
+
+			redirect('subject/grid/'.$registro['id']);
+		}
+	}
+	public function randomization_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al cerrar el formulario de randomizacion", $registro['id']);
+			$this->demography($registro['id']);
+		}
+		else {
+			$registro['randomization_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['randomization_status'] = 'Form Approved and Locked';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['randomization_lock_user'] = $this->session->userdata('usuario');
+			$registro['randomization_lock_date'] = date('Y-m-d H:i:s');
+
+			$this->Model_Subject->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de randomizacion", $registro['id']);
+
+			redirect('subject/grid/'.$registro['id']);
+		}
+	}
+	public function randomization_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al firmar formulario de randomizacion", $registro['id']);
+			$this->demography($registro['id']);
+		}
+		else {
+			$registro['randomization_last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['randomization_status'] = 'Document Approved and Signed by PI';
+			$registro['updated'] = date('Y-m-d H:i:s');
+			$registro['randomization_signature_user'] = $this->session->userdata('usuario');
+			$registro['randomization_signature_date'] = date('Y-m-d H:i:s');
+
+			$this->Model_Subject->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de randomizacion", $registro['id']);
+
+			redirect('subject/grid/'.$registro['id']);
+		}
 	}
 
 	function stock($center){
@@ -552,8 +625,21 @@ class Subject extends CI_Controller {
 				$registro['date_of_onset'] = $this->convertirFecha($registro['date_of_onset']);
 			}
 
+			if(!isset($registro['action_taken_none'])){
+				$registro['action_taken_none'] = 0;
+			}
+			if(!isset($registro['action_taken_medication'])){
+				$registro['action_taken_medication'] = 0;
+			}
+			if(!isset($registro['action_taken_hospitalization'])){
+				$registro['action_taken_hospitalization'] = 0;
+			}
+
 			$registro['status'] = $estado;	
-			$registro['created'] = date('Y/m/d H:i:s');			
+			$registro['created'] = date('Y/m/d H:i:s');
+			$registro['updated_at'] = date('Y/m/d H:i:s');
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			
 			$this->load->model("Model_Adverse_event_form");
 			$this->Model_Adverse_event_form->insert($registro);			
@@ -573,6 +659,8 @@ class Subject extends CI_Controller {
 		// $data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Adverse Event"));
 
 		$this->auditlib->save_audit("Entro al formulario de eventos adversos",$id);
+
+		$data['auditoria'] = $this->auditlib->audit('adverse_event_form_audit', $data['list'][0]->id);
 
 		$this->load->view('template', $data);
 	}
@@ -642,6 +730,16 @@ class Subject extends CI_Controller {
 				$registro['date_of_onset'] = $this->convertirFecha($registro['date_of_onset']);
 			}
 
+			if(!isset($registro['action_taken_none'])){
+				$registro['action_taken_none'] = 0;
+			}
+			if(!isset($registro['action_taken_medication'])){
+				$registro['action_taken_medication'] = 0;
+			}
+			if(!isset($registro['action_taken_hospitalization'])){
+				$registro['action_taken_hospitalization'] = 0;
+			}
+
 			$registro['status'] = $estado;	
 			$registro['updated_at'] = date('Y/m/d H:i:s');	
      		$registro['usuario_actualizacion'] = $this->session->userdata('usuario');		
@@ -651,6 +749,86 @@ class Subject extends CI_Controller {
 			$this->auditlib->save_audit("Agrego informacion de evento adverso",$id);
 			redirect('subject/grid/'. $registro['subject_id']);
         }
+	}
+
+	public function adverse_event_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de eventos adversos", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Adverse_event_form');
+			$this->Model_Adverse_event_form->update($registro);
+			$this->auditlib->save_audit("Verifico el formulario de eventos adversos", $registro['subject_id']);			
+			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	public function adverse_event_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de eventos adversos", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Adverse_event_form');
+			$this->Model_Adverse_event_form->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de eventos adversos", $registro['subject_id']);		
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	public function adverse_event_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de eventos adversos", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Adverse_event_form');
+			$this->Model_Adverse_event_form->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de eventos adversos", $registro['subject_id']);			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
 	}
 /*-------------------------------------------PROTOCOL DEVIATON---------------------------------------------------------------------------*/
 	public function protocol_deviation_form($id){
@@ -720,6 +898,9 @@ class Subject extends CI_Controller {
 				$registro['date_of_deviation'] = $this->convertirFecha($registro['date_of_deviation']);
 			}
 			$registro['created'] = date('Y/m/d H:i:s');	
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
+			$registro['updated_at'] = date('Y/m/d H:i:s');
 			$registro['status'] = $estado;		
 			
 			$this->load->model("Model_Protocol_deviation_form");
@@ -742,6 +923,8 @@ class Subject extends CI_Controller {
 		// $data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Protocol Deviation"));
 
 		$this->auditlib->save_audit("View list of protocol deviation");
+
+		$data['auditoria'] = $this->auditlib->audit('protocol_deviation_form_audit', $data['list'][0]->id);
 
 		$this->load->view('template', $data);
 	}
@@ -797,6 +980,85 @@ class Subject extends CI_Controller {
         }   
         
 	}
+	public function protocol_deviation_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de desviacion de protocolo", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Protocol_deviation_form');
+			$this->Model_Protocol_deviation_form->update($registro);
+			$this->auditlib->save_audit("Verifico el formulario de desviacion de protocolo", $registro['subject_id']);			
+			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	public function protocol_deviation_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de desviacion de protocolo", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Protocol_deviation_form');
+			$this->Model_Protocol_deviation_form->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de desviacion de protocolo", $registro['subject_id']);		
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	public function protocol_deviation_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de desviacion de protocolo", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Protocol_deviation_form');
+			$this->Model_Protocol_deviation_form->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de desviacion de protocolo", $registro['subject_id']);			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
 /*-------------------------------------------CONCOMICANT MEDICATION--------------------------------------------------------------------------*/
 	public function concomitant_medication_form($id){
 		$data['contenido'] = 'subject/concomitant_medication';
@@ -836,23 +1098,12 @@ class Subject extends CI_Controller {
         $this->form_validation->set_rules('indication', 'Indications', 'xss_clean');
         $this->form_validation->set_rules('unit_of_measure', 'Unit of Measure', 'xss_clean');
         $this->form_validation->set_rules('daily_dose', 'Daily Dose', 'xss_clean');        
-        $this->form_validation->set_rules('frequency', 'Frequency', 'xss_clean');
-        if($registro['frequency'] == 'Other'){
-
-        	$this->form_validation->set_rules('other', 'Other Frequency', 'xss_clean');
-        }else{
-        	$this->form_validation->set_rules('other', 'Other Frequency', 'xss_clean');
-        }
-
+        $this->form_validation->set_rules('frequency', 'Frequency', 'xss_clean');      
+       	$this->form_validation->set_rules('other', 'Other Frequency', 'xss_clean');
         $this->form_validation->set_rules('route', 'Route', 'xss_clean');
         $this->form_validation->set_rules('start_date', 'Star Date', 'xss_clean');
         $this->form_validation->set_rules('on_going', 'On Going', 'xss_clean');
-        if(isset($registro['on_going']) AND $registro['on_going'] == 0){
-        	$this->form_validation->set_rules('end_date', 'End Date', 'xss_clean');
-        }
-        else{
-        	$this->form_validation->set_rules('end_date', 'End Date', 'xss_clean');	
-        }
+        $this->form_validation->set_rules('end_date', 'End Date', 'xss_clean');	        
 
              	
      	if ($this->form_validation->run() == FALSE) {
@@ -868,7 +1119,7 @@ class Subject extends CI_Controller {
         		OR !isset($registro['unit_of_measure']) OR $registro['unit_of_measure'] == ''
         		OR !isset($registro['daily_dose']) OR $registro['daily_dose'] == ''
         		OR !isset($registro['frequency']) OR $registro['frequency'] == ''
-        		OR ($registro['frequency'] == 'Other' AND $registro['other'] == '')
+        		OR ($registro['frequency'] == 'Otro' AND $registro['other'] == '')
         		OR !isset($registro['route']) OR $registro['route'] == ''
         		OR !isset($registro['start_date']) OR $registro['start_date'] == ''
         		OR !isset($registro['on_going']) OR $registro['on_going'] == ''
@@ -881,7 +1132,7 @@ class Subject extends CI_Controller {
         		$estado = 'Record Complete';
         	}
 			
-        	if($registro['frequency'] == 'other'){
+        	if($registro['frequency'] == 'Otro'){
         		$registro['frequency'] = $registro['other'];
         	}
         	unset($registro['other']);
@@ -894,6 +1145,9 @@ class Subject extends CI_Controller {
         	}
 
 			$registro['created'] = date('Y/m/d H:i:s');	
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['updated_at'] = date('Y/m/d H:i:s');
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status']	= $estado;
 			
 			$this->load->model("Model_Concomitant_medication_form");
@@ -914,6 +1168,8 @@ class Subject extends CI_Controller {
 
 		// $data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$id,"form"=>"Concomitant Medication"));
 
+		$data['auditoria'] = $this->auditlib->audit('concomitant_medication_form_audit', $data['list'][0]->id);
+
 		$this->auditlib->save_audit("Show list for concomitant medication for a subject");
 		$this->load->view('template', $data);
 	}
@@ -929,23 +1185,12 @@ class Subject extends CI_Controller {
         $this->form_validation->set_rules('indication', 'Indications', 'xss_clean');
         $this->form_validation->set_rules('unit_of_measure', 'Unit of Measure', 'xss_clean');
         $this->form_validation->set_rules('daily_dose', 'Daily Dose', 'xss_clean');        
-        $this->form_validation->set_rules('frequency', 'Frequency', 'xss_clean');
-        if($registro['frequency'] == 'Other'){
-
-        	$this->form_validation->set_rules('other', 'Other Frequency', 'xss_clean');
-        }else{
-        	$this->form_validation->set_rules('other', 'Other Frequency', 'xss_clean');
-        }
-
+        $this->form_validation->set_rules('frequency', 'Frequency', 'xss_clean');        
+        $this->form_validation->set_rules('other', 'Other Frequency', 'xss_clean');
         $this->form_validation->set_rules('route', 'Route', 'xss_clean');
         $this->form_validation->set_rules('start_date', 'Star Date', 'xss_clean');
         $this->form_validation->set_rules('on_going', 'On Going', 'xss_clean');
-        if(isset($registro['on_going']) AND $registro['on_going'] == 0){
-        	$this->form_validation->set_rules('end_date', 'End Date', 'xss_clean');
-        }
-        else{
-        	$this->form_validation->set_rules('end_date', 'End Date', 'xss_clean');	
-        }
+        $this->form_validation->set_rules('end_date', 'End Date', 'xss_clean');	
 
              	
      	if ($this->form_validation->run() == FALSE) {
@@ -961,7 +1206,7 @@ class Subject extends CI_Controller {
         		OR !isset($registro['unit_of_measure']) OR $registro['unit_of_measure'] == ''
         		OR !isset($registro['daily_dose']) OR $registro['daily_dose'] == ''
         		OR !isset($registro['frequency']) OR $registro['frequency'] == ''
-        		OR ($registro['frequency'] == 'Other' AND $registro['other'] == '')
+        		OR ($registro['frequency'] == 'Otro' AND $registro['other'] == '')
         		OR !isset($registro['route']) OR $registro['route'] == ''
         		OR !isset($registro['start_date']) OR $registro['start_date'] == ''
         		OR !isset($registro['on_going']) OR $registro['on_going'] == ''
@@ -974,7 +1219,7 @@ class Subject extends CI_Controller {
         		$estado = 'Record Complete';
         	}
 
-        	if($registro['frequency'] == 'other'){
+        	if($registro['frequency'] == 'Otro'){
         		$registro['frequency'] = $registro['other'];
         	}
         	unset($registro['other']);
@@ -998,6 +1243,86 @@ class Subject extends CI_Controller {
 			redirect('subject/grid/'. $registro['subject_id']);
         }   
 	}	
+
+	public function concomitant_medication_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Medicamento Concomitante", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Concomitant_medication_form');
+			$this->Model_Concomitant_medication_form->update($registro);
+			$this->auditlib->save_audit("Verifico el formulario de RNM", $registro['subject_id']);			
+			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	public function concomitant_medication_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de firmar el formulario de medicamentos concomitante", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Concomitant_medication_form');
+			$this->Model_Concomitant_medication_form->update($registro);
+			$this->auditlib->save_audit("Firmo el formulario de medicamentos concomitante", $registro['subject_id']);		
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	public function concomitant_medication_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de medicamentos concomitante", $registro['subject_id']);
+			$this->rnm_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Concomitant_medication_form');
+			$this->Model_Concomitant_medication_form->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de medicamentos concomitante", $registro['subject_id']);			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
 	/*-------------------------------------------HACHINSKI---------------------------------------------------------------------------*/
 
 	public function hachinski_form($id){
@@ -1164,6 +1489,8 @@ class Subject extends CI_Controller {
 		}
 
 
+		$data['auditoria'] = $this->auditlib->audit('hachinski_form_audit', $data['list'][0]->id);
+
 		$this->load->view('template', $data);
 	}	
 
@@ -1184,7 +1511,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Hachinski_Form');
 			$this->Model_Hachinski_Form->update($registro);
@@ -1214,7 +1541,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Hachinski_Form');
 			$this->Model_Hachinski_Form->update($registro);
@@ -1243,7 +1570,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Hachinski_Form');
 			$this->Model_Hachinski_Form->update($registro);
@@ -1435,6 +1762,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('examen_fisico_audit', $data['list'][0]->id);
+
 		$this->load->view('template', $data);
 	}
 
@@ -1600,7 +1929,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_fisico');
 			$this->Model_Examen_fisico->update($registro);
@@ -1647,7 +1976,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_fisico');
 			$this->Model_Examen_fisico->update($registro);
@@ -1693,7 +2022,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_fisico');
 			$this->Model_Examen_fisico->update($registro);
@@ -1749,12 +2078,25 @@ class Subject extends CI_Controller {
 		}
 		else {
 			
+			if(
+				isset($registro['realizado']) AND $registro['realizado'] == 1
+				AND
+				empty($registro['fecha'])
+			){
+				$estado = 'Error';
+			}
+			else{
+
+				$estado = "Record Complete";
+			}
+
 			if($registro['etapa'] == 1){				
-				$subjet_['inclusion_exclusion_1_status'] = "Record Complete";
+				$subjet_['inclusion_exclusion_1_status'] = $estado;
 			}
 			elseif($registro['etapa'] == 2){
-				$subjet_['inclusion_exclusion_2_status'] = "Record Complete";
+				$subjet_['inclusion_exclusion_2_status'] = $estado;
 			}
+			$registro['status'] = $estado;
 
 			$registro['usuario_creacion'] = $this->session->userdata('usuario');
 			$registro['created_at'] = date("Y-m-d H:i:s");
@@ -1819,7 +2161,9 @@ class Subject extends CI_Controller {
 		$data['no_respetados'] = $this->Model_Inclusion_exclusion_no_respetados->allWhereArray(array('inclusion_exclusion_id'=>$data['list'][0]->id));		
 
 		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Inclusion Exclusion", "etapa"=>$etapa));
+		// $data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Inclusion Exclusion", "etapa"=>$etapa));
+
+		$data['auditoria'] = $this->auditlib->audit('inclusion_audit', $data['list'][0]->id);
 		
 		$this->load->view('template', $data);					
 	}
@@ -1952,7 +2296,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
@@ -1988,7 +2332,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
@@ -2023,7 +2367,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
@@ -2102,14 +2446,14 @@ class Subject extends CI_Controller {
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1
 				AND
 				(
-					empty($registro['puntaje_intento_1a']) OR empty($registro['puntaje_intento_1b']) OR empty($registro['puntaje_intento_2a']) OR empty($registro['puntaje_intento_2b'])
-					OR empty($registro['puntaje_intento_3a']) OR empty($registro['puntaje_intento_3b']) OR empty($registro['puntaje_intento_4a']) OR empty($registro['puntaje_intento_4b'])
-					OR empty($registro['puntaje_intento_5a']) OR empty($registro['puntaje_intento_5b']) OR empty($registro['puntaje_intento_6a']) OR empty($registro['puntaje_intento_6b'])
-					OR empty($registro['puntaje_intento_7a']) OR empty($registro['puntaje_intento_7b']) OR empty($registro['puntaje_intento_8a']) OR empty($registro['puntaje_intento_8b'])
-					OR empty($registro['puntaje_item_1a']) OR empty($registro['puntaje_item_2a'])
-					OR empty($registro['puntaje_item_3a']) OR empty($registro['puntaje_item_4a'])
-					OR empty($registro['puntaje_item_5a']) OR empty($registro['puntaje_item_6a'])
-					OR empty($registro['puntaje_item_7a']) OR empty($registro['puntaje_item_8a']) OR empty($registro['msdd'])
+					$registro['puntaje_intento_1a'] == '' OR $registro['puntaje_intento_1b'] == '' OR $registro['puntaje_intento_2a'] == '' OR $registro['puntaje_intento_2b'] == ''
+					OR $registro['puntaje_intento_3a'] == '' OR $registro['puntaje_intento_3b'] == '' OR $registro['puntaje_intento_4a'] == '' OR $registro['puntaje_intento_4b'] == ''
+					OR $registro['puntaje_intento_5a'] == '' OR $registro['puntaje_intento_5b'] == '' OR $registro['puntaje_intento_6a'] == '' OR $registro['puntaje_intento_6b'] == ''
+					OR $registro['puntaje_intento_7a'] == '' OR $registro['puntaje_intento_7b'] == '' OR $registro['puntaje_intento_8a'] == '' OR $registro['puntaje_intento_8b'] == ''
+					OR $registro['puntaje_item_1a'] == '' OR $registro['puntaje_item_2a'] == ''
+					OR $registro['puntaje_item_3a'] == '' OR $registro['puntaje_item_4a'] == ''
+					OR $registro['puntaje_item_5a'] == '' OR $registro['puntaje_item_6a'] == ''
+					OR $registro['puntaje_item_7a'] == '' OR $registro['puntaje_item_8a'] == '' OR $registro['msdd'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -2178,6 +2522,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 		
+		$data['auditoria'] = $this->auditlib->audit('digito_directo_audit', $data['list'][0]->id);
+
 		$this->load->view('template', $data);					
 	}
 
@@ -2228,14 +2574,14 @@ class Subject extends CI_Controller {
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1
 				AND
 				(
-					empty($registro['puntaje_intento_1a']) OR empty($registro['puntaje_intento_1b']) OR empty($registro['puntaje_intento_2a']) OR empty($registro['puntaje_intento_2b'])
-					OR empty($registro['puntaje_intento_3a']) OR empty($registro['puntaje_intento_3b']) OR empty($registro['puntaje_intento_4a']) OR empty($registro['puntaje_intento_4b'])
-					OR empty($registro['puntaje_intento_5a']) OR empty($registro['puntaje_intento_5b']) OR empty($registro['puntaje_intento_6a']) OR empty($registro['puntaje_intento_6b'])
-					OR empty($registro['puntaje_intento_7a']) OR empty($registro['puntaje_intento_7b']) OR empty($registro['puntaje_intento_8a']) OR empty($registro['puntaje_intento_8b'])
-					OR empty($registro['puntaje_item_1a']) OR empty($registro['puntaje_item_2a'])
-					OR empty($registro['puntaje_item_3a']) OR empty($registro['puntaje_item_4a'])
-					OR empty($registro['puntaje_item_5a']) OR empty($registro['puntaje_item_6a'])
-					OR empty($registro['puntaje_item_7a']) OR empty($registro['puntaje_item_8a']) OR empty($registro['msdd'])
+					$registro['puntaje_intento_1a'] == '' OR $registro['puntaje_intento_1b'] == '' OR $registro['puntaje_intento_2a'] == '' OR $registro['puntaje_intento_2b'] == ''
+					OR $registro['puntaje_intento_3a'] == '' OR $registro['puntaje_intento_3b'] == '' OR $registro['puntaje_intento_4a'] == '' OR $registro['puntaje_intento_4b'] == ''
+					OR $registro['puntaje_intento_5a'] == '' OR $registro['puntaje_intento_5b'] == '' OR $registro['puntaje_intento_6a'] == '' OR $registro['puntaje_intento_6b'] == ''
+					OR $registro['puntaje_intento_7a'] == '' OR $registro['puntaje_intento_7b'] == '' OR $registro['puntaje_intento_8a'] == '' OR $registro['puntaje_intento_8b'] == ''
+					OR $registro['puntaje_item_1a'] == '' OR $registro['puntaje_item_2a'] == ''
+					OR $registro['puntaje_item_3a'] == '' OR $registro['puntaje_item_4a'] == ''
+					OR $registro['puntaje_item_5a'] == '' OR $registro['puntaje_item_6a'] == ''
+					OR $registro['puntaje_item_7a'] == '' OR $registro['puntaje_item_8a'] == '' OR $registro['msdd'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -2297,7 +2643,7 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Digito_directo');
 			$this->Model_Digito_directo->update($registro);
@@ -2340,7 +2686,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Digito_directo');
 			$this->Model_Digito_directo->update($registro);
@@ -2382,7 +2728,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Digito_directo');
 			$this->Model_Digito_directo->update($registro);
@@ -2494,7 +2840,9 @@ class Subject extends CI_Controller {
 
 		}else{
 
-			if(	isset($registro['realizado']) AND $registro['realizado'] == 1 AND $registro['fecha'] == ''
+			if(	isset($registro['realizado']) AND $registro['realizado'] == 1 AND 
+
+				($registro['fecha'] == ''
 
 				OR (isset($registro['le_puedo_hacer_preguntas']) AND $registro['le_puedo_hacer_preguntas'] == 1
 					AND (
@@ -2520,6 +2868,7 @@ class Subject extends CI_Controller {
 						OR empty($registro['poner_en_el_piso']) OR $registro['poner_en_el_piso_puntaje'] == '' OR empty($registro['cierre_los_ojos']) 
 						OR $registro['cierre_los_ojos_puntaje'] == '' OR $registro['dibujo_puntaje'] == '' OR $registro['escritura_puntaje'] == '' 
 						OR $registro['puntaje_total'] == ''	OR empty($registro['mundo_respuesta']) OR $registro['mundo_puntaje'] == ''
+						)
 					)
 				)
 
@@ -2595,6 +2944,8 @@ class Subject extends CI_Controller {
 		}
 
 		$data['puntaje'] = array(''=>'','0'=>'0','1'=>'1');
+
+		$data['auditoria'] = $this->auditlib->audit('mmse_audit', $data['list'][0]->id);
 
 		$this->load->view('template',$data);
 
@@ -2677,7 +3028,8 @@ class Subject extends CI_Controller {
 
 		}else{
 
-			if(	isset($registro['realizado']) AND $registro['realizado'] == 1 AND $registro['fecha'] == ''
+			if(	isset($registro['realizado']) AND $registro['realizado'] == 1 AND 
+				($registro['fecha'] == ''
 
 				OR (isset($registro['le_puedo_hacer_preguntas']) AND $registro['le_puedo_hacer_preguntas'] == 1
 					AND (
@@ -2703,6 +3055,7 @@ class Subject extends CI_Controller {
 						OR empty($registro['poner_en_el_piso']) OR $registro['poner_en_el_piso_puntaje'] == '' OR empty($registro['cierre_los_ojos']) 
 						OR $registro['cierre_los_ojos_puntaje'] == '' OR $registro['dibujo_puntaje'] == '' OR $registro['escritura_puntaje'] == '' 
 						OR $registro['puntaje_total'] == ''	OR empty($registro['mundo_respuesta']) OR $registro['mundo_puntaje'] == ''
+						)
 					)
 				)
 
@@ -2773,7 +3126,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Mmse');
 			$this->Model_Mmse->update($registro);
@@ -2815,7 +3168,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Mmse');
 			$this->Model_Mmse->update($registro);
@@ -2857,7 +3210,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Mmse');
 			$this->Model_Mmse->update($registro);
@@ -2982,6 +3335,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('electrocardiograma_de_reposo_audit', $data['list'][0]->id);
+
 		$this->load->view('template',$data);
 	}
 
@@ -3074,7 +3429,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Electrocardiograma_de_reposo');
 			$this->Model_Electrocardiograma_de_reposo->update($registro);
@@ -3104,7 +3459,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Electrocardiograma_de_reposo');
 			$this->Model_Electrocardiograma_de_reposo->update($registro);
@@ -3134,7 +3489,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Electrocardiograma_de_reposo');
 			$this->Model_Electrocardiograma_de_reposo->update($registro);
@@ -3253,6 +3608,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('signos_vitales_audit', $data['list'][0]->id);
+
 		$this->load->view('template',$data);
 	}
 
@@ -3347,7 +3704,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Signos_vitales');
 			$this->Model_Signos_vitales->update($registro);
@@ -3357,8 +3714,8 @@ class Subject extends CI_Controller {
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
 				$this->Model_Subject->update(array('signos_vitales_1_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
 			}
-			elseif (isset($registro['etapa']) AND $registro['etapa'] == 3) {
-				$this->Model_Subject->update(array('signos_vitales_3_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('signos_vitales_2_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
 			}
 			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
 				$this->Model_Subject->update(array('signos_vitales_4_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
@@ -3392,7 +3749,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Signos_vitales');
 			$this->Model_Signos_vitales->update($registro);
@@ -3402,8 +3759,8 @@ class Subject extends CI_Controller {
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
 				$this->Model_Subject->update(array('signos_vitales_1_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
 			}
-			elseif (isset($registro['etapa']) AND $registro['etapa'] == 3) {
-				$this->Model_Subject->update(array('signos_vitales_3_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('signos_vitales_2_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
 			}
 			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
 				$this->Model_Subject->update(array('signos_vitales_4_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
@@ -3437,7 +3794,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Signos_vitales');
 			$this->Model_Signos_vitales->update($registro);
@@ -3447,8 +3804,8 @@ class Subject extends CI_Controller {
 			if(isset($registro['etapa']) AND $registro['etapa'] == 1){
 				$this->Model_Subject->update(array('signos_vitales_1_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
 			}
-			elseif (isset($registro['etapa']) AND $registro['etapa'] == 3) {
-				$this->Model_Subject->update(array('signos_vitales_3_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			elseif (isset($registro['etapa']) AND $registro['etapa'] == 2) {
+				$this->Model_Subject->update(array('signos_vitales_2_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
 			}
 			elseif (isset($registro['etapa']) AND $registro['etapa'] == 4) {
 				$this->Model_Subject->update(array('signos_vitales_4_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
@@ -3500,9 +3857,9 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['comprimidos_entregados']) OR empty($registro['comprimidos_utilizados']) OR					
-					empty($registro['se_perdio_algun_comprimido']) OR empty($registro['comprimidos_perdidos']) OR empty($registro['dias']) OR
-					empty($registro['porcentaje_cumplimiento'])
+					$registro['fecha'] == '' OR $registro['comprimidos_entregados'] == '' OR $registro['comprimidos_utilizados'] == '' OR					
+					$registro['se_perdio_algun_comprimido'] == '' OR $registro['comprimidos_perdidos'] == '' OR $registro['dias'] == '' OR
+					$registro['porcentaje_cumplimiento'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -3568,6 +3925,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('cumplimiento_audit', $data['list'][0]->id);
+
 		$this->load->view('template',$data);
 	}
 
@@ -3596,9 +3955,9 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['comprimidos_entregados']) OR empty($registro['comprimidos_utilizados']) OR					
-					empty($registro['se_perdio_algun_comprimido']) OR empty($registro['comprimidos_perdidos']) OR empty($registro['dias']) OR
-					empty($registro['porcentaje_cumplimiento'])
+					$registro['fecha'] == '' OR $registro['comprimidos_entregados'] == '' OR $registro['comprimidos_utilizados'] == '' OR					
+					$registro['se_perdio_algun_comprimido'] == '' OR $registro['comprimidos_perdidos'] == '' OR $registro['dias'] == '' OR
+					$registro['porcentaje_cumplimiento'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -3662,7 +4021,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Cumplimiento');
 			$this->Model_Cumplimiento->update($registro);
@@ -3707,7 +4066,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Cumplimiento');
 			$this->Model_Cumplimiento->update($registro);
@@ -3752,7 +4111,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Cumplimiento');
 			$this->Model_Cumplimiento->update($registro);
@@ -3847,6 +4206,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('fin_tratamiento_audit', $data['list'][0]->id);
+
 		$this->load->view('template',$data);
 	}
 
@@ -3900,7 +4261,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Fin_de_tratamiento');
 			$this->Model_Fin_de_tratamiento->update($registro);
@@ -3931,7 +4292,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Fin_de_tratamiento');
 			$this->Model_Fin_de_tratamiento->update($registro);
@@ -3962,7 +4323,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Fin_de_tratamiento');
 			$this->Model_Fin_de_tratamiento->update($registro);
@@ -3988,12 +4349,12 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('no_aplica', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha_visita', '', 'required|xss_clean');
-		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'required|xss_clean');
-		$this->form_validation->set_rules('motivo', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('fecha_visita', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'xss_clean');
+		$this->form_validation->set_rules('motivo', '', 'xss_clean');		
 
 		if(isset($registro['motivo']) AND $registro['motivo'] == 'Otro'){
-			$this->form_validation->set_rules('otro_motivo', '', 'required|xss_clean');
+			$this->form_validation->set_rules('otro_motivo', '', 'xss_clean');
 		}
 		else{
 			$this->form_validation->set_rules('otro_motivo', '', 'xss_clean');	
@@ -4048,6 +4409,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('fin_tratamiento_temprano_audit', $data['list'][0]->id);
+
 		$this->load->view('template',$data);
 	}
 
@@ -4055,12 +4418,12 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 		$this->form_validation->set_rules('subject_id', '', 'required|xss_clean');		
 		$this->form_validation->set_rules('no_aplica', '', 'xss_clean');
-		$this->form_validation->set_rules('fecha_visita', '', 'required|xss_clean');
-		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'required|xss_clean');
-		$this->form_validation->set_rules('motivo', '', 'required|xss_clean');		
+		$this->form_validation->set_rules('fecha_visita', '', 'xss_clean');
+		$this->form_validation->set_rules('fecha_ultima_dosis', '', 'xss_clean');
+		$this->form_validation->set_rules('motivo', '', 'xss_clean');		
 
 		if(isset($registro['motivo']) AND $registro['motivo'] == 'Otro'){
-			$this->form_validation->set_rules('otro_motivo', '', 'required|xss_clean');
+			$this->form_validation->set_rules('otro_motivo', '', 'xss_clean');
 		}
 		else{
 			$this->form_validation->set_rules('otro_motivo', '', 'xss_clean');	
@@ -4107,7 +4470,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Fin_de_tratamiento_temprano');
 			$this->Model_Fin_de_tratamiento_temprano->update($registro);
@@ -4138,7 +4501,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Fin_de_tratamiento_temprano');
 			$this->Model_Fin_de_tratamiento_temprano->update($registro);
@@ -4169,7 +4532,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Fin_de_tratamiento_temprano');
 			$this->Model_Fin_de_tratamiento_temprano->update($registro);
@@ -4268,6 +4631,8 @@ class Subject extends CI_Controller {
 		}else{
 			$data['campos_query'] = array();
 		}
+
+		$data['auditoria'] = $this->auditlib->audit('muestra_de_sangre_audit', $data['list'][0]->id);
 		
 		$this->load->view('template',$data);
 	}
@@ -4346,7 +4711,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Muestra_de_sangre');
 			$this->Model_Muestra_de_sangre->update($registro);
@@ -4385,7 +4750,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Muestra_de_sangre');
 			$this->Model_Muestra_de_sangre->update($registro);
@@ -4424,7 +4789,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Muestra_de_sangre');
 			$this->Model_Muestra_de_sangre->update($registro);
@@ -4592,6 +4957,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('examen_neurologico_audit', $data['list'][0]->id);
+
 		$this->load->view('template',$data);
 	}
 
@@ -4731,7 +5098,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_neurologico');
 			$this->Model_Examen_neurologico->update($registro);
@@ -4779,7 +5146,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_neurologico');
 			$this->Model_Examen_neurologico->update($registro);
@@ -4827,7 +5194,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_neurologico');
 			$this->Model_Examen_neurologico->update($registro);
@@ -5001,42 +5368,42 @@ class Subject extends CI_Controller {
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
 					empty($registro['fecha']) 
-					OR ($registro['hecho_1'] == 1 AND (empty($registro['hematocrito']) OR !isset($registro['hematocrito_nom_anom']) ))
-					OR ($registro['hecho_2'] == 1 AND (empty($registro['hemoglobina']) OR !isset($registro['hemoglobina_nom_anom'])  ))
-					OR ($registro['hecho_3'] == 1 AND (empty($registro['eritocritos']) OR !isset($registro['eritocritos_nom_anom']) ))
-					OR ($registro['hecho_4'] == 1 AND (empty($registro['leucocitos']) OR !isset($registro['leucocitos_nom_anom']) ))
-					OR ($registro['hecho_5'] == 1 AND (empty($registro['neutrofilos']) OR !isset($registro['neutrofilos_nom_anom'])  ))
-					OR ($registro['hecho_6'] == 1 AND (empty($registro['linfocitos']) OR !isset($registro['linfocitos_nom_anom']) ))
-					OR ($registro['hecho_7'] == 1 AND (empty($registro['monocitos']) OR !isset($registro['monocitos_nom_anom'])))
-					OR ($registro['hecho_8'] == 1 AND (empty($registro['eosinofilos']) OR !isset($registro['eosinofilos_nom_anom'])  ))
-					OR ($registro['hecho_9'] == 1 AND (empty($registro['basofilos']) OR	!isset($registro['basofilos_nom_anom']) ))
-					OR ($registro['hecho_10'] == 1 AND (empty($registro['recuento_plaquetas']) OR !isset($registro['recuento_plaquetas_nom_anom'])))
-					OR ($registro['hecho_11'] == 1 AND (empty($registro['glucosa_ayunas']) OR !isset($registro['glucosa_ayunas_nom_anom']) ))
-					OR ($registro['hecho_12'] == 1 AND (empty($registro['bun']) OR !isset($registro['bun_nom_anom']) ))
-					OR ($registro['hecho_13'] == 1 AND (empty($registro['creatinina']) OR !isset($registro['creatinina_nom_anom'])))
-					OR ($registro['hecho_14'] == 1 AND (empty($registro['bilirrubina_total']) OR	!isset($registro['bilirrubina_total_nom_anom']) ))
-					OR ($registro['hecho_15'] == 1 AND (empty($registro['proteinas_totales']) OR !isset($registro['proteinas_totales_nom_anom']) ))
-					OR ($registro['hecho_16'] == 1 AND (empty($registro['fosfatasas_alcalinas']) OR !isset($registro['fosfatasas_alcalinas_nom_anom'])))
-					OR ($registro['hecho_17'] == 1 AND (empty($registro['ast']) OR !isset($registro['ast_nom_anom'])))
-					OR ($registro['hecho_18'] == 1 AND (empty($registro['alt']) OR !isset($registro['alt_nom_anom']) ))
-					OR ($registro['hecho_19'] == 1 AND (empty($registro['calcio']) OR !isset($registro['calcio_nom_anom']) OR empty($registro['calcio_unidad_medida']) ))
-					OR ($registro['hecho_20'] == 1 AND (empty($registro['sodio']) OR	!isset($registro['sodio_nom_anom']) OR empty($registro['sodio_unidad_medida']) ))
-					OR ($registro['hecho_21'] == 1 AND (empty($registro['potasio']) OR !isset($registro['potasio_nom_anom']) OR empty($registro['potasio_unidad_medida'])))
-					OR ($registro['hecho_22'] == 1 AND (empty($registro['cloro']) OR !isset($registro['cloro_nom_anom']) OR empty($registro['cloro_unidad_medida']) ))
-					OR ($registro['hecho_23'] == 1 AND (empty($registro['acido_urico']) OR !isset($registro['acido_urico_nom_anom']) ))
-					OR ($registro['hecho_24'] == 1 AND (empty($registro['albumina']) OR !isset($registro['albumina_nom_anom'])))
-					OR ($registro['hecho_25'] == 1 AND (empty($registro['orina_ph']) OR !isset($registro['orina_ph_nom_anom'])))
-					OR ($registro['hecho_26'] == 1 AND (empty($registro['orina_glucosa']) OR	!isset($registro['orina_glucosa_nom_anom']) OR empty($registro['glucosa_unidad_medida']) ))
-					OR ($registro['hecho_27'] == 1 AND (empty($registro['orina_proteinas']) OR !isset($registro['orina_proteinas_nom_anom'])))
-					OR ($registro['hecho_28'] == 1 AND (empty($registro['orina_sangre']) OR !isset($registro['orina_sangre_nom_anom'])))
-					OR ($registro['hecho_29'] == 1 AND (empty($registro['orina_cetonas']) OR	!isset($registro['orina_cetonas_nom_anom'])))
-					OR ($registro['hecho_30'] == 1 AND (empty($registro['orina_microscospia']) OR !isset($registro['orina_microscospia_nom_anom'])))
-					OR ($registro['hecho_31'] == 1 AND (empty($registro['otros_sangre_homocisteina']) OR !isset($registro['otros_sangre_homocisteina_nom_anom'])))
-					OR ($registro['hecho_32'] == 1 AND (empty($registro['otros_perfil_tiroideo']) OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
-					OR ($registro['hecho_33'] == 1 AND (empty($registro['otros_nivel_b12']) OR !isset($registro['otros_nivel_b12_nom_anom'])))
-					OR ($registro['hecho_34'] == 1 AND (empty($registro['otros_acido_folico']) OR !isset($registro['otros_acido_folico_nom_anom'])))
-					OR ($registro['hecho_35'] == 1 AND (empty($registro['otros_hba1c']) OR !isset($registro['otros_hba1c_nom_anom'])))
-					OR ($registro['hecho_36'] == 1 AND (empty($registro['sifilis']) OR !isset($registro['sifilis_nom_anom']) ))					
+					OR ($registro['hecho_1'] == 1 AND ($registro['hematocrito'] == '' OR !isset($registro['hematocrito_nom_anom']) ))
+					OR ($registro['hecho_2'] == 1 AND ($registro['hemoglobina'] == '' OR !isset($registro['hemoglobina_nom_anom'])  ))
+					OR ($registro['hecho_3'] == 1 AND ($registro['eritocritos'] == '' OR !isset($registro['eritocritos_nom_anom']) ))
+					OR ($registro['hecho_4'] == 1 AND ($registro['leucocitos'] == '' OR !isset($registro['leucocitos_nom_anom']) ))
+					OR ($registro['hecho_5'] == 1 AND ($registro['neutrofilos'] == '' OR !isset($registro['neutrofilos_nom_anom'])  ))
+					OR ($registro['hecho_6'] == 1 AND ($registro['linfocitos'] == '' OR !isset($registro['linfocitos_nom_anom']) ))
+					OR ($registro['hecho_7'] == 1 AND ($registro['monocitos'] == '' OR !isset($registro['monocitos_nom_anom'])))
+					OR ($registro['hecho_8'] == 1 AND ($registro['eosinofilos'] == '' OR !isset($registro['eosinofilos_nom_anom'])  ))
+					OR ($registro['hecho_9'] == 1 AND ($registro['basofilos'] == '' OR	!isset($registro['basofilos_nom_anom']) ))
+					OR ($registro['hecho_10'] == 1 AND ($registro['recuento_plaquetas'] == '' OR !isset($registro['recuento_plaquetas_nom_anom'])))
+					OR ($registro['hecho_11'] == 1 AND ($registro['glucosa_ayunas'] == '' OR !isset($registro['glucosa_ayunas_nom_anom']) ))
+					OR ($registro['hecho_12'] == 1 AND ($registro['bun'] == '' OR !isset($registro['bun_nom_anom']) ))
+					OR ($registro['hecho_13'] == 1 AND ($registro['creatinina'] == '' OR !isset($registro['creatinina_nom_anom'])))
+					OR ($registro['hecho_14'] == 1 AND ($registro['bilirrubina_total'] == '' OR	!isset($registro['bilirrubina_total_nom_anom']) ))
+					OR ($registro['hecho_15'] == 1 AND ($registro['proteinas_totales'] == '' OR !isset($registro['proteinas_totales_nom_anom']) ))
+					OR ($registro['hecho_16'] == 1 AND ($registro['fosfatasas_alcalinas'] == '' OR !isset($registro['fosfatasas_alcalinas_nom_anom'])))
+					OR ($registro['hecho_17'] == 1 AND ($registro['ast'] == '' OR !isset($registro['ast_nom_anom'])))
+					OR ($registro['hecho_18'] == 1 AND ($registro['alt'] == '' OR !isset($registro['alt_nom_anom']) ))
+					OR ($registro['hecho_19'] == 1 AND ($registro['calcio'] == '' OR !isset($registro['calcio_nom_anom']) OR empty($registro['calcio_unidad_medida']) ))
+					OR ($registro['hecho_20'] == 1 AND ($registro['sodio'] == '' OR	!isset($registro['sodio_nom_anom']) OR empty($registro['sodio_unidad_medida']) ))
+					OR ($registro['hecho_21'] == 1 AND ($registro['potasio'] == '' OR !isset($registro['potasio_nom_anom']) OR empty($registro['potasio_unidad_medida'])))
+					OR ($registro['hecho_22'] == 1 AND ($registro['cloro'] == '' OR !isset($registro['cloro_nom_anom']) OR empty($registro['cloro_unidad_medida']) ))
+					OR ($registro['hecho_23'] == 1 AND ($registro['acido_urico'] == '' OR !isset($registro['acido_urico_nom_anom']) ))
+					OR ($registro['hecho_24'] == 1 AND ($registro['albumina'] == '' OR !isset($registro['albumina_nom_anom'])))
+					OR ($registro['hecho_25'] == 1 AND ($registro['orina_ph'] == '' OR !isset($registro['orina_ph_nom_anom'])))
+					OR ($registro['hecho_26'] == 1 AND ($registro['orina_glucosa'] == '' OR	!isset($registro['orina_glucosa_nom_anom']) OR empty($registro['glucosa_unidad_medida']) ))
+					OR ($registro['hecho_27'] == 1 AND ($registro['orina_proteinas'] == '' OR !isset($registro['orina_proteinas_nom_anom'])))
+					OR ($registro['hecho_28'] == 1 AND ($registro['orina_sangre'] == '' OR !isset($registro['orina_sangre_nom_anom'])))
+					OR ($registro['hecho_29'] == 1 AND ($registro['orina_cetonas'] == '' OR	!isset($registro['orina_cetonas_nom_anom'])))
+					OR ($registro['hecho_30'] == 1 AND ($registro['orina_microscospia'] == '' OR !isset($registro['orina_microscospia_nom_anom'])))
+					OR ($registro['hecho_31'] == 1 AND ($registro['otros_sangre_homocisteina'] == '' OR !isset($registro['otros_sangre_homocisteina_nom_anom'])))
+					OR ($registro['hecho_32'] == 1 AND ($registro['otros_perfil_tiroideo'] == '' OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
+					OR ($registro['hecho_33'] == 1 AND ($registro['otros_nivel_b12'] == '' OR !isset($registro['otros_nivel_b12_nom_anom'])))
+					OR ($registro['hecho_34'] == 1 AND ($registro['otros_acido_folico'] == '' OR !isset($registro['otros_acido_folico_nom_anom'])))
+					OR ($registro['hecho_35'] == 1 AND ($registro['otros_hba1c'] == '' OR !isset($registro['otros_hba1c_nom_anom'])))
+					OR ($registro['hecho_36'] == 1 AND ($registro['sifilis'] == '' OR !isset($registro['sifilis_nom_anom']) ))					
 
 					OR $registro['hecho_1'] == '' OR $registro['hecho_2'] == '' OR $registro['hecho_3'] == '' OR $registro['hecho_4'] == ''
 					OR $registro['hecho_5'] == '' OR $registro['hecho_6'] == '' OR $registro['hecho_7'] == '' OR $registro['hecho_8'] == ''
@@ -5109,6 +5476,8 @@ class Subject extends CI_Controller {
 		}else{
 			$data['campos_query'] = array();
 		}
+
+		$data['auditoria'] = $this->auditlib->audit('examen_laboratorio_audit', $data['list'][0]->id);
 
 		$this->load->view('template2',$data);
 	}
@@ -5244,42 +5613,42 @@ class Subject extends CI_Controller {
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
 					empty($registro['fecha']) 
-					OR ($registro['hecho_1'] == 1 AND (empty($registro['hematocrito']) OR !isset($registro['hematocrito_nom_anom']) ))
-					OR ($registro['hecho_2'] == 1 AND (empty($registro['hemoglobina']) OR !isset($registro['hemoglobina_nom_anom'])  ))
-					OR ($registro['hecho_3'] == 1 AND (empty($registro['eritocritos']) OR !isset($registro['eritocritos_nom_anom']) ))
-					OR ($registro['hecho_4'] == 1 AND (empty($registro['leucocitos']) OR !isset($registro['leucocitos_nom_anom']) ))
-					OR ($registro['hecho_5'] == 1 AND (empty($registro['neutrofilos']) OR !isset($registro['neutrofilos_nom_anom'])  ))
-					OR ($registro['hecho_6'] == 1 AND (empty($registro['linfocitos']) OR !isset($registro['linfocitos_nom_anom']) ))
-					OR ($registro['hecho_7'] == 1 AND (empty($registro['monocitos']) OR !isset($registro['monocitos_nom_anom'])))
-					OR ($registro['hecho_8'] == 1 AND (empty($registro['eosinofilos']) OR !isset($registro['eosinofilos_nom_anom'])  ))
-					OR ($registro['hecho_9'] == 1 AND (empty($registro['basofilos']) OR	!isset($registro['basofilos_nom_anom']) ))
-					OR ($registro['hecho_10'] == 1 AND (empty($registro['recuento_plaquetas']) OR !isset($registro['recuento_plaquetas_nom_anom'])))
-					OR ($registro['hecho_11'] == 1 AND (empty($registro['glucosa_ayunas']) OR !isset($registro['glucosa_ayunas_nom_anom']) ))
-					OR ($registro['hecho_12'] == 1 AND (empty($registro['bun']) OR !isset($registro['bun_nom_anom']) ))
-					OR ($registro['hecho_13'] == 1 AND (empty($registro['creatinina']) OR !isset($registro['creatinina_nom_anom'])))
-					OR ($registro['hecho_14'] == 1 AND (empty($registro['bilirrubina_total']) OR	!isset($registro['bilirrubina_total_nom_anom']) ))
-					OR ($registro['hecho_15'] == 1 AND (empty($registro['proteinas_totales']) OR !isset($registro['proteinas_totales_nom_anom']) ))
-					OR ($registro['hecho_16'] == 1 AND (empty($registro['fosfatasas_alcalinas']) OR !isset($registro['fosfatasas_alcalinas_nom_anom'])))
-					OR ($registro['hecho_17'] == 1 AND (empty($registro['ast']) OR !isset($registro['ast_nom_anom'])))
-					OR ($registro['hecho_18'] == 1 AND (empty($registro['alt']) OR !isset($registro['alt_nom_anom']) ))
-					OR ($registro['hecho_19'] == 1 AND (empty($registro['calcio']) OR !isset($registro['calcio_nom_anom']) OR empty($registro['calcio_unidad_medida']) ))
-					OR ($registro['hecho_20'] == 1 AND (empty($registro['sodio']) OR	!isset($registro['sodio_nom_anom']) OR empty($registro['sodio_unidad_medida']) ))
-					OR ($registro['hecho_21'] == 1 AND (empty($registro['potasio']) OR !isset($registro['potasio_nom_anom']) OR empty($registro['potasio_unidad_medida'])))
-					OR ($registro['hecho_22'] == 1 AND (empty($registro['cloro']) OR !isset($registro['cloro_nom_anom']) OR empty($registro['cloro_unidad_medida']) ))
-					OR ($registro['hecho_23'] == 1 AND (empty($registro['acido_urico']) OR !isset($registro['acido_urico_nom_anom']) ))
-					OR ($registro['hecho_24'] == 1 AND (empty($registro['albumina']) OR !isset($registro['albumina_nom_anom'])))
-					OR ($registro['hecho_25'] == 1 AND (empty($registro['orina_ph']) OR !isset($registro['orina_ph_nom_anom'])))
-					OR ($registro['hecho_26'] == 1 AND (empty($registro['orina_glucosa']) OR	!isset($registro['orina_glucosa_nom_anom']) OR empty($registro['glucosa_unidad_medida']) ))
-					OR ($registro['hecho_27'] == 1 AND (empty($registro['orina_proteinas']) OR !isset($registro['orina_proteinas_nom_anom'])))
-					OR ($registro['hecho_28'] == 1 AND (empty($registro['orina_sangre']) OR !isset($registro['orina_sangre_nom_anom'])))
-					OR ($registro['hecho_29'] == 1 AND (empty($registro['orina_cetonas']) OR	!isset($registro['orina_cetonas_nom_anom'])))
-					OR ($registro['hecho_30'] == 1 AND (empty($registro['orina_microscospia']) OR !isset($registro['orina_microscospia_nom_anom'])))
-					OR ($registro['hecho_31'] == 1 AND (empty($registro['otros_sangre_homocisteina']) OR !isset($registro['otros_sangre_homocisteina_nom_anom'])))
-					OR ($registro['hecho_32'] == 1 AND (empty($registro['otros_perfil_tiroideo']) OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
-					OR ($registro['hecho_33'] == 1 AND (empty($registro['otros_nivel_b12']) OR !isset($registro['otros_nivel_b12_nom_anom'])))
-					OR ($registro['hecho_34'] == 1 AND (empty($registro['otros_acido_folico']) OR !isset($registro['otros_acido_folico_nom_anom'])))
-					OR ($registro['hecho_35'] == 1 AND (empty($registro['otros_hba1c']) OR !isset($registro['otros_hba1c_nom_anom'])))
-					OR ($registro['hecho_36'] == 1 AND (empty($registro['sifilis']) OR !isset($registro['sifilis_nom_anom']) ))					
+					OR ($registro['hecho_1'] == 1 AND ($registro['hematocrito'] == '' OR !isset($registro['hematocrito_nom_anom']) ))
+					OR ($registro['hecho_2'] == 1 AND ($registro['hemoglobina'] == '' OR !isset($registro['hemoglobina_nom_anom'])  ))
+					OR ($registro['hecho_3'] == 1 AND ($registro['eritocritos'] == '' OR !isset($registro['eritocritos_nom_anom']) ))
+					OR ($registro['hecho_4'] == 1 AND ($registro['leucocitos'] == '' OR !isset($registro['leucocitos_nom_anom']) ))
+					OR ($registro['hecho_5'] == 1 AND ($registro['neutrofilos'] == '' OR !isset($registro['neutrofilos_nom_anom'])  ))
+					OR ($registro['hecho_6'] == 1 AND ($registro['linfocitos'] == '' OR !isset($registro['linfocitos_nom_anom']) ))
+					OR ($registro['hecho_7'] == 1 AND ($registro['monocitos'] == '' OR !isset($registro['monocitos_nom_anom'])))
+					OR ($registro['hecho_8'] == 1 AND ($registro['eosinofilos'] == '' OR !isset($registro['eosinofilos_nom_anom'])  ))
+					OR ($registro['hecho_9'] == 1 AND ($registro['basofilos'] == '' OR	!isset($registro['basofilos_nom_anom']) ))
+					OR ($registro['hecho_10'] == 1 AND ($registro['recuento_plaquetas'] == '' OR !isset($registro['recuento_plaquetas_nom_anom'])))
+					OR ($registro['hecho_11'] == 1 AND ($registro['glucosa_ayunas'] == '' OR !isset($registro['glucosa_ayunas_nom_anom']) ))
+					OR ($registro['hecho_12'] == 1 AND ($registro['bun'] == '' OR !isset($registro['bun_nom_anom']) ))
+					OR ($registro['hecho_13'] == 1 AND ($registro['creatinina'] == '' OR !isset($registro['creatinina_nom_anom'])))
+					OR ($registro['hecho_14'] == 1 AND ($registro['bilirrubina_total'] == '' OR	!isset($registro['bilirrubina_total_nom_anom']) ))
+					OR ($registro['hecho_15'] == 1 AND ($registro['proteinas_totales'] == '' OR !isset($registro['proteinas_totales_nom_anom']) ))
+					OR ($registro['hecho_16'] == 1 AND ($registro['fosfatasas_alcalinas'] == '' OR !isset($registro['fosfatasas_alcalinas_nom_anom'])))
+					OR ($registro['hecho_17'] == 1 AND ($registro['ast'] == '' OR !isset($registro['ast_nom_anom'])))
+					OR ($registro['hecho_18'] == 1 AND ($registro['alt'] == '' OR !isset($registro['alt_nom_anom']) ))
+					OR ($registro['hecho_19'] == 1 AND ($registro['calcio'] == '' OR !isset($registro['calcio_nom_anom']) OR empty($registro['calcio_unidad_medida']) ))
+					OR ($registro['hecho_20'] == 1 AND ($registro['sodio'] == '' OR	!isset($registro['sodio_nom_anom']) OR empty($registro['sodio_unidad_medida']) ))
+					OR ($registro['hecho_21'] == 1 AND ($registro['potasio'] == '' OR !isset($registro['potasio_nom_anom']) OR empty($registro['potasio_unidad_medida'])))
+					OR ($registro['hecho_22'] == 1 AND ($registro['cloro'] == '' OR !isset($registro['cloro_nom_anom']) OR empty($registro['cloro_unidad_medida']) ))
+					OR ($registro['hecho_23'] == 1 AND ($registro['acido_urico'] == '' OR !isset($registro['acido_urico_nom_anom']) ))
+					OR ($registro['hecho_24'] == 1 AND ($registro['albumina'] == '' OR !isset($registro['albumina_nom_anom'])))
+					OR ($registro['hecho_25'] == 1 AND ($registro['orina_ph'] == '' OR !isset($registro['orina_ph_nom_anom'])))
+					OR ($registro['hecho_26'] == 1 AND ($registro['orina_glucosa'] == '' OR	!isset($registro['orina_glucosa_nom_anom']) OR empty($registro['glucosa_unidad_medida']) ))
+					OR ($registro['hecho_27'] == 1 AND ($registro['orina_proteinas'] == '' OR !isset($registro['orina_proteinas_nom_anom'])))
+					OR ($registro['hecho_28'] == 1 AND ($registro['orina_sangre'] == '' OR !isset($registro['orina_sangre_nom_anom'])))
+					OR ($registro['hecho_29'] == 1 AND ($registro['orina_cetonas'] == '' OR	!isset($registro['orina_cetonas_nom_anom'])))
+					OR ($registro['hecho_30'] == 1 AND ($registro['orina_microscospia'] == '' OR !isset($registro['orina_microscospia_nom_anom'])))
+					OR ($registro['hecho_31'] == 1 AND ($registro['otros_sangre_homocisteina'] == '' OR !isset($registro['otros_sangre_homocisteina_nom_anom'])))
+					OR ($registro['hecho_32'] == 1 AND ($registro['otros_perfil_tiroideo'] == '' OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
+					OR ($registro['hecho_33'] == 1 AND ($registro['otros_nivel_b12'] == '' OR !isset($registro['otros_nivel_b12_nom_anom'])))
+					OR ($registro['hecho_34'] == 1 AND ($registro['otros_acido_folico'] == '' OR !isset($registro['otros_acido_folico_nom_anom'])))
+					OR ($registro['hecho_35'] == 1 AND ($registro['otros_hba1c'] == '' OR !isset($registro['otros_hba1c_nom_anom'])))
+					OR ($registro['hecho_36'] == 1 AND ($registro['sifilis'] == '' OR !isset($registro['sifilis_nom_anom']) ))				
 
 					OR $registro['hecho_1'] == '' OR $registro['hecho_2'] == '' OR $registro['hecho_3'] == '' OR $registro['hecho_4'] == ''
 					OR $registro['hecho_5'] == '' OR $registro['hecho_6'] == '' OR $registro['hecho_7'] == '' OR $registro['hecho_8'] == ''
@@ -5348,14 +5717,22 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_laboratorio');
 			$this->Model_Examen_laboratorio->update($registro);
 			$this->auditlib->save_audit("Verifico el formulario de Examen Laboratorio", $registro['subject_id']);			
 			
-			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('examen_laboratorio_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));			
+			/*Actualizar estado en el sujeto*/					
+			if($registro['etapa'] == 1){				
+				$this->Model_Subject->update(array('examen_laboratorio_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));			
+			}
+			elseif($registro['etapa'] == 5){				
+				$this->Model_Subject->update(array('examen_laboratorio_5_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));			
+			}
+			elseif($registro['etapa'] == 6){				
+				$this->Model_Subject->update(array('examen_laboratorio_6_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));			
+			}
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -5378,14 +5755,22 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_laboratorio');
 			$this->Model_Examen_laboratorio->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario de Examen Laboratorio", $registro['subject_id']);			
 			
 			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('examen_laboratorio_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));			
+			if($registro['etapa'] == 1){				
+				$this->Model_Subject->update(array('examen_laboratorio_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));			
+			}
+			elseif($registro['etapa'] == 5){				
+				$this->Model_Subject->update(array('examen_laboratorio_5_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));			
+			}
+			elseif($registro['etapa'] == 6){				
+				$this->Model_Subject->update(array('examen_laboratorio_6_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));			
+			}			
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -5408,14 +5793,22 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_laboratorio');
 			$this->Model_Examen_laboratorio->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario de Examen Laboratorio", $registro['subject_id']);			
 			
-			/*Actualizar estado en el sujeto*/
-			$this->Model_Subject->update(array('examen_laboratorio_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));			
+			/*Actualizar estado en el sujeto*/					
+			if($registro['etapa'] == 1){				
+				$this->Model_Subject->update(array('examen_laboratorio_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));			
+			}
+			elseif($registro['etapa'] == 5){				
+				$this->Model_Subject->update(array('examen_laboratorio_5_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));			
+			}
+			elseif($registro['etapa'] == 6){				
+				$this->Model_Subject->update(array('examen_laboratorio_6_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));			
+			}
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}
@@ -5517,6 +5910,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('tmt_a_audit', $data['list'][0]->id);
+
 		$this->load->view('template', $data);
 	}
 
@@ -5601,7 +5996,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Tmt_a');
 			$this->Model_Tmt_a->update($registro);
@@ -5643,7 +6038,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Tmt_a');
 			$this->Model_Tmt_a->update($registro);
@@ -5685,7 +6080,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Tmt_a');
 			$this->Model_Tmt_a->update($registro);
@@ -5804,6 +6199,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('tmt_b_audit', $data['list'][0]->id);
+
 		$this->load->view('template', $data);
 	}
 
@@ -5887,7 +6284,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Tmt_b');
 			$this->Model_Tmt_b->update($registro);
@@ -5929,7 +6326,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Tmt_b');
 			$this->Model_Tmt_b->update($registro);
@@ -5971,7 +6368,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Tmt_b');
 			$this->Model_Tmt_b->update($registro);
@@ -6096,6 +6493,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('eq_5d_5l_audit', $data['list'][0]->id);
+
 		$this->load->view('template', $data);
 	}
 
@@ -6187,7 +6586,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Eq_5d_5l');
 			$this->Model_Eq_5d_5l->update($registro);
@@ -6232,7 +6631,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Eq_5d_5l');
 			$this->Model_Eq_5d_5l->update($registro);
@@ -6277,7 +6676,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Eq_5d_5l');
 			$this->Model_Eq_5d_5l->update($registro);
@@ -6399,41 +6798,87 @@ class Subject extends CI_Controller {
 			if($registro['realizado'] == 1 
 				AND (empty($registro['fecha']) OR $registro['puntaje_total_npi'] == ''  OR $registro['puntaje_total_para_angustia'] == '' 
 				 OR (isset($registro['delirio_status']) AND $registro['delirio_status'] == '' )
+				 OR (isset($registro['delirio_status']) AND $registro['delirio_status'] == '1'
+				 		AND isset($registro['delirio_frecuencia']) AND $registro['delirio_frecuencia'] == ''
+				 		AND isset($registro['delirio_severidad']) AND $registro['delirio_severidad'] == '' 
+				 		AND isset($registro['delirio_angustia']) AND $registro['delirio_angustia'] == '' 
+				 	)
+
 				 OR (isset($registro['alucinaciones_status']) AND $registro['alucinaciones_status'] == '' )
+				 OR (isset($registro['alucinaciones_status']) AND $registro['alucinaciones_status'] == '1' 
+				 		AND isset($registro['alucinaciones_frecuencia']) AND $registro['alucinaciones_frecuencia'] == ''
+				 		AND isset($registro['alucinaciones_severidad']) AND $registro['alucinaciones_severidad'] == '' 
+				 		AND isset($registro['alucinaciones_angustia']) AND $registro['alucinaciones_angustia'] == '' 
+				 	)
+
 				 OR (isset($registro['agitacion_status']) AND $registro['agitacion_status'] == '' )
+				 OR (isset($registro['agitacion_status']) AND $registro['agitacion_status'] == '1'
+				 		AND isset($registro['agitacion_frecuencia']) AND $registro['agitacion_frecuencia'] == ''
+				 		AND isset($registro['agitacion_severidad']) AND $registro['agitacion_severidad'] == ''
+				 		AND isset($registro['agitacion_angustia']) AND $registro['agitacion_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['depresion_status']) AND $registro['depresion_status'] == '' )
+				 OR (isset($registro['depresion_status']) AND $registro['depresion_status'] == '1'
+				 		AND isset($registro['depresion_frecuencia']) AND $registro['depresion_frecuencia'] == ''
+				 		AND isset($registro['depresion_severidad']) AND $registro['depresion_severidad'] == ''
+				 		AND isset($registro['depresion_angustia']) AND $registro['depresion_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['ansiedad_status']) AND $registro['ansiedad_status'] == '' )
+				 OR (isset($registro['ansiedad_status']) AND $registro['ansiedad_status'] == '1'
+				 		AND isset($registro['ansiedad_frecuencia']) AND $registro['ansiedad_frecuencia'] == ''
+				 		AND isset($registro['ansiedad_severidad']) AND $registro['ansiedad_severidad'] == '' 
+				 		AND isset($registro['ansiedad_angustia']) AND $registro['ansiedad_angustia'] == '' 
+				 	)
+
 				 OR (isset($registro['elacion_status']) AND $registro['elacion_status'] == '' )
+				 OR (isset($registro['elacion_status']) AND $registro['elacion_status'] == '1'
+				 		AND isset($registro['elacion_frecuencia']) AND $registro['elacion_frecuencia'] == ''
+				 		AND isset($registro['elacion_severidad']) AND $registro['elacion_severidad'] == ''
+				 		AND isset($registro['elacion_angustia']) AND $registro['elacion_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['apatia_status']) AND $registro['apatia_status'] == '' )
+				 OR (isset($registro['apatia_status']) AND $registro['apatia_status'] == '1'
+				 		AND isset($registro['apatia_frecuencia']) AND $registro['apatia_frecuencia'] == ''
+				 		AND isset($registro['apatia_severidad']) AND $registro['apatia_severidad'] == '' 
+				 		AND isset($registro['apatia_angustia']) AND $registro['apatia_angustia'] == '' 
+				 	)
+
 				 OR (isset($registro['deshinibicion_status']) AND $registro['deshinibicion_status'] == '' )
+				 OR (isset($registro['deshinibicion_status']) AND $registro['deshinibicion_status'] == '1' 
+				 		AND isset($registro['deshinibicion_frecuencia']) AND $registro['deshinibicion_frecuencia'] == ''
+				 		AND isset($registro['deshinibicion_severidad']) AND $registro['deshinibicion_severidad'] == '' 
+				 		AND isset($registro['deshinibicion_angustia']) AND $registro['deshinibicion_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['irritabilidad_status']) AND $registro['irritabilidad_status'] == '' )
+				 OR (isset($registro['irritabilidad_status']) AND $registro['irritabilidad_status'] == '1'
+				 		AND isset($registro['irritabilidad_frecuencia']) AND $registro['irritabilidad_frecuencia'] == ''
+				 		AND isset($registro['irritabilidad_severidad']) AND $registro['irritabilidad_severidad'] == ''
+				 		AND isset($registro['irritabilidad_angustia']) AND $registro['irritabilidad_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['conducta_status']) AND $registro['conducta_status'] == '' )
+				 OR (isset($registro['conducta_status']) AND $registro['conducta_status'] == '1' 
+				 		AND isset($registro['conducta_frecuencia']) AND $registro['conducta_frecuencia'] == '' 
+				 		AND isset($registro['conducta_severidad']) AND $registro['conducta_severidad'] == '' 
+				 		AND isset($registro['conducta_angustia']) AND $registro['conducta_angustia'] == '' 
+				 	)
+				 
 				 OR (isset($registro['trastornos_sueno_status']) AND $registro['trastornos_sueno_status'] == '' )
+				 OR (isset($registro['trastornos_sueno_status']) AND $registro['trastornos_sueno_status'] == '1'
+				 		AND isset($registro['trastornos_sueno_frecuencia']) AND $registro['trastornos_sueno_frecuencia'] == ''
+				 		AND isset($registro['trastornos_sueno_severidad']) AND $registro['trastornos_sueno_severidad'] == '' 
+				 		AND isset($registro['trastornos_sueno_angustia']) AND $registro['trastornos_sueno_angustia'] == '' 
+				 	)
 				 OR (isset($registro['trastornos_apetito_status']) AND $registro['trastornos_apetito_status'] == '')
-				 OR (isset($registro['delirio_frecuencia']) AND $registro['delirio_frecuencia'] == '') 
-				 OR (isset($registro['delirio_severidad']) AND $registro['delirio_severidad'] == '' )
-				 OR (isset($registro['alucinaciones_frecuencia']) AND $registro['alucinaciones_frecuencia'] == '')
-				 OR (isset($registro['alucinaciones_severidad']) AND $registro['alucinaciones_severidad'] == '' )
-				 OR (isset($registro['agitacion_frecuencia']) AND $registro['agitacion_frecuencia'] == '' )
-				 OR (isset($registro['agitacion_severidad']) AND $registro['agitacion_severidad'] == '')
-				 OR (isset($registro['depresion_frecuencia']) AND $registro['depresion_frecuencia'] == '' )
-				 OR (isset($registro['depresion_severidad']) AND $registro['depresion_severidad'] == '')
-				 OR (isset($registro['ansiedad_frecuencia']) AND $registro['ansiedad_frecuencia'] == '')
-				 OR (isset($registro['ansiedad_severidad']) AND $registro['ansiedad_severidad'] == '' )
-				 OR (isset($registro['elacion_frecuencia']) AND $registro['elacion_frecuencia'] == '' )
-				 OR (isset($registro['elacion_severidad']) AND $registro['elacion_severidad'] == '')
-				 OR (isset($registro['apatia_frecuencia']) AND $registro['apatia_frecuencia'] == '' )
-				 OR (isset($registro['apatia_severidad']) AND $registro['apatia_severidad'] == '' )
-				 OR (isset($registro['deshinibicion_frecuencia']) AND $registro['deshinibicion_frecuencia'] == '')
-				 OR (isset($registro['deshinibicion_severidad']) AND $registro['deshinibicion_severidad'] == '' )
-				 OR (isset($registro['irritabilidad_frecuencia']) AND $registro['irritabilidad_frecuencia'] == '' )
-				 OR (isset($registro['irritabilidad_severidad']) AND $registro['irritabilidad_severidad'] == '')
-				 OR (isset($registro['conducta_frecuencia']) AND $registro['conducta_frecuencia'] == '' )
-				 OR (isset($registro['conducta_severidad']) AND $registro['conducta_severidad'] == '' )
-				 OR (isset($registro['trastornos_sueno_frecuencia']) AND $registro['trastornos_sueno_frecuencia'] == '')
-				 OR (isset($registro['trastornos_sueno_severidad']) AND $registro['trastornos_sueno_severidad'] == '' )
-				 OR (isset($registro['trastornos_apetito_frecuencia']) AND $registro['trastornos_apetito_frecuencia'] == '' )
-				 OR (isset($registro['trastornos_apetito_severidad']) AND $registro['trastornos_apetito_severidad'] == '')
+				 OR (isset($registro['trastornos_apetito_status']) AND $registro['trastornos_apetito_status'] == '1'
+				 		AND isset($registro['trastornos_apetito_frecuencia']) AND $registro['trastornos_apetito_frecuencia'] == '' 
+				 		AND isset($registro['trastornos_apetito_severidad']) AND $registro['trastornos_apetito_severidad'] == ''
+				 		AND isset($registro['trastornos_apetito_angustia']) AND $registro['trastornos_apetito_angustia'] == ''
+				 	)
 				)
 			){
 				$estado = 'Error';
@@ -6500,6 +6945,8 @@ class Subject extends CI_Controller {
 		}else{
 			$data['campos_query'] = array();
 		}
+
+		$data['auditoria'] = $this->auditlib->audit('npi_audit', $data['list'][0]->id);
 
 		$this->load->view('template2', $data);
 	}
@@ -6584,41 +7031,87 @@ class Subject extends CI_Controller {
 			if($registro['realizado'] == 1 
 				AND (empty($registro['fecha']) OR $registro['puntaje_total_npi'] == ''  OR $registro['puntaje_total_para_angustia'] == '' 
 				 OR (isset($registro['delirio_status']) AND $registro['delirio_status'] == '' )
+				 OR (isset($registro['delirio_status']) AND $registro['delirio_status'] == '1'
+				 		AND isset($registro['delirio_frecuencia']) AND $registro['delirio_frecuencia'] == ''
+				 		AND isset($registro['delirio_severidad']) AND $registro['delirio_severidad'] == '' 
+				 		AND isset($registro['delirio_angustia']) AND $registro['delirio_angustia'] == '' 
+				 	)
+
 				 OR (isset($registro['alucinaciones_status']) AND $registro['alucinaciones_status'] == '' )
+				 OR (isset($registro['alucinaciones_status']) AND $registro['alucinaciones_status'] == '1' 
+				 		AND isset($registro['alucinaciones_frecuencia']) AND $registro['alucinaciones_frecuencia'] == ''
+				 		AND isset($registro['alucinaciones_severidad']) AND $registro['alucinaciones_severidad'] == '' 
+				 		AND isset($registro['alucinaciones_angustia']) AND $registro['alucinaciones_angustia'] == '' 
+				 	)
+
 				 OR (isset($registro['agitacion_status']) AND $registro['agitacion_status'] == '' )
+				 OR (isset($registro['agitacion_status']) AND $registro['agitacion_status'] == '1'
+				 		AND isset($registro['agitacion_frecuencia']) AND $registro['agitacion_frecuencia'] == ''
+				 		AND isset($registro['agitacion_severidad']) AND $registro['agitacion_severidad'] == ''
+				 		AND isset($registro['agitacion_angustia']) AND $registro['agitacion_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['depresion_status']) AND $registro['depresion_status'] == '' )
+				 OR (isset($registro['depresion_status']) AND $registro['depresion_status'] == '1'
+				 		AND isset($registro['depresion_frecuencia']) AND $registro['depresion_frecuencia'] == ''
+				 		AND isset($registro['depresion_severidad']) AND $registro['depresion_severidad'] == ''
+				 		AND isset($registro['depresion_angustia']) AND $registro['depresion_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['ansiedad_status']) AND $registro['ansiedad_status'] == '' )
+				 OR (isset($registro['ansiedad_status']) AND $registro['ansiedad_status'] == '1'
+				 		AND isset($registro['ansiedad_frecuencia']) AND $registro['ansiedad_frecuencia'] == ''
+				 		AND isset($registro['ansiedad_severidad']) AND $registro['ansiedad_severidad'] == '' 
+				 		AND isset($registro['ansiedad_angustia']) AND $registro['ansiedad_angustia'] == '' 
+				 	)
+
 				 OR (isset($registro['elacion_status']) AND $registro['elacion_status'] == '' )
+				 OR (isset($registro['elacion_status']) AND $registro['elacion_status'] == '1'
+				 		AND isset($registro['elacion_frecuencia']) AND $registro['elacion_frecuencia'] == ''
+				 		AND isset($registro['elacion_severidad']) AND $registro['elacion_severidad'] == ''
+				 		AND isset($registro['elacion_angustia']) AND $registro['elacion_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['apatia_status']) AND $registro['apatia_status'] == '' )
+				 OR (isset($registro['apatia_status']) AND $registro['apatia_status'] == '1'
+				 		AND isset($registro['apatia_frecuencia']) AND $registro['apatia_frecuencia'] == ''
+				 		AND isset($registro['apatia_severidad']) AND $registro['apatia_severidad'] == '' 
+				 		AND isset($registro['apatia_angustia']) AND $registro['apatia_angustia'] == '' 
+				 	)
+
 				 OR (isset($registro['deshinibicion_status']) AND $registro['deshinibicion_status'] == '' )
+				 OR (isset($registro['deshinibicion_status']) AND $registro['deshinibicion_status'] == '1' 
+				 		AND isset($registro['deshinibicion_frecuencia']) AND $registro['deshinibicion_frecuencia'] == ''
+				 		AND isset($registro['deshinibicion_severidad']) AND $registro['deshinibicion_severidad'] == '' 
+				 		AND isset($registro['deshinibicion_angustia']) AND $registro['deshinibicion_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['irritabilidad_status']) AND $registro['irritabilidad_status'] == '' )
+				 OR (isset($registro['irritabilidad_status']) AND $registro['irritabilidad_status'] == '1'
+				 		AND isset($registro['irritabilidad_frecuencia']) AND $registro['irritabilidad_frecuencia'] == ''
+				 		AND isset($registro['irritabilidad_severidad']) AND $registro['irritabilidad_severidad'] == ''
+				 		AND isset($registro['irritabilidad_angustia']) AND $registro['irritabilidad_angustia'] == ''
+				 	)
+
 				 OR (isset($registro['conducta_status']) AND $registro['conducta_status'] == '' )
+				 OR (isset($registro['conducta_status']) AND $registro['conducta_status'] == '1' 
+				 		AND isset($registro['conducta_frecuencia']) AND $registro['conducta_frecuencia'] == '' 
+				 		AND isset($registro['conducta_severidad']) AND $registro['conducta_severidad'] == '' 
+				 		AND isset($registro['conducta_angustia']) AND $registro['conducta_angustia'] == '' 
+				 	)
+				 
 				 OR (isset($registro['trastornos_sueno_status']) AND $registro['trastornos_sueno_status'] == '' )
+				 OR (isset($registro['trastornos_sueno_status']) AND $registro['trastornos_sueno_status'] == '1'
+				 		AND isset($registro['trastornos_sueno_frecuencia']) AND $registro['trastornos_sueno_frecuencia'] == ''
+				 		AND isset($registro['trastornos_sueno_severidad']) AND $registro['trastornos_sueno_severidad'] == '' 
+				 		AND isset($registro['trastornos_sueno_angustia']) AND $registro['trastornos_sueno_angustia'] == '' 
+				 	)
 				 OR (isset($registro['trastornos_apetito_status']) AND $registro['trastornos_apetito_status'] == '')
-				 OR (isset($registro['delirio_frecuencia']) AND $registro['delirio_frecuencia'] == '') 
-				 OR (isset($registro['delirio_severidad']) AND $registro['delirio_severidad'] == '' )
-				 OR (isset($registro['alucinaciones_frecuencia']) AND $registro['alucinaciones_frecuencia'] == '')
-				 OR (isset($registro['alucinaciones_severidad']) AND $registro['alucinaciones_severidad'] == '' )
-				 OR (isset($registro['agitacion_frecuencia']) AND $registro['agitacion_frecuencia'] == '' )
-				 OR (isset($registro['agitacion_severidad']) AND $registro['agitacion_severidad'] == '')
-				 OR (isset($registro['depresion_frecuencia']) AND $registro['depresion_frecuencia'] == '' )
-				 OR (isset($registro['depresion_severidad']) AND $registro['depresion_severidad'] == '')
-				 OR (isset($registro['ansiedad_frecuencia']) AND $registro['ansiedad_frecuencia'] == '')
-				 OR (isset($registro['ansiedad_severidad']) AND $registro['ansiedad_severidad'] == '' )
-				 OR (isset($registro['elacion_frecuencia']) AND $registro['elacion_frecuencia'] == '' )
-				 OR (isset($registro['elacion_severidad']) AND $registro['elacion_severidad'] == '')
-				 OR (isset($registro['apatia_frecuencia']) AND $registro['apatia_frecuencia'] == '' )
-				 OR (isset($registro['apatia_severidad']) AND $registro['apatia_severidad'] == '' )
-				 OR (isset($registro['deshinibicion_frecuencia']) AND $registro['deshinibicion_frecuencia'] == '')
-				 OR (isset($registro['deshinibicion_severidad']) AND $registro['deshinibicion_severidad'] == '' )
-				 OR (isset($registro['irritabilidad_frecuencia']) AND $registro['irritabilidad_frecuencia'] == '' )
-				 OR (isset($registro['irritabilidad_severidad']) AND $registro['irritabilidad_severidad'] == '')
-				 OR (isset($registro['conducta_frecuencia']) AND $registro['conducta_frecuencia'] == '' )
-				 OR (isset($registro['conducta_severidad']) AND $registro['conducta_severidad'] == '' )
-				 OR (isset($registro['trastornos_sueno_frecuencia']) AND $registro['trastornos_sueno_frecuencia'] == '')
-				 OR (isset($registro['trastornos_sueno_severidad']) AND $registro['trastornos_sueno_severidad'] == '' )
-				 OR (isset($registro['trastornos_apetito_frecuencia']) AND $registro['trastornos_apetito_frecuencia'] == '' )
-				 OR (isset($registro['trastornos_apetito_severidad']) AND $registro['trastornos_apetito_severidad'] == '')
+				 OR (isset($registro['trastornos_apetito_status']) AND $registro['trastornos_apetito_status'] == '1'
+				 		AND isset($registro['trastornos_apetito_frecuencia']) AND $registro['trastornos_apetito_frecuencia'] == '' 
+				 		AND isset($registro['trastornos_apetito_severidad']) AND $registro['trastornos_apetito_severidad'] == ''
+				 		AND isset($registro['trastornos_apetito_angustia']) AND $registro['trastornos_apetito_angustia'] == ''
+				 	)
 				)
 			){
 				$estado = 'Error';
@@ -6681,7 +7174,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Npi');
 			$this->Model_Npi->update($registro);
@@ -6723,7 +7216,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Npi');
 			$this->Model_Npi->update($registro);
@@ -6765,7 +7258,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Npi');
 			$this->Model_Npi->update($registro);
@@ -6911,6 +7404,8 @@ class Subject extends CI_Controller {
 				$data['campos_query'] = array();
 			}
 
+			$data['auditoria'] = $this->auditlib->audit('apatia_audit', $data['list'][0]->id);
+
 			$this->load->view('template', $data);
 	}
 
@@ -7022,7 +7517,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Apatia');
 			$this->Model_Apatia->update($registro);
@@ -7067,7 +7562,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Apatia');
 			$this->Model_Apatia->update($registro);
@@ -7111,7 +7606,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Apatia');
 			$this->Model_Apatia->update($registro);
@@ -7189,7 +7684,7 @@ class Subject extends CI_Controller {
 							// OR empty($registro['tomografia_comentario'])
 						)
 					)
-					OR !isset($registro['se_solicita_tomografia'])
+					//OR !isset($registro['se_solicita_tomografia'])
 				)
 				OR
 				$registro['etapa'] == 2
@@ -7231,7 +7726,7 @@ class Subject extends CI_Controller {
 			if(!empty($registro['resonancia_fecha'])){
 				$registro['resonancia_fecha'] = $this->convertirFecha($registro['resonancia_fecha']);
 			}
-			if(!empty($registro['version_clinica_fecha'])){
+			if(!empty($registro['tomografia_fecha'])){
 				$registro['tomografia_fecha'] = $this->convertirFecha($registro['tomografia_fecha']);
 			}
 			
@@ -7274,6 +7769,8 @@ class Subject extends CI_Controller {
 		}else{
 			$data['campos_query'] = array();
 		}
+
+		$data['auditoria'] = $this->auditlib->audit('rnm_audit', $data['list'][0]->id);
 
 		$this->load->view('template', $data);
 	}
@@ -7320,7 +7817,7 @@ class Subject extends CI_Controller {
 							// OR empty($registro['tomografia_comentario'])
 						)
 					)
-					OR !isset($registro['se_solicita_tomografia'])
+					//OR !isset($registro['se_solicita_tomografia'])
 				)
 				OR
 				$registro['etapa'] == 2
@@ -7361,7 +7858,7 @@ class Subject extends CI_Controller {
 			if(!empty($registro['resonancia_fecha'])){
 				$registro['resonancia_fecha'] = $this->convertirFecha($registro['resonancia_fecha']);
 			}
-			if(!empty($registro['version_clinica_fecha'])){
+			if(!empty($registro['tomografia_fecha'])){
 				$registro['tomografia_fecha'] = $this->convertirFecha($registro['tomografia_fecha']);
 			}
 			$registro['status'] = $estado;			
@@ -7398,14 +7895,18 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Rnm');
 			$this->Model_Rnm->update($registro);
 			$this->auditlib->save_audit("Verifico el formulario de RNM", $registro['subject_id']);			
 			
-			
-			$this->Model_Subject->update(array('rnm_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			if($registro['etapa'] == 2){
+				$this->Model_Subject->update(array('rnm_2_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
+			else{
+				$this->Model_Subject->update(array('rnm_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			}
 			
 
 			redirect('subject/grid/'.$registro['subject_id'] ."/". $registro['etapa']);
@@ -7428,13 +7929,18 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Rnm');
 			$this->Model_Rnm->update($registro);
 			$this->auditlib->save_audit("Firmo el formulario de RNM", $registro['subject_id']);			
 			
-			$this->Model_Subject->update(array('rnm_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			if($registro['etapa'] == 2){
+				$this->Model_Subject->update(array('rnm_2_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			}
+			else{
+				$this->Model_Subject->update(array('rnm_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));	
+			}
 			
 
 			redirect('subject/grid/'.$registro['subject_id'] ."/". $registro['etapa']);
@@ -7457,14 +7963,19 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Rnm');
 			$this->Model_Rnm->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario de RNM", $registro['subject_id']);			
 			
-			/*Actualizar estado en el sujeto*/						
-			$this->Model_Subject->update(array('rnm_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));			
+			/*Actualizar estado en el sujeto*/
+			if($registro['etapa'] == 2){						
+				$this->Model_Subject->update(array('rnm_2_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));			
+			}
+			else{
+				$this->Model_Subject->update(array('rnm_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));				
+			}
 
 			redirect('subject/grid/'.$registro['subject_id'] ."/". $registro['etapa']);
 		}
@@ -7677,7 +8188,8 @@ class Subject extends CI_Controller {
 		$data['list'] = $this->Model_Historial_medico->allWhereArray(array('subject_id'=>$subject_id, 'etapa'=>$etapa));
 
 		/*querys*/
-		$data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Historia Medica"));
+		// $data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Historia Medica"));
+		$data['auditoria'] = $this->auditlib->audit('historial_medico_audit', $data['list'][0]->id);
 
 		$this->load->view('template2', $data);
 	}
@@ -7849,7 +8361,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
@@ -7886,7 +8398,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
@@ -7923,7 +8435,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
@@ -8168,6 +8680,10 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+
+		$data['auditoria'] = $this->auditlib->audit('adas_audit', $data['list'][0]->id);
+
+
 		$this->load->view('template', $data);
 	}
 
@@ -8310,7 +8826,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Adas');
 			$this->Model_Adas->update($registro);
@@ -8352,7 +8868,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Adas');
 			$this->Model_Adas->update($registro);
@@ -8394,7 +8910,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Adas');
 			$this->Model_Adas->update($registro);
@@ -8540,6 +9056,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('restas_audit', $data['list'][0]->id);
+
 		$this->load->view('template', $data);
 	}
 
@@ -8651,7 +9169,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Restas');
 			$this->Model_Restas->update($registro);
@@ -8693,7 +9211,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Restas');
 			$this->Model_Restas->update($registro);
@@ -8735,7 +9253,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Restas');
 			$this->Model_Restas->update($registro);
@@ -8954,7 +9472,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Signos_vitales_adicional');
 			$this->Model_Signos_vitales_adicional->update($registro);
@@ -8982,7 +9500,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Signos_vitales_adicional');
 			$this->Model_Signos_vitales_adicional->update($registro);
@@ -9010,7 +9528,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Signos_vitales_adicional');
 			$this->Model_Signos_vitales_adicional->update($registro);
@@ -9233,7 +9751,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Ecg_adicional');
 			$this->Model_Ecg_adicional->update($registro);
@@ -9262,7 +9780,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Ecg_adicional');
 			$this->Model_Ecg_adicional->update($registro);
@@ -9290,7 +9808,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Ecg_adicional');
 			$this->Model_Ecg_adicional->update($registro);
@@ -9581,7 +10099,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_fisico_adicional');
 			$this->Model_Examen_fisico_adicional->update($registro);
@@ -9609,7 +10127,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_fisico_adicional');
 			$this->Model_Examen_fisico_adicional->update($registro);
@@ -9637,7 +10155,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_fisico_adicional');
 			$this->Model_Examen_fisico_adicional->update($registro);
@@ -9878,7 +10396,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_neurologico_adicional');
 			$this->Model_Examen_neurologico_adicional->update($registro);
@@ -9906,7 +10424,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_neurologico_adicional');
 			$this->Model_Examen_neurologico_adicional->update($registro);
@@ -9934,7 +10452,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_neurologico_adicional');
 			$this->Model_Examen_neurologico_adicional->update($registro);
@@ -10434,7 +10952,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
-			$registro['verify_date'] = date('Y-m-d');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_laboratorio_adicional');
 			$this->Model_Examen_laboratorio_adicional->update($registro);
@@ -10461,7 +10979,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_laboratorio_adicional');
 			$this->Model_Examen_laboratorio_adicional->update($registro);
@@ -10488,7 +11006,7 @@ class Subject extends CI_Controller {
 			$registro['status'] = 'Form Approved and Locked';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['lock_user'] = $this->session->userdata('usuario');
-			$registro['lock_date'] = date('Y-m-d');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Examen_laboratorio_adicional');
 			$this->Model_Examen_laboratorio_adicional->update($registro);

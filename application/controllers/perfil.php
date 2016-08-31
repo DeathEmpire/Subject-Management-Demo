@@ -117,4 +117,75 @@ class Perfil extends CI_Controller {
 		$this->load->view('template2', $data);
 	}
 	
+	public function actualizarOpciones(){
+		//tomar cada una de las variables y agregarlas a un arreglo separado por categoria y perfil, luego actualizar cada registro.
+		//validar que si no tenia permiso anteriormente este se inserte sino solo se actualice.
+
+		$v = $this->input->post();
+
+		
+
+		//agregamos opciones al perfil
+		if($v['metodo'] == 'agregar'){
+
+			//primero ver si existe el permiso en ese controlador para el perfil.
+			$this->load->model("Model_Opciones_Perfil");
+			$opciones = $this->Model_Opciones_Perfil->allWhere(array('controller'=>$v['controller'], 'role'=>$v['perfil']));
+
+			if(isset($opciones) AND !empty($opciones)){
+				//ya existe el permiso para ese controlador y perfil por lo que se debe actualizar
+				$permisos = $opciones[0]->actions;
+				$permisos .= ",". $v['actions'];
+
+				$registro = array();
+
+				$registro['actions'] = $permisos;
+				$registro['id'] = $opciones[0]->id;
+				$registro['updated'] = date('Y-m-d H:i:s');
+
+				$this->Model_Opciones_Perfil->update($registro);
+			}		
+			else{
+				//permiso nuevo se debe crear
+				$registro = array();
+
+				$registro['controller'] = $v['controller'];
+				$registro['actions'] = $v['actions'];
+				$registro['role'] = $v['perfil'];
+				$registro['created'] = date('Y-m-d H:i:s');
+				$registro['updated'] = date('Y-m-d H:i:s');
+
+				$this->Model_Opciones_Perfil->insert($registro);
+			}
+		}
+		//eliminamos opciones del perfil
+		else{
+			$this->load->model("Model_Opciones_Perfil");
+			$opciones = $this->Model_Opciones_Perfil->allWhere(array('controller'=>$v['controller'], 'role'=>$v['perfil']));
+
+			if(isset($opciones) AND !empty($opciones)){
+				$permisos = explode(",", $opciones[0]->actions);
+				$sacar = explode(",", $v['actions']);
+
+				for($i=0;$i<count($permisos);$i++){
+
+					if(in_array($permisos[$i], $sacar))
+					{
+						unset($permisos[$i]);
+					}
+				}
+
+				$registro = array();
+
+				$registro['actions'] = implode(",", $permisos);
+				$registro['id'] = $opciones[0]->id;
+				$registro['updated'] = date('Y-m-d H:i:s');
+
+				$this->Model_Opciones_Perfil->update($registro);
+			}
+			else{
+				//error no se encontro el permiso para ese perfil
+			}
+		}
+	}
 }

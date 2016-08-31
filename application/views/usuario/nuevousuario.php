@@ -18,8 +18,8 @@ switch(date("m")){
 }
 ?>
 Con fecha: <?= date("d"); ?> de <?= $nom_mes; ?> del <?= date("Y");?> a las <?= date("H:i"); ?><br />&nbsp;<br />
-Se ha creado un nuevo usuario en IWRS Estudio Dentoxol<br />&nbsp;<br />
-Para ingresar ingrese a: <a href="<?= $this->config->item('base_url');?>">IWRS</a><br />
+Se ha creado un nuevo usuario para el estudio ICC<br />&nbsp;<br />
+Para ingresar ingrese a: <a href="<?= $this->config->item('base_url');?>">ICC</a><br />
 Usuario: <?= $usuario; ?><br />
 Clave: <?= $clave; ?><br />
 Al ingresar debera cambiar su clave.<br />

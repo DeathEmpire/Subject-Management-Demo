@@ -2,28 +2,30 @@
 	#ui-datepicker-div { display: none; }
 </style>
 <script type="text/javascript">
-
-
-
 $(function(){
-	$("#tomografia_fecha, #resonancia_fecha").datepicker({dateFormat: 'dd/mm/yy'});	
+	$("#tomografia_fecha, #resonancia_fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
 	$("input[name=tomografia]").change(function(){
 		if($(this).val() == 0){
 			$("#tomografia_fecha").attr('readonly','readonly');
 			$("#tomografia_fecha").attr('disabled','disabled');
 			$("#tomografia_comentario").attr('readonly','readonly');			
+			$("#tomografia_fecha").val('');
+			$("#tomografia_comentario").val('');
 
 		}else{
 			$("#tomografia_fecha").removeAttr('readonly');
 			$("#tomografia_fecha").removeAttr('disabled');
 			$("#tomografia_comentario").removeAttr('readonly');
+
 		}
 	});
 	if($("input[name=tomografia]:checked").val() == 0){
 		$("#tomografia_fecha").attr('readonly','readonly');
 		$("#tomografia_fecha").attr('disabled','disabled');
 		$("#tomografia_comentario").attr('readonly','readonly');			
+		$("#tomografia_fecha").val('');
+		$("#tomografia_comentario").val('');
 
 	}else{
 		$("#tomografia_fecha").removeAttr('readonly');
@@ -35,7 +37,9 @@ $(function(){
 		if($(this).val() == 0){
 			$("#resonancia_fecha").attr('readonly','readonly');
 			$("#resonancia_fecha").attr('disabled','disabled');
-			$("#resonancia_comentario").attr('readonly','readonly');			
+			$("#resonancia_comentario").attr('readonly','readonly');	
+			$("#resonancia_fecha").val('');
+			$("#resonancia_comentario").val('');		
 
 		}else{
 			$("#resonancia_fecha").removeAttr('readonly');
@@ -47,13 +51,15 @@ $(function(){
 		$("#resonancia_fecha").attr('readonly','readonly');
 		$("#resonancia_fecha").attr('disabled','disabled');
 		$("#resonancia_comentario").attr('readonly','readonly');			
+		$("#resonancia_fecha").val('');
+			$("#resonancia_comentario").val('');	
 
 	}else{
 		$("#resonancia_fecha").removeAttr('readonly');
 		$("#resonancia_fecha").removeAttr('disabled');
 		$("#resonancia_comentario").removeAttr('readonly');
 	}
-	
+
 	$("#resonancia_fecha, #tomografia_fecha").change(function(){
 
 		var dias = 0;	
@@ -66,17 +72,18 @@ $(function(){
 		var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
 		var fFecha2 = Date.UTC(aFecha2[0],aFecha2[1]-1,aFecha2[2]); 
 		var dif = fFecha2 - fFecha1;
-		var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 		
+		var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
 
 		if(dias >= 365){
-			$('#tr_repetir').hide(); 			
+			$('#tr_repetir').show();
+			$("#tr_se_solicita_tomografia").show();
 			$('#tr_repetir_rnm').hide();
 			$('#tr_repetir_tc').hide();		
 		}
 	});
-
+	
 	$("input[name=realizado]").change(function(){
-		if($(this).val() == 0){
+		if($(this).val() == 1){
 			$("#form_rnm :input").attr('readonly','readonly');
 			$("#form_rnm :input").each(function(){
 				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
@@ -95,7 +102,7 @@ $(function(){
 			});
 		}
 	});
-	if($("input[name=realizado]:checked").val() == 0){
+	if($("input[name=realizado]:checked").val() == 1){
 		$("#form_rnm :input").attr('readonly','readonly');
 		$("#form_rnm :input").each(function(){
 				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
@@ -181,6 +188,14 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
+<div style='display:none;'>
+    <div id='dialog_auditoria'><?= ((isset($auditoria) AND !empty($auditoria)) ? $auditoria : ''); ?></div>
+</div>
+<?php
+    if(isset($auditoria) AND !empty($auditoria)){
+        echo "<div style='text-align:right;'><a id='ver_auditoria' class='btn btn-info colorbox_inline' href='#dialog_auditoria'>Ver Auditoria</a></div>";
+    }
+?>
 <?= form_open('subject/rnm_update', array('class'=>'form-horizontal', 'id'=>'form_rnm')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
@@ -364,6 +379,19 @@ $(function(){
 			<tr id='tr_repetir' style='display:none;'>
 				<td colspan='4'>La fecha es superior a un año atrás, por favor recuerde repetir el examen antes de la visita basal</td>
 			</tr>
+			<?php if($etapa == 1){ ?>
+				<tr id='tr_se_solicita_tomografia' style='display:none;'>
+					<td>Se solicita Tomografía computarizada para el estudio</td>
+					<td>
+						<?= form_radio('se_solicita_tomografia','Si', set_radio('se_solicita_tomografia','Si', (($list[0]->se_solicita_tomografia == 'Si') ? true : false) )); ?> Si
+						<?= form_radio('se_solicita_tomografia','No',set_radio('se_solicita_tomografia','No', (($list[0]->se_solicita_tomografia == 'No') ? true : false))); ?> No	
+						<?= form_radio('se_solicita_tomografia','No Aplica',set_radio('se_solicita_tomografia','No Aplica', (($list[0]->se_solicita_tomografia == 'No Aplica') ? true : false))); ?> No Aplica
+					</td>
+				</tr>
+					
+			<?php } else{ ?>
+				<?= form_hidden('se_solicita_tomografia',''); ?>
+			<?php }?>
 			<tr id='tr_repetir_rnm' style='display:none;'>
 				<td>¿Se solicita una RNM?</td>
 				<td>
@@ -382,19 +410,7 @@ $(function(){
 				<td></td>
 				<td></td>
 			</tr>
-			<?php if($etapa == 1){ ?>
-				<tr>
-					<td>Se solicita Tomografía computarizada para el estudio</td>
-					<td>
-						<?= form_radio('se_solicita_tomografia','Si', set_radio('se_solicita_tomografia','Si', (($list[0]->se_solicita_tomografia == 'Si') ? true : false) )); ?> Si
-						<?= form_radio('se_solicita_tomografia','No',set_radio('se_solicita_tomografia','No', (($list[0]->se_solicita_tomografia == 'No') ? true : false))); ?> No	
-						<?= form_radio('se_solicita_tomografia','No Aplica',set_radio('se_solicita_tomografia','No Aplica', (($list[0]->se_solicita_tomografia == 'No Aplica') ? true : false))); ?> No Aplica
-					</td>
-				</tr>
-					
-			<?php } else{ ?>
-				<?= form_hidden('se_solicita_tomografia',''); ?>
-			<?php }?>
+			
 			<tr>
 				<td colspan='4' style='text-align:center;'>
 					<?php
@@ -409,12 +425,12 @@ $(function(){
 	</table>
 
 <?= form_close(); ?>
-
+<b>Creado por:</b> <?= $list[0]->usuario_creacion;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->created_at));?><br />&nbsp;</br>
 <!-- Verify -->
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($list[0]->verify_user) AND !empty($list[0]->verify_date)){ ?>
 		
-		Formulario aprobado por <?= $list[0]->verify_user;?> el <?= date("d-M-Y",strtotime($list[0]->verify_date));?>
+		Formulario aprobado por <?= $list[0]->verify_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->verify_date));?>
 	
 	<?php
 	}
@@ -446,7 +462,7 @@ $(function(){
 <br /><b>Cierre:</b><br />
 	<?php if(!empty($list[0]->lock_user) AND !empty($list[0]->lock_date)){ ?>
 		
-		Formulario cerrado por <?= $list[0]->lock_user;?> el <?= date("d-M-Y",strtotime($list[0]->lock_date));?>
+		Formulario cerrado por <?= $list[0]->lock_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->lock_date));?>
 	
 	<?php
 	}
@@ -462,7 +478,7 @@ $(function(){
 		<?= form_hidden('current_status', $list[0]->status); ?>
 		<?= form_hidden('etapa', $etapa); ?>
 			
-		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 
@@ -476,7 +492,7 @@ $(function(){
 	<br /><b>Firma:</b><br />
 	<?php if(!empty($list[0]->signature_user) AND !empty($list[0]->signature_date)){ ?>
 		
-		Formulario Firmado por <?= $list[0]->signature_user;?> on <?= date("d-M-Y",strtotime($list[0]->signature_date));?>
+		Formulario Firmado por <?= $list[0]->signature_user;?> el <?= date("d-M-Y H:i:s",strtotime($list[0]->signature_date));?>
 	
 	<?php
 	}

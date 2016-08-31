@@ -385,7 +385,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'examen_laboratorio'){
-
+	    			
 	    		}
 	    		elseif($registro['formulario'] == 'examen_neurologico'){
 	    			$tabla = '<table class="table table-striped table-bordered table-hover">
@@ -423,8 +423,10 @@ class Report extends CI_Controller {
 	    				$tabla .= '<tr>
 	    								<td>'. $r->code .'</td>
 	    								<td>'. $visita .'</td>
-	    								<td>'. (($r->realizado == 1) ? 'Si' : 'No') .'</td>
-	    								<td>'. (($r->fecha != '0000-00-00') ?  date('d/m/Y', strtotime($r->fecha)) : '') .'</td>	    								
+	    								<td>'. (($r->realizado == 1) ? 'Si' : 'No') .'</td>';
+	    				if($r->realizado == 1){
+
+	    					$tabla .= '<td>'. (($r->fecha != '0000-00-00') ?  date('d/m/Y', strtotime($r->fecha)) : '') .'</td>	    								
 	    								<td>'. (($r->nervios_craneanos_normal_anormal == 1) ? 'Normal' : (($r->nervios_craneanos_normal_anormal == 0) ? 'Anormal' : '' )).'</td>
 	    								<td>'. (($r->fuerza_muscular_normal_anormal == 1) ? 'Normal' : (($r->fuerza_muscular_normal_anormal == 0) ? 'Anormal' : '' )).'</td>
 	    								<td>'. (($r->tono_normal_anormal == 1) ? 'Normal' : (($r->tono_normal_anormal == 0) ? 'Anormal' : '' )).'</td>
@@ -436,6 +438,10 @@ class Report extends CI_Controller {
 	    								<td>'. (($r->coordinacion_normal_anormal == 1) ? 'Normal' : (($r->coordinacion_normal_anormal == 0) ? 'Anormal' : '' )).'</td>
 	    								<td>'. (($r->funcion_cerebelosa_normal_anormal == 1) ? 'Normal' : (($r->funcion_cerebelosa_normal_anormal == 0) ? 'Anormal' : '' )).'</td>	    								
 	    							</tr>';
+	    					}
+	    					else{
+	    						$tabla .= '<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+	    					}
 	    			}
 
 	    			$tabla .= '</tbody>
