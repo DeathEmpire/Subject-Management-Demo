@@ -71,7 +71,14 @@ $(function(){
 	</table>
 	<br />	
 	<!-- legend -->
-
+	<div style='display:none;'>
+    <div id='dialog_auditoria'><?= ((isset($auditoria) AND !empty($auditoria)) ? $auditoria : ''); ?></div>
+	</div>
+	<?php
+	    if(isset($auditoria) AND !empty($auditoria)){
+	        echo "<div style='text-align:right;'><a id='ver_auditoria' class='btn btn-info colorbox_inline' href='#dialog_auditoria'>Ver Auditoria</a></div>";
+	    }
+	?>
 	<?= form_open('subject/digito_directo_update', array('class'=>'form-horizontal', 'id'=>'form_digito_directo')); ?>
 		
 		<?= my_validation_errors(validation_errors()); ?>

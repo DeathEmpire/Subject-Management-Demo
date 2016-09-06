@@ -641,15 +641,119 @@ class AuditLib {
                          $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
                                     <thead>
                                         <tr>
-                                            <th rowspan='2'>Realizado</th>
-                                            <th rowspan='2'>Fecha</th>
-
+                                            <th rowspan='3'>Realizado</th>
+                                            <th rowspan='3'>Fecha</th>
+                                            <th colspan='16'>Item - Intento</th>
+                                            <th rowspan='3'>MSDD</th>
+                                            <th rowspan='3'>DOD</th>
+                                            <th rowspan='3'>Ingresado/Modificado Por</th>
+                                            <th rowspan='3'>Fecha Modificacion</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan='2'>1</th>
+                                            <th colspan='2'>2</th>
+                                            <th colspan='2'>3</th>
+                                            <th colspan='2'>4</th>
+                                            <th colspan='2'>5</th>
+                                            <th colspan='2'>6</th>
+                                            <th colspan='2'>7</th>
+                                            <th colspan='2'>8</th>
+                                        </tr>                                        
+                                        <tr>
+                                            <th>9-7</th>
+                                            <th>6-3</th>
+                                            <th>5-8-2</th>
+                                            <th>6-9-4</th>
+                                            <th>7-2-8-6</th>
+                                            <th>6-4-3-9</th>
+                                            <th>4-2-7-3-1</th>
+                                            <th>7-5-8-3-6</th>
+                                            <th>3-9-2-4-8-7</th>
+                                            <th>6-1-9-4-7-3</th>
+                                            <th>4-1-7-9-3-8-6</th>
+                                            <th>6-9-1-7-4-2-8</th>
+                                            <th>3-8-2-9-6-1-7-4</th>
+                                            <th>5-8-1-3-2-6-4-7</th>
+                                            <th>2-7-5-8-6-3-1-9-4</th>                                            
+                                            <th>7-1-3-9-4-2-5-6-8</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_old == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>
+                                        <td>". $value->puntaje_intento_1a_old ."</td>
+                                        <td>". $value->puntaje_intento_1b_old ."</td>
+                                        <td>". $value->puntaje_intento_2a_old ."</td>
+                                        <td>". $value->puntaje_intento_2b_old ."</td>
+                                        <td>". $value->puntaje_intento_3a_old ."</td>
+                                        <td>". $value->puntaje_intento_3b_old ."</td>
+                                        <td>". $value->puntaje_intento_4a_old ."</td>
+                                        <td>". $value->puntaje_intento_4b_old ."</td>
+                                        <td>". $value->puntaje_intento_5a_old ."</td>
+                                        <td>". $value->puntaje_intento_5b_old ."</td>
+                                        <td>". $value->puntaje_intento_6a_old ."</td>
+                                        <td>". $value->puntaje_intento_6b_old ."</td>
+                                        <td>". $value->puntaje_intento_7a_old ."</td>
+                                        <td>". $value->puntaje_intento_7b_old ."</td>
+                                        <td>". $value->puntaje_intento_8a_old ."</td>
+                                        <td>". $value->puntaje_intento_8b_old ."</td> 
+                                        <td>". $value->msdd_old ."</td>
+                                        <td>". $value->puntaje_bruto_old ."</td>
+                                        <td>". $value->usuario_creacion_old ."</td> 
+                                        <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->created_at_old)) : '') ."</td>                                        
+                                    </tr>";
+
+                            $salida .= "<tr>
+                                        <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+                                        <td>". $value->puntaje_intento_1a_new ."</td>
+                                        <td>". $value->puntaje_intento_1b_new ."</td>
+                                        <td>". $value->puntaje_intento_2a_new ."</td>
+                                        <td>". $value->puntaje_intento_2b_new ."</td>
+                                        <td>". $value->puntaje_intento_3a_new ."</td>
+                                        <td>". $value->puntaje_intento_3b_new ."</td>
+                                        <td>". $value->puntaje_intento_4a_new ."</td>
+                                        <td>". $value->puntaje_intento_4b_new ."</td>
+                                        <td>". $value->puntaje_intento_5a_new ."</td>
+                                        <td>". $value->puntaje_intento_5b_new ."</td>
+                                        <td>". $value->puntaje_intento_6a_new ."</td>
+                                        <td>". $value->puntaje_intento_6b_new ."</td>
+                                        <td>". $value->puntaje_intento_7a_new ."</td>
+                                        <td>". $value->puntaje_intento_7b_new ."</td>
+                                        <td>". $value->puntaje_intento_8a_new ."</td>
+                                        <td>". $value->puntaje_intento_8b_new ."</td>
+                                        <td>". $value->msdd_new ."</td>
+                                        <td>". $value->puntaje_bruto_new ."</td>
+                                        <td>". $value->usuario_actualizacion_new ."</td> 
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>                                        
+                                    </tr>";
                     }
                     else{
-
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+                                        <td>". $value->puntaje_intento_1a_new ."</td>
+                                        <td>". $value->puntaje_intento_1b_new ."</td>
+                                        <td>". $value->puntaje_intento_2a_new ."</td>
+                                        <td>". $value->puntaje_intento_2b_new ."</td>
+                                        <td>". $value->puntaje_intento_3a_new ."</td>
+                                        <td>". $value->puntaje_intento_3b_new ."</td>
+                                        <td>". $value->puntaje_intento_4a_new ."</td>
+                                        <td>". $value->puntaje_intento_4b_new ."</td>
+                                        <td>". $value->puntaje_intento_5a_new ."</td>
+                                        <td>". $value->puntaje_intento_5b_new ."</td>
+                                        <td>". $value->puntaje_intento_6a_new ."</td>
+                                        <td>". $value->puntaje_intento_6b_new ."</td>
+                                        <td>". $value->puntaje_intento_7a_new ."</td>
+                                        <td>". $value->puntaje_intento_7b_new ."</td>
+                                        <td>". $value->puntaje_intento_8a_new ."</td>
+                                        <td>". $value->puntaje_intento_8b_new ."</td>
+                                        <td>". $value->msdd_new ."</td>
+                                        <td>". $value->puntaje_bruto_new ."</td> 
+                                        <td>". $value->usuario_actualizacion_new ."</td> 
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>                                        
+                                    </tr>";
                     }
 
                     $contador++;
@@ -787,9 +891,164 @@ class AuditLib {
 
                     if($contador == 0){
                         //encabezado, registro original, primera modificacion
+                         $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
+                                    <thead>
+                                        <tr>
+                                            <th rowspan='2'>Realizado</th>
+                                            <th rowspan='2'>Fecha</th>
+
+                                            <th colspan='2'>Aspecto general</th>
+                                            <th colspan='2'>Estado nutricional</th>
+                                            <th colspan='2'>Piel</th>
+                                            <th colspan='2'>Cabeza</th>
+                                            <th colspan='2'>Ojos</th>
+                                            <th colspan='2'>Nariz</th>
+                                            <th colspan='2'>Oidos</th>
+                                            <th colspan='2'>Boca - Garganta</th>
+                                            <th colspan='2'>Cuello - adenopatías</th>
+                                            <th colspan='2'>Pecho - pulmón</th>
+                                            <th colspan='2'>Cardíaco</th>
+                                            <th colspan='2'>Abdomen</th>
+                                            <th colspan='2'>Muscular - Esquelético</th>
+
+                                            <th rowspan='2'>Ingresado/Modificado Por</th>
+                                            <th rowspan='2'>Fecha modificacion</th>                                            
+                                        </tr>
+                                        <tr>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                            <th>Nom/Anom</th>
+                                            <th>Descripción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+                        $salida .= "<tr>
+                                        <td>". (($value->hallazgo_old) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>
+                                        
+                                        <td>". (($value->aspecto_general_old == 1) ? 'Normal' : (($value->aspecto_general_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->aspecto_general_desc_old ."</td>
+                                        <td>". (($value->estado_nutricional_old == 1) ? 'Normal' : (($value->estado_nutricional_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->estado_nutricional_desc_old ."</td>
+                                        <td>". (($value->piel_old == 1) ? 'Normal' : (($value->piel_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->piel_desc_old ."</td>
+                                        <td>". (($value->cabeza_old == 1) ? 'Normal' : (($value->cabeza_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cabeza_desc_old ."</td>
+                                        <td>". (($value->ojos_old == 1) ? 'Normal' : (($value->ojos_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->ojos_desc_old ."</td>
+                                        <td>". (($value->nariz_old == 1) ? 'Normal' : (($value->nariz_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->nariz_desc_old ."</td>                                        
+                                        <td>". (($value->oidos_old == 1) ? 'Normal' : (($value->oidos_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->oidos_desc_old ."</td>
+                                        <td>". (($value->boca_old == 1) ? 'Normal' : (($value->boca_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->boca_desc_old ."</td>
+                                        <td>". (($value->cuello_old == 1) ? 'Normal' : (($value->cuello_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cuello_desc_old ."</td>
+                                        <td>". (($value->pulmones_old == 1) ? 'Normal' : (($value->pulmones_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->pulmones_desc_old ."</td>
+                                        <td>". (($value->cardiovascular_old == 1) ? 'Normal' : (($value->cardiovascular_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cardiovascular_desc_old ."</td>
+                                        <td>". (($value->abdomen_old == 1) ? 'Normal' : (($value->abdomen_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->abdomen_desc_old ."</td>
+                                        <td>". (($value->muscular_old == 1) ? 'Normal' : (($value->muscular_old == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->muscular_desc_old ."</td>
+
+                                        <td>". $value->usuario_creacion_old ."</td>
+                                        <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->created_at_old)) : '') ."</td>
+                                    </tr>";
+
+                        $salida .= "<tr>
+                                        <td>". (($value->hallazgo_new) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+                                        
+                                        <td>". (($value->aspecto_general_new == 1) ? 'Normal' : (($value->aspecto_general_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->aspecto_general_desc_new ."</td>
+                                        <td>". (($value->estado_nutricional_new == 1) ? 'Normal' : (($value->estado_nutricional_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->estado_nutricional_desc_new ."</td>
+                                        <td>". (($value->piel_new == 1) ? 'Normal' : (($value->piel_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->piel_desc_new ."</td>
+                                        <td>". (($value->cabeza_new == 1) ? 'Normal' : (($value->cabeza_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cabeza_desc_new ."</td>
+                                        <td>". (($value->ojos_new == 1) ? 'Normal' : (($value->ojos_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->ojos_desc_new ."</td>
+                                        <td>". (($value->nariz_new == 1) ? 'Normal' : (($value->nariz_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->nariz_desc_new ."</td>                                        
+                                        <td>". (($value->oidos_new == 1) ? 'Normal' : (($value->oidos_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->oidos_desc_new ."</td>
+                                        <td>". (($value->boca_new == 1) ? 'Normal' : (($value->boca_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->boca_desc_new ."</td>
+                                        <td>". (($value->cuello_new == 1) ? 'Normal' : (($value->cuello_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cuello_desc_new ."</td>
+                                        <td>". (($value->pulmones_new == 1) ? 'Normal' : (($value->pulmones_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->pulmones_desc_new ."</td>
+                                        <td>". (($value->cardiovascular_new == 1) ? 'Normal' : (($value->cardiovascular_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cardiovascular_desc_new ."</td>
+                                        <td>". (($value->abdomen_new == 1) ? 'Normal' : (($value->abdomen_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->abdomen_desc_new ."</td>
+                                        <td>". (($value->muscular_new == 1) ? 'Normal' : (($value->muscular_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->muscular_desc_new ."</td>
+
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                    </tr>";
                     }
                     else{
+                        $salida .= "<tr>
+                                        <td>". (($value->hallazgo_new) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+                                        
+                                        <td>". (($value->aspecto_general_new == 1) ? 'Normal' : (($value->aspecto_general_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->aspecto_general_desc_new ."</td>
+                                        <td>". (($value->estado_nutricional_new == 1) ? 'Normal' : (($value->estado_nutricional_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->estado_nutricional_desc_new ."</td>
+                                        <td>". (($value->piel_new == 1) ? 'Normal' : (($value->piel_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->piel_desc_new ."</td>
+                                        <td>". (($value->cabeza_new == 1) ? 'Normal' : (($value->cabeza_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cabeza_desc_new ."</td>
+                                        <td>". (($value->ojos_new == 1) ? 'Normal' : (($value->ojos_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->ojos_desc_new ."</td>
+                                        <td>". (($value->nariz_new == 1) ? 'Normal' : (($value->nariz_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->nariz_desc_new ."</td>                                        
+                                        <td>". (($value->oidos_new == 1) ? 'Normal' : (($value->oidos_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->oidos_desc_new ."</td>
+                                        <td>". (($value->boca_new == 1) ? 'Normal' : (($value->boca_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->boca_desc_new ."</td>
+                                        <td>". (($value->cuello_new == 1) ? 'Normal' : (($value->cuello_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cuello_desc_new ."</td>
+                                        <td>". (($value->pulmones_new == 1) ? 'Normal' : (($value->pulmones_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->pulmones_desc_new ."</td>
+                                        <td>". (($value->cardiovascular_new == 1) ? 'Normal' : (($value->cardiovascular_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->cardiovascular_desc_new ."</td>
+                                        <td>". (($value->abdomen_new == 1) ? 'Normal' : (($value->abdomen_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->abdomen_desc_new ."</td>
+                                        <td>". (($value->muscular_new == 1) ? 'Normal' : (($value->muscular_new == "0") ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->muscular_desc_new ."</td>
 
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                    </tr>";
                     }
 
                     $contador++;
@@ -798,6 +1057,16 @@ class AuditLib {
 
                     if($contador == 0){
                         //encabezado, registro original, primera modificacion
+                        $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
+                                    <thead>
+                                        <tr>
+                                            <th>Realizado</th>
+                                            <th>Fecha</th>
+                                            <th>Ingresado/Modificado Por</th>
+                                            <th>Fecha modificacion</th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
                     }
                     else{
 
@@ -809,6 +1078,16 @@ class AuditLib {
 
                     if($contador == 0){
                         //encabezado, registro original, primera modificacion
+                        $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
+                                    <thead>
+                                        <tr>
+                                            <th>Realizado</th>
+                                            <th>Fecha</th>
+                                            <th>Ingresado/Modificado Por</th>
+                                            <th>Fecha modificacion</th>                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
                     }
                     else{
 
@@ -1001,15 +1280,243 @@ class AuditLib {
                          $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
                                     <thead>
                                         <tr>
-                                            <th rowspan='2'>Realizado</th>
-                                            <th rowspan='2'>Fecha</th>
+                                            <th colspan='2'>Hipertensión arterial</th>
+                                            <th colspan='2'>Úlcera gastrointestinal</th>
+                                            <th colspan='2'>Diabetes mellitus</th>
+                                            <th colspan='2'>Hipo/Hipertiroidismo</th>
+                                            <th colspan='2'>Hiperlipidemia</th>
+                                            <th colspan='2'>EPOC</th>
+                                            <th colspan='2'>Enfermedad coronaria</th>
+                                            <th colspan='2'>Rinitis</th>
+                                            <th colspan='2'>Accidente vascular encefálico</th>
+                                            <th colspan='2'>Asma</th>
+                                            <th colspan='2'>Gastritis/Reflujo GE</th>
+                                            <th colspan='2'>Cefaleas matinales</th>
+
+                                            <th colspan='2'>Alergias</th>
+                                            <th colspan='2'>Tabaquismo</th>
+                                            <th colspan='2'>Ingesta de Alcohol</th>
+                                            <th colspan='2'>Consumo de Drogas de abuso</th>
+                                            <th colspan='2'>¿Ha tenido alguna intervención quirúrgica y/o cirugía?</th>
+                                            <th colspan='2'>¿Ha donado sangre o ha participado en algún estudio clínico farmacológico en los últimos tres meses?</th>
+                                            <th colspan='2'>¿Está recibiendo o ha recibido en el último mes, algún tratamiento farmacológico?</th>
+                                            <th colspan='2'>¿Está recibiendo o ha recibido en el último mes, algún suplemento dietético o vitamínico?</th>
+                                            <th colspan='2'>Antecedentes familiares de alzheimer</th>
+                                            <th rowspan='2'>Fecha en que presento sintomas de EA</th>
+                                            <th colspan='2'>Antecedentes morbidos familiares</th>
+                                            
+                                            <th rowspan='2'>Ingresado/Modificado Por</th>
+                                            <th rowspan='2'>Fecha modificacion</th>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Fecha Diagnostico</th>
+
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
+
+                                            <th>Antecedentes</th>                                            
+                                            <th>Descripción</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>";
+
+                            $salida .= "<tr>
+                                            <td>". (($value->hipertension_old == 1) ? 'Si' : (($value->hipertension_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hipertension_dia_old ."-". $value->hipertension_mes_old ."-". $value->hipertension_anio_old ."</td>
+                                            <td>". (($value->ulcera_old == 1) ? 'Si' : (($value->ulcera_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->ulcera_dia_old ."-". $value->ulcera_mes_old ."-". $value->ulcera_anio_old ."</td>
+                                            <td>". (($value->diabetes_old == 1) ? 'Si' : (($value->diabetes_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->diabetes_dia_old ."-". $value->diabetes_mes_old ."-". $value->diabetes_anio_old ."</td>
+                                            <td>". (($value->hipo_hipertiroidismo_old == 1) ? 'Si' : (($value->hipo_hipertiroidismo_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hipo_hipertiroidismo_dia_old ."-". $value->hipo_hipertiroidismo_mes_old ."-". $value->hipo_hipertiroidismo_anio_old ."</td>
+                                            <td>". (($value->hiperlipidemia_old == 1) ? 'Si' : (($value->hiperlipidemia_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hiperlipidemia_dia_old ."-". $value->hiperlipidemia_mes_old ."-". $value->hiperlipidemia_anio_old ."</td>
+                                            <td>". (($value->epoc_old == 1) ? 'Si' : (($value->epoc_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->epoc_dia_old ."-". $value->epoc_mes_old ."-". $value->epoc_anio_old ."</td>
+                                            <td>". (($value->coronaria_old == 1) ? 'Si' : (($value->coronaria_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->coronaria_dia_old ."-". $value->coronaria_mes_old ."-". $value->coronaria_anio_old ."</td>
+                                            <td>". (($value->rinitis_old == 1) ? 'Si' : (($value->rinitis_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->rinitis_dia_old ."-". $value->rinitis_mes_old ."-". $value->rinitis_anio_old ."</td>
+                                            <td>". (($value->acc_vascular_old == 1) ? 'Si' : (($value->acc_vascular_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->acc_vascular_dia_old ."-". $value->acc_vascular_mes_old ."-". $value->acc_vascular_anio_old ."</td>
+                                            <td>". (($value->asma_old == 1) ? 'Si' : (($value->asma_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->asma_dia_old ."-". $value->asma_mes_old ."-". $value->asma_anio_old ."</td>
+                                            <td>". (($value->gastritis_old == 1) ? 'Si' : (($value->gastritis_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->gastritis_dia_old ."-". $value->gastritis_mes_old ."-". $value->gastritis_anio_old ."</td>
+                                            <td>". (($value->cefaleas_old == 1) ? 'Si' : (($value->cefaleas_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->cefaleas_dia_old ."-". $value->cefaleas_mes_old ."-". $value->cefaleas_anio_old ."</td>
+
+                                            <td>". (($value->alergia_old == 1) ? 'Si' : (($value->alergia_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->alergia_desc_old ."</td>
+                                            <td>". (($value->tabaquismo_old == 1) ? 'Si' : (($value->tabaquismo_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->tabaquismo_desc_old ."</td>
+                                            <td>". (($value->ingesta_alcohol_old == 1) ? 'Si' : (($value->ingesta_alcohol_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->ingesta_alcohol_desc_old ."</td>
+                                            <td>". (($value->drogas_old == 1) ? 'Si' : (($value->drogas_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->drogas_desc_old ."</td>
+                                            <td>". (($value->cirugia_old == 1) ? 'Si' : (($value->cirugia_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->cirugia_desc_old ."</td>
+                                            <td>". (($value->donado_sangre_old == 1) ? 'Si' : (($value->donado_sangre_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->donado_sangre_desc_old ."</td>
+                                            <td>". (($value->tratamiento_farma_old == 1) ? 'Si' : (($value->tratamiento_farma_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->tratamiento_farma_desc_old ."</td>
+                                            <td>". (($value->suplemento_dietetico_old == 1) ? 'Si' : (($value->suplemento_dietetico_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->suplemento_dietetico_desc_old ."</td>
+                                            <td>". (($value->alzheimer_old == 1) ? 'Si' : (($value->alzheimer_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->alzheimer_desc_old ."</td>
+                                            <td>". $value->dia_ea_old .'-'. $value->mes_ea_old .'-'. $value->anio_ea_old ."</td>
+                                            <td>". (($value->morbido_old == 1) ? 'Si' : (($value->morbido_old == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->morbido_desc_old ."</td>
+
+                                            <td>". $value->usuario_creacion_old ."</td>
+                                            <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->created_at_old)) : '') ."</td>
+                                        </tr>";
+
+                         $salida .= "<tr>
+                                            <td>". (($value->hipertension_new == 1) ? 'Si' : (($value->hipertension_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hipertension_dia_new ."-". $value->hipertension_mes_new ."-". $value->hipertension_anio_new ."</td>
+                                            <td>". (($value->ulcera_new == 1) ? 'Si' : (($value->ulcera_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->ulcera_dia_new ."-". $value->ulcera_mes_new ."-". $value->ulcera_anio_new ."</td>
+                                            <td>". (($value->diabetes_new == 1) ? 'Si' : (($value->diabetes_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->diabetes_dia_new ."-". $value->diabetes_mes_new ."-". $value->diabetes_anio_new ."</td>
+                                            <td>". (($value->hipo_hipertiroidismo_new == 1) ? 'Si' : (($value->hipo_hipertiroidismo_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hipo_hipertiroidismo_dia_new ."-". $value->hipo_hipertiroidismo_mes_new ."-". $value->hipo_hipertiroidismo_anio_new ."</td>
+                                            <td>". (($value->hiperlipidemia_new == 1) ? 'Si' : (($value->hiperlipidemia_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hiperlipidemia_dia_new ."-". $value->hiperlipidemia_mes_new ."-". $value->hiperlipidemia_anio_new ."</td>
+                                            <td>". (($value->epoc_new == 1) ? 'Si' : (($value->epoc_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->epoc_dia_new ."-". $value->epoc_mes_new ."-". $value->epoc_anio_new ."</td>
+                                            <td>". (($value->coronaria_new == 1) ? 'Si' : (($value->coronaria_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->coronaria_dia_new ."-". $value->coronaria_mes_new ."-". $value->coronaria_anio_new ."</td>
+                                            <td>". (($value->rinitis_new == 1) ? 'Si' : (($value->rinitis_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->rinitis_dia_new ."-". $value->rinitis_mes_new ."-". $value->rinitis_anio_new ."</td>
+                                            <td>". (($value->acc_vascular_new == 1) ? 'Si' : (($value->acc_vascular_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->acc_vascular_dia_new ."-". $value->acc_vascular_mes_new ."-". $value->acc_vascular_anio_new ."</td>
+                                            <td>". (($value->asma_new == 1) ? 'Si' : (($value->asma_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->asma_dia_new ."-". $value->asma_mes_new ."-". $value->asma_anio_new ."</td>
+                                            <td>". (($value->gastritis_new == 1) ? 'Si' : (($value->gastritis_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->gastritis_dia_new ."-". $value->gastritis_mes_new ."-". $value->gastritis_anio_new ."</td>
+                                            <td>". (($value->cefaleas_new == 1) ? 'Si' : (($value->cefaleas_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->cefaleas_dia_new ."-". $value->cefaleas_mes_new ."-". $value->cefaleas_anio_new ."</td>
+
+                                            <td>". (($value->alergia_new == 1) ? 'Si' : (($value->alergia_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->alergia_desc_new ."</td>
+                                            <td>". (($value->tabaquismo_new == 1) ? 'Si' : (($value->tabaquismo_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->tabaquismo_desc_new ."</td>
+                                            <td>". (($value->ingesta_alcohol_new == 1) ? 'Si' : (($value->ingesta_alcohol_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->ingesta_alcohol_desc_new ."</td>
+                                            <td>". (($value->drogas_new == 1) ? 'Si' : (($value->drogas_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->drogas_desc_new ."</td>
+                                            <td>". (($value->cirugia_new == 1) ? 'Si' : (($value->cirugia_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->cirugia_desc_new ."</td>
+                                            <td>". (($value->donado_sangre_new == 1) ? 'Si' : (($value->donado_sangre_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->donado_sangre_desc_new ."</td>
+                                            <td>". (($value->tratamiento_farma_new == 1) ? 'Si' : (($value->tratamiento_farma_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->tratamiento_farma_desc_new ."</td>
+                                            <td>". (($value->suplemento_dietetico_new == 1) ? 'Si' : (($value->suplemento_dietetico_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->suplemento_dietetico_desc_new ."</td>
+                                            <td>". (($value->alzheimer_new == 1) ? 'Si' : (($value->alzheimer_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->alzheimer_desc_new ."</td>
+                                            <td>". $value->dia_ea_new .'-'. $value->mes_ea_new .'-'. $value->anio_ea_new ."</td>
+                                            <td>". (($value->morbido_new == 1) ? 'Si' : (($value->morbido_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->morbido_desc_new ."</td>
+
+                                            <td>". $value->usuario_actualizacion_new ."</td>
+                                            <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                        </tr>";
                     }
                     else{
+                        $salida .= "<tr>
+                                            <td>". (($value->hipertension_new == 1) ? 'Si' : (($value->hipertension_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hipertension_dia_new ."-". $value->hipertension_mes_new ."-". $value->hipertension_anio_new ."</td>
+                                            <td>". (($value->ulcera_new == 1) ? 'Si' : (($value->ulcera_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->ulcera_dia_new ."-". $value->ulcera_mes_new ."-". $value->ulcera_anio_new ."</td>
+                                            <td>". (($value->diabetes_new == 1) ? 'Si' : (($value->diabetes_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->diabetes_dia_new ."-". $value->diabetes_mes_new ."-". $value->diabetes_anio_new ."</td>
+                                            <td>". (($value->hipo_hipertiroidismo_new == 1) ? 'Si' : (($value->hipo_hipertiroidismo_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hipo_hipertiroidismo_dia_new ."-". $value->hipo_hipertiroidismo_mes_new ."-". $value->hipo_hipertiroidismo_anio_new ."</td>
+                                            <td>". (($value->hiperlipidemia_new == 1) ? 'Si' : (($value->hiperlipidemia_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->hiperlipidemia_dia_new ."-". $value->hiperlipidemia_mes_new ."-". $value->hiperlipidemia_anio_new ."</td>
+                                            <td>". (($value->epoc_new == 1) ? 'Si' : (($value->epoc_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->epoc_dia_new ."-". $value->epoc_mes_new ."-". $value->epoc_anio_new ."</td>
+                                            <td>". (($value->coronaria_new == 1) ? 'Si' : (($value->coronaria_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->coronaria_dia_new ."-". $value->coronaria_mes_new ."-". $value->coronaria_anio_new ."</td>
+                                            <td>". (($value->rinitis_new == 1) ? 'Si' : (($value->rinitis_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->rinitis_dia_new ."-". $value->rinitis_mes_new ."-". $value->rinitis_anio_new ."</td>
+                                            <td>". (($value->acc_vascular_new == 1) ? 'Si' : (($value->acc_vascular_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->acc_vascular_dia_new ."-". $value->acc_vascular_mes_new ."-". $value->acc_vascular_anio_new ."</td>
+                                            <td>". (($value->asma_new == 1) ? 'Si' : (($value->asma_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->asma_dia_new ."-". $value->asma_mes_new ."-". $value->asma_anio_new ."</td>
+                                            <td>". (($value->gastritis_new == 1) ? 'Si' : (($value->gastritis_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->gastritis_dia_new ."-". $value->gastritis_mes_new ."-". $value->gastritis_anio_new ."</td>
+                                            <td>". (($value->cefaleas_new == 1) ? 'Si' : (($value->cefaleas_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->cefaleas_dia_new ."-". $value->cefaleas_mes_new ."-". $value->cefaleas_anio_new ."</td>
 
+                                            <td>". (($value->alergia_new == 1) ? 'Si' : (($value->alergia_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->alergia_desc_new ."</td>
+                                            <td>". (($value->tabaquismo_new == 1) ? 'Si' : (($value->tabaquismo_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->tabaquismo_desc_new ."</td>
+                                            <td>". (($value->ingesta_alcohol_new == 1) ? 'Si' : (($value->ingesta_alcohol_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->ingesta_alcohol_desc_new ."</td>
+                                            <td>". (($value->drogas_new == 1) ? 'Si' : (($value->drogas_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->drogas_desc_new ."</td>
+                                            <td>". (($value->cirugia_new == 1) ? 'Si' : (($value->cirugia_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->cirugia_desc_new ."</td>
+                                            <td>". (($value->donado_sangre_new == 1) ? 'Si' : (($value->donado_sangre_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->donado_sangre_desc_new ."</td>
+                                            <td>". (($value->tratamiento_farma_new == 1) ? 'Si' : (($value->tratamiento_farma_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->tratamiento_farma_desc_new ."</td>
+                                            <td>". (($value->suplemento_dietetico_new == 1) ? 'Si' : (($value->suplemento_dietetico_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->suplemento_dietetico_desc_new ."</td>
+                                            <td>". (($value->alzheimer_new == 1) ? 'Si' : (($value->alzheimer_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->alzheimer_desc_new ."</td>
+                                            <td>". $value->dia_ea_new .'-'. $value->mes_ea_new .'-'. $value->anio_ea_new ."</td>
+                                            <td>". (($value->morbido_new == 1) ? 'Si' : (($value->morbido_new == "0") ? 'No' : ''))."</td>
+                                            <td>". $value->morbido_desc_new ."</td>
+
+                                            <td>". $value->usuario_actualizacion_new ."</td>
+                                            <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                        </tr>";
                     }
 
                     $contador++;
@@ -1081,14 +1588,338 @@ class AuditLib {
                         $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
                                     <thead>
                                         <tr>
-                                            <th>Realizado</th>
-                                            <th>Fecha</th>
+                                            <th rowspan='2'>Realizado</th>
+                                            <th rowspan='2'>Fecha</th>
+                                            <th rowspan='2'>Puntaje Total de NPI</th>
+                                            <th rowspan='2'>Puntaje total para Angustia de el (la) Cuidador(a)</th>
+                                            <th colspan='5'>Delirios</th>
+                                            <th colspan='5'>Alucinaciones</th>
+                                            <th colspan='5'>Agitación / Agresividad</th>
+                                            <th colspan='5'>Depresión</th>
+                                            <th colspan='5'>Ansiedad</th>
+                                            <th colspan='5'>Elación / Euforia</th>
+                                            <th colspan='5'>Apatía / Indiferencia</th>
+                                            <th colspan='5'>Deshinibición</th>
+                                            <th colspan='5'>Irritabilidad</th>
+                                            <th colspan='5'>Conducta Motora Aberrante</th>
+                                            <th colspan='5'>Trastornos del sueño y de la Conducta</th>
+                                            <th colspan='5'>Trastornos del apetito y de la alimentación</th>
+                                            <th rowspan='2'>Ingresado/Modificado Por</th>
+                                            <th rowspan='2'>Fecha Modificacion</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
+                                            <th>Status</th>
+                                            <th>Frecuencia</th>
+                                            <th>Severidad</th>
+                                            <th>Puntaje</th>
+                                            <th>Angustia</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
+
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_old == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>
+                                        <td>". $value->puntaje_total_npi_old ."</td>
+                                        <td>". $value->puntaje_total_para_angustia_old ."</td>
+                                        
+                                        <td>". $value->delirio_status_old ."</td>
+                                        <td>". $value->delirio_frecuencia_old ."</td>
+                                        <td>". $value->delirio_severidad_old ."</td>
+                                        <td>". $value->delirio_puntaje_old ."</td>
+                                        <td>". $value->delirio_angustia_old ."</td>
+
+                                        <td>". $value->alucinaciones_status_old ."</td>
+                                        <td>". $value->alucinaciones_frecuencia_old ."</td>
+                                        <td>". $value->alucinaciones_severidad_old ."</td>
+                                        <td>". $value->alucinaciones_puntaje_old ."</td>
+                                        <td>". $value->alucinaciones_angustia_old ."</td>
+
+                                        <td>". $value->agitacion_status_old ."</td>
+                                        <td>". $value->agitacion_frecuencia_old ."</td>
+                                        <td>". $value->agitacion_severidad_old ."</td>
+                                        <td>". $value->agitacion_puntaje_old ."</td>
+                                        <td>". $value->agitacion_angustia_old ."</td>
+
+                                        <td>". $value->depresion_status_old ."</td>
+                                        <td>". $value->depresion_frecuencia_old ."</td>
+                                        <td>". $value->depresion_severidad_old ."</td>
+                                        <td>". $value->depresion_puntaje_old ."</td>
+                                        <td>". $value->depresion_angustia_old ."</td>
+
+                                        <td>". $value->ansiedad_status_old ."</td>
+                                        <td>". $value->ansiedad_frecuencia_old ."</td>
+                                        <td>". $value->ansiedad_severidad_old ."</td>
+                                        <td>". $value->ansiedad_puntaje_old ."</td>
+                                        <td>". $value->ansiedad_angustia_old ."</td>
+
+                                        <td>". $value->elacion_status_old ."</td>
+                                        <td>". $value->elacion_frecuencia_old ."</td>
+                                        <td>". $value->elacion_severidad_old ."</td>
+                                        <td>". $value->elacion_puntaje_old ."</td>
+                                        <td>". $value->elacion_angustia_old ."</td>
+
+                                        <td>". $value->apatia_status_old ."</td>
+                                        <td>". $value->apatia_frecuencia_old ."</td>
+                                        <td>". $value->apatia_severidad_old ."</td>
+                                        <td>". $value->apatia_puntaje_old ."</td>
+                                        <td>". $value->apatia_angustia_old ."</td>
+
+                                        <td>". $value->deshinibicion_status_old ."</td>
+                                        <td>". $value->deshinibicion_frecuencia_old ."</td>
+                                        <td>". $value->deshinibicion_severidad_old ."</td>
+                                        <td>". $value->deshinibicion_puntaje_old ."</td>
+                                        <td>". $value->deshinibicion_angustia_old ."</td>
+
+                                        <td>". $value->irritabilidad_status_old ."</td>
+                                        <td>". $value->irritabilidad_frecuencia_old ."</td>
+                                        <td>". $value->irritabilidad_severidad_old ."</td>
+                                        <td>". $value->irritabilidad_puntaje_old ."</td>
+                                        <td>". $value->irritabilidad_angustia_old ."</td>
+
+                                        <td>". $value->conducta_status_old ."</td>
+                                        <td>". $value->conducta_frecuencia_old ."</td>
+                                        <td>". $value->conducta_severidad_old ."</td>
+                                        <td>". $value->conducta_puntaje_old ."</td>
+                                        <td>". $value->conducta_angustia_old ."</td>
+
+                                        <td>". $value->trastornos_sueno_status_old ."</td>
+                                        <td>". $value->trastornos_sueno_frecuencia_old ."</td>
+                                        <td>". $value->trastornos_sueno_severidad_old ."</td>
+                                        <td>". $value->trastornos_sueno_puntaje_old ."</td>
+                                        <td>". $value->trastornos_sueno_angustia_old ."</td>
+
+                                        <td>". $value->trastornos_apetito_status_old ."</td>
+                                        <td>". $value->trastornos_apetito_frecuencia_old ."</td>
+                                        <td>". $value->trastornos_apetito_severidad_old ."</td>
+                                        <td>". $value->trastornos_apetito_puntaje_old ."</td>
+                                        <td>". $value->trastornos_apetito_angustia_old ."</td>
+
+
+                                        <td>". $value->usuario_creacion_old ."</td>
+                                        <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->created_at_old)) : '') ."</td>
+                                    </tr>";
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+                                        <td>". $value->puntaje_total_npi_new ."</td>
+                                        <td>". $value->puntaje_total_para_angustia_new ."</td>
+                                        
+                                        <td>". $value->delirio_status_new ."</td>
+                                        <td>". $value->delirio_frecuencia_new ."</td>
+                                        <td>". $value->delirio_severidad_new ."</td>
+                                        <td>". $value->delirio_puntaje_new ."</td>
+                                        <td>". $value->delirio_angustia_new ."</td>
+
+                                        <td>". $value->alucinaciones_status_new ."</td>
+                                        <td>". $value->alucinaciones_frecuencia_new ."</td>
+                                        <td>". $value->alucinaciones_severidad_new ."</td>
+                                        <td>". $value->alucinaciones_puntaje_new ."</td>
+                                        <td>". $value->alucinaciones_angustia_new ."</td>
+
+                                        <td>". $value->agitacion_status_new ."</td>
+                                        <td>". $value->agitacion_frecuencia_new ."</td>
+                                        <td>". $value->agitacion_severidad_new ."</td>
+                                        <td>". $value->agitacion_puntaje_new ."</td>
+                                        <td>". $value->agitacion_angustia_new ."</td>
+
+                                        <td>". $value->depresion_status_new ."</td>
+                                        <td>". $value->depresion_frecuencia_new ."</td>
+                                        <td>". $value->depresion_severidad_new ."</td>
+                                        <td>". $value->depresion_puntaje_new ."</td>
+                                        <td>". $value->depresion_angustia_new ."</td>
+
+                                        <td>". $value->ansiedad_status_new ."</td>
+                                        <td>". $value->ansiedad_frecuencia_new ."</td>
+                                        <td>". $value->ansiedad_severidad_new ."</td>
+                                        <td>". $value->ansiedad_puntaje_new ."</td>
+                                        <td>". $value->ansiedad_angustia_new ."</td>
+
+                                        <td>". $value->elacion_status_new ."</td>
+                                        <td>". $value->elacion_frecuencia_new ."</td>
+                                        <td>". $value->elacion_severidad_new ."</td>
+                                        <td>". $value->elacion_puntaje_new ."</td>
+                                        <td>". $value->elacion_angustia_new ."</td>
+
+                                        <td>". $value->apatia_status_new ."</td>
+                                        <td>". $value->apatia_frecuencia_new ."</td>
+                                        <td>". $value->apatia_severidad_new ."</td>
+                                        <td>". $value->apatia_puntaje_new ."</td>
+                                        <td>". $value->apatia_angustia_new ."</td>
+
+                                        <td>". $value->deshinibicion_status_new ."</td>
+                                        <td>". $value->deshinibicion_frecuencia_new ."</td>
+                                        <td>". $value->deshinibicion_severidad_new ."</td>
+                                        <td>". $value->deshinibicion_puntaje_new ."</td>
+                                        <td>". $value->deshinibicion_angustia_new ."</td>
+
+                                        <td>". $value->irritabilidad_status_new ."</td>
+                                        <td>". $value->irritabilidad_frecuencia_new ."</td>
+                                        <td>". $value->irritabilidad_severidad_new ."</td>
+                                        <td>". $value->irritabilidad_puntaje_new ."</td>
+                                        <td>". $value->irritabilidad_angustia_new ."</td>
+
+                                        <td>". $value->conducta_status_new ."</td>
+                                        <td>". $value->conducta_frecuencia_new ."</td>
+                                        <td>". $value->conducta_severidad_new ."</td>
+                                        <td>". $value->conducta_puntaje_new ."</td>
+                                        <td>". $value->conducta_angustia_new ."</td>
+
+                                        <td>". $value->trastornos_sueno_status_new ."</td>
+                                        <td>". $value->trastornos_sueno_frecuencia_new ."</td>
+                                        <td>". $value->trastornos_sueno_severidad_new ."</td>
+                                        <td>". $value->trastornos_sueno_puntaje_new ."</td>
+                                        <td>". $value->trastornos_sueno_angustia_new ."</td>
+
+                                        <td>". $value->trastornos_apetito_status_new ."</td>
+                                        <td>". $value->trastornos_apetito_frecuencia_new ."</td>
+                                        <td>". $value->trastornos_apetito_severidad_new ."</td>
+                                        <td>". $value->trastornos_apetito_puntaje_new ."</td>
+                                        <td>". $value->trastornos_apetito_angustia_new ."</td>
+
+
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                    </tr>";
                     }
                     else{
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+                                        <td>". $value->puntaje_total_npi_new ."</td>
+                                        <td>". $value->puntaje_total_para_angustia_new ."</td>
+                                        
+                                        <td>". $value->delirio_status_new ."</td>
+                                        <td>". $value->delirio_frecuencia_new ."</td>
+                                        <td>". $value->delirio_severidad_new ."</td>
+                                        <td>". $value->delirio_puntaje_new ."</td>
+                                        <td>". $value->delirio_angustia_new ."</td>
 
+                                        <td>". $value->alucinaciones_status_new ."</td>
+                                        <td>". $value->alucinaciones_frecuencia_new ."</td>
+                                        <td>". $value->alucinaciones_severidad_new ."</td>
+                                        <td>". $value->alucinaciones_puntaje_new ."</td>
+                                        <td>". $value->alucinaciones_angustia_new ."</td>
+
+                                        <td>". $value->agitacion_status_new ."</td>
+                                        <td>". $value->agitacion_frecuencia_new ."</td>
+                                        <td>". $value->agitacion_severidad_new ."</td>
+                                        <td>". $value->agitacion_puntaje_new ."</td>
+                                        <td>". $value->agitacion_angustia_new ."</td>
+
+                                        <td>". $value->depresion_status_new ."</td>
+                                        <td>". $value->depresion_frecuencia_new ."</td>
+                                        <td>". $value->depresion_severidad_new ."</td>
+                                        <td>". $value->depresion_puntaje_new ."</td>
+                                        <td>". $value->depresion_angustia_new ."</td>
+
+                                        <td>". $value->ansiedad_status_new ."</td>
+                                        <td>". $value->ansiedad_frecuencia_new ."</td>
+                                        <td>". $value->ansiedad_severidad_new ."</td>
+                                        <td>". $value->ansiedad_puntaje_new ."</td>
+                                        <td>". $value->ansiedad_angustia_new ."</td>
+
+                                        <td>". $value->elacion_status_new ."</td>
+                                        <td>". $value->elacion_frecuencia_new ."</td>
+                                        <td>". $value->elacion_severidad_new ."</td>
+                                        <td>". $value->elacion_puntaje_new ."</td>
+                                        <td>". $value->elacion_angustia_new ."</td>
+
+                                        <td>". $value->apatia_status_new ."</td>
+                                        <td>". $value->apatia_frecuencia_new ."</td>
+                                        <td>". $value->apatia_severidad_new ."</td>
+                                        <td>". $value->apatia_puntaje_new ."</td>
+                                        <td>". $value->apatia_angustia_new ."</td>
+
+                                        <td>". $value->deshinibicion_status_new ."</td>
+                                        <td>". $value->deshinibicion_frecuencia_new ."</td>
+                                        <td>". $value->deshinibicion_severidad_new ."</td>
+                                        <td>". $value->deshinibicion_puntaje_new ."</td>
+                                        <td>". $value->deshinibicion_angustia_new ."</td>
+
+                                        <td>". $value->irritabilidad_status_new ."</td>
+                                        <td>". $value->irritabilidad_frecuencia_new ."</td>
+                                        <td>". $value->irritabilidad_severidad_new ."</td>
+                                        <td>". $value->irritabilidad_puntaje_new ."</td>
+                                        <td>". $value->irritabilidad_angustia_new ."</td>
+
+                                        <td>". $value->conducta_status_new ."</td>
+                                        <td>". $value->conducta_frecuencia_new ."</td>
+                                        <td>". $value->conducta_severidad_new ."</td>
+                                        <td>". $value->conducta_puntaje_new ."</td>
+                                        <td>". $value->conducta_angustia_new ."</td>
+
+                                        <td>". $value->trastornos_sueno_status_new ."</td>
+                                        <td>". $value->trastornos_sueno_frecuencia_new ."</td>
+                                        <td>". $value->trastornos_sueno_severidad_new ."</td>
+                                        <td>". $value->trastornos_sueno_puntaje_new ."</td>
+                                        <td>". $value->trastornos_sueno_angustia_new ."</td>
+
+                                        <td>". $value->trastornos_apetito_status_new ."</td>
+                                        <td>". $value->trastornos_apetito_frecuencia_new ."</td>
+                                        <td>". $value->trastornos_apetito_severidad_new ."</td>
+                                        <td>". $value->trastornos_apetito_puntaje_new ."</td>
+                                        <td>". $value->trastornos_apetito_angustia_new ."</td>
+
+
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                    </tr>";
                     }
 
                     $contador++;
