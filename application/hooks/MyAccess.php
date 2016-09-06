@@ -19,7 +19,8 @@
 							"home/ingresar",							
 							"home/recuperarclave",							
 							"home/recuperandoclave",							
-							"home/recuperarclaveok",							
+							"home/recuperarclaveok",
+							"report/mostrarPdf",
 						);
 			if(in_array($url,$libres)){
 				echo $CI->output->get_output();//para seguir con lo que se queria

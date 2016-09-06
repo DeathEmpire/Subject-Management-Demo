@@ -58,7 +58,7 @@ class Report extends CI_Controller {
 	    		//formater el resultado deacuerdo a la tabla y luego enviar a la vista.
 	    		if($registro['formulario'] == 'adas'){
 
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -96,7 +96,7 @@ class Report extends CI_Controller {
 	    		}
 	    		elseif($registro['formulario'] == 'inclusion'){
 
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -131,7 +131,7 @@ class Report extends CI_Controller {
 
 	    		}
 	    		elseif($registro['formulario'] == 'cumplimiento'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -167,7 +167,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'electrocardiograma_de_reposo'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -217,7 +217,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'apatia'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -253,7 +253,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'hachinski'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -289,7 +289,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'eq_5d_5l'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -325,7 +325,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'examen_fisico'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -385,10 +385,163 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'examen_laboratorio'){
-	    			
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
+	    						<thead>
+	    							<tr>
+	    								<th rowspan="2">Sujeto</th>
+	    								<th rowspan="2">Visita</th>
+	    								<th rowspan="2">Realizado</th>
+	    								<th rowspan="2">Fecha</th>
+	    								<th colspan="10">Hematológico</th>
+	    								<th colspan="14">Bioquímico</th>
+	    								<th colspan="6">Análisis de Orina</th>
+	    								<th colspan="6">Otros</th>
+	    							</tr>
+	    							<tr>
+	    								<th>Hematocrito</th>
+	    								<th>Hemoglobina</th>
+	    								<th>Recuento eritrocitos (RBC)</th>
+	    								<th>Recuento leucocitos (WBC)</th>
+	    								<th>Neutrófilos</th>
+	    								<th>Linfocitos</th>
+	    								<th>Monocitos</th>
+	    								<th>Eosinófilos</th>
+	    								<th>Basófilos</th>
+	    								<th>Recuento plaquetas</th>	    								
+	    								<th>Glucosa (ayunas)</th>
+	    								<th>BUN</th>
+	    								<th>Creatinina</th>
+	    								<th>Bilirrubina total</th>
+	    								<th>Proteínas totales</th>
+	    								<th>Fosfatasas alcalinas</th>
+	    								<th>AST</th>
+	    								<th>ALT</th>
+	    								<th>Calcio (Ca)</th>
+	    								<th>Sodio (Na)</th>
+	    								<th>Potasio (K)</th>
+	    								<th>Cloro (Cl)</th>
+	    								<th>Ácido úrico</th>
+	    								<th>Albúmina</th>
+	    								<th>pH</th>
+	    								<th>Glucosa (qual)</th>
+	    								<th>Proteína (qual)</th>
+	    								<th>Sangre (qual)</th>
+	    								<th>Cetonas</th>
+	    								<th>Microscopía </th>    								
+	    								<th>Homocisteina</th>
+	    								<th>Perfil Tiroideo</th>
+	    								<th>Nivel plasmático de V B12</th>
+	    								<th>Nivel plasmático de ácido fólico</th>
+	    								<th>HbA1C</th>
+	    								<th>Sífilis (VDRL)</th>	    								
+	    							</tr>
+
+	    						</thead>
+	    						<tbody>';
+	    			foreach($resultado as $r){
+	    				switch ($r->etapa) {
+	    					case 1 : $visita = "Selección"; break;
+							case 2 : $visita = "Basal Día 1"; break;
+							case 3 : $visita = "Semana 4"; break;
+							case 4 : $visita = "Semana 12"; break;
+							case 5 : $visita = "Término del Estudio"; break;
+							case 6 : $visita = "Terminación Temprana"; break;
+							default : $visita = "Selección"; break;
+	    				}
+
+	    				$tabla .= '<tr>
+	    								<td>'. $r->code .'</td>
+	    								<td>'. $visita .'</td>
+	    								<td>'. (($r->realizado == 1) ? 'Si' : 'No') .'</td>';
+	    				if($r->realizado == 1){
+
+	    					$tabla .= '<td>'. (($r->fecha != '0000-00-00') ?  date('d/m/Y', strtotime($r->fecha)) : '') .'</td>	    								
+	    								
+	    							<td>'. (($r->hecho_1 == 1) ? $r->hematocrito .' % '. (($r->hematocrito_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->hematocrito_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->hematocrito_nom_anom) : 'No realizado' ).'</td>	    							
+	    							<td>'. (($r->hecho_2 == 1) ? $r->hemoglobina .' g/dl '. (($r->hemoglobina_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->hemoglobina_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->hemoglobina_nom_anom) : 'No realizado' ).'</td>
+	    							<td>'. (($r->hecho_3 == 1) ? $r->eritocritos .' M/µl '. (($r->eritocritos_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->eritocritos_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->eritocritos_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_4 == 1) ? $r->leucocitos .' /µl '. (($r->leucocitos_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->leucocitos_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->leucocitos_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_5 == 1) ? $r->neutrofilos .' /µl '. (($r->neutrofilos_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->neutrofilos_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->neutrofilos_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_6 == 1) ? $r->linfocitos .' /µl '. (($r->linfocitos_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->linfocitos_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->linfocitos_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_7 == 1) ? $r->monocitos .' /µl '. (($r->monocitos_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->monocitos_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->monocitos_nom_anom) : 'No realizado' ).'</td>
+	    							<td>'. (($r->hecho_8 == 1) ? $r->eosinofilos .' /µl '. (($r->eosinofilos_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->eosinofilos_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->eosinofilos_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_9 == 1) ? $r->basofilos .' /µl '. (($r->basofilos_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->basofilos_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->basofilos_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_10 == 1) ? $r->recuento_plaquetas .' x mm<sup>3</sup> '. (($r->recuento_plaquetas_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->recuento_plaquetas_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->recuento_plaquetas_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_11 == 1) ? $r->glucosa_ayunas .' mg/dl '. (($r->glucosa_ayunas_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->glucosa_ayunas_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->glucosa_ayunas_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_12 == 1) ? $r->bun .' mg/dl '. (($r->bun_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->bun_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->bun_nom_anom) : 'No realizado' ).'</td>
+	    							<td>'. (($r->hecho_13 == 1) ? $r->creatinina .' mg/dl '. (($r->creatinina_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->creatinina_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->creatinina_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_14 == 1) ? $r->bilirrubina_total .' mg/dl '. (($r->bilirrubina_total_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->bilirrubina_total_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->bilirrubina_total_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_15 == 1) ? $r->proteinas_totales .' g/dl '. (($r->proteinas_totales_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->proteinas_totales_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->proteinas_totales_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_16 == 1) ? $r->fosfatasas_alcalinas .' U/l '. (($r->fosfatasas_alcalinas_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->fosfatasas_alcalinas_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->fosfatasas_alcalinas_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_17 == 1) ? $r->ast .' U/l '. (($r->ast_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->ast_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->ast_nom_anom) : 'No realizado' ).'</td>
+	    							<td>'. (($r->hecho_18 == 1) ? $r->alt .' U/l '. (($r->alt_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->alt_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->alt_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_19 == 1) ? $r->calcio .' '. $r->calcio_unidad_medida .' '. (($r->calcio_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->calcio_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->calcio_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_20 == 1) ? $r->sodio .' '. $r->sodio_unidad_medida .' '. (($r->sodio_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->sodio_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->sodio_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_21 == 1) ? $r->potasio .' '. $r->potasio_unidad_medida .' '. (($r->potasio_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->potasio_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->potasio_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_22 == 1) ? $r->cloro .' '. $r->cloro_unidad_medida .' '. (($r->cloro_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->cloro_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->cloro_nom_anom) : 'No realizado' ).'</td>
+	    							<td>'. (($r->hecho_23 == 1) ? $r->acido_urico .' mg/dl '. (($r->acido_urico_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->acido_urico_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->acido_urico_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_24 == 1) ? $r->albumina .' mg/dl '. (($r->albumina_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->albumina_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->albumina_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_25 == 1) ? $r->orina_ph .' '. (($r->orina_ph_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->orina_ph_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->orina_ph_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_26 == 1) ? $r->orina_glucosa .' '. $r->glucosa_unidad_medida .' '. (($r->orina_glucosa_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->orina_glucosa_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->orina_glucosa_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_27 == 1) ? $r->orina_proteinas .' mUI/ml '. (($r->orina_proteinas_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->orina_proteinas_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->orina_proteinas_nom_anom) : 'No realizado' ).'</td>
+	    							<td>'. (($r->hecho_28 == 1) ? $r->orina_sangre .' mUI/ml '. (($r->orina_sangre_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->orina_sangre_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->orina_sangre_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_29 == 1) ? $r->orina_cetonas .' mmol/l '. (($r->orina_cetonas_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->orina_cetonas_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->orina_cetonas_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_30 == 1) ? $r->orina_microscospia .' '. (($r->orina_microscospia_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->orina_microscospia_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->orina_microscospia_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_31 == 1) ? $r->otros_sangre_homocisteina .' '. (($r->otros_sangre_homocisteina_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->otros_sangre_homocisteina_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->otros_sangre_homocisteina_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_32 == 1) ? $r->otros_perfil_tiroideo .' '. (($r->otros_perfil_tiroideo_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->otros_perfil_tiroideo_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->otros_perfil_tiroideo_nom_anom) : 'No realizado' ).'</td>
+	    							<td>'. (($r->hecho_33 == 1) ? $r->otros_nivel_b12 .' '. (($r->otros_nivel_b12 == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->otros_nivel_b12) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->otros_nivel_b12) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_34 == 1) ? $r->otros_acido_folico .' '. (($r->otros_acido_folico_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->otros_acido_folico_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->otros_acido_folico_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_35 == 1) ? $r->otros_hba1c .' '. (($r->otros_hba1c_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->otros_hba1c_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->otros_hba1c_nom_anom) : 'No realizado' ).'</td>
+									<td>'. (($r->hecho_36 == 1) ? $r->sifilis .' '. (($r->sifilis_nom_anom == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($r->sifilis_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $r->sifilis_nom_anom) : 'No realizado' ).'</td>
+    							</tr>';
+	    					}
+	    					else{
+	    						$tabla .= '<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    									<td></td>
+	    								</tr>';
+	    					}
+	    			}
+
+	    			$tabla .= '</tbody>
+	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'examen_neurologico'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -448,7 +601,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'historia_medica'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -529,7 +682,7 @@ class Report extends CI_Controller {
 	    		}
 	    		elseif($registro['formulario'] == 'mmse'){
 	    			
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -566,7 +719,7 @@ class Report extends CI_Controller {
 
 	    		}
 	    		elseif($registro['formulario'] == 'muestra_de_sangre'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -600,7 +753,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'npi'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -638,7 +791,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'digito_directo'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -676,7 +829,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'restas'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -720,7 +873,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'rnm'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -756,7 +909,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'signos_vitales'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -806,7 +959,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'tmt_a'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -842,7 +995,7 @@ class Report extends CI_Controller {
 	    					</table>';
 	    		}
 	    		elseif($registro['formulario'] == 'tmt_b'){
-	    			$tabla = '<table class="table table-striped table-bordered table-hover">
+	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
 	    								<th>Sujeto</th>
@@ -918,4 +1071,17 @@ class Report extends CI_Controller {
     	}
 
     }
+
+    public function mostrarPdf(){
+
+    	$html = $this->input->post('datos');
+    	$nombre_archivo = "Reporte_". date('YmdHis') .'.pdf';
+    	$ruta = "./files/". $nombre_archivo;
+
+    	$this->load->library('m_pdf');    	
+    	$this->m_pdf->pdf->WriteHTML($html);
+    	$this->m_pdf->pdf->Output($ruta, "D");
+    	
+    }
+    
 }
