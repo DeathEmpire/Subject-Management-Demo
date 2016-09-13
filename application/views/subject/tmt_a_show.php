@@ -216,6 +216,35 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
+			<td>Numero de errores: </td>
+			<td>
+				<?= form_input(array('type'=>'text','name'=>'num_errores', 'id'=>'num_errores', 'value'=>set_value('num_errores'))); ?>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("num_errores", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'tmt_a_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='num_errores_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'tmt_a_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='num_errores_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
+		</tr>
+		<tr>
 			<td colspan='2' style='text-align:center;'>
 				<?php
 					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'tmt_a_update')){

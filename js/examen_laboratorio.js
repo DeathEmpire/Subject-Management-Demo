@@ -544,5 +544,26 @@ $(function(){
 	 	}
 	 });
 
+	$("#no_aplica_hba1c").click(function(){
+		if($(this).is(':checked')){
+			$("#hecho_35").val('');
+			$('select[name=hecho_35] option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});			
 
+			$("#otros_hba1c").prop('readonly', true);
+	 		$("#otros_hba1c").val('');
+	 		$("input[name=otros_hba1c_nom_anom]").prop('disabled', true);
+			$("input[name=otros_hba1c_nom_anom]").prop('checked', false);
+		}
+		else{
+			
+			$('select[name=hecho_35] option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
+			$("#otros_hba1c").prop('readonly', false);			
+	 		$("input[name=otros_hba1c_nom_anom]").prop('disabled', false);
+		}
+
+	});
 });

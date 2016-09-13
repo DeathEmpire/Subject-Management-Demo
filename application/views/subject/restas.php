@@ -15,10 +15,17 @@ $(function(){
 				}
 			});
 			$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").attr('disabled','disabled');
+			$("input[name^=respuesta_").each(function(){
+				$(this).val('');
+				$(this).prop('readonly', true);
+			});
 
 		}else{
 			$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").removeAttr('readonly');
 			$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").removeAttr('disabled');
+			$("input[name^=respuesta_").each(function(){				
+				$(this).prop('readonly', false);
+			});
 		}
 	});
 	if($("input[name=realizado_alt]:checked").val() == 0){
@@ -29,9 +36,16 @@ $(function(){
 				}
 			});
 		$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").attr('disabled','disabled');
+		$("input[name^=respuesta_").each(function(){
+				$(this).val('');
+				$(this).prop('readonly', true);
+			});
 	}else{
 		$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha").removeAttr('readonly');
 		$("#resta_1_alt, #resta_2_alt, #resta_3_alt, #resta_4_alt, #resta_5_alt, #fecha_alt").removeAttr('disabled');
+		$("input[name^=respuesta_").each(function(){				
+				$(this).prop('readonly', false);
+			});
 	}
 });
 </script>
@@ -137,7 +151,7 @@ $(function(){
 	<br />
 	<table class="table table-bordered table-striped table-hover">	
 		<tr>
-			<td colspan='2' style='background-color:#ccc;'>Resta seriada</td>
+			<td colspan='3' style='background-color:#ccc;'>Resta seriada</td>
 		</tr>
 		<tr>		
 			<td>Realizado: </td>
@@ -145,6 +159,7 @@ $(function(){
 				<?= form_radio($data3,$data3['value'],set_radio($data3['name'], 1)); ?> Si
 				<?= form_radio($data4,$data4['value'],set_radio($data4['name'], 0)); ?> NO
 			</td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>Fecha: </td>
@@ -152,30 +167,36 @@ $(function(){
 		</tr>
 		<tr>
 			<td style='background-color:#ccc;'>Reste 3 a partir del 20</td>
+			<td style='background-color:#ccc;'>Respuesta</td>
 			<td style='background-color:#ccc;'>Indicar respuestas correctas</td>
 		</tr>
 		<tr>
 			<td>17</td>
+			<td><?= form_input(array('type'=>'text','name'=>'respuesta_1_alt', 'id'=>'respuesta_1_alt', 'value'=>set_value('respuesta_1_alt'))); ?></td></td>
 			<td><?= form_checkbox($resta_1_alt); ?></td>
 		</tr>
 		<tr>
 			<td>14</td>			
+			<td><?= form_input(array('type'=>'text','name'=>'respuesta_2_alt', 'id'=>'respuesta_2_alt', 'value'=>set_value('respuesta_2_alt'))); ?></td></td>
 			<td><?= form_checkbox($resta_2_alt); ?></td>
 		</tr>
 		<tr>
 			<td>11</td>
+			<td><?= form_input(array('type'=>'text','name'=>'respuesta_3_alt', 'id'=>'respuesta_3_alt', 'value'=>set_value('respuesta_3_alt'))); ?></td></td>
 			<td><?= form_checkbox($resta_3_alt); ?></td>
 		</tr>
 		<tr>
 			<td>8</td>
+			<td><?= form_input(array('type'=>'text','name'=>'respuesta_4_alt', 'id'=>'respuesta_4_alt', 'value'=>set_value('respuesta_4_alt'))); ?></td></td>
 			<td><?= form_checkbox($resta_4_alt); ?></td>
 		</tr>
 		<tr>
 			<td>5</td>
+			<td><?= form_input(array('type'=>'text','name'=>'respuesta_5_alt', 'id'=>'respuesta_5_alt', 'value'=>set_value('respuesta_5_alt'))); ?></td></td>
 			<td><?= form_checkbox($resta_5_alt); ?></td>
 		</tr>
 		<tr>
-			<td colspan='2' style='text-align:center;'>
+			<td colspan='3' style='text-align:center;'>
 				<?php
 					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'restas_insert')){
 				?>

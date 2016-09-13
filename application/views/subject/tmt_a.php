@@ -143,6 +143,11 @@ $(function(){
 			<td><?= form_input(array('type'=>'text','name'=>'segundos', 'id'=>'segundos', 'value'=>set_value('segundos'))); ?></td>
 		</tr>
 		<tr>
+			<td>Numero de errores: </td>
+			<td><?= form_input(array('type'=>'text','name'=>'num_errores', 'id'=>'num_errores', 'value'=>set_value('num_errores'))); ?></td>
+		</tr>
+
+		<tr>
 			<td colspan='2' style='text-align:center;'>
 				<?php
 					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'tmt_a_insert')){

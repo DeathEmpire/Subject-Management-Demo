@@ -74,6 +74,14 @@ $(function(){
 
 <?php
 	if(isset($list) AND !empty($list)){
+?>
+<div style='display:none;'>
+    <div id='dialog_auditoria'><?= ((isset($auditoria) AND !empty($auditoria)) ? $auditoria : ''); ?></div>
+</div>
+<?php
+    if(isset($auditoria) AND !empty($auditoria)){
+        echo "<div style='text-align:right;'><a id='ver_auditoria' class='btn btn-info colorbox_inline' href='#dialog_auditoria'>Ver Auditoria</a></div>";
+    }
 ?>	
 <?= form_open('subject/mmse_update', array('class'=>'form-horizontal','id'=>'form_mmse')); ?>    
 	
@@ -107,6 +115,17 @@ $(function(){
 		    'id'          => 'le_puedo_hacer_preguntas',
 		    'value'       => '1',
 		    #'checked'     => set_checkbox('le_puedo_hacer_preguntas','1')			    
+	    );
+	    $realizar_a = array(
+		    'name'        => 'realizar_a',
+		    'id'          => 'realizar_a',
+		    'value'       => '1',		   
+	    );
+
+	    $realizar_b = array(
+		    'name'        => 'realizar_b',
+		    'id'          => 'realizar_b',
+		    'value'       => '1',		    
 	    );
 	?>
 
@@ -557,24 +576,13 @@ $(function(){
 		<tr>
 			<td style='font-weight:bold;' colspan='4'>REGISTRO</td>
 		</tr>
-		<tr>			
-			<?php if($etapa == 1 OR $etapa == 5){ ?>
-				<td colspan='4'><b>Escuche atentamente. Voy a decir tres palabras. Repítalas una vez que yo las haya dicho. ¿Estás listo? Las palabras son… ÁRBOL</b>
-		 [pausa], MESA [pausa], AVIÓN [pausa]. Ahora dígame esas palabras (se puede repetir hasta cinco veces, pero registre sólo el primer intento).
-				</td>
-			<?php } elseif($etapa == 4){ ?>
-					<td colspan='4'><b>Escuche atentamente. Voy a decir tres palabras. Repítalas una vez que yo las haya dicho. ¿Estás listo? Las palabras son… PELOTA</b>
-		 [pausa], BANDERA [pausa], MANZANA [pausa]. Ahora dígame esas palabras (se puede repetir hasta cinco veces, pero registre sólo el primer intento).
-				</td>
-			<?php }else{ ?>
-				<td colspan='4'><b>Escuche atentamente. Voy a decir tres palabras. Repítalas una vez que yo las haya dicho. ¿Estás listo? Las palabras son… MANZANA</b>
-		 [pausa], PESO [pausa], MESA [pausa]. Ahora dígame esas palabras (se puede repetir hasta cinco veces, pero registre sólo el primer intento).
-				</td>
-
-			<?php } ?>
+		<tr>						
+			<td colspan='4'><b>Escuche atentamente. Voy a decir tres palabras. Repítalas una vez que yo las haya dicho. ¿Estás listo? Las palabras son… MANZANA</b>
+	 [pausa], PESO [pausa], MESA [pausa]. Ahora dígame esas palabras (se puede repetir hasta cinco veces, pero registre sólo el primer intento).
+			</td>			
 		</tr>
 		<tr>
-			<td><?= (($etapa == 1 OR $etapa == 5) ? 'ÁRBOL' : (($etapa == 4) ? 'PELOTA' : 'MANZANA' ));?></td>
+			<td>MANZANA</td>
 			<td><?= form_input(array('type'=>'text','name'=>'manzana', 'id'=>'manzana', 'value'=>set_value('manzana', $list[0]->manzana))); ?></td>
 			<td><?= form_dropdown('manzana_puntaje',$puntaje,set_value('manzana_puntaje', $list[0]->manzana_puntaje)); ?></td>
 			<td>
@@ -606,7 +614,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td><?= (($etapa == 1 OR $etapa == 5) ? 'MESA' : (($etapa == 4) ? 'BANDERA' : 'PESO' ));?></td>
+			<td>PESO</td>
 			<td><?= form_input(array('type'=>'text','name'=>'peso', 'id'=>'peso', 'value'=>set_value('peso', $list[0]->peso))); ?></td>
 			<td><?= form_dropdown('peso_puntaje',$puntaje,set_value('peso_puntaje', $list[0]->peso_puntaje)); ?></td>
 			<td>
@@ -638,7 +646,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td><?= (($etapa == 1 OR $etapa == 5) ? 'AVIÓN' : (($etapa == 4) ? 'MANZANA' : 'MESA' ));?></td>
+			<td>MESA</td>
 			<td><?= form_input(array('type'=>'text','name'=>'mesa', 'id'=>'mesa', 'value'=>set_value('mesa', $list[0]->mesa))); ?></td>
 			<td><?= form_dropdown('mesa_puntaje',$puntaje,set_value('mesa_puntaje', $list[0]->mesa_puntaje)); ?></td>
 			<td>
@@ -676,12 +684,12 @@ $(function(){
 		<tr>
 			<td style='font-weight:bold;' colspan='4'>ATENCIÓN Y CÁLCULO (Series de 7)</td>
 		</tr>
-		<tr><td colspan='4'>A.-</td></tr>
+		<tr><td colspan='4'>A.- Realizar <?= form_checkbox($realizar_a, 1, set_checkbox('realizar_a',1,(($list[0]->realizar_a == 1) ? true : false)));?></td></tr>
 		<tr>
 			<td colspan='4'><b>Ahora, me gustaría que restara 100 menos 7. Siga restando 7 a los resultados que vaya obteniendo, hasta que le diga que se detenga.</b></td>
 		</tr>
 		<tr>
-			<td>¿Cuánto es 100 menos 7?	[93]</td>
+			<td>¿Cuánto es 100 menos 7?</td>
 			<td><?= form_input(array('type'=>'text','name'=>'cuanto_93', 'id'=>'cuanto_93', 'value'=>set_value('cuanto_93', $list[0]->cuanto_93))); ?></td>
 			<td><?= form_dropdown('cuanto_93_puntaje',$puntaje,set_value('cuanto_93_puntaje', $list[0]->cuanto_93_puntaje)); ?></td>
 			<td>
@@ -714,7 +722,7 @@ $(function(){
 		<tr>
 
 		<tr>
-			<td>Si es necesario diga: Continúe.	[86]</td>
+			<td>Si es necesario diga: Continúe.</td>
 			<td><?= form_input(array('type'=>'text','name'=>'cuanto_86', 'id'=>'cuanto_86', 'value'=>set_value('cuanto_86', $list[0]->cuanto_86))); ?></td>
 			<td><?= form_dropdown('cuanto_86_puntaje',$puntaje,set_value('cuanto_86_puntaje', $list[0]->cuanto_86_puntaje)); ?></td>
 			<td>
@@ -746,7 +754,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>Si es necesario diga: Continúe.	[79]</td>
+			<td>Si es necesario diga: Continúe.</td>
 			<td><?= form_input(array('type'=>'text','name'=>'cuanto_79', 'id'=>'cuanto_79', 'value'=>set_value('cuanto_79', $list[0]->cuanto_79))); ?></td>
 			<td><?= form_dropdown('cuanto_79_puntaje',$puntaje,set_value('cuanto_79_puntaje', $list[0]->cuanto_79_puntaje)); ?></td>
 			<td>
@@ -778,7 +786,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>Si es necesario diga: Continúa.	[72]</td>
+			<td>Si es necesario diga: Continúa.</td>
 			<td><?= form_input(array('type'=>'text','name'=>'cuanto_72', 'id'=>'cuanto_72', 'value'=>set_value('cuanto_72', $list[0]->cuanto_72))); ?></td>
 			<td><?= form_dropdown('cuanto_72_puntaje',$puntaje,set_value('cuanto_72_puntaje', $list[0]->cuanto_72_puntaje)); ?></td>
 			<td>
@@ -810,7 +818,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td>Si es necesario diga: Continúa.	[65]</td>
+			<td>Si es necesario diga: Continúa.</td>
 			<td><?= form_input(array('type'=>'text','name'=>'cuanto_65', 'id'=>'cuanto_65', 'value'=>set_value('cuanto_65', $list[0]->cuanto_65))); ?></td>
 			<td><?= form_dropdown('cuanto_65_puntaje',$puntaje,set_value('cuanto_65_puntaje', $list[0]->cuanto_65_puntaje)); ?></td>
 			<td>
@@ -845,7 +853,7 @@ $(function(){
 			<td colspan='2'>Puntaje total seccion a</td>			
 			<td><?= form_dropdown('puntaje_seccion_a',array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'),set_value('puntaje_seccion_a', $list[0]->puntaje_seccion_a), array('id'=>'puntaje_seccion_a')); ?></td>
 		</tr>
-		<tr><td colspan='3'>B.-</td></tr>
+		<tr><td colspan='3'>B.- Realizar <?= form_checkbox($realizar_b, 1, set_checkbox('realizar_b',1,(($list[0]->realizar_b == 1) ? true : false)));?></td></tr>
 		<tr>
 			<td>Pídale al paciente que deletree la palabra "MUNDO" (usted puede ayudarlo) Luego dígale. "Ahora deletréela de atrás para adelante" (espere máximo 30")</td>
 			<td><?= form_input(array('type'=>'text','name'=>'mundo_respuesta', 'id'=>'mundo_respuesta', 'value'=>set_value('mundo_respuesta', $list[0]->mundo_respuesta))); ?></td>
@@ -885,7 +893,7 @@ $(function(){
 			<td colspan='4' style='font-weight:bold;'>¿Cuáles eran las tres palabras que le pedí que recordara? [No de pistas]</td>
 		</tr>
 		<tr>
-			<td><?= (($etapa == 1 OR $etapa == 5) ? 'ÁRBOL' : (($etapa == 4) ? 'PELOTA' : 'MANZANA' ));?></td>
+			<td>MANZANA</td>
 			<td><?= form_input(array('type'=>'text','name'=>'manzana_2', 'id'=>'manzana_2', 'value'=>set_value('manzana_2', $list[0]->manzana_2))); ?></td>
 			<td><?= form_dropdown('manzana_2_puntaje',$puntaje,set_value('manzana_2_puntaje', $list[0]->manzana_2_puntaje)); ?></td>
 			<td>
@@ -917,7 +925,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td><?= (($etapa == 1 OR $etapa == 5) ? 'MESA' : (($etapa == 4) ? 'BANDERA' : 'PESO' ));?></td>
+			<td>PESO</td>
 			<td><?= form_input(array('type'=>'text','name'=>'peso_2', 'id'=>'peso_2', 'value'=>set_value('peso_2', $list[0]->peso_2))); ?></td>
 			<td><?= form_dropdown('peso_2_puntaje',$puntaje,set_value('peso_2_puntaje', $list[0]->peso_2_puntaje)); ?></td>
 			<td>
@@ -949,7 +957,7 @@ $(function(){
 			</td>
 		</tr>
 		<tr>
-			<td><?= (($etapa == 1 OR $etapa == 5) ? 'AVIÓN' : (($etapa == 4) ? 'MANZANA' : 'MESA' ));?></td>
+			<td>MESA</td>
 			<td><?= form_input(array('type'=>'text','name'=>'mesa_2', 'id'=>'mesa_2', 'value'=>set_value('mesa_2', $list[0]->mesa_2))); ?></td>
 			<td><?= form_dropdown('mesa_2_puntaje',$puntaje,set_value('mesa_2_puntaje', $list[0]->mesa_2_puntaje)); ?></td>
 			<td>

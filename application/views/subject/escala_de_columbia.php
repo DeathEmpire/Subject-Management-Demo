@@ -7,23 +7,33 @@ $(function(){
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
-			$("#fecha, #segundos").attr('readonly','readonly');
+			$("#fecha").attr('readonly','readonly');
+			$("#form_columbia :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 		}
 		else{
-			$("#fecha, #segundos").removeAttr('readonly');
+			$("#fecha").removeAttr('readonly');
 		}
 	});
 	if($("input[name=realizado]:checked").val() == 0){
-		$("#fecha, #segundos").attr('readonly','readonly');
+		$("#fecha").attr('readonly','readonly');
+		$("#form_columbia :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
 	}
 	else{
-		$("#fecha, #segundos").removeAttr('readonly');
+		$("#fecha").removeAttr('readonly');
 	}
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
-			$("#form_tmtb :input").attr('readonly','readonly');
-			$("#form_tmtb :input").each(function(){
+			$("#form_columbia :input").attr('readonly','readonly');
+			$("#form_columbia :input").each(function(){
 				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
 					$(this).val('');
 				}
@@ -34,15 +44,15 @@ $(function(){
 			$("input[name=realizado]").removeAttr('readonly');
 
 		}else{
-			$("#form_tmtb :input").removeAttr('readonly');
+			$("#form_columbia :input").removeAttr('readonly');
 			$('select option:not(:selected)').each(function(){
 				$(this).removeAttr('disabled', 'disabled');
 			});
 		}
 	});
 	if($("input[name=realizado]:checked").val() == 0){
-		$("#form_tmtb :input").attr('readonly','readonly');
-		$("#form_tmtb :input").each(function(){
+		$("#form_columbia :input").attr('readonly','readonly');
+		$("#form_columbia :input").each(function(){
 				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
 					$(this).val('');
 				}
@@ -53,7 +63,7 @@ $(function(){
 		$("input[name=realizado]").removeAttr('readonly');
 
 	}else{
-		$("#form_tmtb :input").removeAttr('readonly');
+		$("#form_columbia :input").removeAttr('readonly');
 		$('select option:not(:selected)').each(function(){
 			$(this).removeAttr('disabled', 'disabled');
 		});
@@ -61,18 +71,8 @@ $(function(){
 
 });
 </script>
-<?php
-	switch($etapa){
-		case 1 : $protocolo = "(Selección)"; break;
-		case 2 : $protocolo = "(Basal Día 1)"; break;
-		case 3 : $protocolo = "(Semana 4)"; break;
-		case 4 : $protocolo = "(Semana 12)"; break;
-		case 5 : $protocolo = "(Término del Estudio)"; break;
-		case 6 : $protocolo = "(Terminación Temprana)"; break;
-		default : $protocolo = ""; break;
-	}
-?>
-<legend style='text-align:center;'>TMT B <?= $protocolo;?></legend>
+
+<legend style='text-align:center;'>Escala de Columbia</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -98,11 +98,10 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?= form_open('subject/tmt_b_insert', array('class'=>'form-horizontal','id'=>'form_tmtb')); ?>
+<?= form_open('subject/escala_de_columbia_insert', array('class'=>'form-horizontal','id'=>'form_columbia')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
-	<?= form_hidden('subject_id', $subject->id); ?>	
-	<?= form_hidden('etapa', $etapa); ?>	
+	<?= form_hidden('subject_id', $subject->id); ?>			
 	 
 	<?php
 			$data = array(
@@ -127,19 +126,12 @@ $(function(){
 		<tr>
 			<td>Fecha: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
-		</tr>
-		<tr>
-			<td>Segundos: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'segundos', 'id'=>'segundos', 'value'=>set_value('segundos'))); ?></td>
-		</tr>
-		<tr>
-			<td>Numero de errores: </td>
-			<td><?= form_input(array('type'=>'text','name'=>'num_errores', 'id'=>'num_errores', 'value'=>set_value('num_errores'))); ?></td>
-		</tr>
+		</tr>		
+
 		<tr>
 			<td colspan='2' style='text-align:center;'>
 				<?php
-					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'tmt_b_insert')){
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'tmt_a_insert')){
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>

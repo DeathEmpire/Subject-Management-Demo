@@ -167,6 +167,30 @@ class Subject extends CI_Controller {
 		$data['titulo'] = 'Subject Record';
 		$data['subject'] = $this->Model_Subject->find($id);
 		$this->auditlib->save_audit("Entro a la vista de formularios del sujeto", $id);
+
+		/*Calculo de fechas para las visitas*/
+		if(isset($data['subject']->randomization_date) AND $data['subject']->randomization_date != '0000-00-00' AND !empty($data['subject']->randomization_date)){
+			$fecha1 = date('Y-m-d', strtotime($data['subject']->randomization_date ." + 4 weeks"));
+			$fecha1_a = date('d/m/Y', strtotime($fecha1 ." - 7 days"));
+			$fecha1_b = date('d/m/Y', strtotime($fecha1 ." + 7 days"));
+			$data['fecha_1'] = $fecha1_a ." - ". $fecha1_b;
+
+			$fecha2 = date('Y-m-d', strtotime($data['subject']->randomization_date ." + 12 weeks"));
+			$fecha2_a = date('d/m/Y', strtotime($fecha2 ." - 7 days"));
+			$fecha2_b = date('d/m/Y', strtotime($fecha2 ." + 7 days"));
+			$data['fecha_2'] = $fecha2_a ." - ". $fecha2_b;			
+
+			$fecha3 = date('Y-m-d', strtotime($data['subject']->randomization_date ." + 24 weeks"));
+			$fecha3_a = date('d/m/Y', strtotime($fecha3 ." - 7 days"));
+			$fecha3_b = date('d/m/Y', strtotime($fecha3 ." + 7 days"));
+			$data['fecha_3'] = $fecha3_a ." - ". $fecha3_b;		
+		}
+		else{
+			$data['fecha_1'] = '';
+			$data['fecha_2'] = '';
+			$data['fecha_3'] = '';			
+		}
+
 		$this->load->view('template', $data);
 	}
 
@@ -1602,9 +1626,7 @@ class Subject extends CI_Controller {
 		/*Si se tiene algun hallazgo todo es obligatorio*/
 	
 		$this->form_validation->set_rules('aspecto_general', '', 'xss_clean');
-		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');
-		$this->form_validation->set_rules('estado_nutricional', '', 'xss_clean');
-		$this->form_validation->set_rules('estado_nutricional_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');		
 		$this->form_validation->set_rules('piel', '', 'xss_clean');
 		$this->form_validation->set_rules('piel_desc', '', 'xss_clean');
 		$this->form_validation->set_rules('cabeza', '', 'xss_clean');
@@ -1645,9 +1667,7 @@ class Subject extends CI_Controller {
 				(
 					$registro['etapa'] == 1 AND
 					(
-						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
-						OR
-						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
+						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))						
 						OR
 						(isset($registro['piel']) AND $registro['piel'] == '0' AND empty($registro['piel_desc']))
 						OR
@@ -1671,7 +1691,7 @@ class Subject extends CI_Controller {
 						OR
 						(isset($registro['muscular']) AND $registro['muscular'] == '0' AND empty($registro['muscular_desc']))										
 
-						OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
+						OR !isset($registro['aspecto_general']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
 						OR !isset($registro['ojos']) OR !isset($registro['nariz']) OR !isset($registro['oidos']) OR !isset($registro['boca'])
 						OR !isset($registro['cuello']) OR !isset($registro['pulmones']) OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen'])
 						OR !isset($registro['muscular'])
@@ -1679,9 +1699,7 @@ class Subject extends CI_Controller {
 					OR
 					$registro['etapa'] != 1 AND
 					(
-						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
-						OR
-						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
+						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))						
 						OR
 						(isset($registro['pulmones']) AND $registro['pulmones'] == '0' AND empty($registro['pulmones_desc']))
 						OR
@@ -1691,7 +1709,7 @@ class Subject extends CI_Controller {
 						OR
 						(isset($registro['muscular']) AND $registro['muscular'] == '0' AND empty($registro['muscular_desc']))					
 
-						OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['pulmones']) 
+						OR !isset($registro['aspecto_general']) OR !isset($registro['pulmones']) 
 						OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen']) OR !isset($registro['muscular'])
 					)
 					OR empty($registro['fecha'])
@@ -1777,9 +1795,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('fecha', '', 'xss_clean');
 		
 		$this->form_validation->set_rules('aspecto_general', '', 'xss_clean');
-		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');
-		$this->form_validation->set_rules('estado_nutricional', '', 'xss_clean');
-		$this->form_validation->set_rules('estado_nutricional_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');		
 		$this->form_validation->set_rules('piel', '', 'xss_clean');
 		$this->form_validation->set_rules('piel_desc', '', 'xss_clean');
 		$this->form_validation->set_rules('cabeza', '', 'xss_clean');
@@ -1818,9 +1834,7 @@ class Subject extends CI_Controller {
 					$registro['etapa'] == 1 AND
 					(
 						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
-						OR
-						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
-						OR
+						OR						
 						(isset($registro['piel']) AND $registro['piel'] == '0' AND empty($registro['piel_desc']))
 						OR
 						(isset($registro['cabeza']) AND $registro['cabeza'] == '0' AND empty($registro['cabeza_desc']))
@@ -1843,7 +1857,7 @@ class Subject extends CI_Controller {
 						OR
 						(isset($registro['muscular']) AND $registro['muscular'] == '0' AND empty($registro['muscular_desc']))										
 
-						OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
+						OR !isset($registro['aspecto_general']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
 						OR !isset($registro['ojos']) OR !isset($registro['nariz']) OR !isset($registro['oidos']) OR !isset($registro['boca'])
 						OR !isset($registro['cuello']) OR !isset($registro['pulmones']) OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen'])
 						OR !isset($registro['muscular'])
@@ -1852,9 +1866,7 @@ class Subject extends CI_Controller {
 					$registro['etapa'] != 1 AND
 					(
 						(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
-						OR
-						(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
-						OR
+						OR						
 						(isset($registro['pulmones']) AND $registro['pulmones'] == '0' AND empty($registro['pulmones_desc']))
 						OR
 						(isset($registro['cardiovascular']) AND $registro['cardiovascular'] == '0' AND empty($registro['cardiovascular_desc']))
@@ -1863,7 +1875,7 @@ class Subject extends CI_Controller {
 						OR
 						(isset($registro['muscular']) AND $registro['muscular'] == '0' AND empty($registro['muscular_desc']))					
 
-						OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['pulmones']) 
+						OR !isset($registro['aspecto_general']) OR !isset($registro['pulmones']) 
 						OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen']) OR !isset($registro['muscular'])
 					)
 					OR empty($registro['fecha'])
@@ -2435,6 +2447,24 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('msdd', '', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_bruto', '', 'xss_clean');
 
+			$this->form_validation->set_rules('respuesta_1a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_2a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_3a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_4a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_5a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_6a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_7a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_8a', '', 'xss_clean');
+
+			$this->form_validation->set_rules('respuesta_1b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_2b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_3b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_4b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_5b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_6b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_7b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_8b', '', 'xss_clean');
+
 
 		if($this->form_validation->run() == FALSE) {
 
@@ -2564,6 +2594,23 @@ class Subject extends CI_Controller {
 			$this->form_validation->set_rules('msdd', '', 'xss_clean');
 			$this->form_validation->set_rules('puntaje_bruto', '', 'xss_clean');
 
+			$this->form_validation->set_rules('respuesta_1a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_2a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_3a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_4a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_5a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_6a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_7a', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_8a', '', 'xss_clean');
+			
+			$this->form_validation->set_rules('respuesta_1b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_2b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_3b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_4b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_5b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_6b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_7b', '', 'xss_clean');
+			$this->form_validation->set_rules('respuesta_8b', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 
@@ -2833,6 +2880,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('mundo_puntaje', '', 'xss_clean');	
 		$this->form_validation->set_rules('mostrado_que_es_1', '', 'xss_clean');	
 		$this->form_validation->set_rules('mostrado_que_es_2', '', 'xss_clean');	
+		$this->form_validation->set_rules('realizar_a', '', 'xss_clean');
+		$this->form_validation->set_rules('realizar_b', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar estudio MMSE", $registro['subject_id']);
@@ -2891,8 +2940,18 @@ class Subject extends CI_Controller {
 				$registro['tiene_problemas_memoria'] = 0;
 			}
 
+			if(!isset($registro['realizar_a'])){
+				$registro['realizar_a'] = 0;
+			}
+			if(!isset($registro['realizar_b'])){
+				$registro['realizar_b'] = 0;
+			}
+
 			if($registro['etapa'] == 1){				
 				$subjet_['mmse_1_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 2){
+				$subjet_['mmse_2_status'] = $estado;
 			}
 			elseif($registro['etapa'] == 4){
 				$subjet_['mmse_4_status'] = $estado;
@@ -3020,7 +3079,9 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('mundo_respuesta', '', 'xss_clean');	
 		$this->form_validation->set_rules('mundo_puntaje', '', 'xss_clean');	
 		$this->form_validation->set_rules('mostrado_que_es_1', '', 'xss_clean');	
-		$this->form_validation->set_rules('mostrado_que_es_2', '', 'xss_clean');	
+		$this->form_validation->set_rules('mostrado_que_es_2', '', 'xss_clean');
+		$this->form_validation->set_rules('realizar_a', '', 'xss_clean');
+		$this->form_validation->set_rules('realizar_b', '', 'xss_clean');	
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar el estudio MMSE", $registro['subject_id']);
@@ -3077,9 +3138,19 @@ class Subject extends CI_Controller {
 			if(!isset($registro['tiene_problemas_memoria']) OR empty($registro['tiene_problemas_memoria'])){
 				$registro['tiene_problemas_memoria'] = 0;
 			}
+
+			if(!isset($registro['realizar_a'])){
+				$registro['realizar_a'] = 0;
+			}
+			if(!isset($registro['realizar_b'])){
+				$registro['realizar_b'] = 0;
+			}
 			
 			if($registro['etapa'] == 1){				
 				$subjet_['mmse_1_status'] = $estado;
+			}
+			elseif($registro['etapa'] == 2){
+				$subjet_['mmse_2_status'] = $estado;
 			}
 			elseif($registro['etapa'] == 4){
 				$subjet_['mmse_4_status'] = $estado;
@@ -3847,6 +3918,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('comprimidos_perdidos', '', 'xss_clean');
 		$this->form_validation->set_rules('dias', '', 'xss_clean');
 		$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'xss_clean');		
+		$this->form_validation->set_rules('explique', '', 'xss_clean');
 		
 
 		if($this->form_validation->run() == FALSE) {
@@ -3944,7 +4016,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('se_perdio_algun_comprimido', '', 'xss_clean');
 		$this->form_validation->set_rules('comprimidos_perdidos', '', 'xss_clean');
 		$this->form_validation->set_rules('dias', '', 'xss_clean');
-		$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'xss_clean');		
+		$this->form_validation->set_rules('porcentaje_cumplimiento', '', 'xss_clean');	
+		$this->form_validation->set_rules('explique', '', 'xss_clean');	
 		
 		
 		if($this->form_validation->run() == FALSE) {
@@ -4885,7 +4958,7 @@ class Subject extends CI_Controller {
 						OR $registro['reflejos_normal_anormal']  == ''
 						OR $registro['examen_sensitivo_normal_anormal']  == ''
 						OR $registro['marcha_normal_anormal'] == ''
-						OR $registro['postura_normal_anormal'] == ''
+						OR $registro['coordinacion_normal_anormal'] == ''
 					)
 				)
 			){
@@ -5028,7 +5101,7 @@ class Subject extends CI_Controller {
 						OR $registro['reflejos_normal_anormal']  == ''
 						OR $registro['examen_sensitivo_normal_anormal']  == ''
 						OR $registro['marcha_normal_anormal'] == ''
-						OR $registro['postura_normal_anormal'] == ''
+						OR $registro['coordinacion_normal_anormal'] == ''
 					)
 				)
 			){
@@ -5356,6 +5429,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('hecho_35', '', 'xss_clean');
 		$this->form_validation->set_rules('hecho_36', '', 'xss_clean');
 		$this->form_validation->set_rules('observaciones', '', 'xss_clean');
+		$this->form_validation->set_rules('no_aplica_hba1c', '', 'xss_clean');
 		
 		
 
@@ -5397,7 +5471,9 @@ class Subject extends CI_Controller {
 					OR ($registro['hecho_27'] == 1 AND ($registro['orina_proteinas'] == '' OR !isset($registro['orina_proteinas_nom_anom'])))
 					OR ($registro['hecho_28'] == 1 AND ($registro['orina_sangre'] == '' OR !isset($registro['orina_sangre_nom_anom'])))
 					OR ($registro['hecho_29'] == 1 AND ($registro['orina_cetonas'] == '' OR	!isset($registro['orina_cetonas_nom_anom'])))
+
 					OR ($registro['hecho_30'] == 1 AND ($registro['orina_microscospia'] == '' OR !isset($registro['orina_microscospia_nom_anom'])))
+					
 					OR ($registro['hecho_31'] == 1 AND ($registro['otros_sangre_homocisteina'] == '' OR !isset($registro['otros_sangre_homocisteina_nom_anom'])))
 					OR ($registro['hecho_32'] == 1 AND ($registro['otros_perfil_tiroideo'] == '' OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
 					OR ($registro['hecho_33'] == 1 AND ($registro['otros_nivel_b12'] == '' OR !isset($registro['otros_nivel_b12_nom_anom'])))
@@ -5412,7 +5488,7 @@ class Subject extends CI_Controller {
 					OR $registro['hecho_17'] == '' OR $registro['hecho_18'] == '' OR $registro['hecho_19'] == '' OR $registro['hecho_20'] == ''
 					OR $registro['hecho_21'] == '' OR $registro['hecho_22'] == '' OR $registro['hecho_23'] == '' OR $registro['hecho_24'] == ''
 					OR $registro['hecho_25'] == '' OR $registro['hecho_26'] == '' OR $registro['hecho_27'] == '' OR $registro['hecho_28'] == ''
-					OR $registro['hecho_29'] == '' OR $registro['hecho_30'] == '' OR $registro['hecho_31'] == '' OR $registro['hecho_32'] == ''
+					OR $registro['hecho_29'] == '' OR ($registro['hecho_30'] == '' AND $registro['etapa'] == 1) OR $registro['hecho_31'] == '' OR $registro['hecho_32'] == ''
 					OR $registro['hecho_33'] == '' OR $registro['hecho_34'] == '' OR $registro['hecho_35'] == '' OR $registro['hecho_36'] == ''
 				)
 			){
@@ -5420,6 +5496,10 @@ class Subject extends CI_Controller {
 			}
 			else{
 				$estado = 'Record Complete';
+			}
+
+			if(!isset($registro['no_aplica_hba1c'])){
+				$registro['no_aplica_hba1c'] = '';
 			}
 
 			$registro['status'] = $estado;
@@ -5603,6 +5683,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('hecho_35', '', 'xss_clean');
 		$this->form_validation->set_rules('hecho_36', '', 'xss_clean');
 		$this->form_validation->set_rules('observaciones', '', 'xss_clean');
+		$this->form_validation->set_rules('no_aplica_hba1c', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar examen de laboratorio", $registro['subject_id']);
@@ -5657,7 +5738,7 @@ class Subject extends CI_Controller {
 					OR $registro['hecho_17'] == '' OR $registro['hecho_18'] == '' OR $registro['hecho_19'] == '' OR $registro['hecho_20'] == ''
 					OR $registro['hecho_21'] == '' OR $registro['hecho_22'] == '' OR $registro['hecho_23'] == '' OR $registro['hecho_24'] == ''
 					OR $registro['hecho_25'] == '' OR $registro['hecho_26'] == '' OR $registro['hecho_27'] == '' OR $registro['hecho_28'] == ''
-					OR $registro['hecho_29'] == '' OR $registro['hecho_30'] == '' OR $registro['hecho_31'] == '' OR $registro['hecho_32'] == ''
+					OR $registro['hecho_29'] == '' OR ($registro['hecho_30'] == '' AND $registro['etapa'] == 1) OR $registro['hecho_31'] == '' OR $registro['hecho_32'] == ''
 					OR $registro['hecho_33'] == '' OR $registro['hecho_34'] == '' OR $registro['hecho_35'] == '' OR $registro['hecho_36'] == ''
 				)
 			){
@@ -5673,6 +5754,10 @@ class Subject extends CI_Controller {
 
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
+			}
+
+			if(!isset($registro['no_aplica_hba1c'])){
+				$registro['no_aplica_hba1c'] = '';
 			}
 			
 			/*Actualizamos el Form*/
@@ -5835,6 +5920,7 @@ class Subject extends CI_Controller {
 		
 		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
 		$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		$this->form_validation->set_rules('num_errores','Numero de errores','xss_clean');
 		
 
 		if($this->form_validation->run() == FALSE) {
@@ -5845,7 +5931,7 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['segundos'])
+					empty($registro['fecha']) OR empty($registro['segundos']) OR empty($registro['num_errores'])
 				)
 			){
 				$estado = 'Error';
@@ -5924,7 +6010,8 @@ class Subject extends CI_Controller {
 
 		
 		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
-		$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		$this->form_validation->set_rules('segundos','Segundos','xss_clean');
+		$this->form_validation->set_rules('num_errores','Numero de errores','xss_clean');	
 		
 
 		if($this->form_validation->run() == FALSE) {
@@ -5935,7 +6022,7 @@ class Subject extends CI_Controller {
 			
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['segundos'])
+					empty($registro['fecha']) OR empty($registro['segundos']) OR empty($registro['num_errores'])
 				)
 			){
 				$estado = 'Error';
@@ -6123,7 +6210,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
 
 		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
-		$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		$this->form_validation->set_rules('segundos','Segundos','xss_clean');
+		$this->form_validation->set_rules('num_errores','Numero de errores','xss_clean');	
 		
 
 		if($this->form_validation->run() == FALSE) {
@@ -6134,7 +6222,7 @@ class Subject extends CI_Controller {
 
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['segundos'])
+					empty($registro['fecha']) OR empty($registro['segundos']) OR empty($registro['num_errores'])
 				)
 			){
 				$estado = 'Error';
@@ -6212,7 +6300,8 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');
 
 		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
-		$this->form_validation->set_rules('segundos','Segundos','xss_clean');	
+		$this->form_validation->set_rules('segundos','Segundos','xss_clean');
+		$this->form_validation->set_rules('num_errores','Numero de errores','xss_clean');	
 		
 
 		if($this->form_validation->run() == FALSE) {
@@ -6223,7 +6312,7 @@ class Subject extends CI_Controller {
 			
 			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND
 				(
-					empty($registro['fecha']) OR empty($registro['segundos'])
+					empty($registro['fecha']) OR empty($registro['segundos']) OR empty($registro['num_errores'])
 				)
 			){
 				$estado = 'Error';
@@ -7320,6 +7409,48 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('apatia_17','','xss_clean');
 		$this->form_validation->set_rules('apatia_18','','xss_clean');
 
+		$this->form_validation->set_rules('autoevaluacion_realizado','Realizado','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_1','','xss_clean');			
+		$this->form_validation->set_rules('autoevaluacion_2','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_3','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_4','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_5','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_6','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_7','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_8','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_9','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_10','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_11','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_12','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_13','','xss_clean');			
+		$this->form_validation->set_rules('autoevaluacion_14','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_15','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_16','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_17','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_18','','xss_clean');
+
+		$this->form_validation->set_rules('version_clinica_realizado','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_fecha','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_1','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_2','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_3','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_4','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_5','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_6','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_7','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_8','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_9','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_10','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_11','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_12','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_13','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_14','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_15','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_16','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_17','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_18','','xss_clean');
+
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de agregar Autoevaluacion", $registro['subject_id']);
 			$this->autoevaluacion($registro['subject_id'], $registro['etapa']);
@@ -7337,6 +7468,28 @@ class Subject extends CI_Controller {
 					OR !isset($registro['apatia_12']) OR !isset($registro['apatia_13']) OR !isset($registro['apatia_14'])
 					OR !isset($registro['apatia_15']) OR !isset($registro['apatia_16']) OR !isset($registro['apatia_17'])
 					OR !isset($registro['apatia_18'])
+				)
+				OR
+				( $registro['autoevaluacion_realizado'] == 1 
+				 AND (empty($registro['autoevaluacion_fecha']) OR !isset($registro['autoevaluacion_1']) OR !isset($registro['autoevaluacion_2'])
+					OR !isset($registro['autoevaluacion_3']) OR !isset($registro['autoevaluacion_4']) OR !isset($registro['autoevaluacion_5'])
+					OR !isset($registro['autoevaluacion_6']) OR !isset($registro['autoevaluacion_7']) OR !isset($registro['autoevaluacion_8'])
+					OR !isset($registro['autoevaluacion_9']) OR !isset($registro['autoevaluacion_10']) OR !isset($registro['autoevaluacion_11'])
+					OR !isset($registro['autoevaluacion_12']) OR !isset($registro['autoevaluacion_13']) OR !isset($registro['autoevaluacion_14'])
+					OR !isset($registro['autoevaluacion_15']) OR !isset($registro['autoevaluacion_16']) OR !isset($registro['autoevaluacion_17'])
+					OR !isset($registro['autoevaluacion_18'])
+					)
+				)
+				OR
+				($registro['version_clinica_realizado'] == 1 
+					AND (empty($registro['version_clinica_fecha']) OR !isset($registro['version_clinica_1']) OR !isset($registro['version_clinica_2'])
+					OR !isset($registro['version_clinica_3']) OR !isset($registro['version_clinica_4']) OR !isset($registro['version_clinica_5'])
+					OR !isset($registro['version_clinica_6']) OR !isset($registro['version_clinica_7']) OR !isset($registro['version_clinica_8'])
+					OR !isset($registro['version_clinica_9']) OR !isset($registro['version_clinica_10']) OR !isset($registro['version_clinica_11'])
+					OR !isset($registro['version_clinica_12']) OR !isset($registro['version_clinica_13']) OR !isset($registro['version_clinica_14'])
+					OR !isset($registro['version_clinica_15']) OR !isset($registro['version_clinica_16']) OR !isset($registro['version_clinica_17'])
+					OR !isset($registro['version_clinica_18'])
+					)
 				)
 				
 			){
@@ -7435,6 +7588,48 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('apatia_16','','xss_clean');
 		$this->form_validation->set_rules('apatia_17','','xss_clean');
 		$this->form_validation->set_rules('apatia_18','','xss_clean');
+
+		$this->form_validation->set_rules('autoevaluacion_realizado','Realizado','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_fecha','Fecha','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_1','','xss_clean');			
+		$this->form_validation->set_rules('autoevaluacion_2','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_3','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_4','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_5','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_6','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_7','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_8','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_9','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_10','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_11','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_12','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_13','','xss_clean');			
+		$this->form_validation->set_rules('autoevaluacion_14','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_15','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_16','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_17','','xss_clean');
+		$this->form_validation->set_rules('autoevaluacion_18','','xss_clean');
+
+		$this->form_validation->set_rules('version_clinica_realizado','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_fecha','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_1','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_2','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_3','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_4','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_5','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_6','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_7','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_8','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_9','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_10','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_11','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_12','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_13','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_14','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_15','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_16','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_17','','xss_clean');
+		$this->form_validation->set_rules('version_clinica_18','','xss_clean');
 		
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar Autoevaluacion", $registro['subject_id']);
@@ -7452,6 +7647,28 @@ class Subject extends CI_Controller {
 					OR !isset($registro['apatia_12']) OR !isset($registro['apatia_13']) OR !isset($registro['apatia_14'])
 					OR !isset($registro['apatia_15']) OR !isset($registro['apatia_16']) OR !isset($registro['apatia_17'])
 					OR !isset($registro['apatia_18'])
+				)
+				OR
+				( $registro['autoevaluacion_realizado'] == 1 
+				 AND (empty($registro['autoevaluacion_fecha']) OR !isset($registro['autoevaluacion_1']) OR !isset($registro['autoevaluacion_2'])
+					OR !isset($registro['autoevaluacion_3']) OR !isset($registro['autoevaluacion_4']) OR !isset($registro['autoevaluacion_5'])
+					OR !isset($registro['autoevaluacion_6']) OR !isset($registro['autoevaluacion_7']) OR !isset($registro['autoevaluacion_8'])
+					OR !isset($registro['autoevaluacion_9']) OR !isset($registro['autoevaluacion_10']) OR !isset($registro['autoevaluacion_11'])
+					OR !isset($registro['autoevaluacion_12']) OR !isset($registro['autoevaluacion_13']) OR !isset($registro['autoevaluacion_14'])
+					OR !isset($registro['autoevaluacion_15']) OR !isset($registro['autoevaluacion_16']) OR !isset($registro['autoevaluacion_17'])
+					OR !isset($registro['autoevaluacion_18'])
+					)
+				)
+				OR
+				($registro['version_clinica_realizado'] == 1 
+					AND (empty($registro['version_clinica_fecha']) OR !isset($registro['version_clinica_1']) OR !isset($registro['version_clinica_2'])
+					OR !isset($registro['version_clinica_3']) OR !isset($registro['version_clinica_4']) OR !isset($registro['version_clinica_5'])
+					OR !isset($registro['version_clinica_6']) OR !isset($registro['version_clinica_7']) OR !isset($registro['version_clinica_8'])
+					OR !isset($registro['version_clinica_9']) OR !isset($registro['version_clinica_10']) OR !isset($registro['version_clinica_11'])
+					OR !isset($registro['version_clinica_12']) OR !isset($registro['version_clinica_13']) OR !isset($registro['version_clinica_14'])
+					OR !isset($registro['version_clinica_15']) OR !isset($registro['version_clinica_16']) OR !isset($registro['version_clinica_17'])
+					OR !isset($registro['version_clinica_18'])
+					)
 				)
 				
 			){
@@ -8959,6 +9176,12 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('resta_3_alt', '', 'xss_clean');
 		$this->form_validation->set_rules('resta_4_alt', '', 'xss_clean');
 		$this->form_validation->set_rules('resta_5_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_1_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_2_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_3_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_4_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_5_alt', '', 'xss_clean');
+		
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de ingresar el formulario de Restas Seriadas", $registro['subject_id']);
@@ -8971,6 +9194,11 @@ class Subject extends CI_Controller {
 				isset($registro['realizado_alt']) AND $registro['realizado_alt'] == 1 AND 
 				(
 					!isset($registro['fecha_alt']) OR empty($registro['fecha_alt'])
+					OR $registro['respuesta_1_alt'] == ''
+					OR $registro['respuesta_2_alt'] == ''
+					OR $registro['respuesta_3_alt'] == ''
+					OR $registro['respuesta_4_alt'] == ''
+					OR $registro['respuesta_5_alt'] == ''
 				)
 				
 				OR				
@@ -9077,6 +9305,11 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('resta_3_alt', '', 'xss_clean');
 		$this->form_validation->set_rules('resta_4_alt', '', 'xss_clean');
 		$this->form_validation->set_rules('resta_5_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_1_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_2_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_3_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_4_alt', '', 'xss_clean');
+		$this->form_validation->set_rules('respuesta_5_alt', '', 'xss_clean');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de actualizar el formulario de Restas Seriadas", $registro['subject_id']);
@@ -9089,6 +9322,11 @@ class Subject extends CI_Controller {
 				isset($registro['realizado_alt']) AND $registro['realizado_alt'] == 1 AND 
 				(
 					!isset($registro['fecha_alt']) OR empty($registro['fecha_alt'])
+					OR $registro['respuesta_1_alt'] == ''
+					OR $registro['respuesta_2_alt'] == ''
+					OR $registro['respuesta_3_alt'] == ''
+					OR $registro['respuesta_4_alt'] == ''
+					OR $registro['respuesta_5_alt'] == ''
 				)
 				
 				OR				
@@ -9285,6 +9523,237 @@ class Subject extends CI_Controller {
 		return $fecha_1;
 	}
 	
+	/*---------------------------------------Escala de Columbia------------------------------------------------------------------*/
+
+	public function escala_de_columbia($subject_id){
+		$data['contenido'] = 'subject/escala_de_columbia';
+		$data['titulo'] = 'Escala de Columbia';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		
+		$this->load->model('Model_Escala_de_columbia');
+		$data['lista'] = $this->Model_Escala_de_columbia->allWhereArray(array('subject_id'=>$subject_id));
+
+		$this->load->view('template',$data);
+	}
+
+	public function escala_de_columbia_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');		
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');		
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
+		
+		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de agregar escala de Columbia", $registro['subject_id']);
+			$this->escala_de_columbia($registro['subject_id']);
+
+		}else{
+
+			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND empty($registro['fecha'])
+				
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			
+			$subjet_['escala_de_columbia_status'] = $estado;
+			
+
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
+			}
+			
+			$registro['status'] = $estado;
+			$registro['usuario_creacion'] = $this->session->userdata('usuario');
+			$registro['created_at'] = date("Y-m-d H:i:s");
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Escala_de_columbia');
+			$this->Model_Escala_de_columbia->insert($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Escala de Columbia agregada", $registro['subject_id']);     		
+     		redirect('subject/grid/'.$registro['subject_id']);
+
+		}
+	}
+
+	public function escala_de_columbia_show($subject_id){
+		$data['contenido'] = 'subject/escala_de_columbia';
+		$data['titulo'] = 'Escala de Columbia';
+		$data['subject'] = $this->Model_Subject->find($subject_id);		
+		
+		$this->load->model('Model_Escala_de_columbia');
+		$data['lista'] = $this->Model_Escala_de_columbia->allWhereArray(array('subject_id'=>$subject_id));
+
+		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"escala_de_columbia", "etapa"=>0, "status"=>'Abierto'));		
+		if(isset($campos_query) AND !empty($campos_query)){
+			foreach ($campos_query as $value) {
+				$data['campos_query'][] = $value->campo;
+			}
+		}else{
+			$data['campos_query'] = array();
+		}
+
+		// $data['auditoria'] = $this->auditlib->audit('escala_de_columbia_audit', $data['list'][0]->id);
+
+		$this->load->view('template',$data);
+	}
+
+	public function escala_de_columbia_update(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');		
+		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');		
+		$this->form_validation->set_rules('fecha','Fecha','xss_clean');		
+		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Errores de validacion al tratar de actualizar escala de Columbia", $registro['subject_id']);
+			$this->escala_de_columbia_show($registro['subject_id'], $id);
+
+		}else{
+
+			if(isset($registro['realizado']) AND $registro['realizado'] == 1 AND empty($registro['fecha'])
+				
+			){
+				$estado = 'Error';
+			}
+			else{
+				$estado = 'Record Complete';
+			}
+
+			
+			$subjet_['escala_de_columbia_status'] = $estado;
+			
+
+			if(!empty($registro['fecha'])){
+				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
+			}
+			
+			$registro['status'] = $estado;			
+			$registro['updated_at'] = date("Y-m-d H:i:s");
+			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
+			
+			/*Actualizamos el Form*/
+			$this->load->model('Model_Escala_de_columbia');
+			$this->Model_Escala_de_columbia->update($registro);
+
+			/*Actualizamos el estado en el sujeto*/
+			$subjet_['id'] = $registro['subject_id'];
+			$this->Model_Subject->update($subjet_);
+
+			$this->auditlib->save_audit("Escala de Columbia actualizada", $registro['subject_id']);     		
+     		redirect('subject/grid/'.$registro['subject_id']);
+
+		}
+	}
+	
+	public function escala_de_columbia_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de escala de columbia", $registro['subject_id']);
+			$this->restas_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Escala_de_columbia');
+			$this->Model_Escala_de_columbia->update($registro);
+			$this->auditlib->save_audit("Verifico el formulario de escala de columbia", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/						
+			$this->Model_Subject->update(array('escala_de_columbia_status'=>'Form Approved by Monitor','id'=> $registro['subject_id']));
+			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	public function escala_de_columbia_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de escala de columbia", $registro['subject_id']);
+			$this->restas_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Escala_de_columbia');
+			$this->Model_Escala_de_columbia->update($registro);
+			$this->auditlib->save_audit("Cerro el formulario de escala de columbia", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/						
+			$this->Model_Subject->update(array('escala_de_columbia_status'=>'Form Approved and Locked','id'=> $registro['subject_id']));
+			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	public function escala_de_columbia_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {
+			$this->auditlib->save_audit("Error al tratar de verificar el formulario de escala de columbia", $registro['subject_id']);
+			$this->restas_show($registro['subject_id'], $registro['etapa']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Escala_de_columbia');
+			$this->Model_Escala_de_columbia->update($registro);
+			$this->auditlib->save_audit("Verifico el formulario de escala de columbia", $registro['subject_id']);			
+			
+			/*Actualizar estado en el sujeto*/						
+			$this->Model_Subject->update(array('escala_de_columbia_status'=>'Document Approved and Signed by PI','id'=> $registro['subject_id']));
+			
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+	
+	
+
 	/*--------------------------------------------Signos Vitales Adicional-------------------------------------------------------*/
 	public function signos_vitales_adicional($subject_id){
 		$data['contenido'] = 'subject/adicional/signos_vitales';
@@ -9394,6 +9863,7 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('signos_vitales_adicional_audit', $data['list'][0]->id);
 
 		$this->load->view('template',$data);
 	}
@@ -9663,6 +10133,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('ecg_adicional_audit', $data['list'][0]->id);
+
 		$this->load->view('template',$data);
 	}
 
@@ -9857,9 +10329,7 @@ class Subject extends CI_Controller {
 		/*Si se tiene algun hallazgo todo es obligatorio*/
 	
 		$this->form_validation->set_rules('aspecto_general', '', 'xss_clean');
-		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');
-		$this->form_validation->set_rules('estado_nutricional', '', 'xss_clean');
-		$this->form_validation->set_rules('estado_nutricional_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');		
 		$this->form_validation->set_rules('piel', '', 'xss_clean');
 		$this->form_validation->set_rules('piel_desc', '', 'xss_clean');
 		$this->form_validation->set_rules('cabeza', '', 'xss_clean');
@@ -9890,8 +10360,7 @@ class Subject extends CI_Controller {
 
 		if(
 			(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
-			OR
-			(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
+			
 			OR
 			(isset($registro['piel']) AND $registro['piel'] == '0' AND empty($registro['piel_desc']))
 			OR
@@ -9915,7 +10384,7 @@ class Subject extends CI_Controller {
 			OR
 			(isset($registro['muscular']) AND $registro['muscular'] == '0' AND empty($registro['muscular_desc']))										
 
-			OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
+			OR !isset($registro['aspecto_general']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
 			OR !isset($registro['ojos']) OR !isset($registro['nariz']) OR !isset($registro['oidos']) OR !isset($registro['boca'])
 			OR !isset($registro['cuello']) OR !isset($registro['pulmones']) OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen'])
 			OR !isset($registro['muscular']) OR !isset($registro['ext_superiores']) OR !isset($registro['ext_inferiores']) OR !isset($registro['periferico'])
@@ -9976,6 +10445,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('examen_fisico_adicional_audit', $data['list'][0]->id);
+
 		$this->load->view('template', $data);
 	}
 
@@ -9989,9 +10460,7 @@ class Subject extends CI_Controller {
 		/*Si se tiene algun hallazgo todo es obligatorio*/
 	
 		$this->form_validation->set_rules('aspecto_general', '', 'xss_clean');
-		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');
-		$this->form_validation->set_rules('estado_nutricional', '', 'xss_clean');
-		$this->form_validation->set_rules('estado_nutricional_desc', '', 'xss_clean');
+		$this->form_validation->set_rules('aspecto_general_desc', '', 'xss_clean');		
 		$this->form_validation->set_rules('piel', '', 'xss_clean');
 		$this->form_validation->set_rules('piel_desc', '', 'xss_clean');
 		$this->form_validation->set_rules('cabeza', '', 'xss_clean');
@@ -10023,8 +10492,6 @@ class Subject extends CI_Controller {
 		if(
 			(isset($registro['aspecto_general']) AND $registro['aspecto_general'] == '0' AND empty($registro['aspecto_general_desc']))
 			OR
-			(isset($registro['estado_nutricional']) AND $registro['estado_nutricional'] == '0' AND empty($registro['estado_nutricional_desc']))
-			OR
 			(isset($registro['piel']) AND $registro['piel'] == '0' AND empty($registro['piel_desc']))
 			OR
 			(isset($registro['cabeza']) AND $registro['cabeza'] == '0' AND empty($registro['cabeza_desc']))
@@ -10047,7 +10514,7 @@ class Subject extends CI_Controller {
 			OR
 			(isset($registro['muscular']) AND $registro['muscular'] == '0' AND empty($registro['muscular_desc']))										
 
-			OR !isset($registro['aspecto_general']) OR !isset($registro['estado_nutricional']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
+			OR !isset($registro['aspecto_general']) OR !isset($registro['piel']) OR !isset($registro['cabeza'])
 			OR !isset($registro['ojos']) OR !isset($registro['nariz']) OR !isset($registro['oidos']) OR !isset($registro['boca'])
 			OR !isset($registro['cuello']) OR !isset($registro['pulmones']) OR !isset($registro['cardiovascular']) OR !isset($registro['abdomen'])
 			OR !isset($registro['muscular']) OR !isset($registro['ext_superiores']) OR !isset($registro['ext_inferiores']) OR !isset($registro['periferico'])
@@ -10296,6 +10763,8 @@ class Subject extends CI_Controller {
 		}else{
 			$data['campos_query'] = array();
 		}
+
+		$data['auditoria'] = $this->auditlib->audit('examen_neurologico_adicional_audit', $data['list'][0]->id);
 
 		$this->load->view('template',$data);
 	}
@@ -10729,6 +11198,8 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
+		$data['auditoria'] = $this->auditlib->audit('examen_laboratorio_adicional_audit', $data['list'][0]->id);
+
 		$this->load->view('template2',$data);
 	}
 
@@ -10944,7 +11415,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de verificar el formulario de Examen Laboratorio", $registro['subject_id']);
-			$this->examen_laboratorio_show($registro['subject_id'], $registro['etapa']);
+			$this->examen_laboratorio_adicional_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -10971,7 +11442,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de firmar el formulario de Examen Laboratorio Adicional", $registro['subject_id']);
-			$this->examen_laboratorio_show($registro['subject_id'], $registro['etapa']);
+			$this->examen_laboratorio_adicional_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];
@@ -10998,7 +11469,7 @@ class Subject extends CI_Controller {
 
 		if($this->form_validation->run() == FALSE) {
 			$this->auditlib->save_audit("Error al tratar de cerrar el formulario de Examen Laboratorio", $registro['subject_id']);
-			$this->examen_laboratorio_show($registro['subject_id'], $registro['etapa']);
+			$this->examen_laboratorio_adicional_show($registro['subject_id'], $registro['etapa']);
 		}
 		else {
 			$registro['last_status'] = $registro['current_status'];

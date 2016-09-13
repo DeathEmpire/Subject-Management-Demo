@@ -78,15 +78,7 @@ $(function(){
 			$("textarea[name=aspecto_general_desc]").removeAttr('readonly');	
 		}
 	});
-	$("input[name=estado_nutricional]").change(function(){
-		if($(this).val() == 1){
-			$("textarea[name=estado_nutricional_desc]").attr('readonly','readonly');
-
-		}
-		else{
-			$("textarea[name=estado_nutricional_desc]").removeAttr('readonly');	
-		}
-	});
+	
 	$("input[name=piel]").change(function(){
 		if($(this).val() == 1){
 			$("textarea[name=piel_desc]").attr('readonly','readonly');
@@ -185,16 +177,7 @@ $(function(){
 		$("textarea[name=aspecto_general_desc]").removeAttr('readonly');	
 	}
 	
-	
-	if($("input[name=estado_nutricional]:checked").val() == 1){
-		$("textarea[name=estado_nutricional_desc]").attr('readonly','readonly');
-
-	}
-	else{
-		$("textarea[name=estado_nutricional_desc]").removeAttr('readonly');	
-	}
-	
-	
+		
 	if($("input[name=piel]:checked").val() == 1){
 		$("textarea[name=piel_desc]").attr('readonly','readonly');
 	}
@@ -442,41 +425,7 @@ $(function(){
 				</td>
 				</tr>
 			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
-				<tr>
-					<td>Estado nutricional: </td>
-					<td>
-						<?= form_radio(array('name'=>'estado_nutricional','value'=>'1','checked'=>set_radio('estado_nutricional', 1,(($list[0]->estado_nutricional  == 1 ) ? true : false)))); ?> Normal
-						<?= form_radio(array('name'=>'estado_nutricional','value'=>'0','checked'=>set_radio('estado_nutricional', 0,(($list[0]->estado_nutricional  == "0" ) ? true : false)))); ?> Anormal
-					</td>
-					<td><?= form_textarea(array('name'=>'estado_nutricional_desc','id'=>'estado_nutricional_desc', 'value'=>set_value('renal_desc', $list[0]->estado_nutricional_desc), 'rows'=>3)); ?>
-					<?php
-							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-							{
-								
-								if(!in_array("estado_nutricional", $campos_query))  
-								{
-									if(strpos($_SESSION['role_options']['subject'], 'examen_fisico_verify')){
-										echo "<img src='". base_url('img/icon-check.png') ."' id='estado_nutricional_query' tipo='new' class='query'>";	
-									}
-									else{
-										echo "<img src='". base_url('img/icon-check.png') ."'>";		
-									}
-									
-								}
-								else 
-								{	
-									if(strpos($_SESSION['role_options']['subject'], 'examen_fisico_update')){					
-										echo "<img src='". base_url('img/question.png') ."' id='estado_nutricional_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-									}
-									else{
-										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-									}
-								}						
-								
-							}
-						?>
-					</td>
-				</tr>
+				
 			
 				<tr>
 					<td>Piel: </td>
@@ -723,9 +672,7 @@ $(function(){
 					?>
 				</td>
 				</tr>
-			<?php } else { ?>
-				<?= form_hidden('estado_nutricional',''); ?>
-				<?= form_hidden('estado_nutricional_desc',''); ?>
+			<?php } else { ?>				
 				<?= form_hidden('piel',''); ?>
 				<?= form_hidden('piel_desc',''); ?>
 				<?= form_hidden('cabeza',''); ?>
@@ -894,7 +841,7 @@ $(function(){
 				<tr id='tr_observaciones' style='display:none;'>
 					<td>Observaciones</td>
 					<td>
-						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones', $list[0]->cambios_observaciones), array('rows'=>3, 'style'=>'width:100%;'))); ?>
+						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones', $list[0]->cambios_observaciones), 'rows'=>3, 'style'=>'width:100%;')); ?>
 					</td>	
 				</tr>
 					

@@ -10,8 +10,19 @@ $(function(){
 		{
 			var valor = ($('#comprimidos_utilizados').val() / 2 / $('#dias').val()) * 100;		
 			$('#porcentaje_cumplimiento	').val(valor);
+
+			if(valor < 80 || valor > 120){
+				$("#explique").show();
+			}
 		}
 	});
+
+	if($("#porcentaje_cumplimiento").val() != '' && ($("#porcentaje_cumplimiento").val() < 80 || $("#porcentaje_cumplimiento").val() > 120)){
+		$("#tr_explique").show();
+	}else{
+		$("#tr_explique").hide();
+		$("#explique").val('');
+	}
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
@@ -387,6 +398,34 @@ $(function(){
 						}else{
 							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
 								echo "<img src='". base_url('img/question.png') ."' id='porcentaje_cumplimiento_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	
+							}
+						}						
+						
+					}
+				?>
+			</td>
+		</tr>
+		<tr id='tr_explique' style='display:none;'>
+			<td>Explique la razón por la cual el cumplimiento es mayor a 120% o menor a 80%</td>
+			<td><?= form_textarea(array('name'=>'explique','id'=>'explique', 'value'=>set_value('explique'), 'rows'=>3)); ?>
+				<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("explique", $campos_query)) 
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='explique_query' tipo='new' class='query'>";
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";	
+							}
+						}else{
+							if(strpos($_SESSION['role_options']['subject'], 'cumplimiento_update')){
+								echo "<img src='". base_url('img/question.png') ."' id='explique_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
 							}
 							else{
 								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";	

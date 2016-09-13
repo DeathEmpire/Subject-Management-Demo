@@ -49,7 +49,7 @@
 	<thead>
 		<tr style='background-color: #C0C0C0;'>
 			<th rowspan='2' style='text-align:center;vertical-align:middle;'>Actividad del Protocolo</th>
-			<th colspan='6' style='text-align:center;'>Intervalo de Visitas</th>
+			<th colspan='6' style='text-align:center;'>Intervalo de Visitas</th>			
 		</tr>
 		<tr style='background-color: #C0C0C0;'>
 			<th class='span2'>Selección (Día 28 a Basal)</th>
@@ -58,6 +58,15 @@
 			<th class='span2'>Semana 12</th>
 			<th class='span2'>Semana 24/ Término del Estudio/ (+/- 4 días)</th>		
 			<th class='span2'>Terminación Temprana</th>
+		</tr>
+		<tr>
+			<th style='text-align:center;vertical-align:middle;'>Fecha estimada</th>
+			<th></th>
+			<th></th>
+			<th><?= $fecha_1;?></th>
+			<th><?= $fecha_2;?></th>
+			<th><?= $fecha_3;?></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>		
@@ -293,7 +302,42 @@
 				
 			?>			
 			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>			
-			<td style='text-align:center;'></td>
+			<?php
+				if(empty($subject->mmse_2_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/mmse/'.$subject->id ."/2";
+				}
+				elseif ($subject->mmse_2_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->mmse_2_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->mmse_2_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->mmse_2_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->mmse_2_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/2";
+				}
+				elseif ($subject->mmse_2_status == 'Error') {
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/mmse_show/'.$subject->id ."/2";
+				}
+				else{
+					$icon = '*';
+					$link = '';		
+				}
+				
+			?>			
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<td style='text-align:center;'></td>
 			<?php
 				if(empty($subject->mmse_4_status)){
@@ -407,6 +451,50 @@
 			?>
 		<tr>
 			<td>Escala de Hachinski</td>
+			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+			<td style='text-align:center;'></td>
+		</tr>
+		<?php
+				if(empty($subject->escala_de_columbia_status)){
+					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+					$link = 'subject/escala_de_columbia/'.$subject->id;
+				}
+				elseif ($subject->escala_de_columbia_status == 'Record Complete') {
+					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/escala_de_columbia_show/'.$subject->id;
+				}
+				elseif ($subject->escala_de_columbia_status == 'Document Approved and Signed by PI') {
+					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/escala_de_columbia_show/'.$subject->id;
+				}
+				elseif ($subject->escala_de_columbia_status == 'Form Approved and Locked') {
+					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/escala_de_columbia_show/'.$subject->id;
+				}
+				elseif ($subject->escala_de_columbia_status == 'Form Approved by Monitor') {
+					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/escala_de_columbia_show/'.$subject->id;
+				}
+				elseif ($subject->escala_de_columbia_status == 'Query') {
+					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/escala_de_columbia_show/'.$subject->id;
+				}
+				elseif ($subject->escala_de_columbia_status == 'Error') {					
+					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+					$link = 'subject/escala_de_columbia_show/'.$subject->id;
+				}
+				else{
+					$icon = '*';		
+					$link = "";
+				}
+				
+			?>
+		<tr>
+			<td>Escala de Columbia</td>
 			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>

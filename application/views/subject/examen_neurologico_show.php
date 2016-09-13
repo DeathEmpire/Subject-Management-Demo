@@ -280,6 +280,14 @@ $(function(){
 
 <?php
 	if(isset($list) AND !empty($list)){
+?>
+<div style='display:none;'>
+    <div id='dialog_auditoria'><?= ((isset($auditoria) AND !empty($auditoria)) ? $auditoria : ''); ?></div>
+</div>
+<?php
+    if(isset($auditoria) AND !empty($auditoria)){
+        echo "<div style='text-align:right;'><a id='ver_auditoria' class='btn btn-info colorbox_inline' href='#dialog_auditoria'>Ver Auditoria</a></div>";
+    }
 ?>	
 <?= form_open('subject/examen_neurologico_update', array('class'=>'form-horizontal','id'=>'form_examen_neurologico')); ?>
 	
@@ -621,41 +629,8 @@ $(function(){
 						
 					}
 				?>
-			</td>
+					</td>
 				</tr>
-				<tr>
-					<td>Postura</td>
-					<td><?= form_dropdown("postura_normal_anormal",$normal_anormal,set_value('postura_normal_anormal',$list[0]->postura_normal_anormal)); ?></td>
-					<td><?= form_input(array('type'=>'text','name'=>'postura', 'id'=>'postura', 'value'=>set_value('postura',$list[0]->postura)));?>
-					<?php
-					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-					{
-						
-						if(!in_array("postura", $campos_query))  
-						{
-							if(strpos($_SESSION['role_options']['subject'], 'examen_neurologico_verify')){
-								echo "<img src='". base_url('img/icon-check.png') ."' id='postura_query' tipo='new' class='query'>";	
-							}
-							else{
-								echo "<img src='". base_url('img/icon-check.png') ."'>";		
-							}
-							
-						}
-						else 
-						{	
-							if (strpos($_SESSION['role_options']['subject'], 'examen_neurologico_update')){					
-								echo "<img src='". base_url('img/question.png') ."' id='postura_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-							}
-							else{
-								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-							}
-						}						
-						
-					}
-				?>
-			</td>
-				</tr>
-			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
 				<tr>
 					<td>Coordinación</td>
 					<td><?= form_dropdown("coordinacion_normal_anormal",$normal_anormal,set_value('coordinacion_normal_anormal',$list[0]->coordinacion_normal_anormal)); ?></td>
@@ -686,7 +661,43 @@ $(function(){
 						
 					}
 				?>
-			</td>
+					</td>
+				</tr>
+				
+			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
+				
+				<tr>
+					<td>Postura</td>
+					<td><?= form_dropdown("postura_normal_anormal",$normal_anormal,set_value('postura_normal_anormal',$list[0]->postura_normal_anormal)); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'postura', 'id'=>'postura', 'value'=>set_value('postura',$list[0]->postura)));?>
+					<?php
+					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+					{
+						
+						if(!in_array("postura", $campos_query))  
+						{
+							if(strpos($_SESSION['role_options']['subject'], 'examen_neurologico_verify')){
+								echo "<img src='". base_url('img/icon-check.png') ."' id='postura_query' tipo='new' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/icon-check.png') ."'>";		
+							}
+							
+						}
+						else 
+						{	
+							if (strpos($_SESSION['role_options']['subject'], 'examen_neurologico_update')){					
+								echo "<img src='". base_url('img/question.png') ."' id='postura_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+							}
+							else{
+								echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+							}
+						}						
+						
+					}
+				?>
+					</td>
+				</tr>
 				
 				<tr>
 					<td>Función cortical superior</td>
@@ -718,7 +729,7 @@ $(function(){
 						
 					}
 				?>
-			</td>
+					</td>
 				</tr>
 			<?php } else { ?>
 					<?= form_hidden('coordinacion_normal_anormal','0'); ?>
@@ -738,7 +749,7 @@ $(function(){
 				<tr id='tr_observaciones' style='display:none;'>
 					<td>Observaciones</td>
 					<td>
-						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones', $list[0]->cambios_observaciones), array('rows'=>3, 'style'=>'width:100%;'))); ?>
+						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones', $list[0]->cambios_observaciones), 'rows'=>3, 'style'=>'width:100%;')); ?>
 					</td>	
 				</tr>
 					

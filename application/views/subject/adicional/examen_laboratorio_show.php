@@ -35,7 +35,7 @@ $(function(){
 </script>
 
 <div id='query_para_campos' style='display:none;'></div>
-<legend style='text-align:center;'>Examen Laboratorio <?= $protocolo;?></legend>
+<legend style='text-align:center;'>Examen Laboratorio</legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -64,6 +64,14 @@ $(function(){
 
 <?php
 	if(isset($list) AND !empty($list)){
+?>
+<div style='display:none;'>
+    <div id='dialog_auditoria'><?= ((isset($auditoria) AND !empty($auditoria)) ? $auditoria : ''); ?></div>
+</div>
+<?php
+    if(isset($auditoria) AND !empty($auditoria)){
+        echo "<div style='text-align:right;'><a id='ver_auditoria' class='btn btn-info colorbox_inline' href='#dialog_auditoria'>Ver Auditoria</a></div>";
+    }
 ?>	
 <?= form_open('subject/examen_laboratorio_adicional_update', array('class'=>'form-horizontal','id'=>'form_examen_laboratorio')); ?>
 	

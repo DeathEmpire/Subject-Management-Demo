@@ -332,8 +332,7 @@ class Report extends CI_Controller {
 	    								<th>Visita</th>
 	    								<th>Realizado</th>
 	    								<th>Fecha</th>
-	    								<th>Aspecto general</th>
-	    								<th>Estado nutricional</th>
+	    								<th>Aspecto general</th>	    								
 	    								<th>Piel</th>
 	    								<th>Cabeza</th>
 	    								<th>Ojos</th>
@@ -365,8 +364,7 @@ class Report extends CI_Controller {
 	    								<td>'. $visita .'</td>
 	    								<td>'. (($r->realizado == 1) ? 'Si' : 'No') .'</td>
 	    								<td>'. (($r->fecha != '0000-00-00') ?  date('d/m/Y', strtotime($r->fecha)) : '') .'</td>	    								
-	    								<td>'. (($r->aspecto_general == 1) ? 'Normal' : (($r->aspecto_general == 0) ? 'Anormal' : '' )).'</td>
-	    								<td>'. (($r->estado_nutricional == 1) ? 'Normal' : (($r->estado_nutricional == 0) ? 'Anormal' : '' )).'</td>
+	    								<td>'. (($r->aspecto_general == 1) ? 'Normal' : (($r->aspecto_general == 0) ? 'Anormal' : '' )).'</td>	    								
 	    								<td>'. (($r->piel == 1) ? 'Normal' : (($r->piel == 0) ? 'Anormal' : '' )).'</td>
 	    								<td>'. (($r->cabeza == 1) ? 'Normal' : (($r->cabeza == 0) ? 'Anormal' : '' )).'</td>
 	    								<td>'. (($r->ojos == 1) ? 'Normal' : (($r->ojos == 0) ? 'Anormal' : '' )).'</td>
@@ -600,7 +598,7 @@ class Report extends CI_Controller {
 	    			$tabla .= '</tbody>
 	    					</table>';
 	    		}
-	    		elseif($registro['formulario'] == 'historia_medica'){
+	    		elseif($registro['formulario'] == 'historial_medico'){
 	    			$tabla = '<table class="table table-striped table-bordered table-hover" id="tabla">
 	    						<thead>
 	    							<tr>
@@ -967,6 +965,7 @@ class Report extends CI_Controller {
 	    								<th>Realizado</th>
 	    								<th>Fecha</th>
 	    								<th>Segundos</th>	    								
+	    								<th>Numero de Errores</th>
 	    							</tr>
 	    						</thead>
 	    						<tbody>';
@@ -988,6 +987,7 @@ class Report extends CI_Controller {
 	    								<td>'. (($r->realizado == 1) ? 'Si' : 'No') .'</td>
 	    								<td>'. (($r->fecha != '0000-00-00') ?  date('d/m/Y', strtotime($r->fecha)) : '') .'</td>	    								
 	    								<td>'. $r->segundos .'</td>	    								
+	    								<td>'. $r->num_errores .'</td>
 	    							</tr>';
 	    			}
 
@@ -1002,7 +1002,8 @@ class Report extends CI_Controller {
 	    								<th>Visita</th>
 	    								<th>Realizado</th>
 	    								<th>Fecha</th>
-	    								<th>Segundos</th>	    								
+	    								<th>Segundos</th>
+	    								<th>Numero de Errores</th>	    								
 	    							</tr>
 	    						</thead>
 	    						<tbody>';
@@ -1023,7 +1024,8 @@ class Report extends CI_Controller {
 	    								<td>'. $visita .'</td>
 	    								<td>'. (($r->realizado == 1) ? 'Si' : 'No') .'</td>
 	    								<td>'. (($r->fecha != '0000-00-00') ?  date('d/m/Y', strtotime($r->fecha)) : '') .'</td>	    								
-	    								<td>'. $r->segundos .'</td>	    								
+	    								<td>'. $r->segundos .'</td>
+	    								<td>'. $r->num_errores .'</td>	    								
 	    							</tr>';
 	    			}
 

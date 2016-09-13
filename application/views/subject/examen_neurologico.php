@@ -347,15 +347,16 @@ $(function(){
 					<td><?= form_input(array('type'=>'text','name'=>'marcha', 'id'=>'marcha', 'value'=>set_value('marcha')));?></td>
 				</tr>
 				<tr>
-					<td>Postura</td>
-					<td><?= form_dropdown("postura_normal_anormal",$normal_anormal,set_value('postura_normal_anormal')); ?></td>
-					<td><?= form_input(array('type'=>'text','name'=>'postura', 'id'=>'postura', 'value'=>set_value('postura')));?></td>
-				</tr>
-			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
-				<tr>
 					<td>Coordinación</td>
 					<td><?= form_dropdown("coordinacion_normal_anormal",$normal_anormal,set_value('coordinacion_normal_anormal')); ?></td>
 					<td><?= form_input(array('type'=>'text','name'=>'coordinacion', 'id'=>'coordinacion', 'value'=>set_value('coordinacion')));?></td>
+				</tr>
+				
+			<?php if($etapa == 1 OR $etapa == 5 OR $etapa == 6){ ?>
+				<tr>
+					<td>Postura</td>
+					<td><?= form_dropdown("postura_normal_anormal",$normal_anormal,set_value('postura_normal_anormal')); ?></td>
+					<td><?= form_input(array('type'=>'text','name'=>'postura', 'id'=>'postura', 'value'=>set_value('postura')));?></td>
 				</tr>
 							
 				<tr>
@@ -382,7 +383,7 @@ $(function(){
 				<tr id='tr_observaciones' style='display:none;'>
 					<td>Observaciones</td>
 					<td>
-						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones'), array('rows'=>3, 'style'=>'width:100%;'))); ?>
+						<?= form_textarea(array('name'=>'cambios_observaciones','id'=>'cambios_observaciones', 'value'=>set_value('cambios_observaciones'), 'rows'=>3, 'style'=>'width:100%;')); ?>
 					</td>	
 				</tr>
 					

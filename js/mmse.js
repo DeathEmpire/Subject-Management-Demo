@@ -117,4 +117,161 @@ $(function(){
 			$(this).removeAttr('disabled');
 		});
 	}
+
+	$("#realizar_a").click(function(){
+		if($(this).is(':checked')){
+			$("input[name=cuanto_93]").prop('readonly', false);			
+			$("select[name=cuanto_93_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			
+			$("input[name=cuanto_86]").prop('readonly', false);			
+			$("select[name=cuanto_86_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			
+			$("input[name=cuanto_79]").prop('readonly', false);			
+			$("select[name=cuanto_79_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			
+			$("input[name=cuanto_72]").prop('readonly', false);			
+			$("select[name=cuanto_72_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			
+			$("input[name=cuanto_65]").prop('readonly', false);			
+			$("select[name=cuanto_65_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			$("#realizar_b").prop('disabled',true);
+		}
+		else{
+			$("input[name=cuanto_93]").prop('readonly', true);
+			$("select[name=cuanto_93_puntaje]").val('');
+			$("select[name=cuanto_93_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("input[name=cuanto_86]").prop('readonly', true);
+			$("select[name=cuanto_86_puntaje]").val('');
+			$("select[name=cuanto_86_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("input[name=cuanto_79]").prop('readonly', true);
+			$("select[name=cuanto_79_puntaje]").val('');
+			$("select[name=cuanto_79_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("input[name=cuanto_72]").prop('readonly', true);
+			$("select[name=cuanto_72_puntaje]").val('');
+			$("select[name=cuanto_72_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("input[name=cuanto_65]").prop('readonly', true);
+			$("select[name=cuanto_65_puntaje]").val('');
+			$("select[name=cuanto_65_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("#realizar_b").prop('disabled',false);
+		}
+	});
+	
+	if($("#realizar_a").is(':checked')){
+			$("input[name=cuanto_93]").prop('readonly', false);			
+			$("select[name=cuanto_93_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			
+			$("input[name=cuanto_86]").prop('readonly', false);			
+			$("select[name=cuanto_86_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			
+			$("input[name=cuanto_79]").prop('readonly', false);			
+			$("select[name=cuanto_79_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			
+			$("input[name=cuanto_72]").prop('readonly', false);			
+			$("select[name=cuanto_72_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			
+			$("input[name=cuanto_65]").prop('readonly', false);			
+			$("select[name=cuanto_65_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', false);
+			});
+			$("#realizar_b").prop('disabled',true);
+		}
+		else{
+			$("input[name=cuanto_93]").prop('readonly', true);
+			$("select[name=cuanto_93_puntaje]").val('');
+			$("select[name=cuanto_93_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("input[name=cuanto_86]").prop('readonly', true);
+			$("select[name=cuanto_86_puntaje]").val('');
+			$("select[name=cuanto_86_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("input[name=cuanto_79]").prop('readonly', true);
+			$("select[name=cuanto_79_puntaje]").val('');
+			$("select[name=cuanto_79_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("input[name=cuanto_72]").prop('readonly', true);
+			$("select[name=cuanto_72_puntaje]").val('');
+			$("select[name=cuanto_72_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("input[name=cuanto_65]").prop('readonly', true);
+			$("select[name=cuanto_65_puntaje]").val('');
+			$("select[name=cuanto_65_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled', true);
+			});
+			
+			$("#realizar_b").prop('disabled',false);
+		}
+
+	$("#realizar_b").click(function(){
+		if($(this).is(':checked')){
+			$("#realizar_a").prop('disabled',true);	
+			$("input[name=mundo_respuesta]").prop('readonly', false);
+			$("select[name=mundo_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled',false);
+			});
+		}
+		else{
+			$("#realizar_a").prop('disabled',false);	
+			$("input[name=mundo_respuesta]").prop('readonly', true);
+			$("select[name=mundo_puntaje]").val('');
+			$("select[name=mundo_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled',true);
+			});
+		}
+	});
+	if($("#realizar_b").is(':checked')){
+			$("#realizar_a").prop('disabled',true);	
+			$("input[name=mundo_respuesta]").prop('readonly', false);
+			$("select[name=mundo_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled',false);
+			});
+		}
+		else{
+			$("#realizar_a").prop('disabled',false);	
+			$("input[name=mundo_respuesta]").prop('readonly', true);
+			$("select[name=mundo_puntaje]").val('');
+			$("select[name=mundo_puntaje] option:not(:selected)").each(function(){
+				$(this).prop('disabled',true);
+			});
+		}
 });

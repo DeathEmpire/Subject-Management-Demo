@@ -10,8 +10,22 @@ $(function(){
 		{
 			var valor = ($('#comprimidos_utilizados').val() / 2 / $('#dias').val()) * 100;		
 			$('#porcentaje_cumplimiento	').val(valor);
+
+			if(valor < 80 || valor > 120 ){
+				$("#tr_explique").show();
+			}else{
+				$("#tr_explique").hide();
+				$("#explique").val('');
+			}
 		}
 	});
+
+	if($("#porcentaje_cumplimiento").val() != '' && ($("#porcentaje_cumplimiento").val() < 80 || $("#porcentaje_cumplimiento").val() > 120)){
+		$("#tr_explique").show();
+	}else{
+		$("#tr_explique").hide();
+		$("#explique").val('');
+	}
 
 	$("input[name=realizado]").change(function(){
 		if($(this).val() == 0){
@@ -165,6 +179,10 @@ $(function(){
 		<tr>
 			<td>% cumplimiento: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'porcentaje_cumplimiento', 'id'=>'porcentaje_cumplimiento', 'maxlength'=>'5','value'=>set_value('porcentaje_cumplimiento'))); ?></td>
+		</tr>
+		<tr id='tr_explique' style='display:none;'>
+			<td>Explique la razón por la cual el cumplimiento es mayor a 120% o menor a 80%</td>
+			<td><?= form_textarea(array('name'=>'explique','id'=>'explique', 'value'=>set_value('explique'), 'rows'=>3)); ?></td>
 		</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>

@@ -31,15 +31,7 @@ $(function(){
 			$("textarea[name=aspecto_general_desc]").removeAttr('readonly');	
 		}
 	});
-	$("input[name=estado_nutricional]").change(function(){
-		if($(this).val() == 1){
-			$("textarea[name=estado_nutricional_desc]").attr('readonly','readonly');
-
-		}
-		else{
-			$("textarea[name=estado_nutricional_desc]").removeAttr('readonly');	
-		}
-	});
+	
 	$("input[name=piel]").change(function(){
 		if($(this).val() == 1){
 			$("textarea[name=piel_desc]").attr('readonly','readonly');
@@ -136,15 +128,6 @@ $(function(){
 	}
 	else{
 		$("textarea[name=aspecto_general_desc]").removeAttr('readonly');	
-	}
-	
-	
-	if($("input[name=estado_nutricional]:checked").val() == 1){
-		$("textarea[name=estado_nutricional_desc]").attr('readonly','readonly');
-
-	}
-	else{
-		$("textarea[name=estado_nutricional_desc]").removeAttr('readonly');	
 	}
 	
 	
@@ -301,14 +284,7 @@ $(function(){
 				<td><?= form_textarea(array('name'=>'aspecto_general_desc','id'=>'aspecto_general_desc', 'value'=>set_value('aspecto_general_desc'), 'rows'=>3)); ?></td>
 			</tr>
 			
-				<tr>
-					<td>Estado nutricional: </td>
-					<td>
-						<?= form_radio(array('name'=>'estado_nutricional','value'=>'1','checked'=>set_radio('estado_nutricional', 1))); ?> Normal
-						<?= form_radio(array('name'=>'estado_nutricional','value'=>'0','checked'=>set_radio('estado_nutricional', 0))); ?> Anormal
-					</td>
-					<td><?= form_textarea(array('name'=>'estado_nutricional_desc','id'=>'estado_nutricional_desc', 'value'=>set_value('renal_desc'), 'rows'=>3)); ?></td>
-				</tr>
+				
 			
 				<tr>
 					<td>Piel: </td>

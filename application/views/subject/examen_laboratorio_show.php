@@ -74,6 +74,14 @@ $(function(){
 
 <?php
 	if(isset($list) AND !empty($list)){
+?>
+<div style='display:none;'>
+    <div id='dialog_auditoria'><?= ((isset($auditoria) AND !empty($auditoria)) ? $auditoria : ''); ?></div>
+</div>
+<?php
+    if(isset($auditoria) AND !empty($auditoria)){
+        echo "<div style='text-align:right;'><a id='ver_auditoria' class='btn btn-info colorbox_inline' href='#dialog_auditoria'>Ver Auditoria</a></div>";
+    }
 ?>	
 <?= form_open('subject/examen_laboratorio_update', array('class'=>'form-horizontal','id'=>'form_examen_laboratorio')); ?>
 	
@@ -1237,43 +1245,49 @@ $(function(){
 						?>
 					</td>
 				</tr>
-				<tr>
-					<td>Microscopía (Solamente si la tira reactiva es positiva para sangre o proteína.)</td>
-					<td><?= form_dropdown('hecho_30', $hecho, set_value('hecho_30', $list[0]->hecho_30));?></td>
-					<td><?= form_input(array('type'=>'text', 'name'=>'orina_microscospia', 'id'=>'orina_microscospia', 'value'=>set_value('orina_microscospia', $list[0]->orina_microscospia)));?></td>
-					<td></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Normal','checked'=>set_radio('orina_microscospia_nom_anom', 'Normal', (($list[0]->orina_microscospia_nom_anom == 'Normal') ? true : false))));?></td>					
-					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_microscospia_nom_anom', 'Anormal_sin', (($list[0]->orina_microscospia_nom_anom == 'Anormal_sin') ? true : false))));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_microscospia_nom_anom', 'Anormal_con', (($list[0]->orina_microscospia_nom_anom == 'Anormal_con') ? true : false))));?></td>
-					<td>
-						<?php
-							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-							{
-								
-								if(!in_array("orina_microscospia", $campos_query))  
+				<?php if($etapa == 1){ ?>
+					<tr>
+						<td>Microscopía (Solamente si la tira reactiva es positiva para sangre o proteína.)</td>
+						<td><?= form_dropdown('hecho_30', $hecho, set_value('hecho_30', $list[0]->hecho_30));?></td>
+						<td><?= form_input(array('type'=>'text', 'name'=>'orina_microscospia', 'id'=>'orina_microscospia', 'value'=>set_value('orina_microscospia', $list[0]->orina_microscospia)));?></td>
+						<td></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Normal','checked'=>set_radio('orina_microscospia_nom_anom', 'Normal', (($list[0]->orina_microscospia_nom_anom == 'Normal') ? true : false))));?></td>					
+						<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_microscospia_nom_anom', 'Anormal_sin', (($list[0]->orina_microscospia_nom_anom == 'Anormal_sin') ? true : false))));?></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_microscospia_nom_anom', 'Anormal_con', (($list[0]->orina_microscospia_nom_anom == 'Anormal_con') ? true : false))));?></td>
+						<td>
+							<?php
+								if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
 								{
-									if(strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_verify')){
-										echo "<img src='". base_url('img/icon-check.png') ."' id='orina_microscospia_query' tipo='new' class='query'>";	
+									
+									if(!in_array("orina_microscospia", $campos_query))  
+									{
+										if(strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_verify')){
+											echo "<img src='". base_url('img/icon-check.png') ."' id='orina_microscospia_query' tipo='new' class='query'>";	
+										}
+										else{
+											echo "<img src='". base_url('img/icon-check.png') ."'>";		
+										}
+										
 									}
-									else{
-										echo "<img src='". base_url('img/icon-check.png') ."'>";		
-									}
+									else 
+									{	
+										if(strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_update')){					
+											echo "<img src='". base_url('img/question.png') ."' id='orina_microscospia_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+										}
+										else{
+											echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+										}
+									}						
 									
 								}
-								else 
-								{	
-									if(strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_update')){					
-										echo "<img src='". base_url('img/question.png') ."' id='orina_microscospia_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-									}
-									else{
-										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-									}
-								}						
-								
-							}
-						?>
-					</td>
-				</tr>
+							?>
+						</td>
+					</tr>
+				<?php }else{ ?>
+					<?= form_hidden('hecho_30',''); ?>
+					<?= form_hidden('orina_microscospia',''); ?>
+					<?= form_hidden('orina_microscospia_nom_anom',''); ?>
+				<?php }?>
 			</tbody>
 		</table>
 		<br />
@@ -1461,7 +1475,7 @@ $(function(){
 				</tr>
 				<?php if($etapa == 1){ ?>
 					<tr>
-						<td>HbA1C</td>
+						<td>HbA1C (No aplica <?= form_checkbox(array('name'=>'no_aplica_hba1c','id'=>'no_aplica_hba1c', 'checked'=>set_checkbox('no_aplica_hba1c','1',($list[0]->no_aplica_hba1c == 1) ? true : false ), 'value'=>'1')); ?>)</td>
 						<td><?= form_dropdown('hecho_35', $hecho, set_value('hecho_35', $list[0]->hecho_35));?></td>
 						<td><?= form_input(array('type'=>'text', 'name'=>'otros_hba1c', 'id'=>'otros_hba1c', 'value'=>set_value('otros_hba1c', $list[0]->otros_hba1c)));?></td>
 						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Normal','checked'=>set_radio('otros_hba1c_nom_anom', 'Normal', (($list[0]->otros_hba1c_nom_anom == 'Normal') ? true : false))));?></td>					

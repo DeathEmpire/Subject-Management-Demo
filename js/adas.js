@@ -45,7 +45,7 @@ $(function(){
 		
 	}
 
-	$("#puntaje_total_1, #puntuacion_2, #puntuacion_3, #puntuacion_4, #puntuacion_5, #puntuacion_6, #puntuacion_7, #puntuacion_8, #puntuacion_9, #puntuacion_10, #puntuacion_11, #puntuacion_12, #total_incorrectas_8, select[name*=total_incorrectas], select[name*=palabras_no_recordadas]").change(function(){
+	$("#puntaje_total_1, #puntuacion_2, #puntuacion_3, #puntuacion_5, #puntuacion_6, #puntuacion_7, #puntuacion_8, #puntuacion_9, #puntuacion_10, #puntuacion_11, #puntuacion_12, #total_incorrectas_8, select[name*=total_incorrectas], select[name*=palabras_no_recordadas]").change(function(){
 		var total = 0;
 		
 		if($("#puntaje_total_1").val() != ''){
@@ -56,10 +56,7 @@ $(function(){
 		}
 		if($("#puntuacion_3").val() != ''){
 			total = total + parseFloat($("#puntuacion_3").val());
-		}
-		if($("#puntuacion_4").val() != ''){
-			total = total + parseFloat($("#puntuacion_4").val());
-		}
+		}		
 		if($("#puntuacion_5").val() != ''){
 			total = total + parseFloat($("#puntuacion_5").val());
 		}
@@ -247,10 +244,7 @@ function calcular_puntaje(){
 		}
 		if($("#puntuacion_3").val() != ''){
 			total = total + parseFloat($("#puntuacion_3").val());
-		}
-		if($("#puntuacion_4").val() != ''){
-			total = total + parseFloat($("#puntuacion_4").val());
-		}
+		}		
 		if($("#puntuacion_5").val() != ''){
 			total = total + parseFloat($("#puntuacion_5").val());
 		}

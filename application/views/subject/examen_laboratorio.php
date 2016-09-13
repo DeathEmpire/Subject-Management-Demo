@@ -359,15 +359,21 @@
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_cetonas_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_cetonas_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_cetonas_nom_anom', 'Anormal_con')));?></td>
 				</tr>
-				<tr>
-					<td>Microscopía (Solamente si la tira reactiva es positiva para sangre o proteína.)</td>
-					<td><?= form_dropdown('hecho_30', $hecho, set_value('hecho_30'));?></td>
-					<td><?= form_input(array('type'=>'text', 'name'=>'orina_microscospia', 'id'=>'orina_microscospia', 'value'=>set_value('orina_microscospia')));?></td>
-					<td></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Normal','checked'=>set_radio('orina_microscospia_nom_anom', 'Normal')));?></td>					
-					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_microscospia_nom_anom', 'Anormal_sin')));?></td>
-					<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_microscospia_nom_anom', 'Anormal_con')));?></td>
-				</tr>
+				<?php if($etapa == 1){ ?>
+					<tr>
+						<td>Microscopía (Solamente si la tira reactiva es positiva para sangre o proteína.)</td>
+						<td><?= form_dropdown('hecho_30', $hecho, set_value('hecho_30'));?></td>
+						<td><?= form_input(array('type'=>'text', 'name'=>'orina_microscospia', 'id'=>'orina_microscospia', 'value'=>set_value('orina_microscospia')));?></td>
+						<td></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Normal','checked'=>set_radio('orina_microscospia_nom_anom', 'Normal')));?></td>					
+						<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('orina_microscospia_nom_anom', 'Anormal_sin')));?></td>
+						<td style='text-align:center;'><?= form_radio(array('name'=>'orina_microscospia_nom_anom','value'=>'Anormal_con','checked'=>set_radio('orina_microscospia_nom_anom', 'Anormal_con')));?></td>
+					</tr>
+				<?php }else{ ?>
+					<?= form_hidden('hecho_30',''); ?>
+					<?= form_hidden('orina_microscospia',''); ?>
+					<?= form_hidden('orina_microscospia_nom_anom',''); ?>
+				<?php }?>
 			</tbody>
 		</table>
 		<br />
@@ -442,7 +448,7 @@
 				</tr>
 				<?php if($etapa == 1){ ?>
 					<tr>
-						<td>HbA1C</td>
+						<td>HbA1C (No aplica <input type='checkbox' name='no_aplica_hba1c' id='no_aplica_hba1c' value='1' />)</td>
 						<td><?= form_dropdown('hecho_35', $hecho, set_value('hecho_35'));?></td>
 						<td><?= form_input(array('type'=>'text', 'name'=>'otros_hba1c', 'id'=>'otros_hba1c', 'value'=>set_value('otros_hba1c')));?></td>
 						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Normal','checked'=>set_radio('otros_hba1c_nom_anom', 'Normal')));?></td>					

@@ -897,8 +897,7 @@ class AuditLib {
                                             <th rowspan='2'>Realizado</th>
                                             <th rowspan='2'>Fecha</th>
 
-                                            <th colspan='2'>Aspecto general</th>
-                                            <th colspan='2'>Estado nutricional</th>
+                                            <th colspan='2'>Aspecto general</th>                                            
                                             <th colspan='2'>Piel</th>
                                             <th colspan='2'>Cabeza</th>
                                             <th colspan='2'>Ojos</th>
@@ -917,9 +916,7 @@ class AuditLib {
                                         <tr>
                                             <th>Nom/Anom</th>
                                             <th>Descripción</th>
-                                            <th>Nom/Anom</th>
-                                            <th>Descripción</th>
-                                            <th>Nom/Anom</th>
+                                            <th>Nom/Anom</th>                                            
                                             <th>Descripción</th>
                                             <th>Nom/Anom</th>
                                             <th>Descripción</th>
@@ -949,9 +946,7 @@ class AuditLib {
                                         <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>
                                         
                                         <td>". (($value->aspecto_general_old == 1) ? 'Normal' : (($value->aspecto_general_old == "0") ? 'Anormal' : '')) ."</td>
-                                        <td>". $value->aspecto_general_desc_old ."</td>
-                                        <td>". (($value->estado_nutricional_old == 1) ? 'Normal' : (($value->estado_nutricional_old == "0") ? 'Anormal' : '')) ."</td>
-                                        <td>". $value->estado_nutricional_desc_old ."</td>
+                                        <td>". $value->aspecto_general_desc_old ."</td>                                        
                                         <td>". (($value->piel_old == 1) ? 'Normal' : (($value->piel_old == "0") ? 'Anormal' : '')) ."</td>
                                         <td>". $value->piel_desc_old ."</td>
                                         <td>". (($value->cabeza_old == 1) ? 'Normal' : (($value->cabeza_old == "0") ? 'Anormal' : '')) ."</td>
@@ -984,9 +979,7 @@ class AuditLib {
                                         <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
                                         
                                         <td>". (($value->aspecto_general_new == 1) ? 'Normal' : (($value->aspecto_general_new == "0") ? 'Anormal' : '')) ."</td>
-                                        <td>". $value->aspecto_general_desc_new ."</td>
-                                        <td>". (($value->estado_nutricional_new == 1) ? 'Normal' : (($value->estado_nutricional_new == "0") ? 'Anormal' : '')) ."</td>
-                                        <td>". $value->estado_nutricional_desc_new ."</td>
+                                        <td>". $value->aspecto_general_desc_new ."</td>                                       
                                         <td>". (($value->piel_new == 1) ? 'Normal' : (($value->piel_new == "0") ? 'Anormal' : '')) ."</td>
                                         <td>". $value->piel_desc_new ."</td>
                                         <td>". (($value->cabeza_new == 1) ? 'Normal' : (($value->cabeza_new == "0") ? 'Anormal' : '')) ."</td>
@@ -1020,9 +1013,7 @@ class AuditLib {
                                         <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
                                         
                                         <td>". (($value->aspecto_general_new == 1) ? 'Normal' : (($value->aspecto_general_new == "0") ? 'Anormal' : '')) ."</td>
-                                        <td>". $value->aspecto_general_desc_new ."</td>
-                                        <td>". (($value->estado_nutricional_new == 1) ? 'Normal' : (($value->estado_nutricional_new == "0") ? 'Anormal' : '')) ."</td>
-                                        <td>". $value->estado_nutricional_desc_new ."</td>
+                                        <td>". $value->aspecto_general_desc_new ."</td>                                        
                                         <td>". (($value->piel_new == 1) ? 'Normal' : (($value->piel_new == "0") ? 'Anormal' : '')) ."</td>
                                         <td>". $value->piel_desc_new ."</td>
                                         <td>". (($value->cabeza_new == 1) ? 'Normal' : (($value->cabeza_new == "0") ? 'Anormal' : '')) ."</td>
@@ -1060,16 +1051,484 @@ class AuditLib {
                         $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
                                     <thead>
                                         <tr>
+                                            <th rowspan='3'>Realizado</th>
+                                            <th rowspan='3'>Fecha</th>
+                                            <th colspan='20'>Hematológico</th>
+                                            <th colspan='28'>Bioquímico</th>
+                                            <th colspan='12'>Análisis de Orina</th>
+                                            <th colspan='12'>Otros</th>
+                                            <th rowspan='3'>Ingresado/Modificado Por</th>
+                                            <th rowspan='3'>Fecha modificacion</th>                                            
+                                        </tr>
+
+                                        <tr>
+                                            <th colspan='2'>Hematocrito</th>
+                                            <th colspan='2'>Hemoglobina</th>
+                                            <th colspan='2'>Recuento eritrocitos (RBC)</th>
+                                            <th colspan='2'>Recuento leucocitos (WBC)</th>
+                                            <th colspan='2'>Neutrófilos</th>
+                                            <th colspan='2'>Linfocitos</th>
+                                            <th colspan='2'>Monocitos</th>
+                                            <th colspan='2'>Eosinófilos</th>
+                                            <th colspan='2'>Basófilos</th>
+                                            <th colspan='2'>Recuento plaquetas</th>
+
+                                            <th colspan='2'>Glucosa (ayunas)</th>
+                                            <th colspan='2'>BUN</th>
+                                            <th colspan='2'>Creatinina</th>
+                                            <th colspan='2'>Bilirrubina total</th>
+                                            <th colspan='2'>Proteínas totales</th>
+                                            <th colspan='2'>Fosfatasas alcalinas</th>
+                                            <th colspan='2'>AST</th>
+                                            <th colspan='2'>ALT</th>
+                                            <th colspan='2'>Calcio (Ca)</th>
+                                            <th colspan='2'>Sodio (Na)</th>
+                                            <th colspan='2'>Potasio (K)</th>
+                                            <th colspan='2'>Cloro (Cl)</th>
+                                            <th colspan='2'>Ácido úrico</th>
+                                            <th colspan='2'>Albúmina</th>
+
+                                            <th colspan='2'>pH</th>
+                                            <th colspan='2'>Glucosa (qual)</th>
+                                            <th colspan='2'>Proteína (qual)</th>
+                                            <th colspan='2'>Sangre (qual)</th>
+                                            <th colspan='2'>Cetonas</th>
+                                            <th colspan='2'>Microscopía</th>
+
+                                            <th colspan='2'>Homocisteina</th>
+                                            <th colspan='2'>Perfil Tiroideo</th>
+                                            <th colspan='2'>Nivel plasmático de V B12</th>
+                                            <th colspan='2'>Nivel plasmático de ácido fólico</th>
+                                            <th colspan='2'>HbA1C</th>
+                                            <th colspan='2'>Sífilis (VDRL)</th>
+
+                                        </tr>
+
+                                        <tr>
                                             <th>Realizado</th>
-                                            <th>Fecha</th>
-                                            <th>Ingresado/Modificado Por</th>
-                                            <th>Fecha modificacion</th>                                            
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
+                                            <th>Realizado</th>
+                                            <th>Valor</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
+
+                        $salida .= '<tr>
+                                        <td>'. (($value->realizado_old) ? 'Si' : 'No') .'</td>
+                                        <td>'. (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') .'</td>
+                                        
+                                        <td>'. (($value->hecho_1_old == 1) ? 'Si' : (($value->hecho_1_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_1_old == 1) ? $value->hematocrito_old .' % '. (($value->hematocrito_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->hematocrito_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->hematocrito_nom_anom_old) : '' ).'</td>                                 
+                                        
+                                        <td>'. (($value->hecho_2_old == 1) ? 'Si' : (($value->hecho_2_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_2_old == 1) ? $value->hemoglobina_old .' g/dl '. (($value->hemoglobina_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->hemoglobina_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->hemoglobina_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_3_old == 1) ? 'Si' : (($value->hecho_3_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_3_old == 1) ? $value->eritocritos_old .' M/µl '. (($value->eritocritos_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->eritocritos_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->eritocritos_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_4_old == 1) ? 'Si' : (($value->hecho_4_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_4_old == 1) ? $value->leucocitos_old .' /µl '. (($value->leucocitos_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->leucocitos_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->leucocitos_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_5_old == 1) ? 'Si' : (($value->hecho_5_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_5_old == 1) ? $value->neutrofilos_old .' /µl '. (($value->neutrofilos_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->neutrofilos_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->neutrofilos_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_6_old == 1) ? 'Si' : (($value->hecho_6_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_6_old == 1) ? $value->linfocitos_old .' /µl '. (($value->linfocitos_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->linfocitos_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->linfocitos_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_7_old == 1) ? 'Si' : (($value->hecho_7_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_7_old == 1) ? $value->monocitos_old .' /µl '. (($value->monocitos_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->monocitos_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->monocitos_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_8_old == 1) ? 'Si' : (($value->hecho_8_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_8_old == 1) ? $value->eosinofilos_old .' /µl '. (($value->eosinofilos_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->eosinofilos_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->eosinofilos_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_9_old == 1) ? 'Si' : (($value->hecho_9_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_9_old == 1) ? $value->basofilos_old .' /µl '. (($value->basofilos_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->basofilos_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->basofilos_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_10_old == 1) ? 'Si' : (($value->hecho_10_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_10_old == 1) ? $value->recuento_plaquetas_old .' x mm<sup>3</sup> '. (($value->recuento_plaquetas_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->recuento_plaquetas_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->recuento_plaquetas_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_11_old == 1) ? 'Si' : (($value->hecho_11_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_11_old == 1) ? $value->glucosa_ayunas_old .' mg/dl '. (($value->glucosa_ayunas_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->glucosa_ayunas_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->glucosa_ayunas_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_12_old == 1) ? 'Si' : (($value->hecho_12_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_12_old == 1) ? $value->bun_old .' mg/dl '. (($value->bun_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->bun_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->bun_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_13_old == 1) ? 'Si' : (($value->hecho_13_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_13_old == 1) ? $value->creatinina_old .' mg/dl '. (($value->creatinina_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->creatinina_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->creatinina_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_14_old == 1) ? 'Si' : (($value->hecho_14_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_14_old == 1) ? $value->bilirrubina_total_old .' mg/dl '. (($value->bilirrubina_total_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->bilirrubina_total_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->bilirrubina_total_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_15_old == 1) ? 'Si' : (($value->hecho_15_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_15_old == 1) ? $value->proteinas_totales_old .' g/dl '. (($value->proteinas_totales_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->proteinas_totales_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->proteinas_totales_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_16_old == 1) ? 'Si' : (($value->hecho_16_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_16_old == 1) ? $value->fosfatasas_alcalinas_old .' U/l '. (($value->fosfatasas_alcalinas_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->fosfatasas_alcalinas_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->fosfatasas_alcalinas_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_17_old == 1) ? 'Si' : (($value->hecho_17_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_17_old == 1) ? $value->ast_old .' U/l '. (($value->ast_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->ast_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->ast_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_18_old == 1) ? 'Si' : (($value->hecho_18_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_18_old == 1) ? $value->alt_old .' U/l '. (($value->alt_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->alt_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->alt_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_19_old == 1) ? 'Si' : (($value->hecho_19_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_19_old == 1) ? $value->calcio_old .' '. $value->calcio_unidad_medida_old .' '. (($value->calcio_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->calcio_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->calcio_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_20_old == 1) ? 'Si' : (($value->hecho_20_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_20_old == 1) ? $value->sodio_old .' '. $value->sodio_unidad_medida_old .' '. (($value->sodio_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->sodio_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->sodio_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_21_old == 1) ? 'Si' : (($value->hecho_21_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_21_old == 1) ? $value->potasio_old .' '. $value->potasio_unidad_medida_old .' '. (($value->potasio_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->potasio_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->potasio_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_22_old == 1) ? 'Si' : (($value->hecho_22_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_22_old == 1) ? $value->cloro_old .' '. $value->cloro_unidad_medida_old .' '. (($value->cloro_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->cloro_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->cloro_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_23_old == 1) ? 'Si' : (($value->hecho_23_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_23_old == 1) ? $value->acido_urico_old .' mg/dl '. (($value->acido_urico_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->acido_urico_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->acido_urico_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_24_old == 1) ? 'Si' : (($value->hecho_24_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_24_old== 1) ? $value->albumina_old .' mg/dl '. (($value->albumina_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->albumina_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->albumina_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_25_old == 1) ? 'Si' : (($value->hecho_25_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_25_old == 1) ? $value->orina_ph_old .' '. (($value->orina_ph_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_ph_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_ph_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_26_old == 1) ? 'Si' : (($value->hecho_26_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_26_old == 1) ? $value->orina_glucosa_old .' '. $value->glucosa_unidad_medida_old .' '. (($value->orina_glucosa_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_glucosa_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_glucosa_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_27_old == 1) ? 'Si' : (($value->hecho_27_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_27_old == 1) ? $value->orina_proteinas_old .' mUI/ml '. (($value->orina_proteinas_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_proteinas_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_proteinas_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_28_old == 1) ? 'Si' : (($value->hecho_28_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_28_old == 1) ? $value->orina_sangre_old .' mUI/ml '. (($value->orina_sangre_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_sangre_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_sangre_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_29_old == 1) ? 'Si' : (($value->hecho_29_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_29_old == 1) ? $value->orina_cetonas_old .' mmol/l '. (($value->orina_cetonas_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_cetonas_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_cetonas_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_30_old == 1) ? 'Si' : (($value->hecho_30_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_30_old == 1) ? $value->orina_microscospia_old .' '. (($value->orina_microscospia_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_microscospia_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_microscospia_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_31_old == 1) ? 'Si' : (($value->hecho_31_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_31_old == 1) ? $value->otros_sangre_homocisteina_old .' '. (($value->otros_sangre_homocisteina_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_sangre_homocisteina_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_sangre_homocisteina_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_32_old == 1) ? 'Si' : (($value->hecho_32_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_32_old == 1) ? $value->otros_perfil_tiroideo_old .' '. (($value->otros_perfil_tiroideo_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_perfil_tiroideo_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_perfil_tiroideo_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_33_old == 1) ? 'Si' : (($value->hecho_33_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_33_old == 1) ? $value->otros_nivel_b12_old .' '. (($value->otros_nivel_b12_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_nivel_b12_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_nivel_b12_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_34_old == 1) ? 'Si' : (($value->hecho_34_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_34_old == 1) ? $value->otros_acido_folico_old .' '. (($value->otros_acido_folico_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_acido_folico_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_acido_folico_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_35_old == 1) ? 'Si' : (($value->hecho_35_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_35_old == 1) ? $value->otros_hba1c_old .' '. (($value->otros_hba1c_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_hba1c_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_hba1c_nom_anom_old) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_36_old == 1) ? 'Si' : (($value->hecho_36_old == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_36_old == 1) ? $value->sifilis_old .' '. (($value->sifilis_nom_anom_old == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->sifilis_nom_anom_old) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->sifilis_nom_anom_old) : '' ).'</td>                                        
+
+                                        <td>'. $value->usuario_creacion_old .'</td>
+                                        <td>'. (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->created_at_old)) : '') .'</td>
+                                    </tr>';
+
+                         $salida .= '<tr>
+                                        <td>'. (($value->realizado_new) ? 'Si' : 'No') .'</td>
+                                        <td>'. (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') .'</td>
+                                        
+                                        <td>'. (($value->hecho_1_new == 1) ? 'Si' : (($value->hecho_1_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_1_new == 1) ? $value->hematocrito_new .' % '. (($value->hematocrito_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->hematocrito_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->hematocrito_nom_anom_new) : '' ).'</td>                                 
+                                        
+                                        <td>'. (($value->hecho_2_new == 1) ? 'Si' : (($value->hecho_2_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_2_new == 1) ? $value->hemoglobina_new .' g/dl '. (($value->hemoglobina_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->hemoglobina_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->hemoglobina_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_3_new == 1) ? 'Si' : (($value->hecho_3_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_3_new == 1) ? $value->eritocritos_new .' M/µl '. (($value->eritocritos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->eritocritos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->eritocritos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_4_new == 1) ? 'Si' : (($value->hecho_4_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_4_new == 1) ? $value->leucocitos_new .' /µl '. (($value->leucocitos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->leucocitos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->leucocitos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_5_new == 1) ? 'Si' : (($value->hecho_5_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_5_new == 1) ? $value->neutrofilos_new .' /µl '. (($value->neutrofilos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->neutrofilos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->neutrofilos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_6_new == 1) ? 'Si' : (($value->hecho_6_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_6_new == 1) ? $value->linfocitos_new .' /µl '. (($value->linfocitos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->linfocitos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->linfocitos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_7_new == 1) ? 'Si' : (($value->hecho_7_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_7_new == 1) ? $value->monocitos_new .' /µl '. (($value->monocitos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->monocitos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->monocitos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_8_new == 1) ? 'Si' : (($value->hecho_8_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_8_new == 1) ? $value->eosinofilos_new .' /µl '. (($value->eosinofilos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->eosinofilos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->eosinofilos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_9_new == 1) ? 'Si' : (($value->hecho_9_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_9_new == 1) ? $value->basofilos_new .' /µl '. (($value->basofilos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->basofilos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->basofilos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_10_new == 1) ? 'Si' : (($value->hecho_10_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_10_new == 1) ? $value->recuento_plaquetas_new .' x mm<sup>3</sup> '. (($value->recuento_plaquetas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->recuento_plaquetas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->recuento_plaquetas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_11_new == 1) ? 'Si' : (($value->hecho_11_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_11_new == 1) ? $value->glucosa_ayunas_new .' mg/dl '. (($value->glucosa_ayunas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->glucosa_ayunas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->glucosa_ayunas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_12_new == 1) ? 'Si' : (($value->hecho_12_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_12_new == 1) ? $value->bun_new .' mg/dl '. (($value->bun_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->bun_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->bun_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_13_new == 1) ? 'Si' : (($value->hecho_13_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_13_new == 1) ? $value->creatinina_new .' mg/dl '. (($value->creatinina_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->creatinina_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->creatinina_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_14_new == 1) ? 'Si' : (($value->hecho_14_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_14_new == 1) ? $value->bilirrubina_total_new .' mg/dl '. (($value->bilirrubina_total_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->bilirrubina_total_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->bilirrubina_total_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_15_new == 1) ? 'Si' : (($value->hecho_15_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_15_new == 1) ? $value->proteinas_totales_new .' g/dl '. (($value->proteinas_totales_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->proteinas_totales_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->proteinas_totales_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_16_new == 1) ? 'Si' : (($value->hecho_16_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_16_new == 1) ? $value->fosfatasas_alcalinas_new .' U/l '. (($value->fosfatasas_alcalinas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->fosfatasas_alcalinas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->fosfatasas_alcalinas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_17_new == 1) ? 'Si' : (($value->hecho_17_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_17_new == 1) ? $value->ast_new .' U/l '. (($value->ast_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->ast_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->ast_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_18_new == 1) ? 'Si' : (($value->hecho_18_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_18_new == 1) ? $value->alt_new .' U/l '. (($value->alt_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->alt_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->alt_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_19_new == 1) ? 'Si' : (($value->hecho_19_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_19_new == 1) ? $value->calcio_new .' '. $value->calcio_unidad_medida_new .' '. (($value->calcio_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->calcio_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->calcio_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_20_new == 1) ? 'Si' : (($value->hecho_20_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_20_new == 1) ? $value->sodio_new .' '. $value->sodio_unidad_medida_new .' '. (($value->sodio_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->sodio_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->sodio_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_21_new == 1) ? 'Si' : (($value->hecho_21_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_21_new == 1) ? $value->potasio_new .' '. $value->potasio_unidad_medida_new .' '. (($value->potasio_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->potasio_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->potasio_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_22_new == 1) ? 'Si' : (($value->hecho_22_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_22_new == 1) ? $value->cloro_new .' '. $value->cloro_unidad_medida_new .' '. (($value->cloro_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->cloro_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->cloro_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_23_new == 1) ? 'Si' : (($value->hecho_23_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_23_new == 1) ? $value->acido_urico_new .' mg/dl '. (($value->acido_urico_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->acido_urico_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->acido_urico_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_24_new == 1) ? 'Si' : (($value->hecho_24_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_24_new== 1) ? $value->albumina_new .' mg/dl '. (($value->albumina_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->albumina_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->albumina_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_25_new == 1) ? 'Si' : (($value->hecho_25_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_25_new == 1) ? $value->orina_ph_new .' '. (($value->orina_ph_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_ph_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_ph_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_26_new == 1) ? 'Si' : (($value->hecho_26_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_26_new == 1) ? $value->orina_glucosa_new .' '. $value->glucosa_unidad_medida_new .' '. (($value->orina_glucosa_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_glucosa_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_glucosa_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_27_new == 1) ? 'Si' : (($value->hecho_27_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_27_new == 1) ? $value->orina_proteinas_new .' mUI/ml '. (($value->orina_proteinas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_proteinas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_proteinas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_28_new == 1) ? 'Si' : (($value->hecho_28_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_28_new == 1) ? $value->orina_sangre_new .' mUI/ml '. (($value->orina_sangre_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_sangre_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_sangre_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_29_new == 1) ? 'Si' : (($value->hecho_29_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_29_new == 1) ? $value->orina_cetonas_new .' mmol/l '. (($value->orina_cetonas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_cetonas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_cetonas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_30_new == 1) ? 'Si' : (($value->hecho_30_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_30_new == 1) ? $value->orina_microscospia_new .' '. (($value->orina_microscospia_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_microscospia_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_microscospia_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_31_new == 1) ? 'Si' : (($value->hecho_31_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_31_new == 1) ? $value->otros_sangre_homocisteina_new .' '. (($value->otros_sangre_homocisteina_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_sangre_homocisteina_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_sangre_homocisteina_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_32_new == 1) ? 'Si' : (($value->hecho_32_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_32_new == 1) ? $value->otros_perfil_tiroideo_new .' '. (($value->otros_perfil_tiroideo_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_perfil_tiroideo_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_perfil_tiroideo_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_33_new == 1) ? 'Si' : (($value->hecho_33_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_33_new == 1) ? $value->otros_nivel_b12_new .' '. (($value->otros_nivel_b12_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_nivel_b12_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_nivel_b12_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_34_new == 1) ? 'Si' : (($value->hecho_34_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_34_new == 1) ? $value->otros_acido_folico_new .' '. (($value->otros_acido_folico_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_acido_folico_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_acido_folico_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_35_new == 1) ? 'Si' : (($value->hecho_35_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_35_new == 1) ? $value->otros_hba1c_new .' '. (($value->otros_hba1c_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_hba1c_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_hba1c_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_36_new == 1) ? 'Si' : (($value->hecho_36_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_36_new == 1) ? $value->sifilis_new .' '. (($value->sifilis_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->sifilis_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->sifilis_nom_anom_new) : '' ).'</td>                                        
+
+                                        <td>'. $value->usuario_actualizacion_new .'</td>
+                                        <td>'. (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') .'</td>
+                                    </tr>';
                     }
                     else{
+                        $salida .= '<tr>
+                                        <td>'. (($value->realizado_new) ? 'Si' : 'No') .'</td>
+                                        <td>'. (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') .'</td>
+                                        
+                                        <td>'. (($value->hecho_1_new == 1) ? 'Si' : (($value->hecho_1_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_1_new == 1) ? $value->hematocrito_new .' % '. (($value->hematocrito_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->hematocrito_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->hematocrito_nom_anom_new) : '' ).'</td>                                 
+                                        
+                                        <td>'. (($value->hecho_2_new == 1) ? 'Si' : (($value->hecho_2_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_2_new == 1) ? $value->hemoglobina_new .' g/dl '. (($value->hemoglobina_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->hemoglobina_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->hemoglobina_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_3_new == 1) ? 'Si' : (($value->hecho_3_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_3_new == 1) ? $value->eritocritos_new .' M/µl '. (($value->eritocritos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->eritocritos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->eritocritos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_4_new == 1) ? 'Si' : (($value->hecho_4_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_4_new == 1) ? $value->leucocitos_new .' /µl '. (($value->leucocitos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->leucocitos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->leucocitos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_5_new == 1) ? 'Si' : (($value->hecho_5_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_5_new == 1) ? $value->neutrofilos_new .' /µl '. (($value->neutrofilos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->neutrofilos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->neutrofilos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_6_new == 1) ? 'Si' : (($value->hecho_6_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_6_new == 1) ? $value->linfocitos_new .' /µl '. (($value->linfocitos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->linfocitos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->linfocitos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_7_new == 1) ? 'Si' : (($value->hecho_7_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_7_new == 1) ? $value->monocitos_new .' /µl '. (($value->monocitos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->monocitos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->monocitos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_8_new == 1) ? 'Si' : (($value->hecho_8_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_8_new == 1) ? $value->eosinofilos_new .' /µl '. (($value->eosinofilos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->eosinofilos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->eosinofilos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_9_new == 1) ? 'Si' : (($value->hecho_9_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_9_new == 1) ? $value->basofilos_new .' /µl '. (($value->basofilos_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->basofilos_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->basofilos_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_10_new == 1) ? 'Si' : (($value->hecho_10_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_10_new == 1) ? $value->recuento_plaquetas_new .' x mm<sup>3</sup> '. (($value->recuento_plaquetas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->recuento_plaquetas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->recuento_plaquetas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_11_new == 1) ? 'Si' : (($value->hecho_11_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_11_new == 1) ? $value->glucosa_ayunas_new .' mg/dl '. (($value->glucosa_ayunas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->glucosa_ayunas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->glucosa_ayunas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_12_new == 1) ? 'Si' : (($value->hecho_12_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_12_new == 1) ? $value->bun_new .' mg/dl '. (($value->bun_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->bun_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->bun_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_13_new == 1) ? 'Si' : (($value->hecho_13_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_13_new == 1) ? $value->creatinina_new .' mg/dl '. (($value->creatinina_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->creatinina_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->creatinina_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_14_new == 1) ? 'Si' : (($value->hecho_14_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_14_new == 1) ? $value->bilirrubina_total_new .' mg/dl '. (($value->bilirrubina_total_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->bilirrubina_total_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->bilirrubina_total_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_15_new == 1) ? 'Si' : (($value->hecho_15_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_15_new == 1) ? $value->proteinas_totales_new .' g/dl '. (($value->proteinas_totales_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->proteinas_totales_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->proteinas_totales_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_16_new == 1) ? 'Si' : (($value->hecho_16_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_16_new == 1) ? $value->fosfatasas_alcalinas_new .' U/l '. (($value->fosfatasas_alcalinas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->fosfatasas_alcalinas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->fosfatasas_alcalinas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_17_new == 1) ? 'Si' : (($value->hecho_17_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_17_new == 1) ? $value->ast_new .' U/l '. (($value->ast_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->ast_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->ast_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_18_new == 1) ? 'Si' : (($value->hecho_18_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_18_new == 1) ? $value->alt_new .' U/l '. (($value->alt_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->alt_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->alt_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_19_new == 1) ? 'Si' : (($value->hecho_19_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_19_new == 1) ? $value->calcio_new .' '. $value->calcio_unidad_medida_new .' '. (($value->calcio_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->calcio_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->calcio_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_20_new == 1) ? 'Si' : (($value->hecho_20_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_20_new == 1) ? $value->sodio_new .' '. $value->sodio_unidad_medida_new .' '. (($value->sodio_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->sodio_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->sodio_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_21_new == 1) ? 'Si' : (($value->hecho_21_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_21_new == 1) ? $value->potasio_new .' '. $value->potasio_unidad_medida_new .' '. (($value->potasio_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->potasio_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->potasio_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_22_new == 1) ? 'Si' : (($value->hecho_22_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_22_new == 1) ? $value->cloro_new .' '. $value->cloro_unidad_medida_new .' '. (($value->cloro_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->cloro_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->cloro_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_23_new == 1) ? 'Si' : (($value->hecho_23_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_23_new == 1) ? $value->acido_urico_new .' mg/dl '. (($value->acido_urico_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->acido_urico_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->acido_urico_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_24_new == 1) ? 'Si' : (($value->hecho_24_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_24_new== 1) ? $value->albumina_new .' mg/dl '. (($value->albumina_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->albumina_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->albumina_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_25_new == 1) ? 'Si' : (($value->hecho_25_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_25_new == 1) ? $value->orina_ph_new .' '. (($value->orina_ph_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_ph_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_ph_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_26_new == 1) ? 'Si' : (($value->hecho_26_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_26_new == 1) ? $value->orina_glucosa_new .' '. $value->glucosa_unidad_medida_new .' '. (($value->orina_glucosa_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_glucosa_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_glucosa_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_27_new == 1) ? 'Si' : (($value->hecho_27_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_27_new == 1) ? $value->orina_proteinas_new .' mUI/ml '. (($value->orina_proteinas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_proteinas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_proteinas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_28_new == 1) ? 'Si' : (($value->hecho_28_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_28_new == 1) ? $value->orina_sangre_new .' mUI/ml '. (($value->orina_sangre_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_sangre_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_sangre_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_29_new == 1) ? 'Si' : (($value->hecho_29_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_29_new == 1) ? $value->orina_cetonas_new .' mmol/l '. (($value->orina_cetonas_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_cetonas_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_cetonas_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_30_new == 1) ? 'Si' : (($value->hecho_30_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_30_new == 1) ? $value->orina_microscospia_new .' '. (($value->orina_microscospia_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->orina_microscospia_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->orina_microscospia_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_31_new == 1) ? 'Si' : (($value->hecho_31_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_31_new == 1) ? $value->otros_sangre_homocisteina_new .' '. (($value->otros_sangre_homocisteina_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_sangre_homocisteina_nom_anom) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_sangre_homocisteina_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_32_new == 1) ? 'Si' : (($value->hecho_32_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_32_new == 1) ? $value->otros_perfil_tiroideo_new .' '. (($value->otros_perfil_tiroideo_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_perfil_tiroideo_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_perfil_tiroideo_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_33_new == 1) ? 'Si' : (($value->hecho_33_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_33_new == 1) ? $value->otros_nivel_b12_new .' '. (($value->otros_nivel_b12_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_nivel_b12_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_nivel_b12_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_34_new == 1) ? 'Si' : (($value->hecho_34_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_34_new == 1) ? $value->otros_acido_folico_new .' '. (($value->otros_acido_folico_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_acido_folico_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_acido_folico_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_35_new == 1) ? 'Si' : (($value->hecho_35_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_35_new == 1) ? $value->otros_hba1c_new .' '. (($value->otros_hba1c_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->otros_hba1c_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->otros_hba1c_nom_anom_new) : '' ).'</td>
+                                        
+                                        <td>'. (($value->hecho_36_new == 1) ? 'Si' : (($value->hecho_36_new == '0') ? 'No' : '')).'</td>
+                                        <td>'. (($value->hecho_36_new == 1) ? $value->sifilis_new .' '. (($value->sifilis_nom_anom_new == 'Anormal_sin') ? 'Anormal sin significancia clinica' : (($value->sifilis_nom_anom_new) == 'Anormal_con') ? 'Anormal con significancia clinica' : $value->sifilis_nom_anom_new) : '' ).'</td>                                        
 
+                                        <td>'. $value->usuario_actualizacion_new .'</td>
+                                        <td>'. (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') .'</td>
+                                    </tr>';
                     }
 
                     $contador++;
@@ -1081,16 +1540,160 @@ class AuditLib {
                         $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
                                     <thead>
                                         <tr>
-                                            <th>Realizado</th>
-                                            <th>Fecha</th>
-                                            <th>Ingresado/Modificado Por</th>
-                                            <th>Fecha modificacion</th>                                            
+                                            <th rowspan='2'>Realizado</th>
+                                            <th rowspan='2'>Fecha</th>                                            
+                                            <th colspan='2'>Nervios craneales</th>
+                                            <th colspan='2'>Fuerza muscular</th>
+                                            <th colspan='2'>Tono</th>
+                                            <th colspan='2'>Movimientos anormales</th>
+                                            <th colspan='2'>Reflejos tendinosos profundos</th>
+                                            <th colspan='2'>Examen sensorial</th>
+                                            <th colspan='2'>Marcha</th>
+                                            <th colspan='2'>Postura</th>
+                                            <th colspan='2'>Coordinación</th>
+                                            <th colspan='2'>Función cortical superior</th>
+                                            <th rowspan='2'>Ingresado/Modificado Por</th>
+                                            <th rowspan='2'>Fecha modificacion</th>                                            
+                                        </tr>
+                                        <tr>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
+                                            <th>Normal/Anormal</th>
+                                            <th>Detallar si es Anormal</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
+
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_old) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>
+                                        
+                                        <td>". (($value->nervios_craneanos_normal_anormal_old == 1) ? 'Normal' : (($value->nervios_craneanos_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->nervios_craneanos_old ."</td>
+
+                                        <td>". (($value->fuerza_muscular_normal_anormal_old == 1) ? 'Normal' : (($value->fuerza_muscular_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->fuerza_muscular_old ."</td>
+
+                                        <td>". (($value->tono_normal_anormal_old == 1) ? 'Normal' : (($value->tono_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->tono_old ."</td>
+
+                                        <td>". (($value->mov_anormales_normal_anormal_old == 1) ? 'Normal' : (($value->mov_anormales_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->mov_anormales_old ."</td>
+
+                                        <td>". (($value->reflejos_normal_anormal_old == 1) ? 'Normal' : (($value->reflejos_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->reflejos_old ."</td>
+
+                                        <td>". (($value->examen_sensitivo_normal_anormal_old == 1) ? 'Normal' : (($value->examen_sensitivo_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->examen_sensitivo_old ."</td>
+
+                                        <td>". (($value->marcha_normal_anormal_old == 1) ? 'Normal' : (($value->marcha_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->marcha_old ."</td>
+
+                                        <td>". (($value->postura_normal_anormal_old == 1) ? 'Normal' : (($value->postura_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->postura_old ."</td>
+
+                                        <td>". (($value->coordinacion_normal_anormal_old == 1) ? 'Normal' : (($value->coordinacion_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->coordinacion_old ."</td>
+
+                                        <td>". (($value->funcion_cerebelosa_normal_anormal_old == 1) ? 'Normal' : (($value->funcion_cerebelosa_normal_anormal_old == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->funcion_cerebelosa_old ."</td>
+
+                                        <td>". $value->usuario_creacion_old ."</td>
+                                        <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->created_at_old)) : '') ."</td>
+                                    </tr>";
+
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+                                        
+                                        <td>". (($value->nervios_craneanos_normal_anormal_new == 1) ? 'Normal' : (($value->nervios_craneanos_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->nervios_craneanos_new ."</td>
+
+                                        <td>". (($value->fuerza_muscular_normal_anormal_new == 1) ? 'Normal' : (($value->fuerza_muscular_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->fuerza_muscular_new ."</td>
+
+                                        <td>". (($value->tono_normal_anormal_new == 1) ? 'Normal' : (($value->tono_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->tono_new ."</td>
+
+                                        <td>". (($value->mov_anormales_normal_anormal_new == 1) ? 'Normal' : (($value->mov_anormales_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->mov_anormales_new ."</td>
+
+                                        <td>". (($value->reflejos_normal_anormal_new == 1) ? 'Normal' : (($value->reflejos_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->reflejos_new ."</td>
+
+                                        <td>". (($value->examen_sensitivo_normal_anormal_new == 1) ? 'Normal' : (($value->examen_sensitivo_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->examen_sensitivo_new ."</td>
+
+                                        <td>". (($value->marcha_normal_anormal_new == 1) ? 'Normal' : (($value->marcha_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->marcha_new ."</td>
+
+                                        <td>". (($value->postura_normal_anormal_new == 1) ? 'Normal' : (($value->postura_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->postura_new ."</td>
+
+                                        <td>". (($value->coordinacion_normal_anormal_new == 1) ? 'Normal' : (($value->coordinacion_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->coordinacion_new ."</td>
+
+                                        <td>". (($value->funcion_cerebelosa_normal_anormal_new == 1) ? 'Normal' : (($value->funcion_cerebelosa_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->funcion_cerebelosa_new ."</td>
+
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                    </tr>";
                     }
                     else{
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+                                        
+                                        <td>". (($value->nervios_craneanos_normal_anormal_new == 1) ? 'Normal' : (($value->nervios_craneanos_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->nervios_craneanos_new ."</td>
 
+                                        <td>". (($value->fuerza_muscular_normal_anormal_new == 1) ? 'Normal' : (($value->fuerza_muscular_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->fuerza_muscular_new ."</td>
+
+                                        <td>". (($value->tono_normal_anormal_new == 1) ? 'Normal' : (($value->tono_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->tono_new ."</td>
+
+                                        <td>". (($value->mov_anormales_normal_anormal_new == 1) ? 'Normal' : (($value->mov_anormales_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->mov_anormales_new ."</td>
+
+                                        <td>". (($value->reflejos_normal_anormal_new == 1) ? 'Normal' : (($value->reflejos_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->reflejos_new ."</td>
+
+                                        <td>". (($value->examen_sensitivo_normal_anormal_new == 1) ? 'Normal' : (($value->examen_sensitivo_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->examen_sensitivo_new ."</td>
+
+                                        <td>". (($value->marcha_normal_anormal_new == 1) ? 'Normal' : (($value->marcha_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->marcha_new ."</td>
+
+                                        <td>". (($value->postura_normal_anormal_new == 1) ? 'Normal' : (($value->postura_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->postura_new ."</td>
+
+                                        <td>". (($value->coordinacion_normal_anormal_new == 1) ? 'Normal' : (($value->coordinacion_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->coordinacion_new ."</td>
+
+                                        <td>". (($value->funcion_cerebelosa_normal_anormal_new == 1) ? 'Normal' : (($value->funcion_cerebelosa_normal_anormal_new == '0') ? 'Anormal' : '')) ."</td>
+                                        <td>". $value->funcion_cerebelosa_new ."</td>
+
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                    </tr>";
                     }
 
                     $contador++;
@@ -1536,9 +2139,400 @@ class AuditLib {
 
                     if($contador == 0){
                         //encabezado, registro original, primera modificacion
+                        $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
+                                    <thead>
+                                        <tr>
+                                            <th rowspan='2'>Realizado</th>
+                                            <th rowspan='2'>Fecha</th>
+                                            <th rowspan='2'>PUNTAJE TOTAL</th>
+                                            <th rowspan='2'>Se consulta a sujeto...¿Tiene algún problema con su memoria?</th>
+                                            <th rowspan='2'>Se consulta a sujeto...¿Le puedo hacer algunas preguntas acerca de su memoria?</th>
+
+                                            <th colspan='2'>¿En qué año estamos?</th>
+                                            <th colspan='2'>¿En qué Estación del año estamos?</th>
+                                            <th colspan='2'>¿En qué Mes estamos?</th>
+                                            <th colspan='2'>¿En qué Día de la semana estamos?</th>
+                                            <th colspan='2'>¿En qué Fecha estamos?</th>
+                                            
+                                            <th colspan='2'>¿En qué Región (provincia) estamos?</th>
+                                            <th colspan='2'>¿En qué Comuna (o ciudad/pueblo) estamos?</th>
+                                            <th colspan='2'>¿En qué Ciudad/pueblo (o parte de la ciudad/barrio) estamos?</th>
+                                            <th colspan='2'>¿En qué Edificio (nombre o tipo) estamos?</th>
+                                            <th colspan='2'>¿En que Piso del Edificio (número de habitación o dirección) estamos?</th>
+
+                                            <th colspan='2'>ÁRBOL</th>
+                                            <th colspan='2'>MESA</th>
+                                            <th colspan='2'>AVIÓN</th>
+
+                                            <th colspan='2'>¿Cuánto es 100 menos 7? [93]</th>
+                                            <th colspan='2'>Si es necesario diga: Continúe. [86]</th>
+                                            <th colspan='2'>Si es necesario diga: Continúe. [79]</th>
+                                            <th colspan='2'>Si es necesario diga: Continúa. [72]</th>
+                                            <th colspan='2'>Si es necesario diga: Continúa. [65]</th>
+
+                                            <th>Puntaje total seccion a</th>
+
+                                            <th colspan='2'>Pídale al paciente que deletree la palabra 'MUNDO' (usted puede ayudarlo) Luego dígale. 'Ahora deletréela de atrás para adelante' (espere máximo 30 segundos)</th>
+                                            
+                                            <th colspan='2'>ÁRBOL</th>
+                                            <th colspan='2'>MESA</th>
+                                            <th colspan='2'>AVIÓN</th>
+
+                                            <th colspan='3'>¿Qué es esto?</th>
+                                            <th colspan='3'>¿Qué es esto?</th>                                            
+
+                                            <th colspan='2'>NO SI, O CUANDO, O PORQUÉ.</th>
+
+                                            <th colspan='2'>TOMARLO CON LA MANO DERECHA</th>
+                                            <th colspan='2'>DOBLAR POR LA MITAD</th>
+                                            <th colspan='2'>PONER EN EL PISO</th>
+                                            <th colspan='2'>CIERRE LOS OJOS</th>
+                                            
+                                            <th>ESCRITURA</th>
+                                            <th>DIBUJO</th>
+
+                                            <th rowspan='2'>Ingresado/Modificado Por</th>
+                                            <th rowspan='2'>Fecha Modificacion</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+
+                                            <th>Puntaje</th>
+
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+
+                                            <th>Objeto</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Objeto</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+                                            <th>Respuesta</th>
+                                            <th>Puntaje</th>
+
+                                            <th>Puntaje</th>
+                                            <th>Puntaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_old == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>
+
+                                        <td>". $value->puntaje_total_old ."</td>
+                                        <td>". (($value->tiene_problemas_memoria_old == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->le_puedo_hacer_preguntas_old == 1) ? 'Si' : 'No') ."</td>                                        
+
+                                        <td>". $value->en_que_ano_estamos_old ."</td>
+                                        <td>". $value->en_que_ano_estamos_puntaje_old ."</td>
+                                        <td>". $value->en_que_estacion_estamos_old ."</td>
+                                        <td>". $value->en_que_estacion_estamos_puntaje_old ."</td>
+                                        <td>". $value->en_que_mes_estamos_old ."</td>
+                                        <td>". $value->en_que_mes_estamos_puntaje_old ."</td>
+                                        <td>". $value->en_que_dia_estamos_old ."</td>
+                                        <td>". $value->en_que_dia_estamos_puntaje_old ."</td>
+                                        <td>". $value->en_que_fecha_estamos_old ."</td>
+                                        <td>". $value->en_que_fecha_estamos_puntaje_old ."</td>
+
+                                        <td>". $value->en_que_region_estamos_old ."</td>
+                                        <td>". $value->en_que_region_estamos_puntaje_old ."</td>
+                                        <td>". $value->comuna_estamos_old ."</td>
+                                        <td>". $value->comuna_estamos_puntaje_old ."</td>
+                                        <td>". $value->barrio_estamos_old ."</td>
+                                        <td>". $value->barrio_estamos_puntaje_old ."</td>
+                                        <td>". $value->edificio_estamos_old ."</td>
+                                        <td>". $value->edificio_estamos_puntaje_old ."</td>
+                                        <td>". $value->edificio_estamos2_old ."</td>
+                                        <td>". $value->edificio_estamos2_puntaje_old ."</td>                                        
+
+                                        <td>". $value->manzana_old ."</td>
+                                        <td>". $value->manzana_puntaje_old ."</td>
+                                        <td>". $value->peso_old ."</td>
+                                        <td>". $value->peso_puntaje_old ."</td>
+                                        <td>". $value->mesa_old ."</td>
+                                        <td>". $value->mesa_puntaje_old ."</td>
+
+                                        <td>". $value->cuanto_93_old ."</td>
+                                        <td>". $value->cuanto_93_puntaje_old ."</td>
+                                        <td>". $value->cuanto_86_old ."</td>
+                                        <td>". $value->cuanto_86_puntaje_old ."</td>
+                                        <td>". $value->cuanto_79_old ."</td>
+                                        <td>". $value->cuanto_79_puntaje_old ."</td>
+                                        <td>". $value->cuanto_72_old ."</td>
+                                        <td>". $value->cuanto_72_puntaje_old ."</td>
+                                        <td>". $value->cuanto_65_old ."</td>
+                                        <td>". $value->cuanto_65_puntaje_old ."</td>
+
+                                        <td>". $value->puntaje_seccion_a_old ."</td>
+
+                                        <td>". $value->mundo_respuesta_old ."</td>
+                                        <td>". $value->mundo_puntaje_old ."</td>
+
+                                        <td>". $value->manzana_2_old ."</td>
+                                        <td>". $value->manzana_2_puntaje_old ."</td>
+                                        <td>". $value->peso_2_old ."</td>
+                                        <td>". $value->peso_2_puntaje_old ."</td>
+                                        <td>". $value->mesa_2_old ."</td>
+                                        <td>". $value->mesa_2_puntaje_old ."</td>
+
+                                        <td>". $value->mostrado_que_es_1_old ."</td>
+                                        <td>". $value->que_es_1_old ."</td>
+                                        <td>". $value->que_es_1_puntaje_old ."</td>
+                                        <td>". $value->mostrado_que_es_2_old ."</td>
+                                        <td>". $value->que_es_2_old ."</td>
+                                        <td>". $value->que_es_2_puntaje_old ."</td>
+
+                                        <td>". $value->no_si_cuando_porque_old ."</td>
+                                        <td>". $value->no_si_cuando_porque_puntaje_old ."</td>
+
+                                        <td>". $value->tomar_con_la_mano_derecha_old ."</td>
+                                        <td>". $value->tomar_con_la_mano_derecha_puntaje_old ."</td>
+                                        <td>". $value->doblar_por_la_mitad_old ."</td>
+                                        <td>". $value->doblar_por_la_mitad_puntaje_old ."</td>
+                                        <td>". $value->poner_en_el_piso_old ."</td>
+                                        <td>". $value->poner_en_el_piso_puntaje_old ."</td>
+                                        <td>". $value->cierre_los_ojos_old ."</td>
+                                        <td>". $value->cierre_los_ojos_puntaje_old ."</td>
+                                        
+
+                                        <td>". $value->escritura_puntaje_old ."</td>
+                                        <td>". $value->dibujo_puntaje_old ."</td>
+
+                                        <td>". $value->usuario_creacion_old ."</td>
+                                        <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->created_at_old)) : '') ."</td>
+                                    </tr>";
+
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
+
+                                        <td>". $value->puntaje_total_new ."</td>
+                                        <td>". (($value->tiene_problemas_memoria_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->le_puedo_hacer_preguntas_new == 1) ? 'Si' : 'No') ."</td>                                        
+
+                                        <td>". $value->en_que_ano_estamos_new ."</td>
+                                        <td>". $value->en_que_ano_estamos_puntaje_new ."</td>
+                                        <td>". $value->en_que_estacion_estamos_new ."</td>
+                                        <td>". $value->en_que_estacion_estamos_puntaje_new ."</td>
+                                        <td>". $value->en_que_mes_estamos_new ."</td>
+                                        <td>". $value->en_que_mes_estamos_puntaje_new ."</td>
+                                        <td>". $value->en_que_dia_estamos_new ."</td>
+                                        <td>". $value->en_que_dia_estamos_puntaje_new ."</td>
+                                        <td>". $value->en_que_fecha_estamos_new ."</td>
+                                        <td>". $value->en_que_fecha_estamos_puntaje_new ."</td>
+
+                                        <td>". $value->en_que_region_estamos_new ."</td>
+                                        <td>". $value->en_que_region_estamos_puntaje_new ."</td>
+                                        <td>". $value->comuna_estamos_new ."</td>
+                                        <td>". $value->comuna_estamos_puntaje_new ."</td>
+                                        <td>". $value->barrio_estamos_new ."</td>
+                                        <td>". $value->barrio_estamos_puntaje_new ."</td>
+                                        <td>". $value->edificio_estamos_new ."</td>
+                                        <td>". $value->edificio_estamos_puntaje_new ."</td>
+                                        <td>". $value->edificio_estamos2_new ."</td>
+                                        <td>". $value->edificio_estamos2_puntaje_new ."</td>                                        
+
+                                        <td>". $value->manzana_new ."</td>
+                                        <td>". $value->manzana_puntaje_new ."</td>
+                                        <td>". $value->peso_new ."</td>
+                                        <td>". $value->peso_puntaje_new ."</td>
+                                        <td>". $value->mesa_new ."</td>
+                                        <td>". $value->mesa_puntaje_new ."</td>
+
+                                        <td>". $value->cuanto_93_new ."</td>
+                                        <td>". $value->cuanto_93_puntaje_new ."</td>
+                                        <td>". $value->cuanto_86_new ."</td>
+                                        <td>". $value->cuanto_86_puntaje_new ."</td>
+                                        <td>". $value->cuanto_79_new ."</td>
+                                        <td>". $value->cuanto_79_puntaje_new ."</td>
+                                        <td>". $value->cuanto_72_new ."</td>
+                                        <td>". $value->cuanto_72_puntaje_new ."</td>
+                                        <td>". $value->cuanto_65_new ."</td>
+                                        <td>". $value->cuanto_65_puntaje_new ."</td>
+
+                                        <td>". $value->puntaje_seccion_a_new ."</td>
+
+                                        <td>". $value->mundo_respuesta_new ."</td>
+                                        <td>". $value->mundo_puntaje_new ."</td>
+
+                                        <td>". $value->manzana_2_new ."</td>
+                                        <td>". $value->manzana_2_puntaje_new ."</td>
+                                        <td>". $value->peso_2_new ."</td>
+                                        <td>". $value->peso_2_puntaje_new ."</td>
+                                        <td>". $value->mesa_2_new ."</td>
+                                        <td>". $value->mesa_2_puntaje_new ."</td>
+
+                                        <td>". $value->mostrado_que_es_1_new ."</td>
+                                        <td>". $value->que_es_1_new ."</td>
+                                        <td>". $value->que_es_1_puntaje_new ."</td>
+                                        <td>". $value->mostrado_que_es_2_new ."</td>
+                                        <td>". $value->que_es_2_new ."</td>
+                                        <td>". $value->que_es_2_puntaje_new ."</td>
+
+                                        <td>". $value->no_si_cuando_porque_new ."</td>
+                                        <td>". $value->no_si_cuando_porque_puntaje_new ."</td>
+
+                                        <td>". $value->tomar_con_la_mano_derecha_new ."</td>
+                                        <td>". $value->tomar_con_la_mano_derecha_puntaje_new ."</td>
+                                        <td>". $value->doblar_por_la_mitad_new ."</td>
+                                        <td>". $value->doblar_por_la_mitad_puntaje_new ."</td>
+                                        <td>". $value->poner_en_el_piso_new ."</td>
+                                        <td>". $value->poner_en_el_piso_puntaje_new ."</td>
+                                        <td>". $value->cierre_los_ojos_new ."</td>
+                                        <td>". $value->cierre_los_ojos_puntaje_new ."</td>
+                                        
+
+                                        <td>". $value->escritura_puntaje_new ."</td>
+                                        <td>". $value->dibujo_puntaje_new ."</td>
+
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                    </tr>";
+
                     }
                     else{
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
 
+                                        <td>". $value->puntaje_total_new ."</td>
+                                        <td>". (($value->tiene_problemas_memoria_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->le_puedo_hacer_preguntas_new == 1) ? 'Si' : 'No') ."</td>                                        
+
+                                        <td>". $value->en_que_ano_estamos_new ."</td>
+                                        <td>". $value->en_que_ano_estamos_puntaje_new ."</td>
+                                        <td>". $value->en_que_estacion_estamos_new ."</td>
+                                        <td>". $value->en_que_estacion_estamos_puntaje_new ."</td>
+                                        <td>". $value->en_que_mes_estamos_new ."</td>
+                                        <td>". $value->en_que_mes_estamos_puntaje_new ."</td>
+                                        <td>". $value->en_que_dia_estamos_new ."</td>
+                                        <td>". $value->en_que_dia_estamos_puntaje_new ."</td>
+                                        <td>". $value->en_que_fecha_estamos_new ."</td>
+                                        <td>". $value->en_que_fecha_estamos_puntaje_new ."</td>
+
+                                        <td>". $value->en_que_region_estamos_new ."</td>
+                                        <td>". $value->en_que_region_estamos_puntaje_new ."</td>
+                                        <td>". $value->comuna_estamos_new ."</td>
+                                        <td>". $value->comuna_estamos_puntaje_new ."</td>
+                                        <td>". $value->barrio_estamos_new ."</td>
+                                        <td>". $value->barrio_estamos_puntaje_new ."</td>
+                                        <td>". $value->edificio_estamos_new ."</td>
+                                        <td>". $value->edificio_estamos_puntaje_new ."</td>
+                                        <td>". $value->edificio_estamos2_new ."</td>
+                                        <td>". $value->edificio_estamos2_puntaje_new ."</td>                                        
+
+                                        <td>". $value->manzana_new ."</td>
+                                        <td>". $value->manzana_puntaje_new ."</td>
+                                        <td>". $value->peso_new ."</td>
+                                        <td>". $value->peso_puntaje_new ."</td>
+                                        <td>". $value->mesa_new ."</td>
+                                        <td>". $value->mesa_puntaje_new ."</td>
+
+                                        <td>". $value->cuanto_93_new ."</td>
+                                        <td>". $value->cuanto_93_puntaje_new ."</td>
+                                        <td>". $value->cuanto_86_new ."</td>
+                                        <td>". $value->cuanto_86_puntaje_new ."</td>
+                                        <td>". $value->cuanto_79_new ."</td>
+                                        <td>". $value->cuanto_79_puntaje_new ."</td>
+                                        <td>". $value->cuanto_72_new ."</td>
+                                        <td>". $value->cuanto_72_puntaje_new ."</td>
+                                        <td>". $value->cuanto_65_new ."</td>
+                                        <td>". $value->cuanto_65_puntaje_new ."</td>
+
+                                        <td>". $value->puntaje_seccion_a_new ."</td>
+
+                                        <td>". $value->mundo_respuesta_new ."</td>
+                                        <td>". $value->mundo_puntaje_new ."</td>
+
+                                        <td>". $value->manzana_2_new ."</td>
+                                        <td>". $value->manzana_2_puntaje_new ."</td>
+                                        <td>". $value->peso_2_new ."</td>
+                                        <td>". $value->peso_2_puntaje_new ."</td>
+                                        <td>". $value->mesa_2_new ."</td>
+                                        <td>". $value->mesa_2_puntaje_new ."</td>
+
+                                        <td>". $value->mostrado_que_es_1_new ."</td>
+                                        <td>". $value->que_es_1_new ."</td>
+                                        <td>". $value->que_es_1_puntaje_new ."</td>
+                                        <td>". $value->mostrado_que_es_2_new ."</td>
+                                        <td>". $value->que_es_2_new ."</td>
+                                        <td>". $value->que_es_2_puntaje_new ."</td>
+
+                                        <td>". $value->no_si_cuando_porque_new ."</td>
+                                        <td>". $value->no_si_cuando_porque_puntaje_new ."</td>
+
+                                        <td>". $value->tomar_con_la_mano_derecha_new ."</td>
+                                        <td>". $value->tomar_con_la_mano_derecha_puntaje_new ."</td>
+                                        <td>". $value->doblar_por_la_mitad_new ."</td>
+                                        <td>". $value->doblar_por_la_mitad_puntaje_new ."</td>
+                                        <td>". $value->poner_en_el_piso_new ."</td>
+                                        <td>". $value->poner_en_el_piso_puntaje_new ."</td>
+                                        <td>". $value->cierre_los_ojos_new ."</td>
+                                        <td>". $value->cierre_los_ojos_puntaje_new ."</td>
+                                        
+
+                                        <td>". $value->escritura_puntaje_new ."</td>
+                                        <td>". $value->dibujo_puntaje_new ."</td>
+
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i:s', strtotime($value->updated_at_new)) : '') ."</td>
+                                    </tr>";
                     }
 
                     $contador++;
@@ -2171,6 +3165,7 @@ class AuditLib {
                                             <th>Realizado</th>
                                             <th>Fecha</th>
                                             <th>Segundos</th>
+                                            <th>Numero de Errores</th>
                                             <th>Ingresado/Modificado Por</th>
                                             <th>Fecha Modificacion</th>
                                         </tr>
@@ -2180,6 +3175,7 @@ class AuditLib {
                                         <td>". (($value->realizado_old == 1) ? 'Si' : 'No') ."</td>
                                         <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>
                                         <td>". $value->segundos_old ."</td>
+                                        <td>". $value->num_errores_old ."</td>
                                         <td>". $value->usuario_creacion_old ."</td>
                                         <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->created_at_old)): '')."</td>
                                     </tr>";
@@ -2187,6 +3183,7 @@ class AuditLib {
                                         <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
                                         <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
                                         <td>". $value->segundos_new ."</td>
+                                        <td>". $value->num_errores_new ."</td>
                                         <td>". $value->usuario_actualizacion_new ."</td>
                                         <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->updated_at_new)): '')."</td>
                                     </tr>";
@@ -2196,6 +3193,7 @@ class AuditLib {
                                         <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
                                         <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
                                         <td>". $value->segundos_new ."</td>
+                                        <td>". $value->num_errores_new ."</td>
                                         <td>". $value->usuario_actualizacion_new ."</td>
                                         <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->updated_at_new)): '')."</td>
                                     </tr>";
@@ -2213,6 +3211,7 @@ class AuditLib {
                                             <th>Realizado</th>
                                             <th>Fecha</th>
                                             <th>Segundos</th>
+                                            <th>Numero de Errores</th>
                                             <th>Ingresado/Modificado Por</th>
                                             <th>Fecha Modificacion</th>
                                         </tr>
@@ -2222,6 +3221,7 @@ class AuditLib {
                                         <td>". (($value->realizado_old == 1) ? 'Si' : 'No') ."</td>
                                         <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>
                                         <td>". $value->segundos_old ."</td>
+                                        <td>". $value->num_errores_old ."</td>
                                         <td>". $value->usuario_creacion_old ."</td>
                                         <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->created_at_old)): '')."</td>
                                     </tr>";
@@ -2229,6 +3229,7 @@ class AuditLib {
                                         <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
                                         <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
                                         <td>". $value->segundos_new ."</td>
+                                        <td>". $value->num_errores_new ."</td>
                                         <td>". $value->usuario_actualizacion_new ."</td>
                                         <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->updated_at_new)): '')."</td>
                                     </tr>";
@@ -2238,6 +3239,7 @@ class AuditLib {
                                         <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
                                         <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>
                                         <td>". $value->segundos_new ."</td>
+                                        <td>". $value->num_errores_new ."</td>
                                         <td>". $value->usuario_actualizacion_new ."</td>
                                         <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->updated_at_new)): '')."</td>
                                     </tr>";
@@ -2245,11 +3247,44 @@ class AuditLib {
 
                     $contador++;
                 }
+                elseif($tabla == 'escala_de_columbia_audit'){
+                    $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
+                                    <thead>
+                                        <tr>
+                                            <th>Realizado</th>
+                                            <th>Fecha</th>                                            
+                                            <th>Ingresado/Modificado Por</th>
+                                            <th>Fecha Modificacion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_old == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_old != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_old)) : '') ."</td>                                        
+                                        <td>". $value->usuario_creacion_old ."</td>
+                                        <td>". (($value->created_at_old != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->created_at_old)): '')."</td>
+                                    </tr>";
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>                                        
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->updated_at_new)): '')."</td>
+                                    </tr>";
+                }
                 //adicionales
-                elseif($tabla == ''){
+                elseif($tabla == 'signos_vitales_adicional_audit'){
 
                 }
-                elseif($tabla == ''){
+                elseif($tabla == 'ecg_adicional_audit'){
+
+                }
+                elseif($tabla == 'examen_fisico_adicional_audit'){
+
+                }
+                elseif($tabla == 'examen_neurologico_adicional_audit'){
+
+                }
+                elseif($tabla == 'examen_laboratorio_adicional_audit'){
 
                 }
             } //fin foreach

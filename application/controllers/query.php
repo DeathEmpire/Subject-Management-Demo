@@ -207,6 +207,9 @@ class Query extends CI_Controller {
 			elseif($registro['form'] == 'TMT B'){
 				redirect('subject/tmt_b_show/'. $registro['subject_id'] .'/'. $registro['etapa']);
 			}
+			// elseif($registro['form'] == 'Escala de columbia'){
+			// 	redirect('subject/fin_tratamiento_show/'. $registro['subject_id']);
+			// }
 			// elseif($registro['form'] == ''){
 			// 	redirect('subject/_show/'. $registro['subject_id']);
 			// }
@@ -584,9 +587,16 @@ class Query extends CI_Controller {
 			$this->load->model('Model_Examen_neurologico_adicional');
 			$this->Model_Examen_neurologico_adicional->update(array('id'=>$registro['form_id'], 'status'=>'Query'));
 		}
+		elseif($registro['form'] == 'escala_de_columbia'){
+			$this->load->model('Model_Escala_de_columbia');
+			$this->Model_Escala_de_columbia->update(array('id'=>$registro['form_id'], 'status'=>'Query'));
+		}
 
 		if($registro['form'] == 'demography'){
 			redirect('subject/'. $registro['form'] .'/'. $registro['subject_id']);
+		}
+		elseif($registro['form'] == 'escala_de_columbia'){
+			redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id']);
 		}
 		elseif(strstr($registro['form'], 'adicional'))
 		{ 
@@ -1075,6 +1085,28 @@ class Query extends CI_Controller {
 					$this->Model_Subject->update($subject);			
 				}
 			}
+			elseif($registro['form'] == 'escala_de_columbia'){
+
+				//buscamos que el form no tenga mas query								
+				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
+													'status'=>'Abierto',
+													'subject_id'=>$registro['subject_id'],
+													'etapa'=>$registro['etapa'], 
+													'query.id !='=>$registro['id']));
+				if(isset($cant) AND !empty($cant)){
+					$no_tiene = count($cant);
+				}
+				else{
+					$no_tiene = 0;	
+				}
+
+				if($no_tiene == 0){					
+					
+					$subject['escala_de_columbia_status'] = "Record Complete";					
+					$subject['id'] = $registro['subject_id'];
+					$this->Model_Subject->update($subject);			
+				}
+			}
 			elseif($registro['form'] == 'signos_vitales_adicional'){
 				//buscamos que el form no tenga mas query								
 				$cant = $this->Model_Query->allWhere(array('form'=>$registro['form'],
@@ -1181,6 +1213,9 @@ class Query extends CI_Controller {
 		
 		if($registro['form'] == 'demography'){
 			redirect('subject/'. $registro['form'] .'/'. $registro['subject_id']);
+		}
+		elseif($registro['form'] == 'escala_de_columbia'){
+			redirect('subject/'. $registro['form'] .'_show/'. $registro['subject_id']);
 		}
 		elseif(strstr($registro['form'], 'adicional'))
 		{ 

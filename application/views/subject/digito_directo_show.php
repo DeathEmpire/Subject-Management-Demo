@@ -143,7 +143,7 @@ $(function(){
 					<td rowspan='16'>-></td>
 					<td rowspan='2'>1</td>
 					<td>9-7</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_1a', 'value'=>set_value('respuesta_1a', $list[0]->respuesta_1a)));?></td>
 					<td><?= form_dropdown('puntaje_intento_1a',$valores_intento,set_value('puntaje_intento_1a', $list[0]->puntaje_intento_1a),array('id'=>'puntaje_intento_1a')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -193,7 +193,7 @@ $(function(){
 				</tr>
 				<tr>				
 					<td>6-3</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_1b', 'value'=>set_value('respuesta_1b', $list[0]->respuesta_1b)));?></td>
 					<td><?= form_dropdown('puntaje_intento_1b',$valores_intento, set_value('puntaje_intento_1b', $list[0]->puntaje_intento_1b),array('id'=>'puntaje_intento_1b')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -221,7 +221,7 @@ $(function(){
 				<tr>				
 					<td rowspan='2'>2</td>
 					<td>5-8-2</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_2a', 'value'=>set_value('respuesta_2a', $list[0]->respuesta_2a)));?></td>
 					<td><?= form_dropdown('puntaje_intento_2a',$valores_intento, set_value('puntaje_intento_2a', $list[0]->puntaje_intento_2a),array('id'=>'puntaje_intento_2a')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -271,7 +271,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>6-9-4</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_2b', 'value'=>set_value('respuesta_2b', $list[0]->respuesta_2b)));?></td>
 					<td><?= form_dropdown('puntaje_intento_2b',$valores_intento, set_value('puntaje_intento_2b', $list[0]->puntaje_intento_2b),array('id'=>'puntaje_intento_2b')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -299,7 +299,7 @@ $(function(){
 				<tr>
 					<td rowspan='2'>3</td>
 					<td>7-2-8-6</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_3a', 'value'=>set_value('respuesta_3a', $list[0]->respuesta_3a)));?></td>
 					<td><?= form_dropdown('puntaje_intento_3a',$valores_intento, set_value('puntaje_intento_3a', $list[0]->puntaje_intento_3a),array('id'=>'puntaje_intento_3a')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -349,7 +349,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>6-4-3-9</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_3b', 'value'=>set_value('respuesta_3b', $list[0]->respuesta_3b)));?></td>
 					<td><?= form_dropdown('puntaje_intento_3b',$valores_intento, set_value('puntaje_intento_3b', $list[0]->puntaje_intento_3b),array('id'=>'puntaje_intento_3b')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -377,7 +377,7 @@ $(function(){
 				<tr>
 					<td rowspan='2'>4</td>
 					<td>4-2-7-3-1</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_4a', 'value'=>set_value('respuesta_4a', $list[0]->respuesta_4a)));?></td>
 					<td><?= form_dropdown('puntaje_intento_4a',$valores_intento, set_value('puntaje_intento_4a', $list[0]->puntaje_intento_4a),array('id'=>'puntaje_intento_4a')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -427,7 +427,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>7-5-8-3-6</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_4b', 'value'=>set_value('respuesta_4b', $list[0]->respuesta_4b)));?></td>
 					<td><?= form_dropdown('puntaje_intento_4b',$valores_intento, set_value('puntaje_intento_4b', $list[0]->puntaje_intento_4b),array('id'=>'puntaje_intento_4b')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -455,7 +455,7 @@ $(function(){
 				<tr>
 					<td rowspan='2'>5</td>
 					<td>3-9-2-4-8-7</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_5a', 'value'=>set_value('respuesta_5a', $list[0]->respuesta_5a)));?></td>
 					<td><?= form_dropdown('puntaje_intento_5a',$valores_intento, set_value('puntaje_intento_5a', $list[0]->puntaje_intento_5a),array('id'=>'puntaje_intento_5a')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -505,7 +505,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>6-1-9-4-7-3</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_5b', 'value'=>set_value('respuesta_5b', $list[0]->respuesta_5b)));?></td>
 					<td><?= form_dropdown('puntaje_intento_5b',$valores_intento, set_value('puntaje_intento_5b', $list[0]->puntaje_intento_5b),array('id'=>'puntaje_intento_5b')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -533,7 +533,7 @@ $(function(){
 				<tr>
 					<td rowspan='2'>6</td>
 					<td>4-1-7-9-3-8-6</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_6a', 'value'=>set_value('respuesta_6a', $list[0]->respuesta_6a)));?></td>
 					<td><?= form_dropdown('puntaje_intento_6a',$valores_intento, set_value('puntaje_intento_6a', $list[0]->puntaje_intento_6a),array('id'=>'puntaje_intento_6a')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -583,7 +583,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>6-9-1-7-4-2-8</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_6b', 'value'=>set_value('respuesta_6b', $list[0]->respuesta_6b)));?></td>
 					<td><?= form_dropdown('puntaje_intento_6b',$valores_intento, set_value('puntaje_intento_6b', $list[0]->puntaje_intento_6b),array('id'=>'puntaje_intento_6b')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -611,7 +611,7 @@ $(function(){
 				<tr>
 					<td rowspan='2'>7</td>
 					<td>3-8-2-9-6-1-7-4</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_7a', 'value'=>set_value('respuesta_7a', $list[0]->respuesta_7a)));?></td>
 					<td><?= form_dropdown('puntaje_intento_7a',$valores_intento, set_value('puntaje_intento_7a', $list[0]->puntaje_intento_7a),array('id'=>'puntaje_intento_7a')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -661,7 +661,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>5-8-1-3-2-6-4-7</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_7b', 'value'=>set_value('respuesta_7b', $list[0]->respuesta_7b)));?></td>
 					<td><?= form_dropdown('puntaje_intento_7b',$valores_intento, set_value('puntaje_intento_7b', $list[0]->puntaje_intento_7b),array('id'=>'puntaje_intento_7b')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -689,7 +689,7 @@ $(function(){
 				<tr>
 					<td rowspan='2'>8</td>
 					<td>2-7-5-8-6-3-1-9-4</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_8a', 'value'=>set_value('respuesta_8a', $list[0]->respuesta_8a)));?></td>
 					<td><?= form_dropdown('puntaje_intento_8a',$valores_intento, set_value('puntaje_intento_8a', $list[0]->puntaje_intento_8a),array('id'=>'puntaje_intento_8a')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -739,7 +739,7 @@ $(function(){
 				</tr>
 				<tr>
 					<td>7-1-3-9-4-2-5-6-8</td>
-					<td></td>
+					<td><?= form_input(array('type'=>'text','name'=>'respuesta_8b', 'value'=>set_value('respuesta_8b', $list[0]->respuesta_8b)));?></td>
 					<td><?= form_dropdown('puntaje_intento_8b',$valores_intento, set_value('puntaje_intento_8b', $list[0]->puntaje_intento_8b),array('id'=>'puntaje_intento_8b')); ?>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )

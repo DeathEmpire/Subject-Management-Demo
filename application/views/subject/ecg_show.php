@@ -103,6 +103,7 @@ $(function(){
 <?php
 	if(isset($list) AND !empty($list)){
 ?>
+
 <?= form_open('subject/ecg_update', array('class'=>'form-horizontal','id'=>'form_ecg')); ?>
 	
 	<?= my_validation_errors(validation_errors()); ?>
