@@ -168,6 +168,9 @@ $(function(){
 				?>
 			</td>
 		</tr>
+		<tr id='mensaje_desviacion' style='display:none;'>
+				<td colspan='2' id='td_mensaje_desviacion' class='alert alert-danger'></td>
+			</tr>
 		<tr>
 			<td style='font-weight:bold;'>PUNTAJE TOTAL: </td>
 			<td id='puntaje_total_td' style='font-weight:bold;'>0</td>

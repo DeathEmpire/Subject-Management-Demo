@@ -110,6 +110,9 @@ $(function(){
 					<td>Fecha: </td>
 					<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 				</tr>
+				<tr id='mensaje_desviacion' style='display:none;'>
+					<td colspan='2' id='td_mensaje_desviacion' class='alert alert-danger'></td>
+				</tr>
 				<tr><td>Comienzo Brusco: </td><td><input type='checkbox' name='comienzo_brusco' id='comienzo_brusco' value='2' /></td></tr>
 				<tr><td>Deterioro escalonado: </td><td><input type='checkbox' name='deterioro_escalonado' id='deterioro_escalonado' value='1' /></td></tr>
 				<tr><td>Curso fluctuante: </td><td><input type='checkbox' name='curso_fluctante' id='curso_fluctante' value='2' /></td></tr>

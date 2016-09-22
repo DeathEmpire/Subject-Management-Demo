@@ -201,6 +201,75 @@ $(function(){
 		$("#apatia_resultado").text(total6);
 	}
 
+	$("#autoevaluacion_fecha").change(function(){
+        var datos = $("input[name=etapa]").val() || 0;
+        $.post("<?php echo base_url('subject/fechaEnRango');?>",
+                {                   
+                    '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+                    "etapa": datos,                 
+                    "fecha_randomizacion": "<?php echo ((isset($subject->randomization_date)) ? $subject->randomization_date : '');?>",
+                    "fecha": $(this).val()
+                },
+                function(d){
+                    if(d != ''){
+                        $("#td_mensaje_desviacion1").html(d);
+                        $("#mensaje_desviacion1").show();
+                    }
+                    else{
+                        $("#td_mensaje_desviacion1").html('');
+                        $("#mensaje_desviacion1").hide();
+                    }
+                    
+                }
+        );
+    });
+
+    $("#version_clinica_fecha").change(function(){
+        var datos = $("input[name=etapa]").val() || 0;
+        $.post("<?php echo base_url('subject/fechaEnRango');?>",
+                {                   
+                    '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+                    "etapa": datos,                 
+                    "fecha_randomizacion": "<?php echo ((isset($subject->randomization_date)) ? $subject->randomization_date : '');?>",
+                    "fecha": $(this).val()
+                },
+                function(d){
+                    if(d != ''){
+                        $("#td_mensaje_desviacion2").html(d);
+                        $("#mensaje_desviacion2").show();
+                    }
+                    else{
+                        $("#td_mensaje_desviacion2").html('');
+                        $("#mensaje_desviacion2").hide();
+                    }
+                    
+                }
+        );
+    });
+
+    $("#apatia_fecha").change(function(){
+        var datos = $("input[name=etapa]").val() || 0;
+        $.post("<?php echo base_url('subject/fechaEnRango');?>",
+                {                   
+                    '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+                    "etapa": datos,                 
+                    "fecha_randomizacion": "<?php echo ((isset($subject->randomization_date)) ? $subject->randomization_date : '');?>",
+                    "fecha": $(this).val()
+                },
+                function(d){
+                    if(d != ''){
+                        $("#td_mensaje_desviacion3").html(d);
+                        $("#mensaje_desviacion3").show();
+                    }
+                    else{
+                        $("#td_mensaje_desviacion3").html('');
+                        $("#mensaje_desviacion3").hide();
+                    }
+                    
+                }
+        );
+    });
+
 });
 </script>
 <?php
@@ -294,6 +363,12 @@ $(function(){
 			<tr>
 				<td>Fecha: </td>
 				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'autoevaluacion_fecha', 'id'=>'autoevaluacion_fecha', 'value'=>set_value('autoevaluacion_fecha'))); ?></td>
+			</tr>
+			<tr id='mensaje_desviacion1' style='display:none;'>
+				<td colspan='5' id='td_mensaje_desviacion1' class='alert alert-danger'></td>
+			</tr>
+			<tr id='mensaje_desviacion' style='display:none;'>
+				<td colspan='5' id='td_mensaje_desviacion' class='alert alert-danger'></td>
 			</tr>
 			<tr>
 				<td style='font-weight:bold;background-color:#ccc'></td>
@@ -453,6 +528,9 @@ $(function(){
 				<td>Fecha: </td>
 				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'version_clinica_fecha', 'id'=>'version_clinica_fecha', 'value'=>set_value('version_clinica_fecha'))); ?></td>
 			</tr>
+			<tr id='mensaje_desviacion2' style='display:none;'>
+				<td colspan='5' id='td_mensaje_desviacion2' class='alert alert-danger'></td>
+			</tr>
 			<tr>
 				<td style='font-weight:bold;background-color:#ccc'></td>
 				<td style='font-weight:bold;background-color:#ccc'>No Característico</td>
@@ -610,6 +688,9 @@ $(function(){
 			<tr>
 				<td>Fecha: </td>
 				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'apatia_fecha', 'id'=>'apatia_fecha', 'value'=>set_value('apatia_fecha'))); ?></td>
+			</tr>
+			<tr id='mensaje_desviacion3' style='display:none;'>
+				<td colspan='5' id='td_mensaje_desviacion3' class='alert alert-danger'></td>
 			</tr>
 			<tr>
 				<td style='font-weight:bold;background-color:#ccc'></td>

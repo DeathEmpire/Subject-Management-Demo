@@ -199,6 +199,9 @@ $(function(){
 				?>
 			</td>
 		</tr>
+		<tr id='mensaje_desviacion' style='display:none;'>
+				<td colspan='2' id='td_mensaje_desviacion' class='alert alert-danger'></td>
+			</tr>
 		<tr>
 			<td>Numero cápsulas entregadas: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'comprimidos_entregados', 'id'=>'comprimidos_entregados', 'maxlength'=>'3','value'=>set_value('comprimidos_entregados', $list[0]->comprimidos_entregados))); ?>

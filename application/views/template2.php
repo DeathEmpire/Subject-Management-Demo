@@ -81,6 +81,29 @@
             $(document).idleTimer(session.inactiveTimeout);
 
             $(".colorbox_inline").colorbox({inline:true, width:"80%"});
+
+            $("#fecha").change(function(){
+                var datos = $("input[name=etapa]").val() || 0;
+                $.post("<?php echo base_url('subject/fechaEnRango');?>",
+                        {                   
+                            '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
+                            "etapa": datos,                 
+                            "fecha_randomizacion": "<?php echo ((isset($subject->randomization_date)) ? $subject->randomization_date : '');?>",
+                            "fecha": $(this).val()
+                        },
+                        function(d){
+                            if(d != ''){
+                                $("#td_mensaje_desviacion").html(d);
+                                $("#mensaje_desviacion").show();
+                            }
+                            else{
+                                $("#td_mensaje_desviacion").html('');
+                                $("#mensaje_desviacion").hide();
+                            }
+                            
+                        }
+                );
+            });
         });
         </script>
         <title>Manejo de Sujetos</title>

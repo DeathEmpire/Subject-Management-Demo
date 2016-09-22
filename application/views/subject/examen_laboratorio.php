@@ -66,6 +66,9 @@
 
 		Realizado <?= form_radio($si); ?> Si <?= form_radio($no); ?> No<br />
 		Fecha: <?= form_input(array('type'=>'text', 'name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?>		
+		<div id='mensaje_desviacion' style='display:none;'>
+			<div id='td_mensaje_desviacion' class='alert alert-danger'></div>
+		</div>
 		<br />&nbsp;<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<thead>

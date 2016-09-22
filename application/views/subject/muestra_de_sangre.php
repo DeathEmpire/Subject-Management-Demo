@@ -112,6 +112,9 @@ $(function(){
 			<td>Fecha Toma Muestra: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 		</tr>
+		<tr id='mensaje_desviacion' style='display:none;'>
+				<td colspan='2' id='td_mensaje_desviacion' class='alert alert-danger'></td>
+			</tr>
 		<tr>
 			<td colspan='2' style='text-align:center;'>
 				<?php

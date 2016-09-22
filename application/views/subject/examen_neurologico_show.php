@@ -353,6 +353,9 @@ $(function(){
 				
 			}
 		?>
+		<div id='mensaje_desviacion' style='display:none;'>
+			<div id='td_mensaje_desviacion' class='alert alert-danger'></div>
+		</div>
 		<br />
 		<table class='table table-bordered table-striped table-hover'>
 			<tr>

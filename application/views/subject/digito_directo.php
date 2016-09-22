@@ -64,7 +64,9 @@
 		<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
 		<br />
 		Fecha: <?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?>
-
+		<div id='mensaje_desviacion' style='display:none;'>
+			<div id='td_mensaje_desviacion' class='alert alert-danger'></div>
+		</div>
 
 		<table class='table table-striped table-hover table-bordered table-condensed'>
 			<thead>

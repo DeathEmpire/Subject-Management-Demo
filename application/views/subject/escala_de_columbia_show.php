@@ -137,19 +137,21 @@ $(function(){
     
     <?= my_validation_errors(validation_errors()); ?>
     <?= form_hidden('subject_id', $subject->id); ?>         
+    <?= form_hidden('id', $list[0]->id); ?>
      
     <?php
             $data = array(
                 'name'        => 'realizado',               
                 'value'       => 1,         
-                #'checked'    => set_radio('gender', 'male', TRUE),
+                'checked'     => set_radio('realizado', 1, (($list[0]->realizado == 1) ? true : false))
             );
         $data2 = array(
             'name'        => 'realizado',               
             'value'       => 0,
-            #'checked'    => set_radio('gender', 'female', TRUE),           
+            'checked'     => set_radio('realizado', 0, (($list[0]->realizado == 0) ? true : false))
             );
         ?>
+
     <table class="table table-bordered table-striper table-hover">
         <tr>
             <td>Realizado:</td>
@@ -187,7 +189,9 @@ $(function(){
                 ?>
             </td>
         </tr>       
-
+        <tr id='mensaje_desviacion' style='display:none;'>
+            <td colspan='2' id='td_mensaje_desviacion' class='alert alert-danger'></td>
+        </tr>
         <tr>
             <td colspan='2' style='text-align:center;'>
                 <?php

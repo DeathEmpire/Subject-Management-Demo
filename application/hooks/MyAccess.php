@@ -21,6 +21,7 @@
 							"home/recuperandoclave",							
 							"home/recuperarclaveok",
 							"report/mostrarPdf",
+							"subject/fechaEnRango"
 						);
 			if(in_array($url,$libres)){
 				echo $CI->output->get_output();//para seguir con lo que se queria

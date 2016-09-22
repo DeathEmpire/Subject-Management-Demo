@@ -62,6 +62,9 @@ $(function(){
 		<tr>
 			<td>Fecha Visita:</td><td> <?= form_input(array('type'=>'text','name'=>'fecha_visita', 'id'=>'fecha_visita', 'value'=>set_value('fecha_visita'))); ?></td>
 		</tr>
+		<tr id='mensaje_desviacion' style='display:none;'>
+				<td colspan='2' id='td_mensaje_desviacion' class='alert alert-danger'></td>
+			</tr>
 		<tr>
 			<td>Fecha ultima dosis: </td><td><?= form_input(array('type'=>'text','name'=>'fecha_ultima_dosis', 'id'=>'fecha_ultima_dosis', 'value'=>set_value('fecha_ultima_dosis'))); ?></td>
 		</tr>

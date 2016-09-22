@@ -71,7 +71,9 @@
 			<td>Fecha: </td>
 			<td><?= form_input(array('type'=>'text','name'=>'fecha', 'id'=>'fecha', 'value'=>set_value('fecha'))); ?></td>
 		</tr>
-
+		<tr id='mensaje_desviacion' style='display:none;'>
+				<td colspan='2' id='td_mensaje_desviacion' class='alert alert-danger'></td>
+			</tr>
 		<tr>
 			<td>Puntaje Total de NPI: </td>
 			<td><?= form_input(array('type'=>'number','name'=>'puntaje_total_npi', 'id'=>'puntaje_total_npi', 'value'=>set_value('puntaje_total_npi'), 'readonly'=>'readonly')); ?></td>

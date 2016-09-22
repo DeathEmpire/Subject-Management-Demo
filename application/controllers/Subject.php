@@ -2175,7 +2175,7 @@ class Subject extends CI_Controller {
 		/*querys*/
 		// $data['querys'] = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"Inclusion Exclusion", "etapa"=>$etapa));
 
-		$data['auditoria'] = $this->auditlib->audit('inclusion_audit', $data['list'][0]->id);
+		$data['auditoria'] = $this->auditlib->audit('inclusion_exclusion_audit', $data['list'][0]->id);
 		
 		$this->load->view('template', $data);					
 	}
@@ -9515,14 +9515,6 @@ class Subject extends CI_Controller {
 		}
 	}
 
-	public function convertirFecha($fecha){
-		$fecha_1 = trim($fecha);
-		$fecha = str_replace("/", "-", $fecha_1);
-		$fecha_1 = date("Y-m-d", strtotime($fecha));
-
-		return $fecha_1;
-	}
-	
 	/*---------------------------------------Escala de Columbia------------------------------------------------------------------*/
 
 	public function escala_de_columbia($subject_id){
@@ -9540,7 +9532,7 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');		
-		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');		
+		$this->form_validation->set_rules('realizado','Realizado','xss_clean');		
 		$this->form_validation->set_rules('fecha','Fecha','xss_clean');
 		
 		
@@ -9589,12 +9581,12 @@ class Subject extends CI_Controller {
 	}
 
 	public function escala_de_columbia_show($subject_id){
-		$data['contenido'] = 'subject/escala_de_columbia';
+		$data['contenido'] = 'subject/escala_de_columbia_show';
 		$data['titulo'] = 'Escala de Columbia';
 		$data['subject'] = $this->Model_Subject->find($subject_id);		
 		
 		$this->load->model('Model_Escala_de_columbia');
-		$data['lista'] = $this->Model_Escala_de_columbia->allWhereArray(array('subject_id'=>$subject_id));
+		$data['list'] = $this->Model_Escala_de_columbia->allWhereArray(array('subject_id'=>$subject_id));
 
 		$campos_query = $this->Model_Query->allWhere(array("subject_id"=>$subject_id,"form"=>"escala_de_columbia", "etapa"=>0, "status"=>'Abierto'));		
 		if(isset($campos_query) AND !empty($campos_query)){
@@ -9614,7 +9606,8 @@ class Subject extends CI_Controller {
 		$registro = $this->input->post();
 
 		$this->form_validation->set_rules('subject_id','Id del Sujeto','required|xss_clean');		
-		$this->form_validation->set_rules('realizado','Realizado','required|xss_clean');		
+		$this->form_validation->set_rules('id','Id','required|xss_clean');
+		$this->form_validation->set_rules('realizado','Realizado','xss_clean');		
 		$this->form_validation->set_rules('fecha','Fecha','xss_clean');		
 		
 
@@ -11487,4 +11480,73 @@ class Subject extends CI_Controller {
 		}
 	}
 
+	/*-----------------------------------------------------------------------------------------------------------------------------------*/
+
+
+	public function convertirFecha($fecha){
+		$fecha_1 = trim($fecha);
+		$fecha = str_replace("/", "-", $fecha_1);
+		$fecha_1 = date("Y-m-d", strtotime($fecha));
+
+		return $fecha_1;
+	}
+	
+	public function fechaEnRango(){
+
+		$fecha = $this->input->post('fecha');
+		$fecha_randomizacion = $this->input->post('fecha_randomizacion');
+		$etapa = $this->input->post('etapa');
+
+		$fecha_1 = trim($fecha);
+		$fecha_2 = str_replace("/", "-", $fecha_1);
+		$fecha = date("Y-m-d", strtotime($fecha_2));
+
+		//3-4-5
+
+		if(isset($fecha_randomizacion) AND $fecha_randomizacion != '0000-00-00' AND !empty($fecha_randomizacion)){
+			if($etapa == 3){
+
+				$fecha1 = date('Y-m-d', strtotime($fecha_randomizacion ." + 4 weeks"));
+				$fecha1_a = date('Y-m-d', strtotime($fecha1 ." - 7 days"));
+				$fecha1_b = date('Y-m-d', strtotime($fecha1 ." + 7 days"));
+
+				if($fecha < $fecha1_a OR $fecha > $fecha1_b){
+					echo "Complete un formulario de desviacion";
+				}				
+			}
+			elseif($etapa == 4){
+
+				$fecha1 = date('Y-m-d', strtotime($fecha_randomizacion ." + 12 weeks"));
+				$fecha1_a = date('Y-m-d', strtotime($fecha1 ." - 7 days"));
+				$fecha1_b = date('Y-m-d', strtotime($fecha1 ." + 7 days"));
+
+				if($fecha < $fecha1_a OR $fecha > $fecha1_b){
+					echo "Complete un formulario de desviacion";
+				}				
+			}
+			elseif($etapa == 5){
+
+				$fecha1 = date('Y-m-d', strtotime($fecha_randomizacion ." + 24 weeks"));
+				$fecha1_a = date('Y-m-d', strtotime($fecha1 ." - 7 days"));
+				$fecha1_b = date('Y-m-d', strtotime($fecha1 ." + 7 days"));
+
+				if($fecha < $fecha1_a OR $fecha > $fecha1_b){
+					echo "Complete un formulario de desviacion";
+				}				
+			}
+			else{
+				echo "";
+			}			
+		}
+		else{
+			if($etapa == 3 OR $etapa == 4 OR $etapa == 5 ){
+				//echo "El sujeto aun no ha sido randomizado";
+				echo "";
+			}
+			else{
+				echo "";
+			}
+		}
+		
+	}
 } 	
