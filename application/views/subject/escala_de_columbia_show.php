@@ -222,7 +222,7 @@ $(function(){
             AND $list[0]->status == 'Record Complete'
         ){
     ?>
-        <?= form_open('subject/tmt_b_verify', array('class'=>'form-horizontal')); ?>        
+        <?= form_open('subject/escala_de_columbia_verify', array('class'=>'form-horizontal')); ?>        
         <?= form_hidden('subject_id', $subject->id); ?>        
         <?= form_hidden('current_status', $list[0]->status); ?>
         <?= form_hidden('id', $list[0]->id); ?>
@@ -252,7 +252,7 @@ $(function(){
             AND strpos($_SESSION['role_options']['subject'], 'escala_de_columbia_lock')
             AND $list[0]->status == 'Form Approved by Monitor'){
     ?>
-        <?= form_open('subject/tmt_b_lock', array('class'=>'form-horizontal')); ?>      
+        <?= form_open('subject/escala_de_columbia_lock', array('class'=>'form-horizontal')); ?>      
         <?= form_hidden('subject_id', $subject->id); ?>        
         <?= form_hidden('current_status', $list[0]->status); ?>
         <?= form_hidden('id', $list[0]->id); ?>
@@ -282,7 +282,7 @@ $(function(){
             AND $list[0]->status == 'Form Approved and Locked'
         ){
     ?>
-        <?= form_open('subject/tmt_b_signature', array('class'=>'form-horizontal')); ?>     
+        <?= form_open('subject/escala_de_columbia_signature', array('class'=>'form-horizontal')); ?>     
         <?= form_hidden('subject_id', $subject->id); ?>        
         <?= form_hidden('current_status', $list[0]->status); ?>
         <?= form_hidden('id', $list[0]->id); ?>

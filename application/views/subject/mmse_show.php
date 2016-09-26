@@ -860,7 +860,7 @@ $(function(){
 		<tr>
 			<td>Pídale al paciente que deletree la palabra "MUNDO" (usted puede ayudarlo) Luego dígale. "Ahora deletréela de atrás para adelante" (espere máximo 30")</td>
 			<td><?= form_input(array('type'=>'text','name'=>'mundo_respuesta', 'id'=>'mundo_respuesta', 'value'=>set_value('mundo_respuesta', $list[0]->mundo_respuesta))); ?></td>
-			<td><?= form_dropdown('mundo_puntaje',$puntaje,set_value('mundo_puntaje', $list[0]->mundo_puntaje)); ?></td>
+			<td><?= form_dropdown('mundo_puntaje',array(''=>'','0'=>'0','1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'),set_value('mundo_puntaje', $list[0]->mundo_puntaje)); ?></td>
 			<td>
 	    		<?php
 					if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )

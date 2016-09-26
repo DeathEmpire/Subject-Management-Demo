@@ -58,4 +58,17 @@ class Model_Signos_vitales_adicional extends CI_Model {
 		$this->db->update('signos_vitales_adicional');
     }
 
+    function allWhereArrayWithCode($where) {
+        $this->db->select('signos_vitales_adicional.*,subject.code as codigo');
+        $this->db->from('signos_vitales_adicional');
+        $this->db->join('subject', 'signos_vitales_adicional.subject_id = subject.id', 'left');
+        $this->db->where($where);
+        $centro = $this->session->userdata('center_id');
+        if($centro != 'Todos'){
+            $this->db->where('subject.center', $centro);
+        }
+
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

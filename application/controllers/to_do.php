@@ -14,7 +14,7 @@ class To_do extends CI_Controller {
     	$data['contenido'] = 'to_do/index';
 		$data['titulo'] = 'To Do List';
 
-		$data['to_do'] = $this->pendinglib->pending_by_role();
+		$data['to_do'] = $this->pendinglib->pending_by_role();		
 
 		$this->auditlib->save_audit("View to do list");
 		

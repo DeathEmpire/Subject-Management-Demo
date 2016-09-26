@@ -57,5 +57,16 @@ class Model_Examen_laboratorio_adicional extends CI_Model {
 		$this->db->where('id', $registro['id']);
 		$this->db->update('examen_laboratorio_adicional');
     }
-
+    function allWhereArrayWithCode($where) {
+        $this->db->select('examen_laboratorio_adicional.*,subject.code as codigo');
+        $this->db->from('examen_laboratorio_adicional');
+        $this->db->join('subject', 'examen_laboratorio_adicional.subject_id = subject.id', 'left');
+        $this->db->where($where);
+        $centro = $this->session->userdata('center_id');
+        if($centro != 'Todos'){
+            $this->db->where('subject.center', $centro);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

@@ -279,6 +279,13 @@ class Subject extends CI_Controller {
 			if(!empty($registro['birth_date'])){
 				$registro['birth_date'] = $this->convertirFecha($registro['birth_date']);
 			}
+/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['demography_verify_user'] = '';
+			$registro['demography_verify_date'] = '0000-00-00 00:00:00';
+			$registro['demography_signature_user'] = '';
+			$registro['demography_signature_date'] = '0000-00-00 00:00:00';
+			$registro['demography_lock_user'] = '';
+			$registro['demography_lock_date'] = '0000-00-00 00:00:00';
 
 			$registro['demography_status'] = $estado;
 			$registro['updated'] = date('Y/m/d H:i');
@@ -397,6 +404,14 @@ class Subject extends CI_Controller {
 
 			$registro['updated'] = date('Y/m/d H:i:s');								
 			$registro['randomization_status'] = 'Record Complete';
+
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['randomization_verify_user'] = '';
+			$registro['randomization_verify_date'] = '0000-00-00 00:00:00';
+			$registro['randomization_signature_user'] = '';
+			$registro['randomization_signature_date'] = '0000-00-00 00:00:00';
+			$registro['randomization_lock_user'] = '';
+			$registro['randomization_lock_date'] = '0000-00-00 00:00:00';
 
 			$this->load->Model('Model_Kit');
 
@@ -768,6 +783,14 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date('Y/m/d H:i:s');	
      		$registro['usuario_actualizacion'] = $this->session->userdata('usuario');		
 			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			$this->load->model("Model_Adverse_event_form");
 			$this->Model_Adverse_event_form->update($registro);			
 			$this->auditlib->save_audit("Agrego informacion de evento adverso",$id);
@@ -992,6 +1015,14 @@ class Subject extends CI_Controller {
 			if(!empty($registro['date_of_deviation'])){
 				$registro['date_of_deviation'] = $this->convertirFecha($registro['date_of_deviation']);
 			}
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			$registro['updated_at'] = date('Y/m/d H:i:s');	
      		$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
      		$registro['status'] = $estado;		
@@ -1259,6 +1290,14 @@ class Subject extends CI_Controller {
 
 			$registro['updated_at'] = date('Y/m/d H:i:s');	
      		$registro['usuario_actualizacion'] = $this->session->userdata('usuario');		
+
+     		/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
 			
 			$this->load->model("Model_Concomitant_medication_form");
 			$this->Model_Concomitant_medication_form->update($registro);			
@@ -1386,6 +1425,8 @@ class Subject extends CI_Controller {
      		$save['status']  = "Record Complete";
      		$save['stage']  = "stage_1";
 
+
+
      		if(!empty($save['fecha'])){
 				$save['fecha'] = $this->convertirFecha($save['fecha']);
 			}
@@ -1480,6 +1521,14 @@ class Subject extends CI_Controller {
 			if(!empty($save['fecha'])){
 				$save['fecha'] = $this->convertirFecha($save['fecha']);
 			}
+
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$save['verify_user'] = '';
+			$save['verify_date'] = '0000-00-00 00:00:00';
+			$save['signature_user'] = '';
+			$save['signature_date'] = '0000-00-00 00:00:00';
+			$save['lock_user'] = '';
+			$save['lock_date'] = '0000-00-00 00:00:00';
 
 			$this->load->model('Model_Hachinski_Form');
 	 		$this->Model_Hachinski_Form->update($save);
@@ -1895,6 +1944,14 @@ class Subject extends CI_Controller {
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');					
 			$registro['status'] = $estado;
 
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			$this->load->model("Model_Examen_fisico");
 			$this->Model_Examen_fisico->update($registro);
 
@@ -2243,6 +2300,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
+
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
 
 			$this->load->model('Model_Inclusion_exclusion');
 			$this->Model_Inclusion_exclusion->update($registro);
@@ -2656,7 +2721,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos Form*/
 			$this->load->model('Model_Digito_directo');
 			$this->Model_Digito_directo->update($registro);
@@ -3164,7 +3236,14 @@ class Subject extends CI_Controller {
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Mmse');
 			$this->Model_Mmse->update($registro);	
@@ -3467,7 +3546,14 @@ class Subject extends CI_Controller {
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Electrocardiograma_de_reposo');
 			$this->Model_Electrocardiograma_de_reposo->update($registro);
@@ -3725,7 +3811,13 @@ class Subject extends CI_Controller {
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status'] = $estado;
 
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Signos_vitales');
@@ -4045,7 +4137,14 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
 			$registro['status'] = $estado;
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Cumplimiento');
 			$this->Model_Cumplimiento->update($registro);
@@ -4279,7 +4378,7 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
-		$data['auditoria'] = $this->auditlib->audit('fin_tratamiento_audit', $data['list'][0]->id);
+		$data['auditoria'] = $this->auditlib->audit('fin_de_tratamiento_audit', $data['list'][0]->id);
 
 		$this->load->view('template',$data);
 	}
@@ -4306,7 +4405,14 @@ class Subject extends CI_Controller {
 			}
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Fin_de_tratamiento');
 			$this->Model_Fin_de_tratamiento->update($registro);
@@ -4482,7 +4588,7 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
-		$data['auditoria'] = $this->auditlib->audit('fin_tratamiento_temprano_audit', $data['list'][0]->id);
+		$data['auditoria'] = $this->auditlib->audit('fin_de_tratamiento_temprano_audit', $data['list'][0]->id);
 
 		$this->load->view('template',$data);
 	}
@@ -4515,7 +4621,14 @@ class Subject extends CI_Controller {
 			}
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Fin_de_tratamiento_temprano');
 			$this->Model_Fin_de_tratamiento_temprano->update($registro);
@@ -4751,7 +4864,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Muestra_de_sangre');
 			$this->Model_Muestra_de_sangre->update($registro);
@@ -5138,7 +5258,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Examen_neurologico');
 			$this->Model_Examen_neurologico->update($registro);	
@@ -5759,7 +5886,14 @@ class Subject extends CI_Controller {
 			if(!isset($registro['no_aplica_hba1c'])){
 				$registro['no_aplica_hba1c'] = '';
 			}
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Examen_laboratorio');
 			$this->Model_Examen_laboratorio->update($registro);
@@ -6051,7 +6185,14 @@ class Subject extends CI_Controller {
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Tmt_a');
 			$this->Model_Tmt_a->update($registro);		
@@ -6341,7 +6482,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Tmt_b');
 			$this->Model_Tmt_b->update($registro);		
@@ -6642,7 +6790,14 @@ class Subject extends CI_Controller {
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Eq_5d_5l');
 			$this->Model_Eq_5d_5l->update($registro);
@@ -7230,7 +7385,14 @@ class Subject extends CI_Controller {
 			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Npi');
 			$this->Model_Npi->update($registro);
@@ -7459,18 +7621,19 @@ class Subject extends CI_Controller {
 
 			if(
 				
-				$registro['apatia_realizado'] == 1 	AND 
-				(
-					empty($registro['apatia_fecha']) OR !isset($registro['apatia_1']) OR !isset($registro['apatia_2'])
-					OR !isset($registro['apatia_3']) OR !isset($registro['apatia_4']) OR !isset($registro['apatia_5'])
-					OR !isset($registro['apatia_6']) OR !isset($registro['apatia_7']) OR !isset($registro['apatia_8'])
-					OR !isset($registro['apatia_9']) OR !isset($registro['apatia_10']) OR !isset($registro['apatia_11'])
-					OR !isset($registro['apatia_12']) OR !isset($registro['apatia_13']) OR !isset($registro['apatia_14'])
-					OR !isset($registro['apatia_15']) OR !isset($registro['apatia_16']) OR !isset($registro['apatia_17'])
-					OR !isset($registro['apatia_18'])
+				(isset($registro['apatia_realizado']) AND $registro['apatia_realizado'] == 1 	AND 
+					(
+						empty($registro['apatia_fecha']) OR !isset($registro['apatia_1']) OR !isset($registro['apatia_2'])
+						OR !isset($registro['apatia_3']) OR !isset($registro['apatia_4']) OR !isset($registro['apatia_5'])
+						OR !isset($registro['apatia_6']) OR !isset($registro['apatia_7']) OR !isset($registro['apatia_8'])
+						OR !isset($registro['apatia_9']) OR !isset($registro['apatia_10']) OR !isset($registro['apatia_11'])
+						OR !isset($registro['apatia_12']) OR !isset($registro['apatia_13']) OR !isset($registro['apatia_14'])
+						OR !isset($registro['apatia_15']) OR !isset($registro['apatia_16']) OR !isset($registro['apatia_17'])
+						OR !isset($registro['apatia_18'])
+					)
 				)
 				OR
-				( $registro['autoevaluacion_realizado'] == 1 
+				( isset($registro['autoevaluacion_realizado']) AND $registro['autoevaluacion_realizado'] == 1 
 				 AND (empty($registro['autoevaluacion_fecha']) OR !isset($registro['autoevaluacion_1']) OR !isset($registro['autoevaluacion_2'])
 					OR !isset($registro['autoevaluacion_3']) OR !isset($registro['autoevaluacion_4']) OR !isset($registro['autoevaluacion_5'])
 					OR !isset($registro['autoevaluacion_6']) OR !isset($registro['autoevaluacion_7']) OR !isset($registro['autoevaluacion_8'])
@@ -7481,7 +7644,7 @@ class Subject extends CI_Controller {
 					)
 				)
 				OR
-				($registro['version_clinica_realizado'] == 1 
+				(isset($registro['version_clinica_realizado']) AND $registro['version_clinica_realizado'] == 1 
 					AND (empty($registro['version_clinica_fecha']) OR !isset($registro['version_clinica_1']) OR !isset($registro['version_clinica_2'])
 					OR !isset($registro['version_clinica_3']) OR !isset($registro['version_clinica_4']) OR !isset($registro['version_clinica_5'])
 					OR !isset($registro['version_clinica_6']) OR !isset($registro['version_clinica_7']) OR !isset($registro['version_clinica_8'])
@@ -7638,18 +7801,19 @@ class Subject extends CI_Controller {
 		}else{
 
 			if(
-				$registro['apatia_realizado'] == 1 	AND 
-				(
-					empty($registro['apatia_fecha']) OR !isset($registro['apatia_1']) OR !isset($registro['apatia_2'])
-					OR !isset($registro['apatia_3']) OR !isset($registro['apatia_4']) OR !isset($registro['apatia_5'])
-					OR !isset($registro['apatia_6']) OR !isset($registro['apatia_7']) OR !isset($registro['apatia_8'])
-					OR !isset($registro['apatia_9']) OR !isset($registro['apatia_10']) OR !isset($registro['apatia_11'])
-					OR !isset($registro['apatia_12']) OR !isset($registro['apatia_13']) OR !isset($registro['apatia_14'])
-					OR !isset($registro['apatia_15']) OR !isset($registro['apatia_16']) OR !isset($registro['apatia_17'])
-					OR !isset($registro['apatia_18'])
+				(isset($registro['apatia_realizado']) AND $registro['apatia_realizado'] == 1 	AND 
+					(
+						empty($registro['apatia_fecha']) OR !isset($registro['apatia_1']) OR !isset($registro['apatia_2'])
+						OR !isset($registro['apatia_3']) OR !isset($registro['apatia_4']) OR !isset($registro['apatia_5'])
+						OR !isset($registro['apatia_6']) OR !isset($registro['apatia_7']) OR !isset($registro['apatia_8'])
+						OR !isset($registro['apatia_9']) OR !isset($registro['apatia_10']) OR !isset($registro['apatia_11'])
+						OR !isset($registro['apatia_12']) OR !isset($registro['apatia_13']) OR !isset($registro['apatia_14'])
+						OR !isset($registro['apatia_15']) OR !isset($registro['apatia_16']) OR !isset($registro['apatia_17'])
+						OR !isset($registro['apatia_18'])
+					)
 				)
 				OR
-				( $registro['autoevaluacion_realizado'] == 1 
+				(isset($registro['autoevaluacion_realizado']) AND $registro['autoevaluacion_realizado'] == 1 
 				 AND (empty($registro['autoevaluacion_fecha']) OR !isset($registro['autoevaluacion_1']) OR !isset($registro['autoevaluacion_2'])
 					OR !isset($registro['autoevaluacion_3']) OR !isset($registro['autoevaluacion_4']) OR !isset($registro['autoevaluacion_5'])
 					OR !isset($registro['autoevaluacion_6']) OR !isset($registro['autoevaluacion_7']) OR !isset($registro['autoevaluacion_8'])
@@ -7660,7 +7824,7 @@ class Subject extends CI_Controller {
 					)
 				)
 				OR
-				($registro['version_clinica_realizado'] == 1 
+				(isset($registro['version_clinica_realizado']) AND $registro['version_clinica_realizado'] == 1 
 					AND (empty($registro['version_clinica_fecha']) OR !isset($registro['version_clinica_1']) OR !isset($registro['version_clinica_2'])
 					OR !isset($registro['version_clinica_3']) OR !isset($registro['version_clinica_4']) OR !isset($registro['version_clinica_5'])
 					OR !isset($registro['version_clinica_6']) OR !isset($registro['version_clinica_7']) OR !isset($registro['version_clinica_8'])
@@ -7670,6 +7834,9 @@ class Subject extends CI_Controller {
 					OR !isset($registro['version_clinica_18'])
 					)
 				)
+				OR !isset($registro['apatia_realizado'])
+				OR !isset($registro['autoevaluacion_realizado'])
+				OR !isset($registro['version_clinica_realizado'])
 				
 			){
 				$estado = 'Error';
@@ -7701,7 +7868,14 @@ class Subject extends CI_Controller {
 			if(!empty($registro['apatia_fecha'])){
 				$registro['apatia_fecha'] = $this->convertirFecha($registro['apatia_fecha']);
 			}
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Apatia');
 			$this->Model_Apatia->update($registro);
@@ -8081,7 +8255,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Rnm');
 			$this->Model_Rnm->update($registro);
@@ -8411,7 +8592,7 @@ class Subject extends CI_Controller {
 		$this->load->view('template2', $data);
 	}
 
-	public function historial_medico_update($subject_id, $etapa){
+	public function historial_medico_update(){
 		$registro = $this->input->post();
 		
 		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
@@ -8546,7 +8727,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
@@ -8577,8 +8765,8 @@ class Subject extends CI_Controller {
 			unset($registro['current_status']);			
 			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
-			$registro['signature_user'] = $this->session->userdata('usuario');
-			$registro['signature_date'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
 
 			$this->load->model('Model_Historial_medico');
 			$this->Model_Historial_medico->update($registro);
@@ -9011,7 +9199,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Adas');
 			$this->Model_Adas->update($registro);
@@ -9374,7 +9569,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Restas');
 			$this->Model_Restas->update($registro);
@@ -9597,7 +9799,7 @@ class Subject extends CI_Controller {
 			$data['campos_query'] = array();
 		}
 
-		// $data['auditoria'] = $this->auditlib->audit('escala_de_columbia_audit', $data['list'][0]->id);
+		$data['auditoria'] = $this->auditlib->audit('escala_de_columbia_audit', $data['list'][0]->id);
 
 		$this->load->view('template',$data);
 	}
@@ -9637,7 +9839,14 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Escala_de_columbia');
 			$this->Model_Escala_de_columbia->update($registro);
@@ -9666,7 +9875,7 @@ class Subject extends CI_Controller {
 		else {
 			$registro['last_status'] = $registro['current_status'];
 			unset($registro['current_status']);			
-			$registro['status'] = 'Form Approved and Locked';
+			$registro['status'] = 'Form Approved by Monitor';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['verify_user'] = $this->session->userdata('usuario');
 			$registro['verify_date'] = date('Y-m-d H:i:s');
@@ -9728,7 +9937,7 @@ class Subject extends CI_Controller {
 		else {
 			$registro['last_status'] = $registro['current_status'];
 			unset($registro['current_status']);			
-			$registro['status'] = 'Form Approved and Locked';
+			$registro['status'] = 'Document Approved and Signed by PI';
 			$registro['updated_at'] = date('Y-m-d H:i:s');
 			$registro['signature_user'] = $this->session->userdata('usuario');
 			$registro['signature_date'] = date('Y-m-d H:i:s');
@@ -9905,7 +10114,13 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Signos_vitales_adicional');
@@ -10187,7 +10402,13 @@ class Subject extends CI_Controller {
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
 			
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Ecg_adicional');
@@ -10529,6 +10750,14 @@ class Subject extends CI_Controller {
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
 
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			$registro['status'] = $estado;			
 			$registro['updated_at'] = date("Y-m-d H:i:s");			
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
@@ -10828,7 +11057,14 @@ class Subject extends CI_Controller {
 			$registro['updated_at'] = date("Y-m-d H:i:s");
 			$registro['usuario_actualizacion'] = $this->session->userdata('usuario');	
 
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Examen_neurologico_adicional');
 			$this->Model_Examen_neurologico_adicional->update($registro);
@@ -11388,7 +11624,13 @@ class Subject extends CI_Controller {
 			if(!empty($registro['fecha'])){
 				$registro['fecha'] = $this->convertirFecha($registro['fecha']);
 			}
-			
+			/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
 			/*Actualizamos el Form*/
 			$this->load->model('Model_Examen_laboratorio_adicional');
 			$this->Model_Examen_laboratorio_adicional->update($registro);			
@@ -11511,7 +11753,7 @@ class Subject extends CI_Controller {
 				$fecha1_b = date('Y-m-d', strtotime($fecha1 ." + 7 days"));
 
 				if($fecha < $fecha1_a OR $fecha > $fecha1_b){
-					echo "Complete un formulario de desviacion";
+					echo "La visita esta fuera de ventana por favor complete un formulario de desviacion";
 				}				
 			}
 			elseif($etapa == 4){
@@ -11521,7 +11763,7 @@ class Subject extends CI_Controller {
 				$fecha1_b = date('Y-m-d', strtotime($fecha1 ." + 7 days"));
 
 				if($fecha < $fecha1_a OR $fecha > $fecha1_b){
-					echo "Complete un formulario de desviacion";
+					echo "La visita esta fuera de ventana por favor complete un formulario de desviacion";
 				}				
 			}
 			elseif($etapa == 5){
@@ -11531,7 +11773,7 @@ class Subject extends CI_Controller {
 				$fecha1_b = date('Y-m-d', strtotime($fecha1 ." + 7 days"));
 
 				if($fecha < $fecha1_a OR $fecha > $fecha1_b){
-					echo "Complete un formulario de desviacion";
+					echo "La visita esta fuera de ventana por favor complete un formulario de desviacion";
 				}				
 			}
 			else{

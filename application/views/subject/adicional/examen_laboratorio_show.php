@@ -1491,7 +1491,7 @@ $(function(){
 		<?= form_hidden('current_status', $list[0]->status); ?>
 		<?= form_hidden('id', $list[0]->id); ?>
 			
-		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar Formulario', 'class'=>'btn btn-primary')); ?>
+		<?= form_button(array('type'=>'submit', 'content'=>'Cerrar', 'class'=>'btn btn-primary')); ?>
 
 		<?= form_close(); ?>
 

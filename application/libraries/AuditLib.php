@@ -26,6 +26,14 @@ class AuditLib {
     	$this->CI->Model_Audit->insert($audit_record);
     }
 
+    public function convertirFecha($fecha){
+        $fecha_1 = trim($fecha);
+        $fecha = str_replace("/", "-", $fecha_1);
+        $fecha_1 = date("d/m/Y", strtotime($fecha));
+
+        return $fecha_1;
+    }
+
     //leer tablas de auditorias sobre un form especifico
     public function audit($tabla, $id){
 
@@ -3248,7 +3256,8 @@ class AuditLib {
                     $contador++;
                 }
                 elseif($tabla == 'escala_de_columbia_audit'){
-                    $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
+                    if($contador == 0){
+                        $salida .= "<table class='table table-bordered table-striped table-hover table-condensed'>
                                     <thead>
                                         <tr>
                                             <th>Realizado</th>
@@ -3270,6 +3279,17 @@ class AuditLib {
                                         <td>". $value->usuario_actualizacion_new ."</td>
                                         <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->updated_at_new)): '')."</td>
                                     </tr>";
+                    }
+                    else{
+                        $salida .= "<tr>
+                                        <td>". (($value->realizado_new == 1) ? 'Si' : 'No') ."</td>
+                                        <td>". (($value->fecha_new != '0000-00-00') ? date('d/m/Y', strtotime($value->fecha_new)) : '') ."</td>                                        
+                                        <td>". $value->usuario_actualizacion_new ."</td>
+                                        <td>". (($value->updated_at_new != '0000-00-00 00:00:00') ? date('d/m/Y H:i', strtotime($value->updated_at_new)): '')."</td>
+                                    </tr>";
+                    }
+
+                    $contador++;
                 }
                 //adicionales
                 elseif($tabla == 'signos_vitales_adicional_audit'){

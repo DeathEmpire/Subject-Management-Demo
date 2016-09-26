@@ -1,10 +1,11 @@
 <legend style='text-align:center;'>Pendientes (<?= $this->session->userdata('perfil_name');?>)</legend>
 
 <?php
+
 	if(isset($to_do) AND !empty($to_do)){
 
 		#Pendig demography_form_verify
-		if(isset($to_do['demography_form_verify']) AND !empty($to_do['demography_form_verify'])){ ?>
+		/*if(isset($to_do['demography_form_verify']) AND !empty($to_do['demography_form_verify'])){ ?>
 			<b>Pending Verify a Form: </b>
 			<table class='table table-striped table-condensed table-bordered'>
 				<thead>
@@ -73,7 +74,7 @@
 
 		 		</tbody>
 		 	</table>
-		<?php }
+		<?php }*/
 
 
 		//formularios pendientes de verificacion
@@ -90,7 +91,7 @@
 					for($i = 0; $i < $cantidad; $i++){
 
 						echo "<tr>							
-							<td>". $to_do['pendientes_verificar_codigos'][$i][0] ."</td>
+							<td>". ((is_array($to_do['pendientes_verificar_codigos'][$i])) ? $to_do['pendientes_verificar_codigos'][$i][0] : $to_do['pendientes_verificar_codigos'][$i]) ."</td>
 							<td>". $to_do['pendientes_verificar_links'][$i] ."</td>
 						</tr>";
 					}	
@@ -113,9 +114,9 @@
 				<?php
 					$cantidad = count($to_do['pendientes_cerrar_links']);
 					for($i = 0; $i < $cantidad; $i++){
-
+						
 						echo "<tr>							
-							<td>". $to_do['pendientes_cerrar_codigos'][$i][0] ."</td>
+							<td>". ((is_array($to_do['pendientes_cerrar_codigos'][$i])) ? $to_do['pendientes_cerrar_codigos'][$i][0] : $to_do['pendientes_cerrar_codigos'][$i]) ."</td>
 							<td>". $to_do['pendientes_cerrar_links'][$i] ."</td>
 						</tr>";
 					}	
@@ -127,7 +128,8 @@
 		}
 
 		//formularios pendientes de firma
-		if(isset($to_do['pendientes_firma_links']) AND !empty($to_do['pendientes_firma_links'])){?>
+		if(isset($to_do['pendientes_firmar_links']) AND !empty($to_do['pendientes_firmar_links'])){?>
+
 			<b>Formularios pendientes de Firma: </b><br>
 			<table class='table table-bordered table-striped table-hover table-condensed'>
 				<thead>
@@ -136,12 +138,11 @@
 				</thead>
 				<tbody>
 				<?php
-					$cantidad = count($to_do['pendientes_firma_links']);
-					for($i = 0; $i < $cantidad; $i++){
-
+					$cantidad = count($to_do['pendientes_firmar_links']);
+					for($i = 0; $i < $cantidad; $i++){						
 						echo "<tr>							
-							<td>". $to_do['pendientes_firma_codigos'][$i][0] ."</td>
-							<td>". $to_do['pendientes_firma_links'][$i] ."</td>
+							<td>". ((is_array($to_do['pendientes_firmar_codigos'][$i])) ? $to_do['pendientes_firmar_codigos'][$i][0] : $to_do['pendientes_firmar_codigos'][$i]) ."</td>
+							<td>". $to_do['pendientes_firmar_links'][$i] ."</td>
 						</tr>";
 					}	
 				?>

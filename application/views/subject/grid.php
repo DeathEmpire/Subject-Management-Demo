@@ -581,8 +581,14 @@
 			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<?php
 				if(empty($subject->examen_laboratorio_6_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_laboratorio/'.$subject->id .'/6';
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_laboratorio/'.$subject->id .'/6';
+					}
 				}
 				elseif ($subject->examen_laboratorio_6_status == 'Record Complete') {
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
@@ -923,8 +929,14 @@
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php
 				if(empty($subject->examen_fisico_6_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_fisico/'.$subject->id .'/6';
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_fisico/'.$subject->id .'/6';
+					}
 				}
 				elseif ($subject->examen_fisico_6_status == 'Record Complete') {
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
@@ -1142,8 +1154,14 @@
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php
 				if(empty($subject->examen_neurologico_6_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_neurologico/'.$subject->id .'/6';
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_neurologico/'.$subject->id .'/6';
+					}
 				}
 				elseif ($subject->examen_neurologico_6_status == 'Record Complete') {
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
@@ -1326,8 +1344,14 @@
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php
 				if(empty($subject->signos_vitales_6_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/signos_vitales/'.$subject->id .'/6';
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/signos_vitales/'.$subject->id .'/6';
+					}
 				}
 				elseif ($subject->signos_vitales_6_status == 'Record Complete') {
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
@@ -1516,9 +1540,15 @@
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php
 				#print_r($subject);
-				if(empty($subject->adas_6_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/adas/'.$subject->id .'/6';
+				if(empty($subject->adas_6_status)){	
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{				
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/adas/'.$subject->id .'/6';
+					}
 				}
 				elseif ($subject->adas_6_status == 'Record Complete') {					
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
@@ -2282,9 +2312,15 @@
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php				
-				if(empty($subject->apatia_6_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/apatia/'.$subject->id .'/6';
+				if(empty($subject->apatia_6_status)){		
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{			
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/apatia/'.$subject->id .'/6';
+					}
 				}
 				elseif ($subject->apatia_6_status == 'Record Complete') {					
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
@@ -2580,9 +2616,15 @@
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php				
-				if(empty($subject->cumplimiento_6_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/cumplimiento/'.$subject->id .'/6';
+				if(empty($subject->cumplimiento_6_status)){	
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{				
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/cumplimiento/'.$subject->id .'/6';
+					}
 				}
 				elseif ($subject->cumplimiento_6_status == 'Record Complete') {					
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
@@ -2694,9 +2736,15 @@
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php				
-				if(empty($subject->muestra_de_sangre_6_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/muestra_de_sangre/'.$subject->id .'/6';
+				if(empty($subject->muestra_de_sangre_6_status)){
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/muestra_de_sangre/'.$subject->id .'/6';
+					}
 				}
 				elseif ($subject->muestra_de_sangre_6_status == 'Record Complete') {					
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
@@ -2773,9 +2821,17 @@
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php				
-				if(empty($subject->fin_tratamiento_temprano_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/fin_tratamiento_temprano/'.$subject->id;
+				if(empty($subject->fin_tratamiento_temprano_status)){	
+
+					if(!empty($subject->fin_tratamiento_status)){
+						$icon = '-';
+						$link = '';
+					}
+					else{
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/fin_tratamiento_temprano/'.$subject->id;	
+					}				
+					
 				}
 				elseif ($subject->fin_tratamiento_temprano_status == 'Record Complete') {					
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	

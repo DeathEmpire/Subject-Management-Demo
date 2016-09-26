@@ -118,6 +118,57 @@ $(function(){
 		});
 	}
 
+	//le_puedo_hacer_preguntas 
+	$("input[name=le_puedo_hacer_preguntas]").change(function(){
+		if($(this).is(":checked")){			
+
+			$("#form_mmse :input").removeAttr('readonly');
+			$('select option:not(:selected)').each(function(){
+				$(this).removeAttr('disabled');
+			});
+
+		}else{
+			$("#form_mmse :input").attr('readonly','readonly');
+			$("#form_mmse :input").each(function(){
+				if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+					$(this).val('');
+				}
+			});
+			$('select option:not(:selected)').each(function(){
+				$(this).attr('disabled', 'disabled');
+			});
+			$("input[name=realizado]").removeAttr('readonly');
+			$("input[name=le_puedo_hacer_preguntas]").removeAttr('readonly');
+			$("input[name=fecha]").removeAttr('readonly');
+		}
+	});
+
+	if($("input[name=le_puedo_hacer_preguntas]").is(":checked"))
+	{			
+
+		$("#form_mmse :input").removeAttr('readonly');
+		$('select option:not(:selected)').each(function(){
+			$(this).removeAttr('disabled');
+		});
+
+	}else{
+		$("#form_mmse :input").attr('readonly','readonly');
+		$("#form_mmse :input").each(function(){
+			if($(this).attr('name') != 'realizado' && ($(this).attr('type') == 'text' || $(this).is('select') || $(this).attr('type') == 'number')){
+				$(this).val('');
+			}
+		});
+		$('select option:not(:selected)').each(function(){
+			$(this).attr('disabled', 'disabled');
+		});
+		$("input[name=realizado]").removeAttr('readonly');
+		$("input[name=le_puedo_hacer_preguntas]").removeAttr('readonly');
+		$("input[name=fecha]").removeAttr('readonly');
+	}
+
+
+
+	
 	$("#realizar_a").click(function(){
 		if($(this).is(':checked')){
 			$("input[name=cuanto_93]").prop('readonly', false);			
@@ -175,8 +226,10 @@ $(function(){
 			$("select[name=cuanto_65_puntaje]").val('');
 			$("select[name=cuanto_65_puntaje] option:not(:selected)").each(function(){
 				$(this).prop('disabled', true);
-			});
+			});			
 			
+			$("select[name=puntaje_seccion_a]").val('');
+
 			$("#realizar_b").prop('disabled',false);
 		}
 	});

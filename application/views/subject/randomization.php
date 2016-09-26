@@ -111,7 +111,7 @@ $(function(){
 <b>Aprobacion del Monitor:</b><br />
 	<?php if(!empty($subject->randomization_verify_user) AND !empty($subject->randomization_verify_date)){ ?>
 		
-		Formulario aprobado por <?= $subject->verify_user;?> el <?= date("d-M-Y",strtotime($subject->verify_date));?>
+		Formulario aprobado por <?= $subject->randomization_verify_user;?> el <?= date("d-M-Y",strtotime($subject->randomization_verify_date));?>
 	
 	<?php
 	}

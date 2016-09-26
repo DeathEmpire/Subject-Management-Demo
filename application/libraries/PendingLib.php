@@ -6,9 +6,15 @@ class PendingLib {
 		$this->CI = & get_instance(); // Esto para acceder a la instancia que carga la librería
 
 		$this->CI->load->model('Model_Subject');
-        $this->CI->load->model('Model_Query');
+    $this->CI->load->model('Model_Query');
 
-    }
+    $this->CI->load->model('Model_Signos_vitales_adicional');
+    $this->CI->load->model('Model_Ecg_adicional');
+    $this->CI->load->model('Model_Examen_fisico_adicional');
+    $this->CI->load->model('Model_Examen_laboratorio_adicional');
+    $this->CI->load->model('Model_Examen_neurologico_adicional');
+
+  }
 
 
     public function pending_by_role(){ 
@@ -101,9 +107,13 @@ class PendingLib {
                                'restas_2_status'=>'Record Complete',
                                'restas_4_status'=>'Record Complete',
                                'restas_5_status'=>'Record Complete',
-                               'restas_6_status'=>'Record Complete'
+                               'restas_6_status'=>'Record Complete',
+                               'escala_de_columbia_status'=>'Record Complete'
                                 );
             $result['pendiente_de_verificar'] = $this->CI->Model_Subject->buscarEstadosFormOr($or_where);
+            $pendientes_verificar_links = array();
+            $pendientes_verificar_codigos = array();
+            
             if(isset($result['pendiente_de_verificar']) AND !empty($result['pendiente_de_verificar'])){           
                 $verificar = array();
                 foreach ($result['pendiente_de_verificar'] as $key => $val){
@@ -115,8 +125,7 @@ class PendingLib {
                     }
                 }
 
-                $pendientes_verificar_links = array();
-                $pendientes_verificar_codigos = array();
+                
 
                 foreach ($verificar as $key => $value) {
 
@@ -194,14 +203,61 @@ class PendingLib {
                    if(in_array('restas_4_status', $value['form'])){ $pendientes_verificar_links[] = anchor('subject/restas_show/'.$key.'/4', 'Restas Seriadas');$pendientes_verificar_codigos[] = $value['code'];}
                    if(in_array('restas_5_status', $value['form'])){ $pendientes_verificar_links[] = anchor('subject/restas_show/'.$key.'/5', 'Restas Seriadas');$pendientes_verificar_codigos[] = $value['code'];}
                    if(in_array('restas_6_status', $value['form'])){ $pendientes_verificar_links[] = anchor('subject/restas_show/'.$key.'/6', 'Restas Seriadas');$pendientes_verificar_codigos[] = $value['code'];}
+                   if(in_array('escala_de_columbia_status', $value['form'])){ $pendientes_verificar_links[] = anchor('subject/escala_de_columbia_show/'.$key, 'Escala de Columbia');$pendientes_verificar_codigos[] = $value['code'];}
                    
                 }
-                
-                $result['pendientes_verificar_links'] = $pendientes_verificar_links;
-                $result['pendientes_verificar_codigos'] = $pendientes_verificar_codigos;
+
+               
             }
 
+             //pendientes formularios adicionales                            
+                $signos_vitales = $this->CI->Model_Signos_vitales_adicional->allWhereArrayWithCode(array('signos_vitales_adicional.status'=>'Record Complete'));                
+                if(isset($signos_vitales) AND !empty($signos_vitales)){
+                  
+                  foreach ($signos_vitales as $key => $value) {                   
+                   $pendientes_verificar_links[] = anchor('subject/signos_vitales_adicional_show/'. $value->subject_id .'/'. $value->id, 'Signos Vitales Adicional');
+                   $pendientes_verificar_codigos[] = $value->codigo; 
+                  }
+                }
 
+                $ecg = $this->CI->Model_Ecg_adicional->allWhereArrayWithCode(array('status'=>'Record Complete'));
+                if(isset($ecg) AND !empty($ecg)){
+                  
+                  foreach ($ecg as $key => $value) {                   
+                   $pendientes_verificar_links[] = anchor('subject/ecg_adicional_show/'. $value->subject_id .'/'. $value->id, 'ECG Adicional');
+                   $pendientes_verificar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $neuro = $this->CI->Model_Examen_neurologico_adicional->allWhereArrayWithCode(array('status'=>'Record Complete'));
+                if(isset($neuro) AND !empty($neuro)){
+                  
+                  foreach ($neuro as $key => $value) {                   
+                   $pendientes_verificar_links[] = anchor('subject/examen_neurologico_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen neurologico Adicional');
+                   $pendientes_verificar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $fisico = $this->CI->Model_Examen_fisico_adicional->allWhereArrayWithCode(array('status'=>'Record Complete'));
+                if(isset($fisico) AND !empty($fisico)){
+                  
+                  foreach ($fisico as $key => $value) {                   
+                   $pendientes_verificar_links[] = anchor('subject/examen_fisico_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen fisico Adicional');
+                   $pendientes_verificar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $lab = $this->CI->Model_Examen_laboratorio_adicional->allWhereArrayWithCode(array('status'=>'Record Complete'));
+                if(isset($lab) AND !empty($lab)){
+                  
+                  foreach ($lab as $key => $value) {                   
+                   $pendientes_verificar_links[] = anchor('subject/examen_laboratorio_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen laboratorio Adicional');
+                   $pendientes_verificar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $result['pendientes_verificar_links'] = $pendientes_verificar_links;
+                $result['pendientes_verificar_codigos'] = $pendientes_verificar_codigos;
             /*--------------------------------------------------------------------------------------------------------------------------*/
             
             
@@ -291,24 +347,27 @@ class PendingLib {
                                'restas_2_status'=>'Form Approved by Monitor',
                                'restas_4_status'=>'Form Approved by Monitor',
                                'restas_5_status'=>'Form Approved by Monitor',
-                               'restas_6_status'=>'Form Approved by Monitor'
+                               'restas_6_status'=>'Form Approved by Monitor',
+                               'escala_de_columbia_status'=>'Form Approved by Monitor'
                                 );
             $result['pendiente_de_cerrar'] = $this->CI->Model_Subject->buscarEstadosFormOr($or_where);
+            $pendientes_cerrar_links = array();
+            $pendientes_cerrar_codigos = array();
+
             if(isset($result['pendiente_de_cerrar']) AND !empty($result['pendiente_de_cerrar'])){           
                 $cerrar = array();
                 foreach ($result['pendiente_de_cerrar'] as $key => $val){
                     foreach ($val as $k => $v) {
-                        if($v == 'Record Complete'){
+                        if($v == 'Form Approved by Monitor'){
                             $cerrar[$val->id]['form'][] = $k;
                             $cerrar[$val->id]['code'][] = $val->code;
                         }
                     }
                 }
 
-                $pendientes_cerrar_links = array();
-                $pendientes_cerrar_codigos = array();
+                
 
-                foreach ($aprobar as $key => $value) {
+                foreach ($cerrar as $key => $value) {
 
                    if(in_array('demography_status', $value['form'])){ $pendientes_cerrar_links[] = anchor('subject/demography/'.$key, 'Demografia');$pendientes_cerrar_codigos[] = $value['code'];}
                    if(in_array('randomization_status', $value['form'])){ $pendientes_cerrar_links[] = anchor('subject/randomization/'.$key, 'Randomizacion');$pendientes_cerrar_codigos[] = $value['code'];}
@@ -384,15 +443,64 @@ class PendingLib {
                    if(in_array('restas_4_status', $value['form'])){ $pendientes_cerrar_links[] = anchor('subject/restas_show/'.$key.'/4', 'Restas Seriadas');$pendientes_cerrar_codigos[] = $value['code'];}
                    if(in_array('restas_5_status', $value['form'])){ $pendientes_cerrar_links[] = anchor('subject/restas_show/'.$key.'/5', 'Restas Seriadas');$pendientes_cerrar_codigos[] = $value['code'];}
                    if(in_array('restas_6_status', $value['form'])){ $pendientes_cerrar_links[] = anchor('subject/restas_show/'.$key.'/6', 'Restas Seriadas');$pendientes_cerrar_codigos[] = $value['code'];}
+                   if(in_array('escala_de_columbia_status', $value['form'])){ $pendientes_cerrar_links[] = anchor('subject/escala_de_columbia_show/'.$key, 'Escala de Columbia');$pendientes_cerrar_codigos[] = $value['code'];}
                    
                 }
                 
+                
+            }
+
+             //pendientes formularios adicionales                            
+                $signos_vitales = $this->CI->Model_Signos_vitales_adicional->allWhereArrayWithCode(array('signos_vitales_adicional.status'=>'Form Approved by Monitor'));                                
+                if(isset($signos_vitales) AND !empty($signos_vitales)){      
+
+                  foreach ($signos_vitales as $key => $value) {                   
+                   $pendientes_cerrar_links[] = anchor('subject/signos_vitales_adicional_show/'. $value->subject_id .'/'. $value->id, 'Signos Vitales Adicional');
+                   $pendientes_cerrar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $ecg = $this->CI->Model_Ecg_adicional->allWhereArrayWithCode(array('status'=>'Form Approved by Monitor'));
+                if(isset($ecg) AND !empty($ecg)){
+                  
+                  foreach ($ecg as $key => $value) {                   
+                   $pendientes_cerrar_links[] = anchor('subject/ecg_adicional_show/'. $value->subject_id .'/'. $value->id, 'ECG Adicional');
+                   $pendientes_cerrar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $neuro = $this->CI->Model_Examen_neurologico_adicional->allWhereArrayWithCode(array('status'=>'Form Approved by Monitor'));
+                if(isset($neuro) AND !empty($neuro)){
+                  
+                  foreach ($neuro as $key => $value) {                   
+                   $pendientes_cerrar_links[] = anchor('subject/examen_neurologico_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen neurologico Adicional');
+                   $pendientes_cerrar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $fisico = $this->CI->Model_Examen_fisico_adicional->allWhereArrayWithCode(array('status'=>'Form Approved by Monitor'));
+                if(isset($fisico) AND !empty($fisico)){
+                  
+                  foreach ($fisico as $key => $value) {                   
+                   $pendientes_cerrar_links[] = anchor('subject/examen_fisico_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen fisico Adicional');
+                   $pendientes_cerrar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $lab = $this->CI->Model_Examen_laboratorio_adicional->allWhereArrayWithCode(array('status'=>'Form Approved by Monitor'));
+                if(isset($lab) AND !empty($lab)){
+                  
+                  foreach ($lab as $key => $value) {                   
+                   $pendientes_cerrar_links[] = anchor('subject/examen_laboratorio_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen laboratorio Adicional');
+                   $pendientes_cerrar_codigos[] = $value->codigo; 
+                  }
+                }
+
                 $result['pendientes_cerrar_links'] = $pendientes_cerrar_links;
                 $result['pendientes_cerrar_codigos'] = $pendientes_cerrar_codigos;
-            }
-			
+
             #Pending Querys
-    		$result['querys'] = $this->CI->Model_Query->allWhere('answer = ""');    		
+    		    $result['querys'] = $this->CI->Model_Query->allWhere('answer = ""');    		
     	}
     	elseif($role == 5){
     		#Sponsor
@@ -480,22 +588,25 @@ class PendingLib {
                                'restas_2_status'=>'Form Approved and Locked',
                                'restas_4_status'=>'Form Approved and Locked',
                                'restas_5_status'=>'Form Approved and Locked',
-                               'restas_6_status'=>'Form Approved and Locked'
+                               'restas_6_status'=>'Form Approved and Locked',
+                               'escala_de_columbia_status'=>'Form Approved and Locked'
                                 );
             $result['pendiente_de_firmar'] = $this->CI->Model_Subject->buscarEstadosFormOr($or_where);
+            $pendientes_firmar_links = array();
+            $pendientes_firmar_codigos = array();
             if(isset($result['pendiente_de_firmar']) AND !empty($result['pendiente_de_firmar'])){           
                 $firmar = array();
+
                 foreach ($result['pendiente_de_firmar'] as $key => $val){
-                    foreach ($val as $k => $v) {
-                        if($v == 'Record Complete'){
+                    foreach ($val as $k => $v) {                      
+
+                        if($v == 'Form Approved and Locked'){
                             $firmar[$val->id]['form'][] = $k;
                             $firmar[$val->id]['code'][] = $val->code;
                         }
                     }
                 }
 
-                $pendientes_firmar_links = array();
-                $pendientes_firmar_codigos = array();
 
                 foreach ($firmar as $key => $value) {
 
@@ -573,13 +684,61 @@ class PendingLib {
                    if(in_array('restas_4_status', $value['form'])){ $pendientes_firmar_links[] = anchor('subject/restas_show/'.$key.'/4', 'Restas Seriadas');$pendientes_firmar_codigos[] = $value['code'];}
                    if(in_array('restas_5_status', $value['form'])){ $pendientes_firmar_links[] = anchor('subject/restas_show/'.$key.'/5', 'Restas Seriadas');$pendientes_firmar_codigos[] = $value['code'];}
                    if(in_array('restas_6_status', $value['form'])){ $pendientes_firmar_links[] = anchor('subject/restas_show/'.$key.'/6', 'Restas Seriadas');$pendientes_firmar_codigos[] = $value['code'];}
+                   if(in_array('escala_de_columbia_status', $value['form'])){ $pendientes_firmar_links[] = anchor('subject/escala_de_columbia_show/'.$key, 'Escala de Columbia');$pendientes_firmar_codigos[] = $value['code'];}
                    
+                }
+
+                
+            }
+
+          //pendientes formularios adicionales                            
+                $signos_vitales = $this->CI->Model_Signos_vitales_adicional->allWhereArrayWithCode(array('signos_vitales_adicional.status'=>'Form Approved and Locked'));                
+                if(isset($signos_vitales) AND !empty($signos_vitales)){
+                  
+                  foreach ($signos_vitales as $key => $value) {                   
+                   $pendientes_firmar_links[] = anchor('subject/signos_vitales_adicional_show/'. $value->subject_id .'/'. $value->id, 'Signos Vitales Adicional');
+                   $pendientes_firmar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $ecg = $this->CI->Model_Ecg_adicional->allWhereArrayWithCode(array('status'=>'Form Approved and Locked'));
+                if(isset($ecg) AND !empty($ecg)){
+                  
+                  foreach ($ecg as $key => $value) {                   
+                   $pendientes_firmar_links[] = anchor('subject/ecg_adicional_show/'. $value->subject_id .'/'. $value->id, 'ECG Adicional');
+                   $pendientes_firmar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $neuro = $this->CI->Model_Examen_neurologico_adicional->allWhereArrayWithCode(array('status'=>'Form Approved and Locked'));
+                if(isset($neuro) AND !empty($neuro)){
+                  
+                  foreach ($neuro as $key => $value) {                   
+                   $pendientes_firmar_links[] = anchor('subject/examen_neurologico_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen neurologico Adicional');
+                   $pendientes_firmar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $fisico = $this->CI->Model_Examen_fisico_adicional->allWhereArrayWithCode(array('status'=>'Form Approved and Locked'));
+                if(isset($fisico) AND !empty($fisico)){
+                  
+                  foreach ($fisico as $key => $value) {                   
+                   $pendientes_firmar_links[] = anchor('subject/examen_fisico_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen fisico Adicional');
+                   $pendientes_firmar_codigos[] = $value->codigo; 
+                  }
+                }
+
+                $lab = $this->CI->Model_Examen_laboratorio_adicional->allWhereArrayWithCode(array('status'=>'Form Approved and Locked'));
+                if(isset($lab) AND !empty($lab)){
+                  
+                  foreach ($lab as $key => $value) {                   
+                   $pendientes_firmar_links[] = anchor('subject/examen_laboratorio_adicional_show/'. $value->subject_id .'/'. $value->id, 'Examen laboratorio Adicional');
+                   $pendientes_firmar_codigos[] = $value->codigo; 
+                  }
                 }
                 
                 $result['pendientes_firmar_links'] = $pendientes_firmar_links;
                 $result['pendientes_firmar_codigos'] = $pendientes_firmar_codigos;
-            }
-
 
     		#Pending Querys
     		$result['querys'] = $this->CI->Model_Query->allWhere('status = "Abierto"');

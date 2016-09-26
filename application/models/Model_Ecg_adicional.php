@@ -58,4 +58,16 @@ class Model_Ecg_adicional extends CI_Model {
 		$this->db->update('ecg_adicional');
     }
 
+    function allWhereArrayWithCode($where) {
+        $this->db->select('ecg_adicional.*,subject.code as codigo');
+        $this->db->from('ecg_adicional');
+        $this->db->join('subject', 'ecg_adicional.subject_id = subject.id', 'left');
+        $this->db->where($where);
+        $centro = $this->session->userdata('center_id');
+        if($centro != 'Todos'){
+            $this->db->where('subject.center', $centro);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
