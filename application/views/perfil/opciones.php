@@ -121,6 +121,9 @@ foreach($perfiles as $v){
 					case 'kit':
 						$seccion = 'Kits';
 						break;	
+					case 'backup':
+						$seccion = 'Respaldo';
+						break;	
 					default:
 						$seccion = $v->controller;
 						break;
@@ -466,6 +469,9 @@ foreach($perfiles as $v){
 						elseif($seccion == 'Kits'){
 							echo form_checkbox(array('name'=>'ver_kits', 'value'=>'index,search', 'perfil'=>$v->role, 'controller'=>$v->controller,'checked'=>((strstr($v->actions, 'index,search')) ? true : false))) . " Ver<br>";							
 							echo form_checkbox(array('name'=>'asignar_kits', 'value'=>'CambiarBodega', 'perfil'=>$v->role, 'controller'=>$v->controller,'checked'=>((strstr($v->actions, 'CambiarBodega')) ? true : false))) . " Asignar a Bodega<br>";
+						}
+						elseif ($seccion == 'Respaldo'){
+							echo form_checkbox(array('name'=>'crear_backup', 'value'=>'index,create', 'perfil'=>$v->role, 'controller'=>$v->controller,'checked'=>((strstr($v->actions, 'index,create')) ? true : false))) . " Generar Respaldo de datos<br>";							
 						}							
 						else{
 							$actions = explode(",", $v->actions);

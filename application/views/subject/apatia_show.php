@@ -3,49 +3,9 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$("#autoevaluacion_fecha, #version_clinica_fecha, #apatia_fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
+	$("#version_clinica_fecha, #apatia_fecha").datepicker({ dateFormat: 'dd/mm/yy' });	
 
-	$("input[name=autoevaluacion_realizado]").change(function(){
-		if($(this).val() == 0){
-			$("input[name*=autoevaluacion]").each(function(){
-				
-				$(this).prop('readonly', true);
-				$(this).prop('disabled', true);
-
-				if($(this).attr('name') != 'autoevaluacion_realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
-					$(this).val('');
-				}
-			});
-			
-			$("input[name=autoevaluacion_realizado]").prop('readonly', false);
-			$("input[name=autoevaluacion_realizado]").prop('disabled', false);
-
-		}else{
-			$("input[name*=autoevaluacion]").each(function(){
-				$(this).prop('readonly', false);
-				$(this).prop('disabled', false);
-			});
-		}
-	});
-	if($("input[name=autoevaluacion_realizado]:checked").val() == 0){
-		$("input[name*=autoevaluacion]").each(function(){
-				
-				$(this).prop('readonly', true);
-				$(this).prop('disabled', true);
-
-				if($(this).attr('name') != 'autoevaluacion_realizado' && ($(this).attr('type') == 'text' || $(this).attr('type') == 'select')){
-					$(this).val('');
-				}
-			});
-		$("input[name=autoevaluacion_realizado]").prop('readonly', false);
-		$("input[name=autoevaluacion_realizado]").prop('disabled', false);
-
-	}else{
-		$("input[name*=autoevaluacion]").each(function(){
-			$(this).prop('readonly', false);
-			$(this).prop('disabled', false);
-		});
-	}
+	
 
 	$("input[name=version_clinica_realizado]").change(function(){
 		if($(this).val() == 0){
@@ -132,28 +92,7 @@ $(function(){
 		});
 	}
 
-	$('input[name^=autoevaluacion_]').click(function(){
-		var total = 0;
-		 $('input[name^=autoevaluacion_]').each(function(){
-            if (this.checked) {
-                total += parseInt($(this).val());
-            }
-        });
-		total -= parseInt($("input[name=autoevaluacion_realizado]:checked").val());
-		if(!isNaN(total) && total > 0){
-			$("#autoevaluacion_resultado").text(total);		
-		}
-	});
-	var total2 = 0;
-	 $('input[name^=autoevaluacion_]').each(function(){
-        if (this.checked) {
-            total2 += parseInt($(this).val());
-        }
-    });
-	total2 -= parseInt($("input[name=autoevaluacion_realizado]:checked").val());
-	if(!isNaN(total2) && total2 > 0){
-		$("#autoevaluacion_resultado").text(total2);
-	}
+	
 	
 	$('input[name^=version_clinica_]').click(function(){
 		var total3 = 0;
@@ -186,7 +125,7 @@ $(function(){
             }
         });
 		total5 -= $("input[name=apatia_realizado]:checked").val();
-		if(!isNaN(total5) && total5 > 0){
+		if(!isNaN(total5) && total5 >= 0){
 			$("#apatia_resultado").text(total5);		
 		}
 	});
@@ -197,7 +136,7 @@ $(function(){
         }
     });
 	total6 -= parseInt($("input[name=apatia_realizado]:checked").val());
-	if(!isNaN(total6) && total6 > 0){
+	if(!isNaN(total6) && total6 >= 0){
 		$("#apatia_resultado").text(total6);
 	}
 
@@ -226,28 +165,7 @@ $(function(){
 		);
 	});
 
-	$("#autoevaluacion_fecha").change(function(){
-        var datos = $("input[name=etapa]").val() || 0;
-        $.post("<?php echo base_url('subject/fechaEnRango');?>",
-                {                   
-                    '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>', 
-                    "etapa": datos,                 
-                    "fecha_randomizacion": "<?php echo ((isset($subject->randomization_date)) ? $subject->randomization_date : '');?>",
-                    "fecha": $(this).val()
-                },
-                function(d){
-                    if(d != ''){
-                        $("#td_mensaje_desviacion1").html(d);
-                        $("#mensaje_desviacion1").show();
-                    }
-                    else{
-                        $("#td_mensaje_desviacion1").html('');
-                        $("#mensaje_desviacion1").hide();
-                    }
-                    
-                }
-        );
-    });
+	
 
     $("#version_clinica_fecha").change(function(){
         var datos = $("input[name=etapa]").val() || 0;
@@ -342,16 +260,7 @@ $(function(){
 	<?= form_hidden('id', $list[0]->id); ?>	
 	<?= form_hidden('last_status', $list[0]->status); ?>
 	<?php
-		$data = array(
-			    'name'        => 'autoevaluacion_realizado',			    
-			    'value'       => 1,		    
-			    'checked'     => set_radio('autoevaluacion_realizado', 1, (($list[0]->autoevaluacion_realizado == 2) ? true : false))
-		    );
-	  	$data2 = array(
-		    'name'        => 'autoevaluacion_realizado',			    
-		    'value'       => 0,
-		    'checked'     => set_radio('autoevaluacion_realizado', 0, (($list[0]->autoevaluacion_realizado == 1) ? true : false))
-		    );	 
+		
 	    $data3 = array(
 		    'name'        => 'version_clinica_realizado',			    
 		    'value'       => 1,		    
@@ -373,698 +282,6 @@ $(function(){
 		   	'checked'     => set_radio('apatia_realizado', 0, (($list[0]->apatia_realizado == 1) ? true : false))
 		    );	  
 	?>
-	<table class="table table-bordered table-striped table-hover">
-		<thead>
-			<tr>
-				<td colspan='5' style='font-weight:bold;'>Escala de Evaluación de Apatía Autoevaluación</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>		
-				<td>Realizado: </td>
-				<td colspan='4'>
-					<?= form_radio($data,$data['value'],set_radio($data['name'], 1)); ?> Si
-					<?= form_radio($data2,$data2['value'],set_radio($data2['name'], 0)); ?> NO
-				</td>
-			</tr>
-			<tr>
-				<td>Fecha: </td>				
-				<td colspan='4'><?= form_input(array('type'=>'text','name'=>'autoevaluacion_fecha', 'id'=>'autoevaluacion_fecha', 'value'=>set_value('autoevaluacion_fecha', ((!empty($list[0]->autoevaluacion_fecha) AND $list[0]->autoevaluacion_fecha !='0000-00-00') ? date("d/m/Y", strtotime($list[0]->autoevaluacion_fecha)) : "") ))); ?>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_fecha", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_fecha_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_fecha_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr id='mensaje_desviacion1' style='display:none;'>
-				<td colspan='5' id='td_mensaje_desviacion1' class='alert alert-danger'></td>
-			</tr>
-			<tr>
-				<td style='font-weight:bold;background-color:#ccc'></td>
-				<td style='font-weight:bold;background-color:#ccc'>No, en absoluto</td>
-				<td style='font-weight:bold;background-color:#ccc'>Levemente</td>
-				<td style='font-weight:bold;background-color:#ccc'>Algo</td>
-				<td style='font-weight:bold;background-color:#ccc'>Mucho</td>
-				<td>&nbsp;&nbsp;&nbsp;</td>				
-			</tr>
-			<tr>
-				<td>1. Tengo interés en las cosas.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_1','4',set_radio('autoevaluacion_1','4', (($list[0]->autoevaluacion_1 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_1','3',set_radio('autoevaluacion_1','3', (($list[0]->autoevaluacion_1 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_1','2',set_radio('autoevaluacion_1','2', (($list[0]->autoevaluacion_1 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_1','1',set_radio('autoevaluacion_1','1', (($list[0]->autoevaluacion_1 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_1", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_1_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_1_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>2. Logro hacer las cosas durante el día.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_2','4',set_radio('autoevaluacion_2','4', (($list[0]->autoevaluacion_2 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_2','3',set_radio('autoevaluacion_2','4', (($list[0]->autoevaluacion_2 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_2','2',set_radio('autoevaluacion_2','3', (($list[0]->autoevaluacion_2 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_2','1',set_radio('autoevaluacion_2','2', (($list[0]->autoevaluacion_2 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_2", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_2_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_2_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>3. Tomar iniciativas por mi propia cuenta es importante para mí.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_3','4',set_radio('autoevaluacion_3','4', (($list[0]->autoevaluacion_3 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_3','3',set_radio('autoevaluacion_3','3', (($list[0]->autoevaluacion_3 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_3','2',set_radio('autoevaluacion_3','2', (($list[0]->autoevaluacion_3 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_3','1',set_radio('autoevaluacion_3','1', (($list[0]->autoevaluacion_3 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_3", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_3_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_3_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>4. Estoy interesado en tener nuevas experiencias.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_4','4',set_radio('autoevaluacion_4','4', (($list[0]->autoevaluacion_4 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_4','3',set_radio('autoevaluacion_4','3', (($list[0]->autoevaluacion_4 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_4','2',set_radio('autoevaluacion_4','2', (($list[0]->autoevaluacion_4 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_4','1',set_radio('autoevaluacion_4','1', (($list[0]->autoevaluacion_4 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_4", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_4_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_4_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>5. Tengo interés en aprender cosas nuevas.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_5','4',set_radio('autoevaluacion_5','4', (($list[0]->autoevaluacion_5 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_5','3',set_radio('autoevaluacion_5','3', (($list[0]->autoevaluacion_5 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_5','2',set_radio('autoevaluacion_5','2', (($list[0]->autoevaluacion_5 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_5','1',set_radio('autoevaluacion_5','1', (($list[0]->autoevaluacion_5 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_5", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_5_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_5_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>6. Pongo poco empeño en cualquier cosa que hago.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_6','1',set_radio('autoevaluacion_6','1', (($list[0]->autoevaluacion_6 == 1) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_6','2',set_radio('autoevaluacion_6','2', (($list[0]->autoevaluacion_6 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_6','3',set_radio('autoevaluacion_6','3', (($list[0]->autoevaluacion_6 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_6','4',set_radio('autoevaluacion_6','4', (($list[0]->autoevaluacion_6 == 4) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_6", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_6_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_6_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>7. Abordo la vida con intensidad.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_7','4',set_radio('autoevaluacion_7','4', (($list[0]->autoevaluacion_7 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_7','3',set_radio('autoevaluacion_7','3', (($list[0]->autoevaluacion_7 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_7','2',set_radio('autoevaluacion_7','2', (($list[0]->autoevaluacion_7 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_7','1',set_radio('autoevaluacion_7','1', (($list[0]->autoevaluacion_7 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_7", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_7_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_7_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>8. Es importante para mi visualizar una tarea hasta el final.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_8','4',set_radio('autoevaluacion_8','4', (($list[0]->autoevaluacion_8 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_8','3',set_radio('autoevaluacion_8','3', (($list[0]->autoevaluacion_8 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_8','2',set_radio('autoevaluacion_8','2', (($list[0]->autoevaluacion_8 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_8','1',set_radio('autoevaluacion_8','1', (($list[0]->autoevaluacion_8 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_8", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_8_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_8_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>9. Ocupo mi tiempo hacienda cosas que me interesan.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_9','4',set_radio('autoevaluacion_9','4', (($list[0]->autoevaluacion_9 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_9','3',set_radio('autoevaluacion_9','3', (($list[0]->autoevaluacion_9 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_9','2',set_radio('autoevaluacion_9','2', (($list[0]->autoevaluacion_9 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_9','1',set_radio('autoevaluacion_9','1', (($list[0]->autoevaluacion_9 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_9", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_9_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_9_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>10. Alguien me tiene que decir lo que tengo que hacer cada día.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_10','1',set_radio('autoevaluacion_10','1', (($list[0]->autoevaluacion_10 == 1) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_10','2',set_radio('autoevaluacion_10','2', (($list[0]->autoevaluacion_10 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_10','3',set_radio('autoevaluacion_10','3', (($list[0]->autoevaluacion_10 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_10','4',set_radio('autoevaluacion_10','4', (($list[0]->autoevaluacion_10 == 4) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_10", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_10_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_10_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>11. Estoy menos preocupado de mis problemas de lo que debiera estar.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_11','1',set_radio('autoevaluacion_11','1', (($list[0]->autoevaluacion_11 == 1) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_11','2',set_radio('autoevaluacion_11','2', (($list[0]->autoevaluacion_11 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_11','3',set_radio('autoevaluacion_11','3', (($list[0]->autoevaluacion_11 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_11','4',set_radio('autoevaluacion_11','4', (($list[0]->autoevaluacion_11 == 4) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_11", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_11_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_11_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>12. Tengo amigos.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_12','4',set_radio('autoevaluacion_12','4', (($list[0]->autoevaluacion_12 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_12','3',set_radio('autoevaluacion_12','3', (($list[0]->autoevaluacion_12 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_12','2',set_radio('autoevaluacion_12','2', (($list[0]->autoevaluacion_12 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_12','1',set_radio('autoevaluacion_12','1', (($list[0]->autoevaluacion_12 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_12", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_12_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_12_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>13. Juntarme con mis amigos es importante para mí.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_13','4',set_radio('autoevaluacion_13','4', (($list[0]->autoevaluacion_13 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_13','3',set_radio('autoevaluacion_13','3', (($list[0]->autoevaluacion_13 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_13','2',set_radio('autoevaluacion_13','2', (($list[0]->autoevaluacion_13 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_13','1',set_radio('autoevaluacion_13','1', (($list[0]->autoevaluacion_13 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_13", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_13_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_13_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>14. Cuando algo Bueno ocurre, me alegro.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_14','4',set_radio('autoevaluacion_14','4', (($list[0]->autoevaluacion_14 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_14','3',set_radio('autoevaluacion_14','3', (($list[0]->autoevaluacion_14 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_14','2',set_radio('autoevaluacion_14','2', (($list[0]->autoevaluacion_14 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_14','1',set_radio('autoevaluacion_14','1', (($list[0]->autoevaluacion_14 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_14", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_14_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_14_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>15. Tengo una comprensión clara de mis problemas.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_15','4',set_radio('autoevaluacion_15','4', (($list[0]->autoevaluacion_15 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_15','3',set_radio('autoevaluacion_15','3', (($list[0]->autoevaluacion_15 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_15','2',set_radio('autoevaluacion_15','2', (($list[0]->autoevaluacion_15 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_15','1',set_radio('autoevaluacion_15','1', (($list[0]->autoevaluacion_15 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_15", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_15_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_15_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>16. Resolver las cosas durante el día es importante para mi.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_16','4',set_radio('autoevaluacion_16','4', (($list[0]->autoevaluacion_16 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_16','3',set_radio('autoevaluacion_16','3', (($list[0]->autoevaluacion_16 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_16','2',set_radio('autoevaluacion_16','2', (($list[0]->autoevaluacion_16 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_16','1',set_radio('autoevaluacion_16','1', (($list[0]->autoevaluacion_16 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_16", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_16_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_16_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>17. Tengo iniciativa.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_17','4',set_radio('autoevaluacion_17','4', (($list[0]->autoevaluacion_17 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_17','3',set_radio('autoevaluacion_17','3', (($list[0]->autoevaluacion_17 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_17','2',set_radio('autoevaluacion_17','2', (($list[0]->autoevaluacion_17 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_17','1',set_radio('autoevaluacion_17','1', (($list[0]->autoevaluacion_17 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_17", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_17_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_17_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td>18. Tengo motivación.</td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_18','4',set_radio('autoevaluacion_18','4', (($list[0]->autoevaluacion_18 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_18','3',set_radio('autoevaluacion_18','3', (($list[0]->autoevaluacion_18 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_18','2',set_radio('autoevaluacion_18','2', (($list[0]->autoevaluacion_18 == 2) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('autoevaluacion_18','1',set_radio('autoevaluacion_18','1', (($list[0]->autoevaluacion_18 == 1) ? true : false))); ?></td>
-				<td>
-					<?php
-						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
-						{
-							
-							if(!in_array("autoevaluacion_18", $campos_query))  
-							{
-								if(strpos($_SESSION['role_options']['subject'], 'apatia_verify')){
-									echo "<img src='". base_url('img/icon-check.png') ."' id='autoevaluacion_18_query' tipo='new' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/icon-check.png') ."'>";		
-								}
-								
-							}
-							else 
-							{	
-								if (strpos($_SESSION['role_options']['subject'], 'apatia_update')){					
-									echo "<img src='". base_url('img/question.png') ."' id='autoevaluacion_18_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-								}
-								else{
-									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-								}
-							}						
-							
-						}
-					?>
-				</td>
-			</tr>
-			<tr>
-				<td style='font-weight:bold;'>RESULTADO: </td>
-				<td id='autoevaluacion_resultado' colspan='4' style='font-weight:bold;'></td>
-			</tr>
-		</tbody>
-	</table>
 	
 	<table class="table table-bordered table-striped table-hover">
 		<thead>
@@ -1117,18 +334,18 @@ $(function(){
 			</tr>
 			<tr>
 				<td style='font-weight:bold;background-color:#ccc'></td>
-				<td style='font-weight:bold;background-color:#ccc'>No Característico</td>
-				<td style='font-weight:bold;background-color:#ccc'>Levemente Característico</td>
-				<td style='font-weight:bold;background-color:#ccc'>Característico</td>
-				<td style='font-weight:bold;background-color:#ccc'>Muy Característico</td>
+				<td style='font-weight:bold;background-color:#ccc'>No Característico (1)</td>
+				<td style='font-weight:bold;background-color:#ccc'>Levemente Característico (2)</td>
+				<td style='font-weight:bold;background-color:#ccc'>Característico (3)</td>
+				<td style='font-weight:bold;background-color:#ccc'>Muy Característico (4)</td>
 				<td>&nbsp;&nbsp;&nbsp;</td>
 			</tr>
 			<tr>
 				<td>1. Está Interesado en cosas.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_1','4',set_radio('version_clinica_1','4', (($list[0]->version_clinica_1 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_1','3',set_radio('version_clinica_1','3', (($list[0]->version_clinica_1 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_1','2',set_radio('version_clinica_1','2', (($list[0]->version_clinica_1 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_1','1',set_radio('version_clinica_1','1', (($list[0]->version_clinica_1 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_1','2',set_radio('version_clinica_1','2', (($list[0]->version_clinica_1 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_1','3',set_radio('version_clinica_1','3', (($list[0]->version_clinica_1 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_1','4',set_radio('version_clinica_1','4', (($list[0]->version_clinica_1 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1160,10 +377,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>2. El/ella logra hacer cosas durante el día. </td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_2','4',set_radio('version_clinica_2','4', (($list[0]->version_clinica_2 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_2','3',set_radio('version_clinica_2','3', (($list[0]->version_clinica_2 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_2','2',set_radio('version_clinica_2','2', (($list[0]->version_clinica_2 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_2','1',set_radio('version_clinica_2','1', (($list[0]->version_clinica_2 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_2','2',set_radio('version_clinica_2','2', (($list[0]->version_clinica_2 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_2','3',set_radio('version_clinica_2','3', (($list[0]->version_clinica_2 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_2','4',set_radio('version_clinica_2','4', (($list[0]->version_clinica_2 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1195,10 +412,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>3. Tomar iniciativas por el/ella mismo/a es importante para el/ella. </td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_3','4',set_radio('version_clinica_3','4', (($list[0]->version_clinica_3 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_3','3',set_radio('version_clinica_3','3', (($list[0]->version_clinica_3 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_3','2',set_radio('version_clinica_3','2', (($list[0]->version_clinica_3 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_3','1',set_radio('version_clinica_3','1', (($list[0]->version_clinica_3 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_3','2',set_radio('version_clinica_3','2', (($list[0]->version_clinica_3 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_3','3',set_radio('version_clinica_3','3', (($list[0]->version_clinica_3 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_3','4',set_radio('version_clinica_3','4', (($list[0]->version_clinica_3 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1230,10 +447,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>4. El/ ella tiene interés en tener nuevas experiencias. </td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_4','4',set_radio('version_clinica_4','4', (($list[0]->version_clinica_4 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_4','3',set_radio('version_clinica_4','3', (($list[0]->version_clinica_4 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_4','2',set_radio('version_clinica_4','2', (($list[0]->version_clinica_4 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_4','1',set_radio('version_clinica_4','1', (($list[0]->version_clinica_4 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_4','2',set_radio('version_clinica_4','2', (($list[0]->version_clinica_4 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_4','3',set_radio('version_clinica_4','3', (($list[0]->version_clinica_4 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_4','4',set_radio('version_clinica_4','4', (($list[0]->version_clinica_4 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1265,10 +482,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>5. El/ella tiene interés en aprender cosas nuevas.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_5','4',set_radio('version_clinica_5','4', (($list[0]->version_clinica_5 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_5','3',set_radio('version_clinica_5','3', (($list[0]->version_clinica_5 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_5','2',set_radio('version_clinica_5','2', (($list[0]->version_clinica_5 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_5','1',set_radio('version_clinica_5','1', (($list[0]->version_clinica_5 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_5','2',set_radio('version_clinica_5','2', (($list[0]->version_clinica_5 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_5','3',set_radio('version_clinica_5','3', (($list[0]->version_clinica_5 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_5','4',set_radio('version_clinica_5','4', (($list[0]->version_clinica_5 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1335,10 +552,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>7. El/ella aborda la vida con intensidad. </td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_7','4',set_radio('version_clinica_7','4', (($list[0]->version_clinica_7 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_7','3',set_radio('version_clinica_7','3', (($list[0]->version_clinica_7 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_7','2',set_radio('version_clinica_7','2', (($list[0]->version_clinica_7 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_7','1',set_radio('version_clinica_7','1', (($list[0]->version_clinica_7 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_7','2',set_radio('version_clinica_7','2', (($list[0]->version_clinica_7 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_7','3',set_radio('version_clinica_7','3', (($list[0]->version_clinica_7 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_7','4',set_radio('version_clinica_7','4', (($list[0]->version_clinica_7 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1370,10 +587,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>8. Es importante para el/ella visualizar una tarea hasta el final. </td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_8','4',set_radio('version_clinica_8','4', (($list[0]->version_clinica_8 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_8','3',set_radio('version_clinica_8','3', (($list[0]->version_clinica_8 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_8','2',set_radio('version_clinica_8','2', (($list[0]->version_clinica_8 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_8','1',set_radio('version_clinica_8','1', (($list[0]->version_clinica_8 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_8','2',set_radio('version_clinica_8','2', (($list[0]->version_clinica_8 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_8','3',set_radio('version_clinica_8','3', (($list[0]->version_clinica_8 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_8','4',set_radio('version_clinica_8','4', (($list[0]->version_clinica_8 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1405,10 +622,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>9. El/ella ocupa su tiempo haciendo cosas que le interesan. </td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_9','4',set_radio('version_clinica_9','4', (($list[0]->version_clinica_9 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_9','3',set_radio('version_clinica_9','3', (($list[0]->version_clinica_9 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_9','2',set_radio('version_clinica_9','2', (($list[0]->version_clinica_9 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_9','1',set_radio('version_clinica_9','1', (($list[0]->version_clinica_9 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_9','2',set_radio('version_clinica_9','2', (($list[0]->version_clinica_9 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_9','3',set_radio('version_clinica_9','3', (($list[0]->version_clinica_9 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_9','4',set_radio('version_clinica_9','4', (($list[0]->version_clinica_9 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1510,10 +727,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>12. El/ella tiene amigos.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_12','4',set_radio('version_clinica_12','4', (($list[0]->version_clinica_12 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_12','3',set_radio('version_clinica_12','3', (($list[0]->version_clinica_12 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_12','2',set_radio('version_clinica_12','2', (($list[0]->version_clinica_12 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_12','1',set_radio('version_clinica_12','1', (($list[0]->version_clinica_12 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_12','2',set_radio('version_clinica_12','2', (($list[0]->version_clinica_12 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_12','3',set_radio('version_clinica_12','3', (($list[0]->version_clinica_12 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_12','4',set_radio('version_clinica_12','4', (($list[0]->version_clinica_12 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1545,10 +762,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>13. Juntarse con amigos es importante para él/ella.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_13','4',set_radio('version_clinica_13','4', (($list[0]->version_clinica_13 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_13','3',set_radio('version_clinica_13','3', (($list[0]->version_clinica_13 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_13','2',set_radio('version_clinica_13','2', (($list[0]->version_clinica_13 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_13','1',set_radio('version_clinica_13','1', (($list[0]->version_clinica_13 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_13','2',set_radio('version_clinica_13','2', (($list[0]->version_clinica_13 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_13','3',set_radio('version_clinica_13','3', (($list[0]->version_clinica_13 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_13','4',set_radio('version_clinica_13','4', (($list[0]->version_clinica_13 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1580,10 +797,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>14. Cuando algo Bueno ocurre el/ella se alegra.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_14','4',set_radio('version_clinica_14','4', (($list[0]->version_clinica_14 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_14','3',set_radio('version_clinica_14','3', (($list[0]->version_clinica_14 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_14','2',set_radio('version_clinica_14','2', (($list[0]->version_clinica_14 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_14','1',set_radio('version_clinica_14','1', (($list[0]->version_clinica_14 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_14','2',set_radio('version_clinica_14','2', (($list[0]->version_clinica_14 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_14','3',set_radio('version_clinica_14','3', (($list[0]->version_clinica_14 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_14','4',set_radio('version_clinica_14','4', (($list[0]->version_clinica_14 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1615,10 +832,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>15. El/ella tiene una comprensión clara de sus problemas.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_15','4',set_radio('version_clinica_15','4', (($list[0]->version_clinica_15 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_15','3',set_radio('version_clinica_15','3', (($list[0]->version_clinica_15 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_15','2',set_radio('version_clinica_15','2', (($list[0]->version_clinica_15 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_15','1',set_radio('version_clinica_15','1', (($list[0]->version_clinica_15 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_15','2',set_radio('version_clinica_15','2', (($list[0]->version_clinica_15 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_15','3',set_radio('version_clinica_15','3', (($list[0]->version_clinica_15 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_15','4',set_radio('version_clinica_15','4', (($list[0]->version_clinica_15 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1650,10 +867,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>16. Resolver las cosas durante el día es importante para él/ ella.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_16','4',set_radio('version_clinica_16','4', (($list[0]->version_clinica_16 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_16','3',set_radio('version_clinica_16','3', (($list[0]->version_clinica_16 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_16','2',set_radio('version_clinica_16','2', (($list[0]->version_clinica_16 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_16','1',set_radio('version_clinica_16','1', (($list[0]->version_clinica_16 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_16','2',set_radio('version_clinica_16','2', (($list[0]->version_clinica_16 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_16','3',set_radio('version_clinica_16','3', (($list[0]->version_clinica_16 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_16','4',set_radio('version_clinica_16','4', (($list[0]->version_clinica_16 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1685,10 +902,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>17. El/ella tiene iniciativa.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_17','4',set_radio('version_clinica_17','4', (($list[0]->version_clinica_17 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_17','3',set_radio('version_clinica_17','3', (($list[0]->version_clinica_17 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_17','2',set_radio('version_clinica_17','2', (($list[0]->version_clinica_17 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_17','1',set_radio('version_clinica_17','1', (($list[0]->version_clinica_17 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_17','2',set_radio('version_clinica_17','2', (($list[0]->version_clinica_17 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_17','3',set_radio('version_clinica_17','3', (($list[0]->version_clinica_17 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_17','4',set_radio('version_clinica_17','4', (($list[0]->version_clinica_17 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1720,10 +937,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>18. El/ella tiene motivación.</td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_18','4',set_radio('version_clinica_18','4', (($list[0]->version_clinica_18 == 4) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_18','3',set_radio('version_clinica_18','3', (($list[0]->version_clinica_18 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('version_clinica_18','2',set_radio('version_clinica_18','2', (($list[0]->version_clinica_18 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('version_clinica_18','1',set_radio('version_clinica_18','1', (($list[0]->version_clinica_18 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_18','2',set_radio('version_clinica_18','2', (($list[0]->version_clinica_18 == 2) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_18','3',set_radio('version_clinica_18','3', (($list[0]->version_clinica_18 == 3) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('version_clinica_18','4',set_radio('version_clinica_18','4', (($list[0]->version_clinica_18 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1818,10 +1035,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>1. El/ella tiene interés en las cosas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_1','4',set_radio('apatia_1','4', (($list[0]->apatia_1 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_1','3',set_radio('apatia_1','3', (($list[0]->apatia_1 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_1','2',set_radio('apatia_1','2', (($list[0]->apatia_1 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_1','1',set_radio('apatia_1','1', (($list[0]->apatia_1 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_1','0',set_radio('apatia_1','0', (($list[0]->apatia_1 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1853,10 +1070,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>2. Hace cosas durante el día.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_2','4',set_radio('apatia_2','4', (($list[0]->apatia_2 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_2','3',set_radio('apatia_2','3', (($list[0]->apatia_2 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_2','2',set_radio('apatia_2','2', (($list[0]->apatia_2 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_2','1',set_radio('apatia_2','1', (($list[0]->apatia_2 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_2','0',set_radio('apatia_2','0', (($list[0]->apatia_2 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1888,10 +1105,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>3. Comienza a hacer cosas que son importantes para él / ella.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_3','4',set_radio('apatia_3','4', (($list[0]->apatia_3 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_3','3',set_radio('apatia_3','3', (($list[0]->apatia_3 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_3','2',set_radio('apatia_3','2', (($list[0]->apatia_3 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_3','1',set_radio('apatia_3','1', (($list[0]->apatia_3 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_3','0',set_radio('apatia_3','0', (($list[0]->apatia_3 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1923,10 +1140,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>4. Está interesado en tener cosas nuevas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_4','4',set_radio('apatia_4','4', (($list[0]->apatia_4 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_4','3',set_radio('apatia_4','3', (($list[0]->apatia_4 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_4','2',set_radio('apatia_4','2', (($list[0]->apatia_4 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_4','1',set_radio('apatia_4','1', (($list[0]->apatia_4 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_4','0',set_radio('apatia_4','0', (($list[0]->apatia_4 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1958,10 +1175,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>5. Esta interesado en aprender cosas nuevas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_5','4',set_radio('apatia_5','4', (($list[0]->apatia_5 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_5','3',set_radio('apatia_5','3', (($list[0]->apatia_5 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_5','2',set_radio('apatia_5','2', (($list[0]->apatia_5 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_5','1',set_radio('apatia_5','1', (($list[0]->apatia_5 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_5','0',set_radio('apatia_5','0', (($list[0]->apatia_5 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -1993,10 +1210,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>6. Pone poco esfuerzo en las cosas.</td>
+				<td style='text-align:center;'><?= form_radio('apatia_6','0',set_radio('apatia_6','0', (($list[0]->apatia_6 == 0) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_6','1',set_radio('apatia_6','1', (($list[0]->apatia_6 == 1) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_6','2',set_radio('apatia_6','2', (($list[0]->apatia_6 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_6','3',set_radio('apatia_6','3', (($list[0]->apatia_6 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_6','4',set_radio('apatia_6','4', (($list[0]->apatia_6 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2028,10 +1245,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>7. Se enfrenta a la vida con intensidad.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_7','4',set_radio('apatia_7','4', (($list[0]->apatia_7 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_7','3',set_radio('apatia_7','3', (($list[0]->apatia_7 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_7','2',set_radio('apatia_7','2', (($list[0]->apatia_7 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_7','1',set_radio('apatia_7','1', (($list[0]->apatia_7 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_7','0',set_radio('apatia_7','0', (($list[0]->apatia_7 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2063,10 +1280,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>8. Termina los trabajos que son importantes para él / ella.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_8','4',set_radio('apatia_8','4', (($list[0]->apatia_8 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_8','3',set_radio('apatia_8','3', (($list[0]->apatia_8 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_8','2',set_radio('apatia_8','2', (($list[0]->apatia_8 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_8','1',set_radio('apatia_8','1', (($list[0]->apatia_8 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_8','0',set_radio('apatia_8','0', (($list[0]->apatia_8 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2098,10 +1315,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>9. Ocupa su tiempo haciendo cosas que son de su interés.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_9','4',set_radio('apatia_9','4', (($list[0]->apatia_9 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_9','3',set_radio('apatia_9','3', (($list[0]->apatia_9 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_9','2',set_radio('apatia_9','2', (($list[0]->apatia_9 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_9','1',set_radio('apatia_9','1', (($list[0]->apatia_9 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_9','0',set_radio('apatia_9','0', (($list[0]->apatia_9 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2133,10 +1350,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>10. Alguien debe decirle lo que hacer cada día.</td>
+				<td style='text-align:center;'><?= form_radio('apatia_10','0',set_radio('apatia_10','0', (($list[0]->apatia_10 == 0) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_10','1',set_radio('apatia_10','1', (($list[0]->apatia_10 == 1) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_10','2',set_radio('apatia_10','2', (($list[0]->apatia_10 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_10','3',set_radio('apatia_10','3', (($list[0]->apatia_10 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_10','4',set_radio('apatia_10','4', (($list[0]->apatia_10 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2168,10 +1385,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>11. Esta menos preocupada de sus problemas que lo que debiera.</td>
+				<td style='text-align:center;'><?= form_radio('apatia_11','0',set_radio('apatia_11','0', (($list[0]->apatia_11 == 0) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_11','1',set_radio('apatia_11','1', (($list[0]->apatia_11 == 1) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_11','2',set_radio('apatia_11','2', (($list[0]->apatia_11 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_11','3',set_radio('apatia_11','3', (($list[0]->apatia_11 == 3) ? true : false))); ?></td>
-				<td style='text-align:center;'><?= form_radio('apatia_11','4',set_radio('apatia_11','4', (($list[0]->apatia_11 == 4) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2203,10 +1420,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>12. Tiene amigos.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_12','4',set_radio('apatia_12','4', (($list[0]->apatia_12 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_12','3',set_radio('apatia_12','3', (($list[0]->apatia_12 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_12','2',set_radio('apatia_12','2', (($list[0]->apatia_12 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_12','1',set_radio('apatia_12','1', (($list[0]->apatia_12 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_12','0',set_radio('apatia_12','0', (($list[0]->apatia_12 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2238,10 +1455,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>13. Estar junto a sus amigos es importante para él / ella.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_13','4',set_radio('apatia_13','4', (($list[0]->apatia_13 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_13','3',set_radio('apatia_13','3', (($list[0]->apatia_13 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_13','2',set_radio('apatia_13','2', (($list[0]->apatia_13 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_13','1',set_radio('apatia_13','1', (($list[0]->apatia_13 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_13','0',set_radio('apatia_13','0', (($list[0]->apatia_13 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2273,10 +1490,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>14. Cuando algo bueno pasa, él / ella se alegra.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_14','4',set_radio('apatia_14','4', (($list[0]->apatia_14 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_14','3',set_radio('apatia_14','3', (($list[0]->apatia_14 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_14','2',set_radio('apatia_14','2', (($list[0]->apatia_14 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_14','1',set_radio('apatia_14','1', (($list[0]->apatia_14 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_14','0',set_radio('apatia_14','0', (($list[0]->apatia_14 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2308,10 +1525,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>15. Tiene una adecuada comprensión de sus problemas.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_15','4',set_radio('apatia_15','4', (($list[0]->apatia_15 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_15','3',set_radio('apatia_15','3', (($list[0]->apatia_15 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_15','2',set_radio('apatia_15','2', (($list[0]->apatia_15 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_15','1',set_radio('apatia_15','1', (($list[0]->apatia_15 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_15','0',set_radio('apatia_15','0', (($list[0]->apatia_15 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2343,10 +1560,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>16. Se mantiene, durante el día, haciendo cosas importantes para él / ella.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_16','4',set_radio('apatia_16','4', (($list[0]->apatia_16 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_16','3',set_radio('apatia_16','3', (($list[0]->apatia_16 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_16','2',set_radio('apatia_16','2', (($list[0]->apatia_16 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_16','1',set_radio('apatia_16','1', (($list[0]->apatia_16 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_16','0',set_radio('apatia_16','0', (($list[0]->apatia_16 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2378,10 +1595,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>17. Tiene iniciativa.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_17','4',set_radio('apatia_17','4', (($list[0]->apatia_17 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_17','3',set_radio('apatia_17','3', (($list[0]->apatia_17 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_17','2',set_radio('apatia_17','2', (($list[0]->apatia_17 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_17','1',set_radio('apatia_17','1', (($list[0]->apatia_17 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_17','0',set_radio('apatia_17','0', (($list[0]->apatia_17 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
@@ -2413,10 +1630,10 @@ $(function(){
 			</tr>
 			<tr>
 				<td>18. Tiene motivación.</td>
-				<td style='text-align:center;'><?= form_radio('apatia_18','4',set_radio('apatia_18','4', (($list[0]->apatia_18 == 4) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_18','3',set_radio('apatia_18','3', (($list[0]->apatia_18 == 3) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_18','2',set_radio('apatia_18','2', (($list[0]->apatia_18 == 2) ? true : false))); ?></td>
 				<td style='text-align:center;'><?= form_radio('apatia_18','1',set_radio('apatia_18','1', (($list[0]->apatia_18 == 1) ? true : false))); ?></td>
+				<td style='text-align:center;'><?= form_radio('apatia_18','0',set_radio('apatia_18','0', (($list[0]->apatia_18 == 0) ? true : false))); ?></td>
 				<td>
 					<?php
 						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )

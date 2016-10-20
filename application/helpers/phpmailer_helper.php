@@ -10,7 +10,7 @@ function send_email($recipient, $sender, $subject, $message)
 		$mail->IsHTML(true);		
 		$mail->Port  = "25";       
 		$mail->Username   = "icc@medcrf.com"; 
-		$mail->Password   = "+WTvl$Haob{H";        
+		$mail->Password   = "M3dcrf1cc-";        
 		$mail->FromName = "ICC International Center For Biomedicine";
 		$mail->From = "icc@medcrf.com";
 		$mail->Subject = $subject;		

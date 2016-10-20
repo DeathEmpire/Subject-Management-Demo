@@ -448,18 +448,19 @@
 					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_acido_folico_nom_anom','value'=>'Normal','checked'=>set_radio('otros_acido_folico_nom_anom', 'Normal')));?></td>					
 					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_acido_folico_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_acido_folico_nom_anom', 'Anormal_sin')));?></td>
 					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_acido_folico_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_acido_folico_nom_anom', 'Anormal_con')));?></td>
-				</tr>
-				<?php if($etapa == 1){ ?>
+				</tr>				
+				<tr>
+					<td>HbA1C (No aplica <input type='checkbox' name='no_aplica_hba1c' id='no_aplica_hba1c' value='1' />)</td>
+					<td><?= form_dropdown('hecho_35', $hecho, set_value('hecho_35'));?></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'otros_hba1c', 'id'=>'otros_hba1c', 'value'=>set_value('otros_hba1c')));?></td>
+					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Normal','checked'=>set_radio('otros_hba1c_nom_anom', 'Normal')));?></td>					
+					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_sin')));?></td>
+					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_con')));?></td>
+				</tr>				
+				
+				<?php if($etapa == 1){ ?>	
 					<tr>
-						<td>HbA1C (No aplica <input type='checkbox' name='no_aplica_hba1c' id='no_aplica_hba1c' value='1' />)</td>
-						<td><?= form_dropdown('hecho_35', $hecho, set_value('hecho_35'));?></td>
-						<td><?= form_input(array('type'=>'text', 'name'=>'otros_hba1c', 'id'=>'otros_hba1c', 'value'=>set_value('otros_hba1c')));?></td>
-						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Normal','checked'=>set_radio('otros_hba1c_nom_anom', 'Normal')));?></td>					
-						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_sin')));?></td>
-						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_con')));?></td>
-					</tr>
-					<tr>
-						<td>Sífilis (VDRL)</td>
+						<td>Sífilis (R.P.R)</td>
 						<td><?= form_dropdown('hecho_36', $hecho, set_value('hecho_36'));?></td>
 						<td><?= form_input(array('type'=>'text', 'name'=>'sifilis', 'id'=>'sifilis', 'value'=>set_value('sifilis')));?></td>
 						<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Normal','checked'=>set_radio('sifilis_nom_anom', 'Normal')));?></td>					
@@ -468,9 +469,7 @@
 					</tr>
 				<?php } else{ ?>
 					<?= form_hidden('sifilis','No Aplica');?>
-					<?= form_hidden('sifilis_nom_anom','No Aplica');?>
-					<?= form_hidden('otros_hba1c','No Aplica');?>
-					<?= form_hidden('otros_hba1c_nom_anom','No Aplica');?>
+					<?= form_hidden('sifilis_nom_anom','No Aplica');?>					
 				<?php } ?>
 			</tbody>
 		</table>

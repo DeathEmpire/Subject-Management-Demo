@@ -478,6 +478,9 @@ class Subject extends CI_Controller {
 			$registro['kit1'] = $kit_id;			
 			$this->Model_Subject->update($registro);			
 			$this->auditlib->save_audit("Randomizo un sujeto", $id);
+
+			/*Enviar correo con la informacion de la randomizacion*/
+
 			redirect('subject/grid/'. $id);
         }
         
@@ -2974,9 +2977,23 @@ class Subject extends CI_Controller {
 						OR $registro['comuna_estamos'] == '' OR $registro['comuna_estamos_puntaje'] == '' OR $registro['barrio_estamos'] == ''
 						OR $registro['barrio_estamos_puntaje'] == '' OR $registro['edificio_estamos'] == '' OR $registro['edificio_estamos_puntaje'] == '' OR $registro['manzana'] == '' 
 						OR $registro['manzana_puntaje'] == '' OR $registro['peso'] == '' OR $registro['peso_puntaje'] == '' OR $registro['mesa'] == '' 
-						OR $registro['mesa_puntaje'] == '' OR $registro['cuanto_93'] == '' OR $registro['cuanto_93_puntaje'] == '' OR $registro['cuanto_86'] == ''
-						OR $registro['cuanto_86_puntaje'] == '' OR $registro['cuanto_79'] == '' OR $registro['cuanto_79_puntaje'] == '' OR $registro['cuanto_72'] == ''
-						OR $registro['cuanto_72_puntaje'] == '' OR $registro['cuanto_65'] == '' OR $registro['cuanto_65_puntaje'] == '' OR $registro['manzana_2'] == ''
+						OR $registro['mesa_puntaje'] == '' 
+
+						OR 
+						(
+							isset($registro['realizar_a']) AND $registro['realizar_a'] == 1 AND 
+								($registro['cuanto_93'] == '' OR $registro['cuanto_93_puntaje'] == '' OR $registro['cuanto_86'] == ''
+								OR $registro['cuanto_86_puntaje'] == '' OR $registro['cuanto_79'] == '' OR $registro['cuanto_79_puntaje'] == '' 
+								OR $registro['cuanto_72'] == ''
+								OR $registro['cuanto_72_puntaje'] == '' OR $registro['cuanto_65'] == '' OR $registro['cuanto_65_puntaje'] == '' 
+								)
+						)
+						OR 
+							(isset($registro['realizar_b']) AND $registro['realizar_b'] == 1 AND
+								(empty($registro['mundo_respuesta']) OR $registro['mundo_puntaje'] == '')
+							)
+
+						OR $registro['manzana_2'] == ''						
 						OR $registro['manzana_2_puntaje'] == '' OR $registro['peso_2'] == '' OR $registro['peso_2_puntaje'] == '' OR $registro['mesa_2']  == ''
 						OR $registro['mesa_2_puntaje'] == ''						
 						
@@ -2988,7 +3005,7 @@ class Subject extends CI_Controller {
 						OR $registro['tomar_con_la_mano_derecha_puntaje'] == '' OR empty($registro['doblar_por_la_mitad']) OR $registro['doblar_por_la_mitad_puntaje'] == '' 
 						OR empty($registro['poner_en_el_piso']) OR $registro['poner_en_el_piso_puntaje'] == '' OR empty($registro['cierre_los_ojos']) 
 						OR $registro['cierre_los_ojos_puntaje'] == '' OR $registro['dibujo_puntaje'] == '' OR $registro['escritura_puntaje'] == '' 
-						OR $registro['puntaje_total'] == ''	OR empty($registro['mundo_respuesta']) OR $registro['mundo_puntaje'] == ''
+						OR $registro['puntaje_total'] == ''	
 						)
 					)
 				)
@@ -3162,6 +3179,7 @@ class Subject extends CI_Controller {
 		}else{
 
 			if(	isset($registro['realizado']) AND $registro['realizado'] == 1 AND 
+
 				($registro['fecha'] == ''
 
 				OR (isset($registro['le_puedo_hacer_preguntas']) AND $registro['le_puedo_hacer_preguntas'] == 1
@@ -3173,9 +3191,23 @@ class Subject extends CI_Controller {
 						OR $registro['comuna_estamos'] == '' OR $registro['comuna_estamos_puntaje'] == '' OR $registro['barrio_estamos'] == ''
 						OR $registro['barrio_estamos_puntaje'] == '' OR $registro['edificio_estamos'] == '' OR $registro['edificio_estamos_puntaje'] == '' OR $registro['manzana'] == '' 
 						OR $registro['manzana_puntaje'] == '' OR $registro['peso'] == '' OR $registro['peso_puntaje'] == '' OR $registro['mesa'] == '' 
-						OR $registro['mesa_puntaje'] == '' OR $registro['cuanto_93'] == '' OR $registro['cuanto_93_puntaje'] == '' OR $registro['cuanto_86'] == ''
-						OR $registro['cuanto_86_puntaje'] == '' OR $registro['cuanto_79'] == '' OR $registro['cuanto_79_puntaje'] == '' OR $registro['cuanto_72'] == ''
-						OR $registro['cuanto_72_puntaje'] == '' OR $registro['cuanto_65'] == '' OR $registro['cuanto_65_puntaje'] == '' OR $registro['manzana_2'] == ''
+						OR $registro['mesa_puntaje'] == '' 
+
+						OR 
+						(
+							isset($registro['realizar_a']) AND $registro['realizar_a'] == 1 AND 
+								($registro['cuanto_93'] == '' OR $registro['cuanto_93_puntaje'] == '' OR $registro['cuanto_86'] == ''
+								OR $registro['cuanto_86_puntaje'] == '' OR $registro['cuanto_79'] == '' OR $registro['cuanto_79_puntaje'] == '' 
+								OR $registro['cuanto_72'] == ''
+								OR $registro['cuanto_72_puntaje'] == '' OR $registro['cuanto_65'] == '' OR $registro['cuanto_65_puntaje'] == '' 
+								)
+						)
+						OR 
+							(isset($registro['realizar_b']) AND $registro['realizar_b'] == 1 AND
+								(empty($registro['mundo_respuesta']) OR $registro['mundo_puntaje'] == '')
+							)
+
+						OR $registro['manzana_2'] == ''						
 						OR $registro['manzana_2_puntaje'] == '' OR $registro['peso_2'] == '' OR $registro['peso_2_puntaje'] == '' OR $registro['mesa_2']  == ''
 						OR $registro['mesa_2_puntaje'] == ''						
 						
@@ -3187,7 +3219,7 @@ class Subject extends CI_Controller {
 						OR $registro['tomar_con_la_mano_derecha_puntaje'] == '' OR empty($registro['doblar_por_la_mitad']) OR $registro['doblar_por_la_mitad_puntaje'] == '' 
 						OR empty($registro['poner_en_el_piso']) OR $registro['poner_en_el_piso_puntaje'] == '' OR empty($registro['cierre_los_ojos']) 
 						OR $registro['cierre_los_ojos_puntaje'] == '' OR $registro['dibujo_puntaje'] == '' OR $registro['escritura_puntaje'] == '' 
-						OR $registro['puntaje_total'] == ''	OR empty($registro['mundo_respuesta']) OR $registro['mundo_puntaje'] == ''
+						OR $registro['puntaje_total'] == ''	
 						)
 					)
 				)
@@ -7570,27 +7602,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('apatia_16','','xss_clean');
 		$this->form_validation->set_rules('apatia_17','','xss_clean');
 		$this->form_validation->set_rules('apatia_18','','xss_clean');
-
-		$this->form_validation->set_rules('autoevaluacion_realizado','Realizado','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_fecha','Fecha','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_1','','xss_clean');			
-		$this->form_validation->set_rules('autoevaluacion_2','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_3','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_4','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_5','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_6','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_7','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_8','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_9','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_10','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_11','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_12','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_13','','xss_clean');			
-		$this->form_validation->set_rules('autoevaluacion_14','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_15','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_16','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_17','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_18','','xss_clean');
+		
 
 		$this->form_validation->set_rules('version_clinica_realizado','','xss_clean');
 		$this->form_validation->set_rules('version_clinica_fecha','','xss_clean');
@@ -7632,17 +7644,7 @@ class Subject extends CI_Controller {
 						OR !isset($registro['apatia_18'])
 					)
 				)
-				OR
-				( isset($registro['autoevaluacion_realizado']) AND $registro['autoevaluacion_realizado'] == 1 
-				 AND (empty($registro['autoevaluacion_fecha']) OR !isset($registro['autoevaluacion_1']) OR !isset($registro['autoevaluacion_2'])
-					OR !isset($registro['autoevaluacion_3']) OR !isset($registro['autoevaluacion_4']) OR !isset($registro['autoevaluacion_5'])
-					OR !isset($registro['autoevaluacion_6']) OR !isset($registro['autoevaluacion_7']) OR !isset($registro['autoevaluacion_8'])
-					OR !isset($registro['autoevaluacion_9']) OR !isset($registro['autoevaluacion_10']) OR !isset($registro['autoevaluacion_11'])
-					OR !isset($registro['autoevaluacion_12']) OR !isset($registro['autoevaluacion_13']) OR !isset($registro['autoevaluacion_14'])
-					OR !isset($registro['autoevaluacion_15']) OR !isset($registro['autoevaluacion_16']) OR !isset($registro['autoevaluacion_17'])
-					OR !isset($registro['autoevaluacion_18'])
-					)
-				)
+							
 				OR
 				(isset($registro['version_clinica_realizado']) AND $registro['version_clinica_realizado'] == 1 
 					AND (empty($registro['version_clinica_fecha']) OR !isset($registro['version_clinica_1']) OR !isset($registro['version_clinica_2'])
@@ -7654,6 +7656,8 @@ class Subject extends CI_Controller {
 					OR !isset($registro['version_clinica_18'])
 					)
 				)
+				OR !isset($registro['apatia_realizado'])				
+				OR !isset($registro['version_clinica_realizado'])
 				
 			){
 				$estado = 'Error';
@@ -7751,28 +7755,7 @@ class Subject extends CI_Controller {
 		$this->form_validation->set_rules('apatia_16','','xss_clean');
 		$this->form_validation->set_rules('apatia_17','','xss_clean');
 		$this->form_validation->set_rules('apatia_18','','xss_clean');
-
-		$this->form_validation->set_rules('autoevaluacion_realizado','Realizado','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_fecha','Fecha','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_1','','xss_clean');			
-		$this->form_validation->set_rules('autoevaluacion_2','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_3','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_4','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_5','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_6','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_7','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_8','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_9','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_10','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_11','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_12','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_13','','xss_clean');			
-		$this->form_validation->set_rules('autoevaluacion_14','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_15','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_16','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_17','','xss_clean');
-		$this->form_validation->set_rules('autoevaluacion_18','','xss_clean');
-
+		
 		$this->form_validation->set_rules('version_clinica_realizado','','xss_clean');
 		$this->form_validation->set_rules('version_clinica_fecha','','xss_clean');
 		$this->form_validation->set_rules('version_clinica_1','','xss_clean');
@@ -7812,18 +7795,7 @@ class Subject extends CI_Controller {
 						OR !isset($registro['apatia_18'])
 					)
 				)
-				OR
-				(isset($registro['autoevaluacion_realizado']) AND $registro['autoevaluacion_realizado'] == 1 
-				 AND (empty($registro['autoevaluacion_fecha']) OR !isset($registro['autoevaluacion_1']) OR !isset($registro['autoevaluacion_2'])
-					OR !isset($registro['autoevaluacion_3']) OR !isset($registro['autoevaluacion_4']) OR !isset($registro['autoevaluacion_5'])
-					OR !isset($registro['autoevaluacion_6']) OR !isset($registro['autoevaluacion_7']) OR !isset($registro['autoevaluacion_8'])
-					OR !isset($registro['autoevaluacion_9']) OR !isset($registro['autoevaluacion_10']) OR !isset($registro['autoevaluacion_11'])
-					OR !isset($registro['autoevaluacion_12']) OR !isset($registro['autoevaluacion_13']) OR !isset($registro['autoevaluacion_14'])
-					OR !isset($registro['autoevaluacion_15']) OR !isset($registro['autoevaluacion_16']) OR !isset($registro['autoevaluacion_17'])
-					OR !isset($registro['autoevaluacion_18'])
-					)
-				)
-				OR
+				OR				
 				(isset($registro['version_clinica_realizado']) AND $registro['version_clinica_realizado'] == 1 
 					AND (empty($registro['version_clinica_fecha']) OR !isset($registro['version_clinica_1']) OR !isset($registro['version_clinica_2'])
 					OR !isset($registro['version_clinica_3']) OR !isset($registro['version_clinica_4']) OR !isset($registro['version_clinica_5'])
@@ -7834,8 +7806,7 @@ class Subject extends CI_Controller {
 					OR !isset($registro['version_clinica_18'])
 					)
 				)
-				OR !isset($registro['apatia_realizado'])
-				OR !isset($registro['autoevaluacion_realizado'])
+				OR !isset($registro['apatia_realizado'])				
 				OR !isset($registro['version_clinica_realizado'])
 				
 			){
@@ -8489,36 +8460,37 @@ class Subject extends CI_Controller {
 			
 			/*estado del form segun lo que se envia*/
 			if(
-					(!empty($registro['hipertension']) AND (empty($registro['hipertension_dia']) OR empty($registro['hipertension_mes']) OR empty($registro['hipertension_anio'])) )
-				OR	(!empty($registro['ulcera']) AND (empty($registro['ulcera_dia']) OR empty($registro['ulcera_mes']) OR empty($registro['ulcera_anio'])) )
-				OR	(!empty($registro['diabetes']) AND (empty($registro['diabetes_dia']) OR empty($registro['diabetes_mes']) OR empty($registro['diabetes_anio'])) )
-				OR	(!empty($registro['hipo_hipertiroidismo']) AND (empty($registro['hipo_hipertiroidismo_dia']) OR empty($registro['hipo_hipertiroidismo_mes']) OR empty($registro['hipo_hipertiroidismo_anio'])) )
-				OR	(!empty($registro['hiperlipidemia']) AND (empty($registro['hiperlipidemia_dia']) OR empty($registro['hiperlipidemia_mes']) OR empty($registro['hiperlipidemia_anio'])) )
-				OR	(!empty($registro['epoc']) AND (empty($registro['epoc_dia']) OR empty($registro['epoc_mes']) OR empty($registro['epoc_anio'])) )
-				OR	(!empty($registro['coronaria']) AND (empty($registro['coronaria_dia']) OR empty($registro['coronaria_mes']) OR empty($registro['coronaria_anio'])) )
-				OR	(!empty($registro['rinitis']) AND (empty($registro['rinitis_dia']) OR empty($registro['rinitis_mes']) OR empty($registro['rinitis_anio'])) )
-				OR	(!empty($registro['acc_vascular']) AND (empty($registro['acc_vascular_dia']) OR empty($registro['acc_vascular_mes']) OR empty($registro['acc_vascular_anio'])) )
-				OR	(!empty($registro['asma']) AND (empty($registro['asma_dia']) OR empty($registro['asma_mes']) OR empty($registro['asma_anio'])) )
-				OR	(!empty($registro['gastritis']) AND (empty($registro['gastritis_dia']) OR empty($registro['gastritis_mes']) OR empty($registro['gastritis_anio'])) )
-				OR	(!empty($registro['cefaleas']) AND (empty($registro['cefaleas_dia']) OR empty($registro['cefaleas_mes']) OR empty($registro['cefaleas_anio'])) )
+					(isset($registro['hipertension']) AND !empty($registro['hipertension']) AND (empty($registro['hipertension_dia']) OR empty($registro['hipertension_mes']) OR empty($registro['hipertension_anio'])) )
+				OR	(isset($registro['ulcera']) AND !empty($registro['ulcera']) AND (empty($registro['ulcera_dia']) OR empty($registro['ulcera_mes']) OR empty($registro['ulcera_anio'])) )
+				OR	(isset($registro['diabetes']) AND !empty($registro['diabetes']) AND (empty($registro['diabetes_dia']) OR empty($registro['diabetes_mes']) OR empty($registro['diabetes_anio'])) )
+				OR	(isset($registro['hipo_hipertiroidismo']) AND !empty($registro['hipo_hipertiroidismo']) AND (empty($registro['hipo_hipertiroidismo_dia']) OR empty($registro['hipo_hipertiroidismo_mes']) OR empty($registro['hipo_hipertiroidismo_anio'])) )
+				OR	(isset($registro['hiperlipidemia']) AND !empty($registro['hiperlipidemia']) AND (empty($registro['hiperlipidemia_dia']) OR empty($registro['hiperlipidemia_mes']) OR empty($registro['hiperlipidemia_anio'])) )
+				OR	(isset($registro['epoc']) AND !empty($registro['epoc']) AND (empty($registro['epoc_dia']) OR empty($registro['epoc_mes']) OR empty($registro['epoc_anio'])) )
+				OR	(isset($registro['coronaria']) AND !empty($registro['coronaria']) AND (empty($registro['coronaria_dia']) OR empty($registro['coronaria_mes']) OR empty($registro['coronaria_anio'])) )
+				OR	(isset($registro['rinitis']) AND !empty($registro['rinitis']) AND (empty($registro['rinitis_dia']) OR empty($registro['rinitis_mes']) OR empty($registro['rinitis_anio'])) )
+				OR	(isset($registro['acc_vascular']) AND !empty($registro['acc_vascular']) AND (empty($registro['acc_vascular_dia']) OR empty($registro['acc_vascular_mes']) OR empty($registro['acc_vascular_anio'])) )
+				OR	(isset($registro['asma']) AND !empty($registro['asma']) AND (empty($registro['asma_dia']) OR empty($registro['asma_mes']) OR empty($registro['asma_anio'])) )
+				OR	(isset($registro['gastritis']) AND !empty($registro['gastritis']) AND (empty($registro['gastritis_dia']) OR empty($registro['gastritis_mes']) OR empty($registro['gastritis_anio'])) )
+				OR	(isset($registro['cefaleas']) AND !empty($registro['cefaleas']) AND (empty($registro['cefaleas_dia']) OR empty($registro['cefaleas_mes']) OR empty($registro['cefaleas_anio'])) )
 				
-				OR	(!empty($registro['alergia']) AND empty($registro['alergia_desc']))
-				OR	(!empty($registro['tabaquismo']) AND empty($registro['tabaquismo_desc']))
-				OR	(!empty($registro['ingesta_alcohol']) AND empty($registro['ingesta_alcohol_desc']))
-				OR	(!empty($registro['drogas']) AND empty($registro['drogas_desc']))
-				OR	(!empty($registro['cirugia']) AND empty($registro['cirugia_desc']))
-				OR	(!empty($registro['donado_sangre']) AND empty($registro['donado_sangre_desc']))
-				OR	(!empty($registro['tratamiento_farma']) AND empty($registro['tratamiento_farma_desc']))
-				OR	(!empty($registro['suplemento_dietetico']) AND empty($registro['suplemento_dietetico_desc']))
-				OR	(!empty($registro['alzheimer']) AND empty($registro['alzheimer_desc']))
+				OR	(isset($registro['alergia']) AND !empty($registro['alergia']) AND empty($registro['alergia_desc']))
+				OR	(isset($registro['tabaquismo']) AND !empty($registro['tabaquismo']) AND empty($registro['tabaquismo_desc']))
+				OR	(isset($registro['ingesta_alcohol']) AND !empty($registro['ingesta_alcohol']) AND empty($registro['ingesta_alcohol_desc']))
+				OR	(isset($registro['drogas']) AND !empty($registro['drogas']) AND empty($registro['drogas_desc']))
+				OR	(isset($registro['cirugia']) AND !empty($registro['cirugia']) AND empty($registro['cirugia_desc']))
+				OR	(isset($registro['donado_sangre']) AND !empty($registro['donado_sangre']) AND empty($registro['donado_sangre_desc']))
+				OR	(isset($registro['tratamiento_farma']) AND !empty($registro['tratamiento_farma']) AND empty($registro['tratamiento_farma_desc']))
+				OR	(isset($registro['suplemento_dietetico']) AND !empty($registro['suplemento_dietetico']) AND empty($registro['suplemento_dietetico_desc']))
+				OR	(isset($registro['alzheimer']) AND !empty($registro['alzheimer']) AND empty($registro['alzheimer_desc']))
 				OR	empty($registro['dia_ea']) OR empty($registro['mes_ea']) OR	empty($registro['anio_ea'])
-				OR	(!empty($registro['morbido']) AND empty($registro['morbido_desc']))
-				OR $registro['hipertension'] == '' OR $registro['ulcera'] == '' OR $registro['diabetes'] == '' OR $registro['hipo_hipertiroidismo'] == ''
-				OR $registro['hiperlipidemia'] == '' OR $registro['epoc'] == '' OR $registro['coronaria'] == '' OR $registro['rinitis'] == ''
-				OR $registro['acc_vascular'] == '' OR $registro['asma'] == '' OR $registro['gastritis'] == '' OR $registro['cefaleas'] == ''
-				OR $registro['alergia'] == '' OR $registro['tabaquismo'] == '' OR $registro['ingesta_alcohol'] == '' OR $registro['drogas'] == ''
-				OR $registro['cirugia'] == '' OR $registro['donado_sangre'] == '' OR $registro['tratamiento_farma'] == '' OR $registro['suplemento_dietetico'] == ''
-				OR $registro['alzheimer'] == '' OR $registro['morbido'] == ''
+				OR	(isset($registro['morbido']) AND !empty($registro['morbido']) AND empty($registro['morbido_desc']))
+				
+				OR !isset($registro['hipertension']) OR !isset($registro['ulcera']) OR !isset($registro['diabetes']) OR !isset($registro['hipo_hipertiroidismo'])
+				OR !isset($registro['hiperlipidemia']) OR !isset($registro['epoc']) OR !isset($registro['coronaria']) OR !isset($registro['rinitis'])
+				OR !isset($registro['acc_vascular']) OR !isset($registro['asma']) OR !isset($registro['gastritis']) OR !isset($registro['cefaleas'])
+				OR !isset($registro['alergia']) OR !isset($registro['tabaquismo']) OR !isset($registro['ingesta_alcohol']) OR !isset($registro['drogas'])
+				OR !isset($registro['cirugia']) OR !isset($registro['donado_sangre']) OR !isset($registro['tratamiento_farma']) OR !isset($registro['suplemento_dietetico'])
+				OR !isset($registro['alzheimer']) OR !isset($registro['morbido'])
 				
 			){
 				$estado = 'Error';
@@ -8677,36 +8649,37 @@ class Subject extends CI_Controller {
 			
 			/*estado del form segun lo que se envia*/
 			if(
-					(!empty($registro['hipertension']) AND (empty($registro['hipertension_dia']) OR empty($registro['hipertension_mes']) OR empty($registro['hipertension_anio'])) )
-				OR	(!empty($registro['ulcera']) AND (empty($registro['ulcera_dia']) OR empty($registro['ulcera_mes']) OR empty($registro['ulcera_anio'])) )
-				OR	(!empty($registro['diabetes']) AND (empty($registro['diabetes_dia']) OR empty($registro['diabetes_mes']) OR empty($registro['diabetes_anio'])) )
-				OR	(!empty($registro['hipo_hipertiroidismo']) AND (empty($registro['hipo_hipertiroidismo_dia']) OR empty($registro['hipo_hipertiroidismo_mes']) OR empty($registro['hipo_hipertiroidismo_anio'])) )
-				OR	(!empty($registro['hiperlipidemia']) AND (empty($registro['hiperlipidemia_dia']) OR empty($registro['hiperlipidemia_mes']) OR empty($registro['hiperlipidemia_anio'])) )
-				OR	(!empty($registro['epoc']) AND (empty($registro['epoc_dia']) OR empty($registro['epoc_mes']) OR empty($registro['epoc_anio'])) )
-				OR	(!empty($registro['coronaria']) AND (empty($registro['coronaria_dia']) OR empty($registro['coronaria_mes']) OR empty($registro['coronaria_anio'])) )
-				OR	(!empty($registro['rinitis']) AND (empty($registro['rinitis_dia']) OR empty($registro['rinitis_mes']) OR empty($registro['rinitis_anio'])) )
-				OR	(!empty($registro['acc_vascular']) AND (empty($registro['acc_vascular_dia']) OR empty($registro['acc_vascular_mes']) OR empty($registro['acc_vascular_anio'])) )
-				OR	(!empty($registro['asma']) AND (empty($registro['asma_dia']) OR empty($registro['asma_mes']) OR empty($registro['asma_anio'])) )
-				OR	(!empty($registro['gastritis']) AND (empty($registro['gastritis_dia']) OR empty($registro['gastritis_mes']) OR empty($registro['gastritis_anio'])) )
-				OR	(!empty($registro['cefaleas']) AND (empty($registro['cefaleas_dia']) OR empty($registro['cefaleas_mes']) OR empty($registro['cefaleas_anio'])) )
-
-				OR	(!empty($registro['alergia']) AND empty($registro['alergia_desc']))
-				OR	(!empty($registro['tabaquismo']) AND empty($registro['tabaquismo_desc']))
-				OR	(!empty($registro['ingesta_alcohol']) AND empty($registro['ingesta_alcohol_desc']))
-				OR	(!empty($registro['drogas']) AND empty($registro['drogas_desc']))
-				OR	(!empty($registro['cirugia']) AND empty($registro['cirugia_desc']))
-				OR	(!empty($registro['donado_sangre']) AND empty($registro['donado_sangre_desc']))
-				OR	(!empty($registro['tratamiento_farma']) AND empty($registro['tratamiento_farma_desc']))
-				OR	(!empty($registro['suplemento_dietetico']) AND empty($registro['suplemento_dietetico_desc']))
-				OR	(!empty($registro['alzheimer']) AND empty($registro['alzheimer_desc']))
+				(isset($registro['hipertension']) AND !empty($registro['hipertension']) AND (empty($registro['hipertension_dia']) OR empty($registro['hipertension_mes']) OR empty($registro['hipertension_anio'])) )
+				OR	(isset($registro['ulcera']) AND !empty($registro['ulcera']) AND (empty($registro['ulcera_dia']) OR empty($registro['ulcera_mes']) OR empty($registro['ulcera_anio'])) )
+				OR	(isset($registro['diabetes']) AND !empty($registro['diabetes']) AND (empty($registro['diabetes_dia']) OR empty($registro['diabetes_mes']) OR empty($registro['diabetes_anio'])) )
+				OR	(isset($registro['hipo_hipertiroidismo']) AND !empty($registro['hipo_hipertiroidismo']) AND (empty($registro['hipo_hipertiroidismo_dia']) OR empty($registro['hipo_hipertiroidismo_mes']) OR empty($registro['hipo_hipertiroidismo_anio'])) )
+				OR	(isset($registro['hiperlipidemia']) AND !empty($registro['hiperlipidemia']) AND (empty($registro['hiperlipidemia_dia']) OR empty($registro['hiperlipidemia_mes']) OR empty($registro['hiperlipidemia_anio'])) )
+				OR	(isset($registro['epoc']) AND !empty($registro['epoc']) AND (empty($registro['epoc_dia']) OR empty($registro['epoc_mes']) OR empty($registro['epoc_anio'])) )
+				OR	(isset($registro['coronaria']) AND !empty($registro['coronaria']) AND (empty($registro['coronaria_dia']) OR empty($registro['coronaria_mes']) OR empty($registro['coronaria_anio'])) )
+				OR	(isset($registro['rinitis']) AND !empty($registro['rinitis']) AND (empty($registro['rinitis_dia']) OR empty($registro['rinitis_mes']) OR empty($registro['rinitis_anio'])) )
+				OR	(isset($registro['acc_vascular']) AND !empty($registro['acc_vascular']) AND (empty($registro['acc_vascular_dia']) OR empty($registro['acc_vascular_mes']) OR empty($registro['acc_vascular_anio'])) )
+				OR	(isset($registro['asma']) AND !empty($registro['asma']) AND (empty($registro['asma_dia']) OR empty($registro['asma_mes']) OR empty($registro['asma_anio'])) )
+				OR	(isset($registro['gastritis']) AND !empty($registro['gastritis']) AND (empty($registro['gastritis_dia']) OR empty($registro['gastritis_mes']) OR empty($registro['gastritis_anio'])) )
+				OR	(isset($registro['cefaleas']) AND !empty($registro['cefaleas']) AND (empty($registro['cefaleas_dia']) OR empty($registro['cefaleas_mes']) OR empty($registro['cefaleas_anio'])) )
+				
+				OR	(isset($registro['alergia']) AND !empty($registro['alergia']) AND empty($registro['alergia_desc']))
+				OR	(isset($registro['tabaquismo']) AND !empty($registro['tabaquismo']) AND empty($registro['tabaquismo_desc']))
+				OR	(isset($registro['ingesta_alcohol']) AND !empty($registro['ingesta_alcohol']) AND empty($registro['ingesta_alcohol_desc']))
+				OR	(isset($registro['drogas']) AND !empty($registro['drogas']) AND empty($registro['drogas_desc']))
+				OR	(isset($registro['cirugia']) AND !empty($registro['cirugia']) AND empty($registro['cirugia_desc']))
+				OR	(isset($registro['donado_sangre']) AND !empty($registro['donado_sangre']) AND empty($registro['donado_sangre_desc']))
+				OR	(isset($registro['tratamiento_farma']) AND !empty($registro['tratamiento_farma']) AND empty($registro['tratamiento_farma_desc']))
+				OR	(isset($registro['suplemento_dietetico']) AND !empty($registro['suplemento_dietetico']) AND empty($registro['suplemento_dietetico_desc']))
+				OR	(isset($registro['alzheimer']) AND !empty($registro['alzheimer']) AND empty($registro['alzheimer_desc']))
 				OR	empty($registro['dia_ea']) OR empty($registro['mes_ea']) OR	empty($registro['anio_ea'])
-				OR	(!empty($registro['morbido']) AND empty($registro['morbido_desc']))
-				OR $registro['hipertension'] == '' OR $registro['ulcera'] == '' OR $registro['diabetes'] == '' OR $registro['hipo_hipertiroidismo'] == ''
-				OR $registro['hiperlipidemia'] == '' OR $registro['epoc'] == '' OR $registro['coronaria'] == '' OR $registro['rinitis'] == ''
-				OR $registro['acc_vascular'] == '' OR $registro['asma'] == '' OR $registro['gastritis'] == '' OR $registro['cefaleas'] == ''
-				OR $registro['alergia'] == '' OR $registro['tabaquismo'] == '' OR $registro['ingesta_alcohol'] == '' OR $registro['drogas'] == ''
-				OR $registro['cirugia'] == '' OR $registro['donado_sangre'] == '' OR $registro['tratamiento_farma'] == '' OR $registro['suplemento_dietetico'] == ''
-				OR $registro['alzheimer'] == '' OR $registro['morbido'] == ''
+				OR	(isset($registro['morbido']) AND !empty($registro['morbido']) AND empty($registro['morbido_desc']))
+				
+				OR !isset($registro['hipertension']) OR !isset($registro['ulcera']) OR !isset($registro['diabetes']) OR !isset($registro['hipo_hipertiroidismo'])
+				OR !isset($registro['hiperlipidemia']) OR !isset($registro['epoc']) OR !isset($registro['coronaria']) OR !isset($registro['rinitis'])
+				OR !isset($registro['acc_vascular']) OR !isset($registro['asma']) OR !isset($registro['gastritis']) OR !isset($registro['cefaleas'])
+				OR !isset($registro['alergia']) OR !isset($registro['tabaquismo']) OR !isset($registro['ingesta_alcohol']) OR !isset($registro['drogas'])
+				OR !isset($registro['cirugia']) OR !isset($registro['donado_sangre']) OR !isset($registro['tratamiento_farma']) OR !isset($registro['suplemento_dietetico'])
+				OR !isset($registro['alzheimer']) OR !isset($registro['morbido'])
 				
 			){
 				$estado = 'Error';
@@ -11717,6 +11690,292 @@ class Subject extends CI_Controller {
 			$this->load->model('Model_Examen_laboratorio_adicional');
 			$this->Model_Examen_laboratorio_adicional->update($registro);
 			$this->auditlib->save_audit("Cerro el formulario de Examen Laboratorio Adicional", $registro['subject_id']);					
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	/*---------------------------------------Historial Medico Adicional------------------------------------------------------
+		este historial es solo para ver si hay algun cambio de la historia entre la selecciona y el primer dia del tratamiento
+	*/
+	public function historial_medico_adicional($subject_id){
+		$data['contenido'] = 'subject/historial_medico_adicional';
+		$data['titulo'] = 'Historia Medica';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->view('template2',$data);
+	}
+
+	public function historial_medico_adicional_insert(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', 'Sujeto', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', 'realizado', 'xss_clean');
+		
+        if(isset($registro['realizado']) AND $registro['realizado'] == 1){
+        	$this->form_validation->set_rules('cambio', '', 'xss_clean');
+        	$this->form_validation->set_rules('comentario', '', 'xss_clean');
+        }
+
+        if ($this->form_validation->run() == FALSE) {        	
+            $this->historial_medico_adicional($registro['subject_id']);
+        }
+        else{
+
+        	/*validar estado*/
+        	if(
+        		(	isset($registro['realizado']) AND $registro['realizado'] == 1
+        			AND (!isset($registro['cambio']) OR !isset($registro['comentario']))
+        		)
+
+        		OR 
+
+        		!isset($registro['realizado'])
+        	){
+        		$estado = 'Error';
+        	}
+        	else{
+        		$estado = 'Record Complete';
+	        }
+
+
+        	$registro['created_at'] = date('Y-m-d H:i:s');
+        	$registro['usuario_creacion'] = $this->session->userdata('usuario');
+        	$registro['status'] = $estado;
+
+        	if(isset($registro['cambio']) AND isset($registro['comentario'])){
+        		
+        		$comentarios = $registro['comentario'];
+        		$cambios = $registro['cambio'];
+        		
+        		unset($registro['cambio']);
+        		unset($registro['comentario']);
+        	}
+
+        	/*Guardar historial adicional*/
+        	$this->load->model("Model_Historial_medico_adicional");
+        	$this->Model_Historial_medico_adicional->insert($registro);
+        	$id_historial = $this->db->insert_id();
+
+        	/*Guardar cambios*/
+        	if(isset($cambios) AND isset($comentarios)){
+        		$this->load->model('Model_Historial_medico_adicional_cambios');
+
+        		$cant = count($cambios);
+
+        		$guardar = array();
+
+        		for($i = 0; $i < $cant; $i++){
+        			$guardar['subject_id'] = $registro['subject_id'];
+        			$guardar['historial_medico_id'] = $id_historial;
+        			$guardar['cambio'] = $cambios[$i];
+        			$guardar['comentario'] = $comentarios[$i];
+
+        			$this->Model_Historial_medico_adicional_cambios->insert($guardar);
+        		}
+        	}
+
+        	$update['historial_medico_2_status'] = $estado;
+        	$update['id'] = $registro['subject_id'];
+
+        	/*Actualizar sujeto*/
+        	$this->Model_Subject->update($update);
+
+        	redirect('subject/grid/'.$registro['subject_id']);
+
+        }
+
+	}
+
+	public function historial_medico_adicional_show($subject_id){
+		$data['contenido'] = 'subject/historial_medico_adicional_show';
+		$data['titulo'] = 'Historia Medica';
+		$data['subject'] = $this->Model_Subject->find($subject_id);				
+
+		$this->load->model('Model_Historial_medico_adicional');
+		$this->load->model('Model_Historial_medico_adicional_cambios');
+
+		$data['list'] = $this->Model_Historial_medico_adicional->allWhereArray(array('subject_id'=>$subject_id));
+		$data['cambios'] = $this->Model_Historial_medico_adicional_cambios->allWhereArray(array('subject_id'=>$subject_id));
+
+		$this->load->view('template2',$data);
+	}
+
+	public function historial_medico_adicional_update(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('subject_id', 'Sujeto', 'required|xss_clean');
+		$this->form_validation->set_rules('realizado', 'realizado', 'xss_clean');
+		
+        if(isset($registro['realizado']) AND $registro['realizado'] == 1){
+        	$this->form_validation->set_rules('cambio', '', 'xss_clean');
+        	$this->form_validation->set_rules('comentario', '', 'xss_clean');
+        }
+
+        if ($this->form_validation->run() == FALSE) {        	
+            $this->historial_medico_adicional($registro['subject_id']);
+        }
+        else{
+
+        	/*validar estado*/
+        	if(
+        		(	isset($registro['realizado']) AND $registro['realizado'] == 1
+        			AND (!isset($registro['cambio']) OR !isset($registro['comentario']))
+        		)
+
+        		OR 
+
+        		!isset($registro['realizado'])
+        	){
+        		$estado = 'Error';
+        	}
+        	else{
+        		$estado = 'Record Complete';
+	        }
+
+
+        	$registro['updated_at'] = date('Y-m-d H:i:s');
+        	$registro['usuario_actualizacion'] = $this->session->userdata('usuario');
+        	$registro['status'] = $estado;
+        	/*Actualizamos los estados de las autorizaciones para que se vuelva a autorizar*/
+			$registro['verify_user'] = '';
+			$registro['verify_date'] = '0000-00-00 00:00:00';
+			$registro['signature_user'] = '';
+			$registro['signature_date'] = '0000-00-00 00:00:00';
+			$registro['lock_user'] = '';
+			$registro['lock_date'] = '0000-00-00 00:00:00';
+
+        	if(isset($registro['cambio']) AND isset($registro['comentario'])){
+        		
+        		$comentarios = $registro['comentario'];
+        		$cambios = $registro['cambio'];
+        		
+        		if(isset($registro['cambio_id'])){
+        			$cambio_ids = $registro['cambio_id'];
+        			unset($registro['cambio_id']);
+        		}
+
+        		unset($registro['cambio']);
+        		unset($registro['comentario']);
+        	}
+
+        	/*Guardar historial adicional*/
+        	$this->load->model("Model_Historial_medico_adicional");
+        	$this->Model_Historial_medico_adicional->update($registro);
+        	$id_historial = $registro['id'];
+
+        	/*Guardar cambios*/
+        	if(isset($cambios) AND isset($comentarios)){
+        		$this->load->model('Model_Historial_medico_adicional_cambios');
+
+        		$cant = count($cambios);
+
+        		$guardar = array();
+
+        		for($i = 0; $i < $cant; $i++){
+        			$guardar['subject_id'] = $registro['subject_id'];
+        			$guardar['historial_medico_id'] = $id_historial;
+        			$guardar['cambio'] = $cambios[$i];
+        			$guardar['comentario'] = $comentarios[$i];
+
+        			if(isset($cambio_ids[$i]) AND !empty($cambio_ids[$i])){
+        				$guardar['id'] = $cambio_ids[$i];
+        				$this->Model_Historial_medico_adicional_cambios->update($guardar);
+        			}
+        			else{
+        				$guardar['id'] = null;
+        				$this->Model_Historial_medico_adicional_cambios->insert($guardar);
+        			}
+        		}
+        	}
+
+        	$update['historial_medico_2_status'] = $estado;
+        	$update['id'] = $registro['subject_id'];
+
+        	/*Actualizar sujeto*/
+        	$this->Model_Subject->update($update);
+
+        	redirect('subject/grid/'.$registro['subject_id']);
+
+        }
+	}
+
+	public function historial_medico_adicional_verify(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {			
+			$this->historial_medico_adicional_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved by Monitor';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['verify_user'] = $this->session->userdata('usuario');
+			$registro['verify_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Historial_medico_adicional');
+			$this->Model_Historial_medico_adicional->update($registro);
+			
+			$this->Model_Subject->update(array('historial_medico_2_status'=>'Form Approved by Monitor','id'=>$registro['subject_id']));
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	public function historial_medico_adicional_lock(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {			
+			$this->historial_medico_adicional_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Form Approved and Locked';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['lock_user'] = $this->session->userdata('usuario');
+			$registro['lock_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Historial_medico_adicional');
+			$this->Model_Historial_medico_adicional->update($registro);
+			
+			$this->Model_Subject->update(array('historial_medico_2_status'=>'Form Approved and Locked','id'=>$registro['subject_id']));
+
+			redirect('subject/grid/'.$registro['subject_id']);
+		}
+	}
+
+	public function historial_medico_adicional_signature(){
+		$registro = $this->input->post();
+
+		$this->form_validation->set_rules('id', 'Id Formulario', 'required|xss_clean');
+		$this->form_validation->set_rules('subject_id', 'Subject ID', 'required|xss_clean');        		
+		$this->form_validation->set_rules('current_status', 'Current Status', 'required|xss_clean');		
+
+		if($this->form_validation->run() == FALSE) {			
+			$this->historial_medico_adicional_show($registro['subject_id']);
+		}
+		else {
+			$registro['last_status'] = $registro['current_status'];
+			unset($registro['current_status']);			
+			$registro['status'] = 'Document Approved and Signed by PI';
+			$registro['updated_at'] = date('Y-m-d H:i:s');
+			$registro['signature_user'] = $this->session->userdata('usuario');
+			$registro['signature_date'] = date('Y-m-d H:i:s');
+
+			$this->load->model('Model_Historial_medico_adicional');
+			$this->Model_Historial_medico_adicional->update($registro);
+			
+			$this->Model_Subject->update(array('historial_medico_2_status'=>'Document Approved and Signed by PI','id'=>$registro['subject_id']));
 
 			redirect('subject/grid/'.$registro['subject_id']);
 		}

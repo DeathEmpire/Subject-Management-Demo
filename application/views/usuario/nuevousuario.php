@@ -17,9 +17,11 @@ switch(date("m")){
 
 }
 ?>
-Con fecha: <?= date("d"); ?> de <?= $nom_mes; ?> del <?= date("Y");?> a las <?= date("H:i"); ?><br />&nbsp;<br />
-Se ha creado un nuevo usuario para el estudio ICC<br />&nbsp;<br />
-Para ingresar ingrese a: <a href="<?= $this->config->item('base_url');?>">ICC</a><br />
+<div style='text-aling:left;'>
+Con fecha: <?= date("d"); ?> de <?= $nom_mes; ?> del <?= date("Y");?> a las <?= date("H:i"); ?><br />
+Se ha creado un nuevo usuario para el estudio ICC<br />
+Para ingresar ingrese al siguiente enlace: <a href="<?= $this->config->item('base_url');?>">ICC</a><br />
 Usuario: <?= $usuario; ?><br />
 Clave: <?= $clave; ?><br />
 Al ingresar debera cambiar su clave.<br />
+</div>

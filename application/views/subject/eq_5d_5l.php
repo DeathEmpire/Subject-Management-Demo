@@ -44,7 +44,7 @@ $(function(){
 		default : $protocolo = ""; break;
 	}
 ?>
-<legend style='text-align:center;'>EQ-5D-5L <?= $protocolo;?></legend>
+<legend style='text-align:center;'>EQ-5D-3L <?= $protocolo;?></legend>
 <b>Sujeto Actual:</b>
 <table class="table table-condensed table-bordered">
 	<thead>
@@ -106,116 +106,79 @@ $(function(){
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>MOVILIDAD</td>			
 		</tr>
 		<tr>
-			<td>No tengo problemas para caminar</td>
-			<td><?= form_radio('movilidad','No tengo problemas para caminar',set_radio('movilidad', 'No tengo problemas para caminar')); ?></td>
+			<td>No tiene problemas para caminar</td>
+			<td><?= form_radio('movilidad','No tiene problemas para caminar',set_radio('movilidad', 'No tiene problemas para caminar')); ?></td>
 		</tr>
 		<tr>
-			<td>Tengo problemas leves para caminar</td>
-			<td><?= form_radio('movilidad','Tengo problemas leves para caminar',set_radio('movilidad', 'Tengo problemas leves para caminar')); ?></td>
+			<td>Tiene algunos problemas para caminar</td>
+			<td><?= form_radio('movilidad','Tiene algunos problemas para caminar',set_radio('movilidad', 'Tiene algunos problemas para caminar')); ?></td>
 		</tr>
 		<tr>
-			<td>Tengo problemas moderados para caminar</td>
-			<td><?= form_radio('movilidad','Tengo problemas moderados para caminar',set_radio('movilidad', 'Tengo problemas moderados para caminar')); ?></td>
+			<td>Debe estar en cama</td>
+			<td><?= form_radio('movilidad','Debe estar en cama',set_radio('movilidad', 'Debe estar en cama')); ?></td>
+		</tr>
+		
+		
+		<tr>
+			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>CUIDADO PERSONAL</td>			
 		</tr>
 		<tr>
-			<td>Tengo problemas graves para caminar</td>
-			<td><?= form_radio('movilidad','Tengo problemas graves para caminar',set_radio('movilidad', 'Tengo problemas graves para caminar')); ?></td>
+			<td>No tiene problemas con su cuidado personal</td>
+			<td><?= form_radio('autocuidado','No tiene problemas con su cuidado personal',set_radio('autocuidado', 'No tiene problemas con su cuidado personal')); ?></td>
 		</tr>
 		<tr>
-			<td>No puedo caminar</td>
-			<td><?= form_radio('movilidad','No puedo caminar',set_radio('movilidad', 'No puedo caminar')); ?></td>
-		</tr>
+			<td>Tiene algunos problemas para lavarse o vestirse solo/a</td>
+			<td><?= form_radio('autocuidado','Tiene algunos problemas para lavarse o vestirse solo/a',set_radio('autocuidado', 'Tiene algunos problemas para lavarse o vestirse solo/a')); ?></td>
+		</tr>		
 		<tr>
-			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>AUTOCUIDADO</td>			
+			<td>Es incapas de lavarse o vestirse solo/a</td>
+			<td><?= form_radio('autocuidado','Es incapas de lavarse o vestirse solo/a',set_radio('autocuidado', 'Es incapas de lavarse o vestirse solo/a')); ?></td>
 		</tr>
-		<tr>
-			<td>No tengo problemas para lavarme o vestirme</td>
-			<td><?= form_radio('autocuidado','No tengo problemas para lavarme o vestirme',set_radio('autocuidado', 'No tengo problemas para lavarme o vestirme')); ?></td>
-		</tr>
-		<tr>
-			<td>Tengo problemas leves para lavarme o vestirme</td>
-			<td><?= form_radio('autocuidado','Tengo problemas leves para lavarme o vestirme',set_radio('autocuidado', 'Tengo problemas leves para lavarme o vestirme')); ?></td>
-		</tr>
-		<tr>
-			<td>Tengo problemas moderados para lavarme o vestirme</td>
-			<td><?= form_radio('autocuidado','Tengo problemas moderados para lavarme o vestirme',set_radio('autocuidado', 'Tengo problemas moderados para lavarme o vestirme')); ?></td>
-		</tr>
-		<tr>
-			<td>Tengo problemas graves para lavarme o vestirme</td>
-			<td><?= form_radio('autocuidado','Tengo problemas graves para lavarme o vestirme',set_radio('autocuidado', 'Tengo problemas graves para lavarme o vestirme')); ?></td>
-		</tr>
-		<tr>
-			<td>No puedo lavarme o vestirme</td>
-			<td><?= form_radio('autocuidado','No puedo lavarme o vestirme',set_radio('autocuidado', 'No puedo lavarme o vestirme')); ?></td>
-		</tr>
+		
 		<tr>
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>ACTIVIDADES HABITUALES <small>(Ej: Trabajar, estudiar, hacer las tareas domésticas, actividades familiares o realizadas durante el tiempo libre)</small></td>			
 		</tr>
 		<tr>
-			<td>No tengo problemas para realizar mis actividades habituales</td>
-			<td><?= form_radio('actividades_habituales','No tengo problemas para realizar mis actividades habituales',set_radio('actividades_habituales', 'No tengo problemas para realizar mis actividades habituales')); ?></td>
+			<td>No tiene problemas para realizar sus actividades habituales</td>
+			<td><?= form_radio('actividades_habituales','No tiene problemas para realizar sus actividades habituales',set_radio('actividades_habituales', 'No tiene problemas para realizar sus actividades habituales')); ?></td>
 		</tr>
 		<tr>
-			<td>Tengo problemas leves para realizar mis actividades habituales</td>
-			<td><?= form_radio('actividades_habituales','Tengo problemas leves para realizar mis actividades habituales',set_radio('actividades_habituales', 'Tengo problemas leves para realizar mis actividades habituales')); ?></td>
-		</tr>
+			<td>Tiene algunos problemas para realizar sus actividades habituales</td>
+			<td><?= form_radio('actividades_habituales','Tiene algunos problemas para realizar sus actividades habituales',set_radio('actividades_habituales', 'Tiene algunos problemas para realizar sus actividades habituales')); ?></td>
+		</tr>		
 		<tr>
-			<td>Tengo problemas moderados para realizar mis actividades habituales</td>
-			<td><?= form_radio('actividades_habituales','Tengo problemas moderados para realizar mis actividades habituales',set_radio('actividades_habituales', 'Tengo problemas moderados para realizar mis actividades habituales')); ?></td>
-		</tr>
-		<tr>
-			<td>Tengo problemas graves para realizar mis actividades habituales</td>
-			<td><?= form_radio('actividades_habituales','Tengo problemas graves para realizar mis actividades habituales',set_radio('actividades_habituales', 'Tengo problemas graves para realizar mis actividades habituales')); ?></td>
-		</tr>
-		<tr>
-			<td>No puedo realizar mis actividades habituales</td>
-			<td><?= form_radio('actividades_habituales','No puedo realizar mis actividades habituales',set_radio('actividades_habituales', 'No puedo realizar mis actividades habituales')); ?></td>
+			<td>Es incapaz de realizar sus actividades habituales</td>
+			<td><?= form_radio('actividades_habituales','Es incapaz de realizar sus actividades habituales',set_radio('actividades_habituales', 'Es incapaz de realizar sus actividades habituales')); ?></td>
 		</tr>
 		<tr>
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>DOLOR MALESTAR</td>			
 		</tr>
 		<tr>
-			<td>No tengo dolor ni malestar</td>
-			<td><?= form_radio('dolor_malestar','No tengo dolor ni malestar',set_radio('dolor_malestar', 'No tengo dolor ni malestar')); ?></td>
+			<td>No tiene dolor ni malestar</td>
+			<td><?= form_radio('dolor_malestar','No tiene dolor ni malestar',set_radio('dolor_malestar', 'No tiene dolor ni malestar')); ?></td>
 		</tr>
 		<tr>
-			<td>Tengo dolor o malestar leve</td>
-			<td><?= form_radio('dolor_malestar','Tengo dolor o malestar leve',set_radio('dolor_malestar', 'Tengo dolor o malestar leve')); ?></td>
-		</tr>
+			<td>Tiene un dolor o malestar moderado</td>
+			<td><?= form_radio('dolor_malestar','Tiene un dolor o malestar moderado',set_radio('dolor_malestar', 'Tiene un dolor o malestar moderado')); ?></td>
+		</tr>				
 		<tr>
-			<td>Tengo dolor o malestar moderado</td>
-			<td><?= form_radio('dolor_malestar','Tengo dolor o malestar moderado',set_radio('dolor_malestar', 'Tengo dolor o malestar moderado')); ?></td>
-		</tr>
-		<tr>
-			<td>Tengo dolor o malestar fuerte</td>
-			<td><?= form_radio('dolor_malestar','Tengo dolor o malestar fuerter',set_radio('dolor_malestar', 'Tengo dolor o malestar fuerte')); ?></td>
-		</tr>
-		<tr>
-			<td>Tengo dolor o malestar extremo</td>
-			<td><?= form_radio('dolor_malestar','Tengo dolor o malestar extremo',set_radio('dolor_malestar', 'Tengo dolor o malestar extremo')); ?></td>
+			<td>Tiene mucho dolor o malestar</td>
+			<td><?= form_radio('dolor_malestar','Tiene mucho dolor o malestar',set_radio('dolor_malestar', 'Tiene mucho dolor o malestar')); ?></td>
 		</tr>
 		<tr>
 			<td style='font-weight:bold;background-color:#ddd;' colspan='2'>ANGUSTIA DEPRESION</td>			
 		</tr>
 		<tr>
-			<td>No estoy angustiado/a o deprimido/a</td>
-			<td><?= form_radio('angustia_depresion','No estoy angustiado/a o deprimido/a',set_radio('angustia_depresion', 'No estoy angustiado/a o deprimido/a')); ?></td>
-		</tr>
+			<td>No está angustiado/a o deprimido/a</td>
+			<td><?= form_radio('angustia_depresion','No está angustiado/a o deprimido/a',set_radio('angustia_depresion', 'No está angustiado/a o deprimido/a')); ?></td>
+		</tr>		
 		<tr>
-			<td>Estoy levemente angustiado/a o deprimido/a</td>
-			<td><?= form_radio('angustia_depresion','Estoy levemente angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Estoy levemente angustiado/a o deprimido/a')); ?></td>
-		</tr>
+			<td>Está moderadamente angustiado/a o deprimido/a</td>
+			<td><?= form_radio('angustia_depresion','Está moderadamente angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Está moderadamente angustiado/a o deprimido/a')); ?></td>
+		</tr>		
 		<tr>
-			<td>Estoy moderadamente angustiado/a o deprimido/a</td>
-			<td><?= form_radio('angustia_depresion','Estoy moderadamente angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Estoy moderadamente angustiado/a o deprimido/a')); ?></td>
-		</tr>
-		<tr>
-			<td>Estoy muy angustiado/a o deprimido/a</td>
-			<td><?= form_radio('angustia_depresion','Estoy muy angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Estoy muy angustiado/a o deprimido/a')); ?></td>
-		</tr>
-		<tr>
-			<td>Estoy extremadamente angustiado/a o deprimido/a</td>
-			<td><?= form_radio('angustia_depresion','Estoy extremadamente angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Estoy extremadamente angustiado/a o deprimido/a')); ?></td>
+			<td>Está muy angustiado/a o deprimido/a</td>
+			<td><?= form_radio('angustia_depresion','Está muy angustiado/a o deprimido/a',set_radio('angustia_depresion', 'Está muy angustiado/a o deprimido/a')); ?></td>
 		</tr>				
 		<tr>
 			<td style='font-weight:bold;background-color:#ddd;'>SU SALUD HOY = </td>

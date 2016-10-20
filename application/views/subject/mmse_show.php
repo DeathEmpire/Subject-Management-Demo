@@ -1066,13 +1066,13 @@ $(function(){
 			<td colspan='4' style='font-weight:bold;'>REPETICION</td>
 		</tr>
 		<tr>
-			<td colspan='4'>Ahora le voy a pedir que repita lo que yo voy a decir. ¿Está listo? <b>“NO SI, O CUANDO, O PORQUÉ”</b> Ahora dígalo usted.</td>
+			<td colspan='4'>Ahora le voy a pedir que repita lo que yo voy a decir. ¿Está listo? <b>“NI SI, NI CUANDO, NI PORQUÉ”</b> Ahora dígalo usted.</td>
 		</tr>
 		<tr>
 			<td colspan='4' style='font-style:italic;'>[Se puede repetir la prueba hasta 5 veces, pero registre sólo el primer intento.]</td>
 		</tr>
 		<tr>
-			<td>NO SI, O CUANDO, O PORQUÉ.</td>
+			<td>NI SI, NI CUANDO, NI PORQUÉ.</td>
 			<td><?= form_input(array('type'=>'text','name'=>'no_si_cuando_porque', 'id'=>'no_si_cuando_porque', 'value'=>set_value('no_si_cuando_porque', $list[0]->no_si_cuando_porque))); ?></td>
 			<td><?= form_dropdown('no_si_cuando_porque_puntaje',$puntaje,set_value('no_si_cuando_porque_puntaje', $list[0]->no_si_cuando_porque_puntaje)); ?></td>
 			<td>

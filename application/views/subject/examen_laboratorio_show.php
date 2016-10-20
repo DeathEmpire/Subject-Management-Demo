@@ -1476,45 +1476,46 @@ $(function(){
 						?>
 					</td>
 				</tr>
-				<?php if($etapa == 1){ ?>
-					<tr>
-						<td>HbA1C (No aplica <?= form_checkbox(array('name'=>'no_aplica_hba1c','id'=>'no_aplica_hba1c', 'checked'=>set_checkbox('no_aplica_hba1c','1',($list[0]->no_aplica_hba1c == 1) ? true : false ), 'value'=>'1')); ?>)</td>
-						<td><?= form_dropdown('hecho_35', $hecho, set_value('hecho_35', $list[0]->hecho_35));?></td>
-						<td><?= form_input(array('type'=>'text', 'name'=>'otros_hba1c', 'id'=>'otros_hba1c', 'value'=>set_value('otros_hba1c', $list[0]->otros_hba1c)));?></td>
-						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Normal','checked'=>set_radio('otros_hba1c_nom_anom', 'Normal', (($list[0]->otros_hba1c_nom_anom == 'Normal') ? true : false))));?></td>					
-						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_sin', (($list[0]->otros_hba1c_nom_anom == 'Anormal_sin') ? true : false))));?></td>
-						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_con', (($list[0]->otros_hba1c_nom_anom == 'Anormal_con') ? true : false))));?></td>
-						<td>
-						<?php
-							if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+				
+				<tr>
+					<td>HbA1C (No aplica <?= form_checkbox(array('name'=>'no_aplica_hba1c','id'=>'no_aplica_hba1c', 'checked'=>set_checkbox('no_aplica_hba1c','1',($list[0]->no_aplica_hba1c == 1) ? true : false ), 'value'=>'1')); ?>)</td>
+					<td><?= form_dropdown('hecho_35', $hecho, set_value('hecho_35', $list[0]->hecho_35));?></td>
+					<td><?= form_input(array('type'=>'text', 'name'=>'otros_hba1c', 'id'=>'otros_hba1c', 'value'=>set_value('otros_hba1c', $list[0]->otros_hba1c)));?></td>
+					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Normal','checked'=>set_radio('otros_hba1c_nom_anom', 'Normal', (($list[0]->otros_hba1c_nom_anom == 'Normal') ? true : false))));?></td>					
+					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_sin','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_sin', (($list[0]->otros_hba1c_nom_anom == 'Anormal_sin') ? true : false))));?></td>
+					<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_con', (($list[0]->otros_hba1c_nom_anom == 'Anormal_con') ? true : false))));?></td>
+					<td>
+					<?php
+						if($list[0]->status == 'Record Complete' OR $list[0]->status == 'Query' )
+						{
+							
+							if(!in_array("otros_hba1c", $campos_query))  
 							{
-								
-								if(!in_array("otros_hba1c", $campos_query))  
-								{
-									if(strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_verify')){
-										echo "<img src='". base_url('img/icon-check.png') ."' id='otros_hba1c_query' tipo='new' class='query'>";	
-									}
-									else{
-										echo "<img src='". base_url('img/icon-check.png') ."'>";		
-									}
-									
+								if(strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_verify')){
+									echo "<img src='". base_url('img/icon-check.png') ."' id='otros_hba1c_query' tipo='new' class='query'>";	
 								}
-								else 
-								{	
-									if(strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_update')){					
-										echo "<img src='". base_url('img/question.png') ."' id='otros_hba1c_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
-									}
-									else{
-										echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
-									}
-								}						
+								else{
+									echo "<img src='". base_url('img/icon-check.png') ."'>";		
+								}
 								
 							}
-						?>
-					</td>
+							else 
+							{	
+								if(strpos($_SESSION['role_options']['subject'], 'examen_laboratorio_update')){					
+									echo "<img src='". base_url('img/question.png') ."' id='otros_hba1c_query' tipo='old' style='width:20px;height:20px;' class='query'>";	
+								}
+								else{
+									echo "<img src='". base_url('img/question.png') ."' style='width:20px;height:20px;'>";		
+								}
+							}						
+							
+						}
+					?>
+				</td>
+				<?php if($etapa == 1){ ?>
 					</tr>
 					<tr>
-						<td>Sífilis (VDRL)</td>
+						<td>Sífilis (R.P.R)</td>
 						<td><?= form_dropdown('hecho_36', $hecho, set_value('hecho_36', $list[0]->hecho_36));?></td>
 						<td><?= form_input(array('type'=>'text', 'name'=>'sifilis', 'id'=>'sifilis', 'value'=>set_value('sifilis', $list[0]->sifilis)));?></td>
 						<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Normal','checked'=>set_radio('sifilis_nom_anom', 'Normal', (($list[0]->sifilis_nom_anom == 'Normal') ? true : false))));?></td>					
@@ -1551,9 +1552,7 @@ $(function(){
 					</tr>
 				<?php } else{ ?>
 					<?= form_hidden('sifilis','No Aplica');?>
-					<?= form_hidden('sifilis_nom_anom','No Aplica');?>
-					<?= form_hidden('otros_hba1c','No Aplica');?>
-					<?= form_hidden('otros_hba1c_nom_anom','No Aplica');?>
+					<?= form_hidden('sifilis_nom_anom','No Aplica');?>					
 				<?php } ?>
 			</tbody>
 		</table>

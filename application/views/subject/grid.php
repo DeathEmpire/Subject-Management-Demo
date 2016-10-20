@@ -226,31 +226,31 @@
 			<?php
 				if(empty($subject->historial_medico_2_status)){
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/historial_medico/'.$subject->id ."/2";
+					$link = 'subject/historial_medico_adicional/'.$subject->id;
 				}
 				elseif ($subject->historial_medico_2_status == 'Record Complete') {
 					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+					$link = 'subject/historial_medico_adicional_show/'.$subject->id;
 				}
 				elseif ($subject->historial_medico_2_status == 'Document Approved and Signed by PI') {
 					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+					$link = 'subject/historial_medico_adicional_show/'.$subject->id;
 				}
 				elseif ($subject->historial_medico_2_status == 'Form Approved and Locked') {
 					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+					$link = 'subject/historial_medico_adicional_show/'.$subject->id;
 				}
 				elseif ($subject->historial_medico_2_status == 'Form Approved by Monitor') {
 					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+					$link = 'subject/historial_medico_adicional_show/'.$subject->id;
 				}
 				elseif ($subject->historial_medico_2_status == 'Query') {
 					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+					$link = 'subject/historial_medico_adicional_show/'.$subject->id;
 				}
 				elseif ($subject->historial_medico_2_status == 'Error') {
 					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/historial_medico_show/'.$subject->id ."/2";
+					$link = 'subject/historial_medico_adicional_show/'.$subject->id;
 				}
 				else{
 					$icon = '*';
@@ -2355,7 +2355,7 @@
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 		</tr>
 		<tr>
-			<td>EQ-5D-5L</td>
+			<td>EQ-5D-3L</td>
 			<td style='text-align:center;'></td>
 			<?php				
 				if(empty($subject->eq_5d_5l_2_status)){					

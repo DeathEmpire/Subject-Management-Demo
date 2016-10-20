@@ -430,7 +430,7 @@
 						<td style='text-align:center;'><?= form_radio(array('name'=>'otros_hba1c_nom_anom','value'=>'Anormal_con','checked'=>set_radio('otros_hba1c_nom_anom', 'Anormal_con')));?></td>
 					</tr>
 					<tr>
-						<td>Sífilis (VDRL)</td>
+						<td>Sífilis (R.P.R)</td>
 						<td><?= form_dropdown('hecho_36', $hecho, set_value('hecho_36'));?></td>
 						<td><?= form_input(array('type'=>'text', 'name'=>'sifilis', 'id'=>'sifilis', 'value'=>set_value('sifilis')));?></td>
 						<td style='text-align:center;'><?= form_radio(array('name'=>'sifilis_nom_anom','value'=>'Normal','checked'=>set_radio('sifilis_nom_anom', 'Normal')));?></td>					

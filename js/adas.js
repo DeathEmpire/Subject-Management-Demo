@@ -131,7 +131,7 @@ $(function(){
 			$("#puntuacion_3").val("5");
 		}
 		else{
-			$("#puntuacion_3").val($(this).val());
+			$("#puntuacion_3").val($("#total_incorrectas_3").val());
 		}
 
 		calcular_puntaje();
