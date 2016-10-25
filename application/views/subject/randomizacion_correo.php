@@ -1,0 +1,1 @@
+Se ha randomizado al paciente <?= $subject_id; ?> en el centro <?= $center;?> y se le ha asignado el kit <?= $kit; ?>

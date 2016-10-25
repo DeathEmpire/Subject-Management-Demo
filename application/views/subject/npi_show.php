@@ -1742,7 +1742,7 @@ $(function(){
 			<tr>
 				<td colspan='7' style='text-align:center;'>
 					<?php
-					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'npi_update')){
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'npi_update') AND $list[0]->status != 'Form Approved and Locked'){
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>

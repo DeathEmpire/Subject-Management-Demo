@@ -388,8 +388,13 @@ class Subject extends CI_Controller {
 
 		$this->form_validation->set_rules('center', 'Centro', 'required|xss_clean|callback_stock');
 		$this->form_validation->set_rules('id', 'ID', 'required|xss_clean');
-		$this->form_validation->set_rules('is_randomizable', 'Es elegible para randomizacion', 'required|xss_clean');		
-        $this->form_validation->set_rules('randomization_date', 'Fecha de randomizacion', 'required|xss_clean');     
+		$this->form_validation->set_rules('is_randomizable', 'Es elegible para randomizacion', 'required|xss_clean');
+		if(isset($registro['is_randomizable']) AND $registro['is_randomizable'] == 1){
+        	$this->form_validation->set_rules('randomization_date', 'Fecha de randomizacion', 'required|xss_clean');     
+        }
+        else{
+        	$this->form_validation->set_rules('randomization_date', 'Fecha de randomizacion', 'xss_clean');     	
+        }
 
         if ($this->form_validation->run() == FALSE) {
         	$this->auditlib->save_audit("Tiene errores al tratar de randomizar", $registro['id']);        	
@@ -413,73 +418,92 @@ class Subject extends CI_Controller {
 			$registro['randomization_lock_user'] = '';
 			$registro['randomization_lock_date'] = '0000-00-00 00:00:00';
 
-			$this->load->Model('Model_Kit');
+			if(!empty($registro['randomization_date']) AND $registro['is_randomizable'] == 1){
+				$this->load->Model('Model_Kit');
 
-			#Kit Asign
-			#Search the last type asigned
-			//buscar el kit del ultimo paciente randomizado en el centro que se esta, y devolver el numero de kit y tipo
-			$last = $this->Model_Kit->lastAssignedByCenter($registro['center']);
-			if(isset($last) AND !empty($last)){
-				$type = $last[0]->type;
-				//Buscar cantidad asignada para ver si es par o no
-				$assigned_qty = $this->Model_Kit->qtyAssignedByCenter($registro['center']);
+				#Kit Asign
+				#Search the last type asigned
+				//buscar el kit del ultimo paciente randomizado en el centro que se esta, y devolver el numero de kit y tipo
+				$last = $this->Model_Kit->lastAssignedByCenter($registro['center']);
+				if(isset($last) AND !empty($last)){
+					$type = $last[0]->type;
+					//Buscar cantidad asignada para ver si es par o no
+					$assigned_qty = $this->Model_Kit->qtyAssignedByCenter($registro['center']);
 
-				if($assigned_qty[0]->qty % 2 == 0 AND $$assigned_qty[0]->qty > 1){
+					if($assigned_qty[0]->qty % 2 == 0 AND $$assigned_qty[0]->qty > 1){
+						$arr = array("A", "P");
+						$random = array_rand($arr,1);
+						$new_type = $arr[$random];
+					}else{
+						if($type == "P"){
+							$new_type = "A";
+						}
+						elseif($type == "A"){
+							$new_type = "P";
+						}
+					}
+
+					$new_kit = $this->Model_Kit->searchNewKit($new_type,$registro['center']);
+					if(isset($new_kit) AND !empty($new_kit)){
+						$kit_id = $new_kit[0]->id;
+					}
+					else{
+						$data['msg'] = "No kits available in this center";
+						$this->randomization($id);
+					}
+
+				}
+				else{
+					#first time assigment
 					$arr = array("A", "P");
 					$random = array_rand($arr,1);
 					$new_type = $arr[$random];
-				}else{
-					if($type == "P"){
-						$new_type = "A";
-					}
-					elseif($type == "A"){
-						$new_type = "P";
-					}
-				}
 
-				$new_kit = $this->Model_Kit->searchNewKit($new_type,$registro['center']);
-				if(isset($new_kit) AND !empty($new_kit)){
-					$kit_id = $new_kit[0]->id;
-				}
-				else{
-					$data['msg'] = "No kits available in this center";
-					$this->randomization($id);
-				}
+					$new_kit = $this->Model_Kit->searchNewKit($new_type,$registro['center']);
+					if(isset($new_kit) AND !empty($new_kit)){
+						$kit_id = $new_kit[0]->id;
+					}
+					else{
+						$data['msg'] = "No kits available in this center";
+						$this->randomization($id);
+					}
 
+				}		
+
+				#UPDATE Subject and Kit
+				$kit_update = array();
+				$kit_update['id'] = $kit_id;
+				$kit_update['available'] = 0;
+				$kit_update['center_id'] = $registro['center'];
+				$kit_update['subject_id'] = $id;
+				$kit_update['assigned_date'] = date("Y-m-d H:i:s");
+				
+				$this->Model_Kit->update($kit_update);
+
+				$registro['kit1'] = $kit_id;			
+							
+				$this->auditlib->save_audit("Randomizo un sujeto", $id);
+
+				/*Enviar correo con la informacion de la randomizacion*/
+				$this->load->Model('Model_Lista_correos');
+				$correos = $this->Model_Lista_correos->allFilteredWhere(array('nombre'=>'Randomizacion'));
+
+				$this->load->helper("phpmailer");
+				
+				$data['contenido'] = "subject/randomizacion_correo";
+				$data['kit'] = $kit_id;
+				$data['subject_id'] = $id;
+				$data['center'] = $registro['center'];
+				
+				$mensaje = $this->load->view("correo",$data,true);			
+				
+
+				$enviar_correo = send_email($correos->correos,"x","Paciente Randomizado",$mensaje);
+			
 			}
-			else{
-				#first time assigment
-				$arr = array("A", "P");
-				$random = array_rand($arr,1);
-				$new_type = $arr[$random];
 
-				$new_kit = $this->Model_Kit->searchNewKit($new_type,$registro['center']);
-				if(isset($new_kit) AND !empty($new_kit)){
-					$kit_id = $new_kit[0]->id;
-				}
-				else{
-					$data['msg'] = "No kits available in this center";
-					$this->randomization($id);
-				}
-
-			}		
+			$this->Model_Subject->update($registro);
 			
-
-			#UPDATE Subject and Kit
-			$kit_update = array();
-			$kit_update['id'] = $kit_id;
-			$kit_update['available'] = 0;
-			$kit_update['center_id'] = $registro['center'];
-			$kit_update['subject_id'] = $id;
-			$kit_update['assigned_date'] = date("Y-m-d H:i:s");
-			
-			$this->Model_Kit->update($kit_update);
-
-			$registro['kit1'] = $kit_id;			
-			$this->Model_Subject->update($registro);			
-			$this->auditlib->save_audit("Randomizo un sujeto", $id);
-
-			/*Enviar correo con la informacion de la randomizacion*/
 
 			redirect('subject/grid/'. $id);
         }
@@ -565,7 +589,8 @@ class Subject extends CI_Controller {
 		$qty = $this->Model_Kit->qtyByCenter($center);
 
 		if($qty[0]->qty == 0){
-			$this->form_validation->set_message('stock', 'No hay stock en el centro');
+			$this->form_validation->set_message('stock', 'No hay medicamentos disponibles para ese criterio de asignación.<br>
+				Favor de contactar con mluisa.bustos@southconealliance.cl (569)56495597');
 			return false;
 		}
 		else{
@@ -5630,15 +5655,13 @@ class Subject extends CI_Controller {
 					OR ($registro['hecho_27'] == 1 AND ($registro['orina_proteinas'] == '' OR !isset($registro['orina_proteinas_nom_anom'])))
 					OR ($registro['hecho_28'] == 1 AND ($registro['orina_sangre'] == '' OR !isset($registro['orina_sangre_nom_anom'])))
 					OR ($registro['hecho_29'] == 1 AND ($registro['orina_cetonas'] == '' OR	!isset($registro['orina_cetonas_nom_anom'])))
-
 					OR ($registro['hecho_30'] == 1 AND ($registro['orina_microscospia'] == '' OR !isset($registro['orina_microscospia_nom_anom'])))
-					
 					OR ($registro['hecho_31'] == 1 AND ($registro['otros_sangre_homocisteina'] == '' OR !isset($registro['otros_sangre_homocisteina_nom_anom'])))
 					OR ($registro['hecho_32'] == 1 AND ($registro['otros_perfil_tiroideo'] == '' OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
 					OR ($registro['hecho_33'] == 1 AND ($registro['otros_nivel_b12'] == '' OR !isset($registro['otros_nivel_b12_nom_anom'])))
 					OR ($registro['hecho_34'] == 1 AND ($registro['otros_acido_folico'] == '' OR !isset($registro['otros_acido_folico_nom_anom'])))
-					OR ($registro['hecho_35'] == 1 AND ($registro['otros_hba1c'] == '' OR !isset($registro['otros_hba1c_nom_anom'])))
-					OR ($registro['hecho_36'] == 1 AND ($registro['sifilis'] == '' OR !isset($registro['sifilis_nom_anom']) ))					
+					OR (!isset($registro['no_aplica_hba1c']) AND $registro['hecho_35'] == 1 AND ($registro['otros_hba1c'] == '' OR !isset($registro['otros_hba1c_nom_anom'])))
+					OR ($registro['hecho_36'] == 1 AND ($registro['sifilis'] == '' OR !isset($registro['sifilis_nom_anom']) ))				
 
 					OR $registro['hecho_1'] == '' OR $registro['hecho_2'] == '' OR $registro['hecho_3'] == '' OR $registro['hecho_4'] == ''
 					OR $registro['hecho_5'] == '' OR $registro['hecho_6'] == '' OR $registro['hecho_7'] == '' OR $registro['hecho_8'] == ''
@@ -5648,7 +5671,7 @@ class Subject extends CI_Controller {
 					OR $registro['hecho_21'] == '' OR $registro['hecho_22'] == '' OR $registro['hecho_23'] == '' OR $registro['hecho_24'] == ''
 					OR $registro['hecho_25'] == '' OR $registro['hecho_26'] == '' OR $registro['hecho_27'] == '' OR $registro['hecho_28'] == ''
 					OR $registro['hecho_29'] == '' OR ($registro['hecho_30'] == '' AND $registro['etapa'] == 1) OR $registro['hecho_31'] == '' OR $registro['hecho_32'] == ''
-					OR $registro['hecho_33'] == '' OR $registro['hecho_34'] == '' OR $registro['hecho_35'] == '' OR $registro['hecho_36'] == ''
+					OR $registro['hecho_33'] == '' OR $registro['hecho_34'] == '' OR ($registro['hecho_35'] == '' AND !isset($registro['no_aplica_hba1c'])) OR $registro['hecho_36'] == ''
 				)
 			){
 				$estado = 'Error';
@@ -5887,7 +5910,7 @@ class Subject extends CI_Controller {
 					OR ($registro['hecho_32'] == 1 AND ($registro['otros_perfil_tiroideo'] == '' OR !isset($registro['otros_perfil_tiroideo_nom_anom'])))
 					OR ($registro['hecho_33'] == 1 AND ($registro['otros_nivel_b12'] == '' OR !isset($registro['otros_nivel_b12_nom_anom'])))
 					OR ($registro['hecho_34'] == 1 AND ($registro['otros_acido_folico'] == '' OR !isset($registro['otros_acido_folico_nom_anom'])))
-					OR ($registro['hecho_35'] == 1 AND ($registro['otros_hba1c'] == '' OR !isset($registro['otros_hba1c_nom_anom'])))
+					OR (!isset($registro['no_aplica_hba1c']) AND $registro['hecho_35'] == 1 AND ($registro['otros_hba1c'] == '' OR !isset($registro['otros_hba1c_nom_anom'])))
 					OR ($registro['hecho_36'] == 1 AND ($registro['sifilis'] == '' OR !isset($registro['sifilis_nom_anom']) ))				
 
 					OR $registro['hecho_1'] == '' OR $registro['hecho_2'] == '' OR $registro['hecho_3'] == '' OR $registro['hecho_4'] == ''
@@ -5898,7 +5921,7 @@ class Subject extends CI_Controller {
 					OR $registro['hecho_21'] == '' OR $registro['hecho_22'] == '' OR $registro['hecho_23'] == '' OR $registro['hecho_24'] == ''
 					OR $registro['hecho_25'] == '' OR $registro['hecho_26'] == '' OR $registro['hecho_27'] == '' OR $registro['hecho_28'] == ''
 					OR $registro['hecho_29'] == '' OR ($registro['hecho_30'] == '' AND $registro['etapa'] == 1) OR $registro['hecho_31'] == '' OR $registro['hecho_32'] == ''
-					OR $registro['hecho_33'] == '' OR $registro['hecho_34'] == '' OR $registro['hecho_35'] == '' OR $registro['hecho_36'] == ''
+					OR $registro['hecho_33'] == '' OR $registro['hecho_34'] == '' OR ($registro['hecho_35'] == '' AND !isset($registro['no_aplica_hba1c'])) OR $registro['hecho_36'] == ''
 				)
 			){
 				$estado = 'Error';

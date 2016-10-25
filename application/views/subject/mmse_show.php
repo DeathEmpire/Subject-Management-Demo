@@ -1330,7 +1330,7 @@ Dibujo: página con el diagrama).</td>
 			<td colspan='4' style='text-align:center;'>
 				<?= form_hidden('puntaje_total'); ?>
 				<?php
-					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'mmse_update')){
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'mmse_update') AND $list[0]->status != 'Form Approved and Locked'){
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>

@@ -827,7 +827,7 @@ $(function(){
 		<?php
 			if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'digito_directo_update')){
 		?>
-			<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
+			<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary') AND $list[0]->status != 'Form Approved and Locked'); ?>
 		<?php } ?>
 				<?= anchor('subject/grid/'.$subject->id, 'Volver', array('class'=>'btn')); ?>			
 		</div>

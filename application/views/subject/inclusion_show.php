@@ -10,6 +10,7 @@ $(function(){
 			$('select option:not(:selected)').each(function(){
 				$(this).removeAttr('disabled');
 			});
+			$("input[name=cumple_criterios]").removeAttr('readonly');
 		}
 		else{
 			$("#tr_autorizacion").show();
@@ -23,6 +24,7 @@ $(function(){
 				$(this).attr('disabled', 'disabled');
 			});
 
+			$("input[name=cumple_criterios]").removeAttr('readonly');
 		}
 	});
 	if($('input[name=cumple_criterios]:checked').val() != 1){
@@ -34,6 +36,7 @@ $(function(){
 		$('select option:not(:selected)').each(function(){
 			$(this).removeAttr('disabled');
 		});
+		$("input[name=cumple_criterios]").removeAttr('readonly');
 	}
 	else{
 		$("#tr_autorizacion").show();
@@ -47,6 +50,7 @@ $(function(){
 			$(this).attr('disabled', 'disabled');
 		});
 
+		$("input[name=cumple_criterios]").removeAttr('readonly');
 	}
 
 	$("input[name=autorizacion_patrocinador]").change(function(){
@@ -110,19 +114,6 @@ $(function(){
 </table>
 <br />
 <!-- legend -->
-<?php
-	if(isset($_SESSION['role_options']['query']) AND strstr($_SESSION['role_options']['query'], 'additional_form_query_new')){
-		
-?>
-	<div id='new_query' style='text-align:right;'>
-		<?= form_open('query/additional_form_query_new' , array('class'=>'form-horizontal')); ?>		
-		<?= form_hidden('subject_id', $subject->id); ?>
-		<?= form_hidden('form', "Inclusion Exclusion"); ?>
-		<?= form_hidden('etapa', $etapa); ?>
-		<?= form_button(array('type'=>'submit', 'content'=>'Query', 'class'=>'btn btn-primary')); ?>
-		<?= form_close(); ?>
-	</div>
-<?php }?>
 
 <?= form_open('subject/inclusion_update', array('class'=>'form-horizontal', 'id'=>'form_inclusion')); ?>    
 	
@@ -202,7 +193,7 @@ $(function(){
 	    <tr id='tr_submit'>
 	    	<td colspan='2' style='text-align:center;'>
 				<?php
-					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'inclusion_update')){
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'inclusion_update') AND $list[0]->status != 'Form Approved and Locked'){
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>

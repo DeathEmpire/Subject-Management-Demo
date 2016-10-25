@@ -38,7 +38,8 @@
 		<tr>
 			<td><?= img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));?> = Registro Completo</td>
 			<td><?= img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));?> = Documento Aprobado y Firmado por el PI</td>
-			<td colspan='2'><?= img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));?> = Mensaje Abierto del Monitor</td>
+			<td><?= img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));?> = Mensaje Abierto del Monitor</td>
+			<td><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;'));?> = No disponible sin randomizacion</td>
 		</tr>
 	</tbody>
 </table>
@@ -340,77 +341,93 @@
 			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<td style='text-align:center;'></td>
 			<?php
-				if(empty($subject->mmse_4_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/mmse/'.$subject->id ."/4";
-				}
-				elseif ($subject->mmse_4_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/4";
-				}
-				elseif ($subject->mmse_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/4";
-				}
-				elseif ($subject->mmse_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/4";
-				}
-				elseif ($subject->mmse_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/4";
-				}
-				elseif ($subject->mmse_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/4";
-				}
-				elseif ($subject->mmse_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/4";
-				}
-				else{
-					$icon = '*';
-					$link = '';
-				}
+
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+
+					if(empty($subject->mmse_4_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/mmse/'.$subject->id ."/4";
+					}
+					elseif ($subject->mmse_4_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/4";
+					}
+					elseif ($subject->mmse_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/4";
+					}
+					elseif ($subject->mmse_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/4";
+					}
+					elseif ($subject->mmse_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/4";
+					}
+					elseif ($subject->mmse_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/4";
+					}
+					elseif ($subject->mmse_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/4";
+					}
+					else{
+						$icon = '*';
+						$link = '';
+					}		
 				
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
 			<?php
-				if(empty($subject->mmse_5_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/mmse/'.$subject->id ."/5";
-				}
-				elseif ($subject->mmse_5_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/5";
-				}
-				elseif ($subject->mmse_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/5";
-				}
-				elseif ($subject->mmse_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/5";
-				}
-				elseif ($subject->mmse_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/5";
-				}
-				elseif ($subject->mmse_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/5";
-				}
-				elseif ($subject->mmse_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/mmse_show/'.$subject->id ."/5";
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
+			}else{
 			?>
-			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>			
+				<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+			<?php	
+			}
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->mmse_5_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/mmse/'.$subject->id ."/5";
+					}
+					elseif ($subject->mmse_5_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/5";
+					}
+					elseif ($subject->mmse_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/5";
+					}
+					elseif ($subject->mmse_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/5";
+					}
+					elseif ($subject->mmse_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/5";
+					}
+					elseif ($subject->mmse_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/5";
+					}
+					elseif ($subject->mmse_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/mmse_show/'.$subject->id ."/5";
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+			<?php
+			}else{
+			?>
+				<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+			<?php	
+			}
+			?>			
 			<td style='text-align:center;'></td>
 		</tr>
 		
@@ -544,83 +561,97 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<?php
-				if(empty($subject->examen_laboratorio_5_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_laboratorio/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_laboratorio_5_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_laboratorio_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_laboratorio_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_laboratorio_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_laboratorio_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_laboratorio_5_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
-			<?php
-				if(empty($subject->examen_laboratorio_6_status)){
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
-						$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_laboratorio_5_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_laboratorio/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_laboratorio_5_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_laboratorio_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_laboratorio_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_laboratorio_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_laboratorio_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_laboratorio_5_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/5';
 					}
 					else{
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/examen_laboratorio/'.$subject->id .'/6';
+						$icon = '*';		
+						$link = "";
 					}
+					
+				?>
+					<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->examen_laboratorio_6_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_laboratorio_6_status)){
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/examen_laboratorio/'.$subject->id .'/6';
+						}
+					}
+					elseif ($subject->examen_laboratorio_6_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_laboratorio_6_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_laboratorio_6_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_laboratorio_6_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_laboratorio_6_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_laboratorio_6_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->examen_laboratorio_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_laboratorio_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_laboratorio_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_laboratorio_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_laboratorio_6_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_laboratorio_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon); ?></td>
+				?>
 		</tr>
 		<tr>
 			<td>Electrocardiograma de reposo (ECG)</td>
@@ -820,155 +851,184 @@
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php
-				if(empty($subject->examen_fisico_3_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_fisico/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_fisico_3_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_fisico_3_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_fisico_3_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_fisico_3_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_fisico_3_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_fisico_3_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				if(empty($subject->examen_fisico_4_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_fisico/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_fisico_4_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_fisico_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_fisico_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_fisico_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_fisico_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_fisico_4_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				if(empty($subject->examen_fisico_5_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_fisico/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_fisico_5_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_fisico_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_fisico_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_fisico_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_fisico_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_fisico_5_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				if(empty($subject->examen_fisico_6_status)){
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
-						$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_fisico_3_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_fisico/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_fisico_3_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_fisico_3_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_fisico_3_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_fisico_3_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_fisico_3_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_fisico_3_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/3';
 					}
 					else{
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/examen_fisico/'.$subject->id .'/6';
+						$icon = '*';		
+						$link = "";
 					}
-				}
-				elseif ($subject->examen_fisico_6_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_fisico_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_fisico_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_fisico_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_fisico_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_fisico_6_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_fisico_4_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_fisico/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_fisico_4_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_fisico_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_fisico_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_fisico_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_fisico_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_fisico_4_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_fisico_5_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_fisico/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_fisico_5_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_fisico_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_fisico_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_fisico_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_fisico_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_fisico_5_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+					<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_fisico_6_status)){
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/examen_fisico/'.$subject->id .'/6';
+						}
+					}
+					elseif ($subject->examen_fisico_6_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_fisico_6_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_fisico_6_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_fisico_6_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_fisico_6_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_fisico_6_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_fisico_show/'.$subject->id .'/6';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>
 		</tr>
 		<tr>
 			<td>Examen neurológico</td>
@@ -1045,155 +1105,184 @@
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php
-				if(empty($subject->examen_neurologico_3_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_neurologico/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_neurologico_3_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_neurologico_3_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_neurologico_3_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_neurologico_3_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_neurologico_3_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->examen_neurologico_3_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				if(empty($subject->examen_neurologico_4_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_neurologico/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_neurologico_4_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_neurologico_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_neurologico_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_neurologico_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_neurologico_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->examen_neurologico_4_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				if(empty($subject->examen_neurologico_5_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/examen_neurologico/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_neurologico_5_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_neurologico_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_neurologico_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_neurologico_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_neurologico_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->examen_neurologico_5_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				if(empty($subject->examen_neurologico_6_status)){
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
-						$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_neurologico_3_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_neurologico/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_neurologico_3_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_neurologico_3_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_neurologico_3_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_neurologico_3_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_neurologico_3_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->examen_neurologico_3_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/3';
 					}
 					else{
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/examen_neurologico/'.$subject->id .'/6';
+						$icon = '*';		
+						$link = "";
 					}
-				}
-				elseif ($subject->examen_neurologico_6_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_neurologico_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_neurologico_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_neurologico_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_neurologico_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->examen_neurologico_6_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_neurologico_4_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_neurologico/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_neurologico_4_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_neurologico_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_neurologico_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_neurologico_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_neurologico_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->examen_neurologico_4_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_neurologico_5_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/examen_neurologico/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_neurologico_5_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_neurologico_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_neurologico_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_neurologico_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_neurologico_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->examen_neurologico_5_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->examen_neurologico_6_status)){
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/examen_neurologico/'.$subject->id .'/6';
+						}
+					}
+					elseif ($subject->examen_neurologico_6_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_neurologico_6_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_neurologico_6_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_neurologico_6_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_neurologico_6_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->examen_neurologico_6_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/examen_neurologico_show/'.$subject->id .'/6';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>
 		</tr>
 		<tr>
 			<td>Signos vitales/peso</td>
@@ -1271,119 +1360,141 @@
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<td style='text-align:center;'></td>
 			<?php
-				if(empty($subject->signos_vitales_4_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/signos_vitales/'.$subject->id .'/4';
-				}
-				elseif ($subject->signos_vitales_4_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->signos_vitales_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->signos_vitales_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->signos_vitales_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->signos_vitales_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->signos_vitales_4_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				if(empty($subject->signos_vitales_5_status)){
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/signos_vitales/'.$subject->id .'/5';
-				}
-				elseif ($subject->signos_vitales_5_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->signos_vitales_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->signos_vitales_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->signos_vitales_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->signos_vitales_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->signos_vitales_5_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				if(empty($subject->signos_vitales_6_status)){
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
-						$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->signos_vitales_4_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/signos_vitales/'.$subject->id .'/4';
+					}
+					elseif ($subject->signos_vitales_4_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->signos_vitales_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->signos_vitales_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->signos_vitales_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->signos_vitales_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->signos_vitales_4_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/4';
 					}
 					else{
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/signos_vitales/'.$subject->id .'/6';
+						$icon = '*';		
+						$link = "";
 					}
-				}
-				elseif ($subject->signos_vitales_6_status == 'Record Complete') {
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->signos_vitales_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->signos_vitales_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->signos_vitales_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->signos_vitales_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->signos_vitales_6_status == 'Error') {					
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = "";
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->signos_vitales_5_status)){
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/signos_vitales/'.$subject->id .'/5';
+					}
+					elseif ($subject->signos_vitales_5_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->signos_vitales_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->signos_vitales_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->signos_vitales_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->signos_vitales_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->signos_vitales_5_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					
+					if(empty($subject->signos_vitales_6_status)){
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/signos_vitales/'.$subject->id .'/6';
+						}
+					}
+					elseif ($subject->signos_vitales_6_status == 'Record Complete') {
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->signos_vitales_6_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->signos_vitales_6_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->signos_vitales_6_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->signos_vitales_6_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->signos_vitales_6_status == 'Error') {					
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/signos_vitales_show/'.$subject->id .'/6';
+					}
+					else{
+						$icon = '*';		
+						$link = "";
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>
 		</tr>
 		<tr>
 			<td>Randomizacion</td> 
@@ -1466,121 +1577,143 @@
 			<td style='text-align:center;'></td>
 			<?php
 				#print_r($subject);
-				if(empty($subject->adas_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/adas/'.$subject->id .'/4';
-				}
-				elseif ($subject->adas_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->adas_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->adas_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->adas_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->adas_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->adas_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				#print_r($subject);
-				if(empty($subject->adas_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/adas/'.$subject->id .'/5';
-				}
-				elseif ($subject->adas_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->adas_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->adas_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->adas_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->adas_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->adas_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
-				#print_r($subject);
-				if(empty($subject->adas_6_status)){	
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->adas_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/adas/'.$subject->id .'/4';
+					}
+					elseif ($subject->adas_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->adas_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->adas_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->adas_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->adas_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->adas_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
 						$link = '';
 					}
-					else{				
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/adas/'.$subject->id .'/6';
-					}
-				}
-				elseif ($subject->adas_6_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->adas_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->adas_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->adas_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->adas_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->adas_6_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/adas_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					#print_r($subject);
+					if(empty($subject->adas_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/adas/'.$subject->id .'/5';
+					}
+					elseif ($subject->adas_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->adas_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->adas_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->adas_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->adas_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->adas_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				#print_r($subject);
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->adas_6_status)){	
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{				
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/adas/'.$subject->id .'/6';
+						}
+					}
+					elseif ($subject->adas_6_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->adas_6_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->adas_6_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->adas_6_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->adas_6_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->adas_6_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/adas_show/'.$subject->id .'/6';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>
 		</tr>
 		<tr>
 			<td>NPI</td>
@@ -1625,78 +1758,93 @@
 			<td style='text-align:center;'></td>
 			<?php
 				#print_r($subject);
-				if(empty($subject->npi_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/npi/'.$subject->id .'/4';
-				}
-				elseif ($subject->npi_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->npi_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->npi_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->npi_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->npi_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->npi_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->npi_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/npi/'.$subject->id .'/4';
+					}
+					elseif ($subject->npi_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->npi_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->npi_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->npi_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->npi_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->npi_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
 				#print_r($subject);
-				if(empty($subject->npi_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/npi/'.$subject->id .'/5';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->npi_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/npi/'.$subject->id .'/5';
+					}
+					elseif ($subject->npi_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->npi_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->npi_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->npi_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->npi_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->npi_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/npi_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>			
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->npi_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->npi_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->npi_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->npi_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->npi_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->npi_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/npi_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>			
+				?>
 			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
@@ -1739,81 +1887,97 @@
 				
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+
 			<td style='text-align:center;'></td>
 			<?php
 				#print_r($subject);
-				if(empty($subject->tmt_a_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/tmt_a/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_a_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_a_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_a_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_a_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_a_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_a_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->tmt_a_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/tmt_a/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_a_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_a_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_a_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_a_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_a_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_a_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
 				#print_r($subject);
-				if(empty($subject->tmt_a_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/tmt_a/'.$subject->id .'/5';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->tmt_a_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/tmt_a/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_a_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_a_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_a_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_a_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_a_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_a_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_a_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>	
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->tmt_a_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_a_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_a_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_a_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_a_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_a_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_a_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>			
+				?>		
 			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
@@ -1859,78 +2023,93 @@
 			<td style='text-align:center;'></td>
 			<?php
 				#print_r($subject);
-				if(empty($subject->tmt_b_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/tmt_b/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_b_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_b_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_b_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_b_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_b_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->tmt_b_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->tmt_b_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/tmt_b/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_b_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_b_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_b_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_b_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_b_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->tmt_b_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
 				#print_r($subject);
-				if(empty($subject->tmt_b_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/tmt_b/'.$subject->id .'/5';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->tmt_b_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/tmt_b/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_b_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_b_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_b_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_b_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_b_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->tmt_b_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/tmt_b_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>	
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->tmt_b_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_b_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_b_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_b_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_b_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->tmt_b_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/tmt_b_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>			
+				?>		
 			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
@@ -1976,78 +2155,93 @@
 			<td style='text-align:center;'></td>
 			<?php
 				#print_r($subject);
-				if(empty($subject->digito_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/digito_directo/'.$subject->id .'/4';
-				}
-				elseif ($subject->digito_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->digito_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->digito_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->digito_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->digito_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->digito_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->digito_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/digito_directo/'.$subject->id .'/4';
+					}
+					elseif ($subject->digito_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->digito_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->digito_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->digito_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->digito_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->digito_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php
 				#print_r($subject);
-				if(empty($subject->digito_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/digito_directo/'.$subject->id .'/5';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->digito_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/digito_directo/'.$subject->id .'/5';
+					}
+					elseif ($subject->digito_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->digito_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->digito_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->digito_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->digito_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->digito_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/digito_directo_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>		
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->digito_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->digito_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->digito_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->digito_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->digito_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->digito_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/digito_directo_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>			
+				?>	
 			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
@@ -2091,77 +2285,92 @@
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<td style='text-align:center;'></td>
 			<?php				
-				if(empty($subject->restas_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/restas/'.$subject->id .'/4';
-				}
-				elseif ($subject->restas_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->restas_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->restas_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->restas_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->restas_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->restas_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->restas_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/restas/'.$subject->id .'/5';
-				}
-				elseif ($subject->restas_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->restas_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->restas_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->restas_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->restas_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->restas_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/restas_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->restas_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/restas/'.$subject->id .'/4';
+					}
+					elseif ($subject->restas_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->restas_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->restas_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->restas_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->restas_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->restas_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>			
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->restas_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/restas/'.$subject->id .'/5';
+					}
+					elseif ($subject->restas_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->restas_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->restas_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->restas_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->restas_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->restas_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/restas_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>	
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>		
 			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
@@ -2204,160 +2413,190 @@
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php				
-				if(empty($subject->apatia_3_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/apatia/'.$subject->id .'/3';
-				}
-				elseif ($subject->apatia_3_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->apatia_3_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->apatia_3_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->apatia_3_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->apatia_3_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->apatia_3_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/3';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->apatia_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/apatia/'.$subject->id .'/4';
-				}
-				elseif ($subject->apatia_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->apatia_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->apatia_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->apatia_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->apatia_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->apatia_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->apatia_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/apatia/'.$subject->id .'/5';
-				}
-				elseif ($subject->apatia_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->apatia_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->apatia_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->apatia_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->apatia_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->apatia_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->apatia_6_status)){		
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->apatia_3_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/apatia/'.$subject->id .'/3';
+					}
+					elseif ($subject->apatia_3_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->apatia_3_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->apatia_3_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->apatia_3_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->apatia_3_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->apatia_3_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/3';
+					}
+					else{
+						$icon = '*';		
 						$link = '';
 					}
-					else{			
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/apatia/'.$subject->id .'/6';
-					}
-				}
-				elseif ($subject->apatia_6_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->apatia_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->apatia_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->apatia_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->apatia_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->apatia_6_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/apatia_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->apatia_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/apatia/'.$subject->id .'/4';
+					}
+					elseif ($subject->apatia_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->apatia_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->apatia_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->apatia_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->apatia_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->apatia_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){		
+					if(empty($subject->apatia_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/apatia/'.$subject->id .'/5';
+					}
+					elseif ($subject->apatia_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->apatia_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->apatia_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->apatia_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->apatia_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->apatia_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->apatia_6_status)){		
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{			
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/apatia/'.$subject->id .'/6';
+						}
+					}
+					elseif ($subject->apatia_6_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->apatia_6_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->apatia_6_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->apatia_6_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->apatia_6_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->apatia_6_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/apatia_show/'.$subject->id .'/6';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>
 		</tr>
 		<tr>
 			<td>EQ-5D-3L</td>
 			<td style='text-align:center;'></td>
 			<?php				
+			
 				if(empty($subject->eq_5d_5l_2_status)){					
 					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
 					$link = 'subject/eq_5d_5l/'.$subject->id .'/2';
@@ -2394,269 +2633,319 @@
 			?>
 			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
 			<?php				
-				if(empty($subject->eq_5d_5l_3_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/eq_5d_5l/'.$subject->id .'/3';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->eq_5d_5l_3_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/eq_5d_5l/'.$subject->id .'/3';
+					}
+					elseif ($subject->eq_5d_5l_3_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->eq_5d_5l_3_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->eq_5d_5l_3_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->eq_5d_5l_3_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->eq_5d_5l_3_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->eq_5d_5l_3_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->eq_5d_5l_3_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->eq_5d_5l_3_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->eq_5d_5l_3_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->eq_5d_5l_3_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->eq_5d_5l_3_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->eq_5d_5l_3_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/3';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->eq_5d_5l_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/eq_5d_5l/'.$subject->id .'/4';
+					if(empty($subject->eq_5d_5l_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/eq_5d_5l/'.$subject->id .'/4';
+					}
+					elseif ($subject->eq_5d_5l_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->eq_5d_5l_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->eq_5d_5l_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->eq_5d_5l_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->eq_5d_5l_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->eq_5d_5l_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->eq_5d_5l_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->eq_5d_5l_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/eq_5d_5l/'.$subject->id .'/5';
+					}
+					elseif ($subject->eq_5d_5l_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->eq_5d_5l_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->eq_5d_5l_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->eq_5d_5l_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->eq_5d_5l_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->eq_5d_5l_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>	
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
-				elseif ($subject->eq_5d_5l_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->eq_5d_5l_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->eq_5d_5l_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->eq_5d_5l_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->eq_5d_5l_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->eq_5d_5l_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/eq_5d_5l/'.$subject->id .'/5';
-				}
-				elseif ($subject->eq_5d_5l_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->eq_5d_5l_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->eq_5d_5l_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->eq_5d_5l_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->eq_5d_5l_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->eq_5d_5l_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/eq_5d_5l_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>			
+				?>		
 			<td style='text-align:center;'></td>
 		</tr>
 		<tr>
 			<td>Cumplimiento</td>
 			<td style='text-align:center;'></td>			
 			<td style='text-align:center;'></td>
-			<?php				
-				if(empty($subject->cumplimiento_3_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/cumplimiento/'.$subject->id .'/3';
-				}
-				elseif ($subject->cumplimiento_3_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->cumplimiento_3_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->cumplimiento_3_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->cumplimiento_3_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->cumplimiento_3_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
-				}
-				elseif ($subject->cumplimiento_3_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->cumplimiento_4_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/cumplimiento/'.$subject->id .'/4';
-				}
-				elseif ($subject->cumplimiento_4_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->cumplimiento_4_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->cumplimiento_4_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->cumplimiento_4_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->cumplimiento_4_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
-				}
-				elseif ($subject->cumplimiento_4_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->cumplimiento_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/cumplimiento/'.$subject->id .'/5';
-				}
-				elseif ($subject->cumplimiento_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->cumplimiento_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->cumplimiento_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->cumplimiento_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->cumplimiento_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->cumplimiento_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->cumplimiento_6_status)){	
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
+			<?php			
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){	
+					if(empty($subject->cumplimiento_3_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/cumplimiento/'.$subject->id .'/3';
+					}
+					elseif ($subject->cumplimiento_3_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->cumplimiento_3_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->cumplimiento_3_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->cumplimiento_3_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->cumplimiento_3_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
+					}
+					elseif ($subject->cumplimiento_3_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/3';
+					}
+					else{
+						$icon = '*';		
 						$link = '';
 					}
-					else{				
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/cumplimiento/'.$subject->id .'/6';
-					}
-				}
-				elseif ($subject->cumplimiento_6_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->cumplimiento_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->cumplimiento_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->cumplimiento_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->cumplimiento_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->cumplimiento_6_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->cumplimiento_4_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/cumplimiento/'.$subject->id .'/4';
+					}
+					elseif ($subject->cumplimiento_4_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->cumplimiento_4_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->cumplimiento_4_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->cumplimiento_4_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->cumplimiento_4_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
+					}
+					elseif ($subject->cumplimiento_4_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/4';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->cumplimiento_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/cumplimiento/'.$subject->id .'/5';
+					}
+					elseif ($subject->cumplimiento_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->cumplimiento_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->cumplimiento_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->cumplimiento_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->cumplimiento_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->cumplimiento_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->cumplimiento_6_status)){	
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{				
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/cumplimiento/'.$subject->id .'/6';
+						}
+					}
+					elseif ($subject->cumplimiento_6_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->cumplimiento_6_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->cumplimiento_6_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->cumplimiento_6_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->cumplimiento_6_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->cumplimiento_6_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/cumplimiento_show/'.$subject->id .'/6';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>
 		</tr>
 		<tr>
 			<td>Muestras de sangre para estudio de biomarcadores</td>
@@ -2699,84 +2988,99 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
-			<?php				
-				if(empty($subject->muestra_de_sangre_5_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/muestra_de_sangre/'.$subject->id .'/5';
-				}
-				elseif ($subject->muestra_de_sangre_5_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->muestra_de_sangre_5_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->muestra_de_sangre_5_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->muestra_de_sangre_5_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->muestra_de_sangre_5_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
-				}
-				elseif ($subject->muestra_de_sangre_5_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->muestra_de_sangre_6_status)){
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
+			<?php		
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){		
+					if(empty($subject->muestra_de_sangre_5_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/muestra_de_sangre/'.$subject->id .'/5';
+					}
+					elseif ($subject->muestra_de_sangre_5_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->muestra_de_sangre_5_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->muestra_de_sangre_5_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->muestra_de_sangre_5_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->muestra_de_sangre_5_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
+					}
+					elseif ($subject->muestra_de_sangre_5_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/5';
+					}
+					else{
+						$icon = '*';		
 						$link = '';
 					}
-					else{					
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/muestra_de_sangre/'.$subject->id .'/6';
-					}
-				}
-				elseif ($subject->muestra_de_sangre_6_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->muestra_de_sangre_6_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->muestra_de_sangre_6_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->muestra_de_sangre_6_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->muestra_de_sangre_6_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
-				}
-				elseif ($subject->muestra_de_sangre_6_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->muestra_de_sangre_6_status)){
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{					
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/muestra_de_sangre/'.$subject->id .'/6';
+						}
+					}
+					elseif ($subject->muestra_de_sangre_6_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->muestra_de_sangre_6_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->muestra_de_sangre_6_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->muestra_de_sangre_6_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->muestra_de_sangre_6_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
+					}
+					elseif ($subject->muestra_de_sangre_6_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/muestra_de_sangre_show/'.$subject->id .'/6';
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>
 		</tr>
 		<tr>
 			<td>Fin de Tratamiento</td>
@@ -2784,86 +3088,101 @@
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
 			<td style='text-align:center;'></td>
-			<?php				
-				if(empty($subject->fin_tratamiento_status)){					
-					$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-					$link = 'subject/fin_tratamiento/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_show/'.$subject->id;
-				}
-				else{
-					$icon = '*';		
-					$link = '';
-				}
-				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
-			<?php				
-				if(empty($subject->fin_tratamiento_temprano_status)){	
-
-					if(!empty($subject->fin_tratamiento_status)){
-						$icon = '-';
-						$link = '';
+			<?php			
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){	
+					if(empty($subject->fin_tratamiento_status)){					
+						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+						$link = 'subject/fin_tratamiento/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_show/'.$subject->id;
 					}
 					else{
-						$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
-						$link = 'subject/fin_tratamiento_temprano/'.$subject->id;	
-					}				
+						$icon = '*';		
+						$link = '';
+					}
 					
-				}
-				elseif ($subject->fin_tratamiento_temprano_status == 'Record Complete') {					
-					$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_temprano_status == 'Document Approved and Signed by PI') {
-					$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_temprano_status == 'Form Approved and Locked') {
-					$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_temprano_status == 'Form Approved by Monitor') {
-					$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_temprano_status == 'Query') {
-					$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
-				}
-				elseif ($subject->fin_tratamiento_temprano_status == 'Error') {
-					$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
-					$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
-				}
-				else{
-					$icon = '*';		
-					$link = '';
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+			<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
 				}
 				
-			?>
-			<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				if($subject->is_randomizable == 1 AND $subject->randomization_date > '0000-00-00'){
+					if(empty($subject->fin_tratamiento_temprano_status)){	
+
+						if(!empty($subject->fin_tratamiento_status)){
+							$icon = '-';
+							$link = '';
+						}
+						else{
+							$icon = img(array('src'=>base_url('img/document_blank.png'),'style'=>'width:25px;height:25px;'));
+							$link = 'subject/fin_tratamiento_temprano/'.$subject->id;	
+						}				
+						
+					}
+					elseif ($subject->fin_tratamiento_temprano_status == 'Record Complete') {					
+						$icon = img(array('src'=>base_url('img/document_write.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_temprano_status == 'Document Approved and Signed by PI') {
+						$icon = img(array('src'=>base_url('img/document_check.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_temprano_status == 'Form Approved and Locked') {
+						$icon = img(array('src'=>base_url('img/document_lock.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_temprano_status == 'Form Approved by Monitor') {
+						$icon = img(array('src'=>base_url('img/document_approved_monitor.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_temprano_status == 'Query') {
+						$icon = img(array('src'=>base_url('img/document_question.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
+					}
+					elseif ($subject->fin_tratamiento_temprano_status == 'Error') {
+						$icon = img(array('src'=>base_url('img/document_error.png'),'style'=>'width:25px;height:25px;'));	
+						$link = 'subject/fin_tratamiento_temprano_show/'.$subject->id;
+					}
+					else{
+						$icon = '*';		
+						$link = '';
+					}
+					
+				?>
+				<td style='text-align:center;'><?= anchor($link, $icon);?></td>
+				<?php
+				}else{
+				?>
+					<td style='text-align:center;'><?= img(array('src'=>base_url('img/lock.png'),'style'=>'width:25px;height:25px;')); ?></td>				
+				<?php	
+				}
+				?>
 		</tr>
 	</tbody>
 </table>

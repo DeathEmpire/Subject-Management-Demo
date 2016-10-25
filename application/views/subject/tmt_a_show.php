@@ -250,7 +250,7 @@ $(function(){
 		<tr>
 			<td colspan='2' style='text-align:center;'>
 				<?php
-					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'tmt_a_update')){
+					if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'tmt_a_update') AND $list[0]->status != 'Form Approved and Locked'){
 				?>
 					<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
 				<?php } ?>

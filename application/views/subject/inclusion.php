@@ -10,6 +10,7 @@ $(function(){
 			$('select option:not(:selected)').each(function(){
 				$(this).removeAttr('disabled');
 			});
+			$("input[name=cumple_criterios]").removeAttr('readonly');
 		}
 		else{
 			$("#tr_autorizacion").show();
@@ -22,7 +23,7 @@ $(function(){
 			$('select option:not(:selected)').each(function(){
 				$(this).attr('disabled', 'disabled');
 			});
-
+			$("input[name=cumple_criterios]").removeAttr('readonly');
 		}
 	});
 	if($('input[name=cumple_criterios]:checked').val() != 1){
@@ -34,6 +35,7 @@ $(function(){
 		$('select option:not(:selected)').each(function(){
 			$(this).removeAttr('disabled');
 		});
+		$("input[name=cumple_criterios]").removeAttr('readonly');
 	}
 	else{
 		$("#tr_autorizacion").show();
@@ -46,6 +48,7 @@ $(function(){
 		$('select option:not(:selected)').each(function(){
 			$(this).attr('disabled', 'disabled');
 		});
+		$("input[name=cumple_criterios]").removeAttr('readonly');
 
 	}
 

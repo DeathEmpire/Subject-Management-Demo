@@ -422,8 +422,23 @@ class Query extends CI_Controller {
 		$registro['created'] = date("Y-m-d H:i:s");
 		$registro['status'] = 'Abierto';
 
+		//$registro['question'] es la pregunta
+
 		//agregamos el query
 		$this->Model_Query->insert($registro);
+		//enviamos un correo		
+			$this->load->Model('Model_Lista_correos');
+			$correos = $this->Model_Lista_correos->allFilteredWhere(array('nombre'=>'Query'));
+
+			$this->load->helper("phpmailer");
+			
+			$data['contenido'] = "correos/nueva_query";
+			$data['query'] = $registro;			
+			
+			$mensaje = $this->load->view("correo",$data,true);			
+			
+
+			$enviar_correo = send_email($correos->correos,"x","Nueva Query",$mensaje);
 
 		//actualizamos el estado del formulario
 		if($registro['form'] == 'muestra_de_sangre'){			

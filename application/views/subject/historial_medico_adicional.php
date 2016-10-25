@@ -16,7 +16,7 @@ $(function(){
 	$("#agregar_entrada").click(function(){
 		$(".punto3").show();
 
-		$("#tabla").append("<tr class='punto3'><td><input type='text' name='cambio[]'></td><td><input type='text' name='comentario[]'></td></tr>");
+		$("#tabla").append("<tr class='punto3'><td><textarea name='cambio[]' style='width:300px;height:100px;'></textarea></td><td><textarea name='comentario[]' style='width:300px;height:100px;'></textarea></td></tr>");
 	});
 
 });

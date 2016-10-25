@@ -11,7 +11,8 @@ $(function(){
 			$(".buttons_form").show();
 		}else{
 			$(".randomization").hide();
-			$(".buttons_form").hide();
+			$(".buttons_form").show();
+			$("#randomization_date").val('');
 		}
 
 	});
@@ -23,7 +24,8 @@ $(function(){
 		$(".buttons_form").show();
 	}else{
 		$(".randomization").hide();
-		$(".buttons_form").hide();
+		$(".buttons_form").show();
+		$("#randomization_date").val('');
 	}
 
 
@@ -94,7 +96,7 @@ $(function(){
             		if ($subject->randomization_status != 'Record Complete') {
             	?>
             		<?php
-						if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'randomization_update')){
+						if(isset($_SESSION['role_options']['subject']) AND strpos($_SESSION['role_options']['subject'], 'randomization_update') AND $list[0]->status != 'Form Approved and Locked'){
 					?>
             			<?= form_button(array('type'=>'submit', 'content'=>'Guardar', 'class'=>'btn btn-primary')); ?>
             		<?php }?>	

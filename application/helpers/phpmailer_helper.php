@@ -11,7 +11,7 @@ function send_email($recipient, $sender, $subject, $message)
 		$mail->Port  = "25";       
 		$mail->Username   = "icc@medcrf.com"; 
 		$mail->Password   = "M3dcrf1cc-";        
-		$mail->FromName = "ICC International Center For Biomedicine";
+		$mail->FromName = "MEDCRF Estudio BU-10/II ";
 		$mail->From = "icc@medcrf.com";
 		$mail->Subject = $subject;		
 		$mail->MsgHTML($message);
